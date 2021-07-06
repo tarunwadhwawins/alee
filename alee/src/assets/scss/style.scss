@@ -1,0 +1,330 @@
+@import "variables.scss";
+.filterDropdwon {
+	display: flex!important;
+	.ui.dropdown {
+		border: 1px solid $primary-color;
+		padding: 10px;
+		border-radius: 3px;
+		margin-right: 20px;
+		flex: 1;
+		&:last-child {
+			margin-right: 0;
+		}
+		>.dropdown.icon {
+			float: right;
+			line-height: 20px;
+		}
+		.menu {
+			width: 100%!important;
+			&:after {
+				left: 20px!important;
+			}
+			.item {
+				color: $primary-color;
+				&:hover {
+					background-color: transparent;
+				}
+			}
+		}
+	}
+}
+.bookDetail {
+	img.ui.image {
+		border-radius: 8px;
+	}
+	.ui.header {
+		margin: 5px 0;
+		color: $primary-color;
+		font-size: 13px;
+		font-weight: 100;
+	}
+	p {
+		font-size: 12px;
+		color: $gray-color;
+	}
+}
+.filterBy {
+	box-shadow: none!important;
+	border: none!important;
+	.item {
+		padding: 7px 10px!important;
+		&:before {
+			display: none!important;
+		}
+	}
+}
+.booksResult {
+	border-left: 1px solid $secondary-color; 
+	padding-left: 40px;
+	.ui.items {
+		.item {
+			background-color: $secondary-color;
+			border-radius: 5px;
+			overflow: hidden;
+			.content {
+				padding: 9px 15px;
+				.header {
+					display: flex;
+					justify-content: space-between;
+					color: $primary-color;
+				}
+				.meta {
+					display: flex;
+					justify-content: space-between;
+					margin-bottom: 0;
+					font-size: 13px;
+				}
+				.description {
+					font-size: 13px;
+					margin-top: 5px;
+				}
+				.extra {
+					font-size: 13px;
+					margin-top: 5px;
+				}
+			}
+		}
+	}
+}
+.lessonPlanTemplate {
+	background-color: $secondary-color;
+    color: $primary-color;
+    text-align: center;
+    border-radius: 5px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+	cursor: pointer;
+	p {
+		font-size: 16px;
+	}
+	&.yourOwn {
+		background-color: $primary-color;
+		color: $white-color;
+	}
+	a {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		color: $white-color;
+		align-items: center;
+		justify-content: center;
+	}
+}
+h4.ui.header.bookName {
+	color: $white-color;
+	background-color: $primary-color;
+	padding: 10px;
+	border-radius: 5px;
+}
+.chapterBox {
+	border: 1px solid $gray-color;
+	padding: 15px;
+	border-radius: 5px;
+	h4.ui.header {
+		color: $primary-color;
+	}
+	h5.ui.header {
+		margin: 15px 0 5px;
+	}
+}
+.contentDragDrop {
+    border: 1px dashed $gray-color;
+    height: 355px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	margin: 10px 0;
+}
+.wrapperClassName {
+	margin-top: 10px;
+	.editorClassName  {
+		border: 1px dashed $gray-color;
+		padding: 0 10px;
+		.public-DraftStyleDefault-ltr {
+			height: 150px;
+		}
+	}
+}
+.searchResultFilter {
+	box-shadow: 0 0 5px rgba(0,0,0,.2);
+	padding: 15px;
+	border-radius: 5px;
+	background-color: $secondary-color;
+	.ui.vertical.menu {
+		background-color: transparent;
+	}
+}
+.totalBoxes {
+	.totalBoxesInnerr {
+		background-color: $primary-color;
+		padding: 10px;
+		border-radius: 5px;
+		color: $white-color;
+		p {
+			font-size: 14px;
+		}
+		h5.ui.header {
+			font-size: 16px;
+			color: $white-color;
+			min-height: 40px;
+			a {
+				color: $white-color;
+			}
+		}
+	}
+}
+.performanceMatrix {
+	h4.ui.header {
+		margin-bottom: 10px;
+	}
+	.performanceMatrixInner {
+		border: 1px solid $gray-color;
+		padding: 15px;
+		border-radius: 5px;
+		.performanceMatrixInnerBox {
+			text-align: center;
+			position: relative;
+			&:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: -15px;
+				bottom: 0;
+				background-color: $gray-color;
+				width: 1px;
+			}
+			
+			&.borderNone {
+				&:before {
+					display: none;
+				}
+				
+			}
+			h5.ui.header {
+				font-size: 20px;
+				margin-bottom: 10px;
+			}
+			p {
+				font-size: 18px;
+			}
+		}
+	}
+}
+.minHeight {
+	height: calc(100vh - 95px);
+}
+.ui.fluid.input.left.icon{
+	input {
+		height: 45px;
+	}
+}
+.searchHeader {
+	.ui.radio.checkbox {
+		input {
+			&:checked {
+				~ label {
+					&:before {
+						background-color: $primary-color!important;
+						border-color: $primary-color!important;
+					}
+					&:after {
+						color: $white-color!important;
+						content: '\e800'!important;
+						font-size: 25px;
+						left: -2px;
+						top: 2px;
+						width: 17px!important;
+    					height: 17px!important;
+						
+					}
+				}
+			}
+			&:focus {
+				~ label {
+					&:before {
+						border-color: $secondary-color!important;
+					}
+				}
+			}
+		}
+		label {
+			&:before {
+				width: 17px!important;
+    			height: 17px!important;
+				border-radius: 3px;
+				
+			}
+			&:after {
+				background: none!important;
+			}
+		}
+	}
+}
+.passingYear {
+	.ui.dropdown{
+		>.menu {
+			height: 145px!important;
+		}
+	}
+}
+
+
+// Scan Book Page
+.scanBook {
+	.scanBookInner {
+		border: 1px dashed $gray-color;
+		height: 200px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.scanBookList {
+		background-color: $secondary-color;
+		padding:10px 5px;
+		border-radius: 3px;
+		color: $primary-color;
+		position: relative;
+		font-size: 16px;
+		margin-bottom: 10px;
+		.bookIcon {
+			color: $primary-color!important;
+			margin-right: 10px;
+		}
+		.closeIcon {
+			position: absolute;
+			right: 2px;
+			top: 10px;
+		}
+	}
+}
+.stf__parent {
+	background-image: url(../images/background.jpg);
+	background-color: #f9f9f9;
+	background-size: cover;
+	.demoPage{
+		background-color: #f9f9f9;
+		padding: 10px;
+		.ui.header {
+			text-align: center;
+			padding-bottom: 15px;
+		}
+	}
+}
+.myBooks {
+	padding-left: 0!important;
+	border: none!important;
+}
+
+.addTag {
+	.bookPage {
+		border: 1px solid $gray-color;
+		padding: 15px;
+		border-radius: 5px;
+		.ui.header {
+			text-align: center;
+		}
+	}
+}

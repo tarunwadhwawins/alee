@@ -1,0 +1,163 @@
+@import "variables.scss";
+
+
+body {
+    font-family: 'latoregular'!important;
+    position: relative;
+    background-color: $secondary-color!important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'latoblack'!important;
+}
+p {
+    font-size: 13px;
+    margin-bottom: 0 !important;
+}
+a {
+    &:hover {
+        transform: none !important;
+    }
+}
+.p-0 {
+    padding: 0!important;
+}
+.commonHeading.ui.header {
+    font-size: 22px;
+    color: $primary-color;
+}
+.common-shadow {
+    box-shadow: 0 0 10px rgba(0, 0, 0,.1);
+    padding: 15px;
+    border-radius: 5px;
+    background-color: $white-color;
+}
+.field {
+    label {
+        font-weight: 100!important;
+    }
+    .ui.input {
+        input {
+            height: 36px;
+            &:focus {
+                border-color: $primary-color!important;
+            }
+        }
+    }
+    textarea {
+        &:focus {
+            border-color: $primary-color!important;
+        }
+    }
+}
+.addBtnInput {
+    .ui.button {
+        background-color: $primary-color;
+        color: $white-color;
+        &:hover, &:active {
+            background-color: $primary-color;
+            color: $white-color;
+        }
+    }
+}
+.primary-color {
+    color: $primary-color;
+    &:hover {
+        color: $primary-color;    
+    }
+}
+.primaryBtn.ui.button {
+    background-color: $primary-color;
+    color: $white-color;
+    font-size: 15px;
+    border-radius: 5px;
+    padding:10px 20px;
+    border:1px solid $primary-color!important;
+    &:hover {
+        background-color: $white-color!important;
+        color: $primary-color!important;
+    }
+    &:active, &:focus {
+        background-color: $primary-color;
+        color: $white-color;
+    }
+}
+.secondaryBtn.ui.button {
+    background-color: $secondary-color;
+    color: $primary-color;
+    font-size: 15px;
+    border-radius: 5px;
+    padding:10px 20px;
+    border:1px solid $secondary-color!important;
+    &:hover {
+        background-color: $white-color!important;
+        color: $primary-color!important;
+        border-color: $primary-color!important;
+    }
+    &:active, &:focus {
+        background-color: $secondary-color;
+        color: $primary-color;
+    }
+
+}
+.alternateBtn.ui.button {
+    background-color: $white-color;
+    color: $primary-color;
+    font-size: 15px;
+    border-radius: 5px;
+    padding:10px 20px;
+    border:1px solid $primary-color!important;
+    &:hover{
+        background-color: $primary-color!important;
+        color: $white-color!important;
+    }
+    &:active, &:focus {
+        background-color: $white-color;
+        color: $primary-color;
+    }
+}
+.ui.checkbox {
+    input {
+        &:checked {
+            ~ label {
+                &:before {
+                    background-color: $primary-color!important;
+                    border-color: $primary-color!important;
+                }
+                &:after {
+                    color: $white-color!important;
+                }
+            }
+        }
+        &:focus {
+            ~ label {
+                &:before {
+                    border-color: $secondary-color!important;
+                }
+            }
+        }
+    }
+}
+
+
+.main-container {
+    padding: 64px 0 0 200px;
+    transition: all .5s ease-out;
+    .main-page {
+        padding: 15px;
+    }
+}
+
+.App {
+	&.menuCollapse {
+        .main-container { 
+            padding: 64px 0 0 80px;
+            transition: all .5s ease-out;
+        }
+    }
+}

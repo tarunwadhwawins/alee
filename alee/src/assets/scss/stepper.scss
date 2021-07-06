@@ -1,0 +1,86 @@
+@import "variables.scss";
+.profileStepper.ui.steps {
+	border:none;
+	display: flex;
+	justify-content: space-between;
+	background-color: $secondary-color!important;
+	position: relative;
+	margin-bottom: 40px!important;
+	&:before {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 28px;
+		background-color: $primary-color;
+		height: 1.5px;
+	}
+	.step {
+		border: none!important;
+		background-color: $secondary-color!important;
+		text-align: center;
+		flex: initial;
+		max-width: 165px;
+    	width: 100%;
+		.content {
+			text-align: center;
+			.description {
+				color: $primary-color !important;
+				width: 25px;
+				height: 25px;
+				background-color: $white-color;
+				border-radius: 50%;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 10px;
+				font-size: 15px;
+			}
+			.title {
+				color: $primary-color!important;
+				font-weight: 100;
+				font-size: 13px;
+			}
+		}
+		&:after {
+			display: none!important;
+		}
+		
+		
+		
+		&.active {
+			.content {
+				.description {
+					color: $white-color !important;
+					background-color: $primary-color;
+				}
+				.title {
+					color: $primary-color!important;
+					font-weight: 600;
+				}
+			}
+		}
+	}
+}
+
+.inputWithAddBtn {
+	display: flex;
+	align-items: center;
+	.field {
+		width: 100%;
+		margin: 0!important;
+	}
+	.addBtn {
+		color: $white-color;
+		background-color: $primary-color;
+		height: 38px;
+		min-width: 38px;
+		max-width: 38px;
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-left: 10px;
+		opacity: 1!important;
+	}
+}
