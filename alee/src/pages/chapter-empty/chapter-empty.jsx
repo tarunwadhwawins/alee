@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Table, Grid, Icon, Header, Button } from "semantic-ui-react";
-import { Link, env } from "../../shared/functional/global-import";
 import AddChapter from "../../shared/components/organisms/modal/add-chapter/index";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 

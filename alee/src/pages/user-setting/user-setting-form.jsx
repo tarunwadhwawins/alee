@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Tab, Card, Icon, Input, Table, Checkbox } from 'semantic-ui-react';
-import { connect, bindActionCreators, actions, Notifications, commonFunctions, Link } from "../../shared/functional/global-import";
+import { connect, bindActionCreators, actions, Notifications} from "../../shared/functional/global-import";
 
 class UserSettingForm extends Component {
     render() {

@@ -100,6 +100,18 @@ const AuthenticateTemplateRoutesConfing = [
     private: false,
     path: `${env.PUBLIC_URL}/add-tags`,
     component: lazy(() => import('../../pages/add-tags'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/resources`,
+    component: lazy(() => import('../../pages/resources'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/book-summary`,
+    component: lazy(() => import('../../pages/book-summary'))
   }
   
 ];

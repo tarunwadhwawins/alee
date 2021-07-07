@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { Table, Grid, Icon, Header, Button } from "semantic-ui-react";
-import { Link, env } from "../../shared/functional/global-import";
+import { Link } from "../../shared/functional/global-import";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 
 
@@ -73,6 +73,9 @@ class SubtitlePage extends Component {
 					</Table.Row>
 				</Table.Body>
 			</Table>
+			</Grid.Column>
+			<Grid.Column width={16} textAlign="right">
+				<Button className="primaryBtn" as={Link} to="add-tags">Add Tag</Button>
 			</Grid.Column>
 		</Grid>
 		<AddSubtitle openModal={this.state.SubtitleStatus} closeModal={this.openModal} />

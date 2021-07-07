@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Grid, Header, Button, Form, Image, Tab } from "semantic-ui-react";
-import { connect, bindActionCreators, actions, Link, commonFunctions, withRouter, env } from "../../shared/functional/global-import";
+import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
+import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 
 class SignupForm extends Component {
@@ -66,7 +66,9 @@ class SignupForm extends Component {
                       <Form.Input label="Confirm Password" placeholder="********"/>
                     </Grid.Column>
                     <Grid.Column width={16} >
-                      <Button as={Link} to="profile-setup" className="primaryBtn" >Sign Up</Button>
+                    { localStorage.getItem("Usertype") === "admin" &&	  <Button as={Link} to="scan-book" className="primaryBtn" >Sign Up</Button>}
+			            	{ localStorage.getItem("Usertype") === "teacher" &&	  <Button as={Link} to="profile-setup" className="primaryBtn" >Sign Up</Button>}
+                    
                     </Grid.Column>
                   </Grid>
                 </Grid.Column>

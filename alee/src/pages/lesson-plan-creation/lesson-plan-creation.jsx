@@ -1,7 +1,17 @@
 import React, { Component } from "react";
-import { Grid, Header, Popup, Button} from "semantic-ui-react";
+import { Grid, Header, Popup, Button, Select} from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import InviteTeacher from "../../shared/components/organisms/modal/invite-teacher/index";
+
+
+const Template = [
+	{ key: 'Template 1', value: 'Template 1', text: 'Template 1' },
+	{ key: 'Template 2', value: 'Template 2', text: 'Template 2' },
+	{ key: 'Template 3', value: 'Template 3', text: 'Template 3' },
+	{ key: 'Template 4', value: 'Template 4', text: 'Template 4' },
+	{ key: 'Template 5', value: 'Template 5', text: 'Template 5' },
+  ]
+  
 
 
 
@@ -60,6 +70,7 @@ class LessonPlanCreationPage extends Component {
 			<Grid.Column width={8}>
 				<div className="chapterBox">
 					<Header as="h4">Content</Header>
+					<Select placeholder='Select template' label="Template" options={Template} fluid/>
 					<div className="contentDragDrop">
 						<p>Drag & Drop</p>
 					</div>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, Grid, Icon, Button} from "semantic-ui-react";
-import { connect, bindActionCreators, actions, Link, commonFunctions, withRouter, env } from "../../shared/functional/global-import";
 
 
 

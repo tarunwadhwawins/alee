@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Form, Header, Accordion, Menu, Item, Icon, Button } from "semantic-ui-react";
+import { Grid, Form, Header, Accordion, Menu, Item, Icon } from "semantic-ui-react";
 import {Link} from "../../shared/functional/global-import";
 import {Book} from "../../shared/functional/global-image-import"
 

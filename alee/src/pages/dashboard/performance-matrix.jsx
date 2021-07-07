@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Header, Divider } from "semantic-ui-react";
-import { Link } from "../../shared/functional/global-import";
+import { Grid, Header } from "semantic-ui-react";
 
 
 class PerformanceMatrix extends Component {

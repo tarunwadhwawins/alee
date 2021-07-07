@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
-import { ForgetPasswordModal } from "../../shared/components";
-import { connect, bindActionCreators, actions, Link, commonFunctions, withRouter, env } from "../../shared/functional/global-import";
+import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 
 class LoginForm extends Component {
@@ -18,7 +17,6 @@ class LoginForm extends Component {
                   <div className="signInnerLeft">
                     <Image src={Logo}/>
                     <p>Don't have an account?  <Link to={`${env.PUBLIC_URL}/sign-up`} className="primary-color"> Sign Up</Link> </p>
-                    {/* <p>Don't have an account?  <Link to="sign-up" className="primary-color"> Sign Up</Link></p> */}
                   </div>
                 </Grid.Column>
                 <Grid.Column  width={10} className="signInnerRight">

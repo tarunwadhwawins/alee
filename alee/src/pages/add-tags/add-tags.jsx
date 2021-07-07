@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Form, Header, Button } from "semantic-ui-react";
-import { Link, env } from "../../shared/functional/global-import";
+import { Link } from "../../shared/functional/global-import";
 
 const Standard = [
 	{ key: 'Grade 1', value: 'Grade 1', text: 'Grade 1' },
@@ -88,7 +88,7 @@ class AddTagPage extends Component {
 							<Grid.Column width={16} textAlign="right">
 								<Button className="secondaryBtn">Edit</Button>
 								{!this.state.showObserve && <Button className="primaryBtn" onClick={this.showObserveHandle} >Save</Button>}
-								{this.state.showObserve &&<Button className="primaryBtn" onClick={this.addtag1} as={Link} to="lesson-plan-creation">Save</Button>}
+								{this.state.showObserve &&<Button className="primaryBtn" onClick={this.addtag1} as={Link} to="my-books">Save</Button>}
 							</Grid.Column>
 						</Grid>
 					</div>

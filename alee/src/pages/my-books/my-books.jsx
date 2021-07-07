@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Icon, Item, Image, Header } from "semantic-ui-react";
+import { Grid, Item, Header } from "semantic-ui-react";
 import { Link, } from "../../../src/shared/functional/global-import";
 import {Book} from "../../shared/functional/global-image-import"
 
@@ -42,7 +42,7 @@ class MyBookPage extends Component {
 								<Item.Extra>Other Tags: 7.4, Empathy</Item.Extra>
 							</Item.Content>
 							</Item>
-							<Item as={Link} to="book-flip">
+							<Item as={Link} to="book-summary">
 							<Item.Image size='tiny' src={Book} />
 							<Item.Content onClick={this.addSubTopic}>
 								<Item.Header><span>Old Man & Sea</span></Item.Header>

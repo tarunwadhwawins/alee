@@ -33,6 +33,8 @@ export { default as PdfBookWhite } from "../../../assets/images/upload-book-whit
 export { default as PdfBookBlue } from "../../../assets/images/upload-book-blue.svg";
 export { default as MyBookWhite } from "../../../assets/images/my-books-white.svg";
 export { default as MyBookBlue } from "../../../assets/images/my-books-blue.svg";
+export { default as ResourceWhite } from "../../../assets/images/resource-white.svg";
+export { default as ResourceBlue } from "../../../assets/images/resource-blue.svg";
 export { default as BookPage1 } from "../../../assets/images/book-page-1.jpg";
 export { default as BookPage2 } from "../../../assets/images/book-page-2.jpg";
 export { default as BookPage3 } from "../../../assets/images/book-page-3.jpg";

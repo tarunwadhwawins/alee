@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Menu, Icon, List, Grid, Dropdown, Container, Checkbox, Image } from "semantic-ui-react";
-import { Link, env, connect, commonFunctions, bindActionCreators, actions, withRouter } from "../../../functional/global-import";
+import { Icon, Grid, Dropdown, Image } from "semantic-ui-react";
+import { Link } from "../../../functional/global-import";
 import { profile } from "../../../../shared/functional/global-image-import";
 
 const trigger = (

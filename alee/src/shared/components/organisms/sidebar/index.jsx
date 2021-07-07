@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import * as env from "../../../../config/env.config";
-import { Logo2, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, CurrentLessonWhite, CurrentLessonBlue, PreviousLessonWhite, PreviousLessonBlue, SelectClassWhite, SelectClassBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, SettingWhite, SettingBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue } from "../../../../shared/functional/global-image-import";
+import { Logo2, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, CurrentLessonWhite, CurrentLessonBlue, PreviousLessonWhite, PreviousLessonBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, SettingWhite, SettingBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue } from "../../../../shared/functional/global-image-import";
 
 
 
@@ -104,6 +103,11 @@ class Sidebar extends Component {
 						<Image src={MyBookWhite} className="white"/>
 						<Image src={MyBookBlue} className="blue"/>
 						<span>My Books (3/4)</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="resources" name='resources' active={activeItem === 'resources'} onClick={this.handleItemClick}>
+						<Image src={ResourceWhite} className="white"/>
+						<Image src={ResourceBlue} className="blue"/>
+						<span>Resources</span>
 					</Menu.Item>
 				  </Menu>
 				  }

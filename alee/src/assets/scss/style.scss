@@ -132,7 +132,7 @@ h4.ui.header.bookName {
 }
 .contentDragDrop {
     border: 1px dashed $gray-color;
-    height: 355px;
+    height: 306px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -326,5 +326,31 @@ h4.ui.header.bookName {
 		.ui.header {
 			text-align: center;
 		}
+	}
+}
+.resources {
+	.ui.menu {
+		display: inline-flex;
+		margin: 10px 0!important;
+		.item {
+			background-color: $secondary-color;
+			color: $primary-color;
+			padding: 12px 30px!important;
+			&:first-child {
+				border-radius: 5px 0 0 5px;
+			}
+			&:last-child {
+				border-radius: 0 5px 5px 0;
+			}
+			&.active, &:hover {
+				background-color: $primary-color!important;
+				color: $white-color!important;
+			}
+		}
+	}
+	.ui.tab {
+		padding: 0!important;
+		border: none!important;
+		box-shadow: none!important;
 	}
 }

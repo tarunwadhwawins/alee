@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid, Header } from "semantic-ui-react";
-import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
 import { Link } from "../../shared/functional/global-import";
 
 
