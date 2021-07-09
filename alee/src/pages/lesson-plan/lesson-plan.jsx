@@ -1,64 +1,65 @@
 import React, { Component } from "react";
-import { Grid, Form, Header, Button } from "semantic-ui-react";
-import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
+import { Grid, Icon, Header, Button, Table } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 
 
 class LessonPlanPage extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-		  modalStatus:false
-		};
-	  }
-	
-	openModal=()=>{
-		this.setState({modalStatus:!this.state.modalStatus})
-	}
+
 	
   render() {
 	
     return (
 		<div className="common-shadow">
 		<Grid columns="equal">
-			<Grid.Column width={16}>
-				<Header as="h3" className="commonHeading">Lesson Plan Template</Header>
+			<Grid.Column width={8}>
+				<Header as="h3" className="commonHeading">Lesson Plan</Header>
+			</Grid.Column>
+			<Grid.Column width={8} textAlign="right">
+				<Button className="primaryBtn" as={Link} to="my-books"><Icon name="plus"/> New Lesson Plan</Button>
 			</Grid.Column>
 			<Grid.Column width={16}>
-				<Form>
-					<Form.Input icon='search' iconPosition='left' placeholder="Search lesson plan template" fluid/>
-				</Form>
-			</Grid.Column>
-			<Grid.Column >
-				<div className="lessonPlanTemplate" onClick={this.openModal}>
-					<p>Shared text</p>
-				</div>
-			</Grid.Column>
-			<Grid.Column >
-				<div className="lessonPlanTemplate" onClick={this.openModal}>
-					<p>Readers workshop</p>
-				</div>
-			</Grid.Column>
-			<Grid.Column >
-				<div className="lessonPlanTemplate" onClick={this.openModal}>
-					<p>Writers workshop</p>
-				</div>
-			</Grid.Column>
-			<Grid.Column >
-				<div className="lessonPlanTemplate" onClick={this.openModal}>
-					<p>Interactive Read aloud</p>
-				</div>
-			</Grid.Column>
-			<Grid.Column>
-				<div className="lessonPlanTemplate yourOwn" >
-					<a href="https://www.youtube.com/watch?v=2ZII3HOlIfA" target="_blank">Use your Own</a>
-				</div>
-			</Grid.Column>
-			<Grid.Column width="16" textAlign="right">
-				<Button className="primaryBtn" as={Link} to="lesson-plan-creation">Next</Button>
+				<Table>
+					<Table.Header>
+						<Table.Row>
+							<Table.HeaderCell>Book Name</Table.HeaderCell>
+							<Table.HeaderCell>Chapter</Table.HeaderCell>
+							<Table.HeaderCell><Link to="lesson-plan-creation" className="primary-color">Lesson Plan Name</Link></Table.HeaderCell>
+							<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
+						</Table.Row>
+					</Table.Header>
+
+					<Table.Body>
+						<Table.Row>
+							<Table.Cell>Animal Farm</Table.Cell>
+							<Table.Cell>Chapter One</Table.Cell>
+							<Table.Cell><Link to="lesson-plan-creation" className="primary-color">DayOneWork</Link></Table.Cell>
+							<Table.Cell textAlign="right">
+									<Icon name="edit" className="primary-color" link/>
+									<Icon name="trash alternate" color="red" link/>
+							</Table.Cell>
+						</Table.Row>
+						<Table.Row>
+							<Table.Cell>America Dreams</Table.Cell>
+							<Table.Cell>Chapter Nine</Table.Cell>
+							<Table.Cell><Link to="lesson-plan-creation" className="primary-color">SecondWeekWork</Link></Table.Cell>
+							<Table.Cell textAlign="right">
+									<Icon name="edit" className="primary-color" link/>
+									<Icon name="trash alternate" color="red" link/>
+							</Table.Cell>
+						</Table.Row>
+						<Table.Row>
+							<Table.Cell>Old Man & Sea</Table.Cell>
+							<Table.Cell>Chapter Five</Table.Cell>
+							<Table.Cell>LastWeekWork</Table.Cell>
+							<Table.Cell textAlign="right">
+									<Icon name="edit" className="primary-color" link/>
+									<Icon name="trash alternate" color="red" link/>
+							</Table.Cell>
+						</Table.Row>
+					</Table.Body>
+				</Table>
 			</Grid.Column>
 		</Grid>
-			<LessonPlanCustomModal openModal={this.state.modalStatus} closeModal={this.openModal} />
 		</div>
 		);
 	}

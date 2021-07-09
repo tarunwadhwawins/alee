@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import { Logo2, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, CurrentLessonWhite, CurrentLessonBlue, PreviousLessonWhite, PreviousLessonBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, SettingWhite, SettingBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue } from "../../../../shared/functional/global-image-import";
+import { Logo2,ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, CurrentLessonWhite, CurrentLessonBlue, PreviousLessonWhite, PreviousLessonBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, SettingWhite, SettingBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite,AddTagListingBlue , AddTagListingWhite } from "../../../../shared/functional/global-image-import";
 
 
 
@@ -14,10 +14,11 @@ class Sidebar extends Component {
 	  };
 
 	  handleClick = (chapterName) => {
-		  debugger;
 		this.setState({ isActive: chapterName });
 	  };
 	
+
+	  
 	 
 
 
@@ -38,34 +39,21 @@ class Sidebar extends Component {
 						<Image src={DashboardBlue} className="blue"/>
 						<span>Dashboard</span>
 					</Menu.Item>
-					<Menu.Item name='Standards' active={activeItem === 'Standards'} onClick={this.handleItemClick}>
+					{/* <Menu.Item name='Standards' active={activeItem === 'Standards'} onClick={this.handleItemClick}>
 						<Image src={StandardsWhite} className="white"/>
 						<Image src={StandardsBlue} className="blue"/>
 						<span>Standards</span>
-					</Menu.Item>
-					<Menu.Item name='StudentList' active={activeItem === 'StudentList'} onClick={this.handleItemClick}>
+					</Menu.Item> */}
+					<Menu.Item as={Link} to="student-list" name='StudentList' active={activeItem === 'StudentList'} onClick={this.handleItemClick}>
 						<Image src={StudentListWhite} className="white"/>
 						<Image src={StudentListBlue} className="blue"/>
 						<span>Student List</span>
 					</Menu.Item>
-					<Menu.Item as={Link} to="lesson-plan" name='Lesson Plan' className="lessonPlan" active={activeItem === 'LessonPlan'}  onClick={this.handleItemClick} >
+					<Menu.Item as={Link} to="lesson-plan" name='Lesson Plan' active={activeItem === 'LessonPlan'}  onClick={this.handleItemClick} >
 						<Image src={LessonPlanWhite} className="white"/>
 						<Image src={LessonPlanBlue} className="blue"/>
 						<span>Lesson Plan</span>
-						<Icon name="caret down"  onClick={this.handleToggle }/>
 					</Menu.Item>
-					<div className={`lessonPlanMenu ${isActive ? "show" : ""}`}>
-						<Menu.Item name='Current Lesson' active={activeItem === 'CurrentLesson'} onClick={this.handleItemClick} >
-							<Image src={CurrentLessonWhite} className="white"/>
-							<Image src={CurrentLessonBlue} className="blue"/>
-							<span>Current Lesson</span>
-						</Menu.Item>
-						<Menu.Item name='Previous Lesson' active={activeItem === 'PreviousLesson'} onClick={this.handleItemClick}>
-							<Image src={PreviousLessonWhite} className="white"/>
-							<Image src={PreviousLessonBlue} className="blue"/>
-							<span>Previous Lesson</span>
-						</Menu.Item>
-					</div>
 					<Menu.Item as={Link} to="search" name='LessonLibrary' active={activeItem === 'LessonLibrary'} onClick={this.handleItemClick}>
 						<Image src={LessonLibraryWhite} className="white"/>
 						<Image src={LessonLibraryBlue} className="blue"/>
@@ -76,11 +64,19 @@ class Sidebar extends Component {
 						<Image src={MyBookBlue} className="blue"/>
 						<span>My Books</span>
 					</Menu.Item>
-					<Menu.Item name='Setting' active={activeItem === 'Setting'} onClick={this.handleItemClick}>
+					<Menu.Item name='Setting' active={activeItem === 'Setting'}  className="lessonPlan" onClick={this.handleItemClick}>
 						<Image src={SettingWhite} className="white"/>
 						<Image src={SettingBlue} className="blue"/>
 						<span>Setting</span>
+						<Icon name="caret down"  onClick={()=>this.handleClick('Setting') }/>
 					</Menu.Item>
+					<div className={`lessonPlanMenu  ${isActive==='Setting' ? "show" : ""}`}>
+						<Menu.Item as={Link} to="subscription-plan" name='subscription-plan' active={activeItem === 'subscription-plan'} onClick={this.handleItemClick}>
+							<Image src={SubscriptionWhite} className="white"/>
+							<Image src={SubscriptionBlue} className="blue"/>
+							<span>Subscription</span>
+						</Menu.Item>
+					</div>
 					<Menu.Item as={Link} to="/alee" name='LogOut' active={activeItem === 'LogOut'} onClick={this.handleItemClick}>
 						<Image src={LogOutWhite} className="white"/>
 						<Image src={LogOutBlue} className="blue"/>
@@ -109,11 +105,51 @@ class Sidebar extends Component {
 						<Image src={ResourceBlue} className="blue"/>
 						<span>Resources</span>
 					</Menu.Item>
+					<Menu.Item as={Link} to="sub-admin" name='sub-admin' active={activeItem === 'sub-admin'} onClick={this.handleItemClick}>
+						<Image src={SubAdminWhite} className="white"/>
+						<Image src={SubAdminBlue} className="blue"/>
+						<span>Sub-admin</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="subscription" name='subscription' active={activeItem === 'subscription'} onClick={this.handleItemClick}>
+						<Image src={SubscriptionWhite} className="white"/>
+						<Image src={SubscriptionBlue} className="blue"/>
+						<span>Subscription</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="add-tags-listing" name='add-tags-listing' active={activeItem === 'add-tags-listing'} onClick={this.handleItemClick}>
+						<Image src={AddTagListingWhite} className="white"/>
+						<Image src={AddTagListingBlue} className="blue"/>
+						<span>Add Tags Listing</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="manage-teachers" name='manage-teacher' active={activeItem === 'manage-teacher'} onClick={this.handleItemClick}>
+						<Image src={ManageTeacherWhite} className="white"/>
+						<Image src={ManageTeacherBlue} className="blue"/>
+						<span>Manage Teachers</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="manage-schools" name='manage-schools' active={activeItem === 'manage-schools'} onClick={this.handleItemClick}>
+						<Image src={ManageSchoolWhite} className="white"/>
+						<Image src={ManageSchoolBlue} className="blue"/>
+						<span>Manage Schools</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="payment-management" name='payment-management' active={activeItem === 'payment-management'} onClick={this.handleItemClick}>
+						<Image src={PaymentManagementWhite} className="white"/>
+						<Image src={PaymentManagementBlue} className="blue"/>
+						<span>Payment Manangement</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="create-template" name='create-template' active={activeItem === 'create-template'} onClick={this.handleItemClick}>
+						<Image src={CreateTemplateWhite} className="white"/>
+						<Image src={CreateTemplateBlue} className="blue"/>
+						<span>Create Template</span>
+					</Menu.Item>
+					<Menu.Item as={Link} to="assign-template" name='assign-template' active={activeItem === 'assign-template'} onClick={this.handleItemClick}>
+						<Image src={AssignTemplateWhite} className="white"/>
+						<Image src={AssignTemplateBlue} className="blue"/>
+						<span>Assign Template</span>
+					</Menu.Item>
 				  </Menu>
 				  }
 
 				  {/* No Chapter  */}
- {localStorage.getItem("BookType") === "No Chapter" &&  
+ 			{localStorage.getItem("BookType") === "No Chapter" &&  
 				<Menu text vertical>
 					<Menu.Item  name='Page1' active={activeItem === 'Page1'} onClick={this.handleItemClick}>
 						<span>Page 1</span>

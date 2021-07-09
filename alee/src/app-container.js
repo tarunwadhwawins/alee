@@ -17,10 +17,10 @@ class AppContainer extends Component {
         else if (location.pathname === "/alee/chapter") {
           localStorage.setItem("BookType", "With Chapter");
         }
-        else if (location.pathname === "/alee/subtitle" || location.pathname === "/alee/add-tags") {
+        else if (location.pathname === "/alee/subtitle" || location.pathname === "/alee/add-tags" || location.pathname === "book-summary") {
           localStorage.setItem("BookType", "With Topic Chapter");
         }
-        else if (location.pathname !== "/alee/chapter-empty" && location.pathname !== "/alee/chapter" && location.pathname !== "/alee/subtitle") {
+        else if (location.pathname !== "/alee/chapter-empty" && location.pathname !== "/alee/chapter" && location.pathname !== "/alee/subtitle" && location.pathname !== "/alee/book-summary") {
           localStorage.setItem("BookType", "");
         }
         if (location.pathname === "/alee/lesson-plan-creation" || action !== "PUSH") {

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Grid, Header, Popup, Button, Select} from "semantic-ui-react";
+import { Grid, Header, Popup, Button, Select, Form, Icon} from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import InviteTeacher from "../../shared/components/organisms/modal/invite-teacher/index";
+import AddNotes from "../../shared/components/organisms/modal/add-notes/index"
 
 
 const Template = [
@@ -19,12 +20,16 @@ class LessonPlanCreationPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inviteStatus:false
+			inviteStatus:false,
+			notesStatus:false
 		};
 	}
 	
 	openModal=()=>{
 		this.setState({inviteStatus:!this.state.inviteStatus})
+	}
+	openModal2=()=>{
+		this.setState({notesStatus:!this.state.notesStatus})
 	}
   render() {
     return (
@@ -70,19 +75,24 @@ class LessonPlanCreationPage extends Component {
 			<Grid.Column width={8}>
 				<div className="chapterBox">
 					<Header as="h4">Content</Header>
-					<Select placeholder='Select template' label="Template" options={Template} fluid/>
+					<Form>
+					<Form.Input label="Lesson Plan Name"/>
+					<Form.Select placeholder='Select template' label="Template" options={Template} fluid/>
+					</Form>
 					<div className="contentDragDrop">
 						<p>Drag & Drop</p>
 					</div>
-					<Link className="primary-color">Prompt Student</Link>
+					<Button className="alternateBtn" onClick={this.openModal2}>Add Notes</Button>
 				</div>
 			</Grid.Column>
 			<Grid.Column width={16} textAlign="right">
 				<Button className="secondaryBtn" onClick={this.openModal}>Invite Teacher</Button>
+				<Button className="alternateBtn">Save as Draft</Button>
 				<Button className="primaryBtn">Save Plan</Button>
 			</Grid.Column>
 		</Grid>
 		<InviteTeacher openModal={this.state.inviteStatus} closeModal={this.openModal} />
+		<AddNotes openModal={this.state.notesStatus} closeModal={this.openModal2} />
 		</div>
 		);
 	}

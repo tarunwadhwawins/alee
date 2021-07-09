@@ -143,6 +143,28 @@ a {
         }
     }
 }
+.commonToggle {
+    .ui.toggle.checkbox {
+        input {
+            &:focus {
+                &:checked {
+                    ~ label {
+                        &:before {
+                            background-color: $primary-color!important;
+                        }
+                    }
+                }
+            }
+        }
+        &.checked {
+            label {
+                &:before {
+                    background-color: $primary-color!important;
+                }
+            }
+        }
+    }
+}
 
 
 .main-container {

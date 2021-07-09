@@ -3,13 +3,18 @@ import { Grid, Item, Header } from "semantic-ui-react";
 import { Link, } from "../../../src/shared/functional/global-import";
 import {Book} from "../../shared/functional/global-image-import"
 
-
-
 class MyBookPage extends Component {
-	addSubTopic = () =>{
 	
-	  }
-	
+	addChapter = () => {
+		debugger;
+		if (localStorage.getItem("Usertype") === "teacher") {
+		  localStorage.setItem("BookType", "With Topic Chapter");
+		  setTimeout(() => {
+			window.location.reload();
+		  }, 1000);
+		}
+	  };
+
   render() {
     return (
 			<Grid>
@@ -19,9 +24,9 @@ class MyBookPage extends Component {
 				<Grid.Column width={16}>
 					<div className="booksResult myBooks">
 						<Item.Group>
-							<Item as={Link} to="book-flip"> 
+							<Item as={Link} onClick={this.addChapter} to={`${localStorage.getItem("Usertype") === "admin"? "book-flip":"book-summary"}`}> 
 							<Item.Image size='tiny' src={Book} />
-							<Item.Content onClick={this.addSubTopic}>
+							<Item.Content >
 								<Item.Header><span>Animal Farm</span></Item.Header>
 								<Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta>
 								<Item.Description>
@@ -31,9 +36,9 @@ class MyBookPage extends Component {
 							</Item.Content>
 							</Item>
 
-							<Item as={Link} to="book-flip">
+							<Item as={Link} onClick={this.addChapter} to={`${localStorage.getItem("Usertype") === "admin"? "book-flip":"book-summary"}`}>
 							<Item.Image size='tiny' src={Book} />
-							<Item.Content onClick={this.addSubTopic}>
+							<Item.Content onClick={this.addChapter}>
 								<Item.Header><span>America Dreams</span></Item.Header>
 								<Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta>
 								<Item.Description>
@@ -42,9 +47,9 @@ class MyBookPage extends Component {
 								<Item.Extra>Other Tags: 7.4, Empathy</Item.Extra>
 							</Item.Content>
 							</Item>
-							<Item as={Link} to="book-summary">
+							<Item as={Link} onClick={this.addChapter} to={`${localStorage.getItem("Usertype") === "admin"? "book-flip":"book-summary"}`}>
 							<Item.Image size='tiny' src={Book} />
-							<Item.Content onClick={this.addSubTopic}>
+							<Item.Content onClick={this.addChapter}>
 								<Item.Header><span>Old Man & Sea</span></Item.Header>
 								<Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta>
 								<Item.Description>

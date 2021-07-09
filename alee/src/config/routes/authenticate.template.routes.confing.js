@@ -112,7 +112,73 @@ const AuthenticateTemplateRoutesConfing = [
     private: false,
     path: `${env.PUBLIC_URL}/book-summary`,
     component: lazy(() => import('../../pages/book-summary'))
-  }
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/sub-admin`,
+    component: lazy(() => import('../../pages/sub-admin'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/subscription`,
+    component: lazy(() => import('../../pages/subscription'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/add-tags-listing`,
+    component: lazy(() => import('../../pages/add-tags-listing'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/manage-teachers`,
+    component: lazy(() => import('../../pages/manage-teachers'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/manage-schools`,
+    component: lazy(() => import('../../pages/manage-schools'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/payment-management`,
+    component: lazy(() => import('../../pages/payment-management'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/create-template`,
+    component: lazy(() => import('../../pages/create-template'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/assign-template`,
+    component: lazy(() => import('../../pages/assign-template'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/student-list`,
+    component: lazy(() => import('../../pages/student-list'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/subscription-plan`,
+    component: lazy(() => import('../../pages/subscription-plan'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/payment`,
+    component: lazy(() => import('../../pages/payment'))
+  },
   
 ];
 

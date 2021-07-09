@@ -35,6 +35,32 @@ export { default as MyBookWhite } from "../../../assets/images/my-books-white.sv
 export { default as MyBookBlue } from "../../../assets/images/my-books-blue.svg";
 export { default as ResourceWhite } from "../../../assets/images/resource-white.svg";
 export { default as ResourceBlue } from "../../../assets/images/resource-blue.svg";
+
+
+export { default as SubAdminBlue } from "../../../assets/images/sub-admin-blue.svg";
+export { default as SubAdminWhite } from "../../../assets/images/sub-admin-white.svg";
+export { default as SubscriptionBlue } from "../../../assets/images/subscription-blue.svg";
+export { default as SubscriptionWhite } from "../../../assets/images/subscription-white.svg";
+
+export { default as AddTagListingBlue } from "../../../assets/images/add-tag-listing-blue.svg";
+export { default as AddTagListingWhite } from "../../../assets/images/add-tag-listing-white.svg";
+
+export { default as CreateTemplateBlue } from "../../../assets/images/add-template-blue.svg";
+export { default as CreateTemplateWhite } from "../../../assets/images/add-template-white.svg";
+
+export { default as PaymentManagementBlue } from "../../../assets/images/payment-management-blue.svg";
+export { default as PaymentManagementWhite } from "../../../assets/images/payment-management-white.svg";
+
+export { default as ManageSchoolBlue } from "../../../assets/images/manage-school-blue.svg";
+export { default as ManageSchoolWhite } from "../../../assets/images/manage-school-white.svg";
+
+export { default as ManageTeacherBlue } from "../../../assets/images/manage-teacher-blue.svg";
+export { default as ManageTeacherWhite } from "../../../assets/images/manage-teacher-white.svg";
+
+export { default as AssignTemplateBlue } from "../../../assets/images/assign-template-blue.svg";
+export { default as AssignTemplateWhite } from "../../../assets/images/assign-template-white.svg";
+
+
 export { default as BookPage1 } from "../../../assets/images/book-page-1.jpg";
 export { default as BookPage2 } from "../../../assets/images/book-page-2.jpg";
 export { default as BookPage3 } from "../../../assets/images/book-page-3.jpg";

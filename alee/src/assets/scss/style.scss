@@ -129,14 +129,19 @@ h4.ui.header.bookName {
 	h5.ui.header {
 		margin: 15px 0 5px;
 	}
+	
+	.contentDragDrop {
+		border: 1px dashed $gray-color;
+		height: 144px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 10px 0;
+	}
 }
-.contentDragDrop {
-    border: 1px dashed $gray-color;
-    height: 306px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-	margin: 10px 0;
+.addMore {
+	display: flex;
+	align-items: center;
 }
 .wrapperClassName {
 	margin-top: 10px;
@@ -352,5 +357,17 @@ h4.ui.header.bookName {
 		padding: 0!important;
 		border: none!important;
 		box-shadow: none!important;
+	}
+}
+.status {
+	p {
+		padding-bottom: 10px;
+	}
+	.statusToggle {
+		display: flex;
+		align-items: center;
+		span {
+			margin-right: 15px;
+		}
 	}
 }
