@@ -25,7 +25,7 @@ class CreateTemplatePage extends Component {
 				<Header as="h3" className="commonHeading">Create Template</Header>
 			</Grid.Column>
 			<Grid.Column width={8} textAlign="right">
-				<Button className="primaryBtn" as={Link} to="/https://www.youtube.com/watch?v=2ZII3HOlI" target="_blank"><Icon name="plus"/> Create new template</Button>
+				<Button className="primaryBtn"><Icon name="plus"/>Create new template</Button>
 			</Grid.Column>
 			<Grid.Column width={16}>
 				<Table>

@@ -179,6 +179,24 @@ const AuthenticateTemplateRoutesConfing = [
     path: `${env.PUBLIC_URL}/payment`,
     component: lazy(() => import('../../pages/payment'))
   },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/school-manage-teachers`,
+    component: lazy(() => import('../../pages/school-manage-teachers'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/upload-excel`,
+    component: lazy(() => import('../../pages/upload-excel'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/subscription-manage`,
+    component: lazy(() => import('../../pages/subscription-manage'))
+  },
   
 ];
 

@@ -34,9 +34,9 @@ class AddTagsListingPage extends Component {
 					<Table>
 						<Table.Header>
 							<Table.Row>
-								<Table.HeaderCell>Tag Name</Table.HeaderCell>
-								<Table.HeaderCell>Type</Table.HeaderCell>
-								<Table.HeaderCell>Status</Table.HeaderCell>
+								<Table.HeaderCell>Tag Name <Icon name="sort" className="primary-color" link/> </Table.HeaderCell>
+								<Table.HeaderCell>Type <Icon name="sort" className="primary-color" link/> </Table.HeaderCell>
+								<Table.HeaderCell>Status <Icon name="sort" className="primary-color" link/> </Table.HeaderCell>
 								<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>

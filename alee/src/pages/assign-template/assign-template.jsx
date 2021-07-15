@@ -36,7 +36,9 @@ class AssignTemplatePage extends Component {
 				<Table>
 					<Table.Header>
 						<Table.Row> 
+							<Table.HeaderCell>School Name</Table.HeaderCell>
 							<Table.HeaderCell>Teacher Name</Table.HeaderCell>
+							<Table.HeaderCell>Grade</Table.HeaderCell>
 							<Table.HeaderCell>Template</Table.HeaderCell>
 							<Table.HeaderCell>Status</Table.HeaderCell>
 							<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
@@ -45,7 +47,9 @@ class AssignTemplatePage extends Component {
 
 					<Table.Body>
 						<Table.Row>
+							<Table.Cell><Link className="primary-color">Stanton College Preparatory School</Link></Table.Cell>
 							<Table.Cell><Link className="primary-color">Jane Doe</Link></Table.Cell>
+							<Table.Cell>9th</Table.Cell>
 							<Table.Cell><Link className="primary-color" onClick={this.openModal}>Shared text</Link></Table.Cell>
 							<Table.Cell>
 								<Label className="green">Active</Label>
@@ -56,8 +60,10 @@ class AssignTemplatePage extends Component {
 							</Table.Cell>
 						</Table.Row>
 						<Table.Row>
+						<Table.Cell><Link className="primary-color">Gilbert Classical Academy</Link></Table.Cell>
 						<Table.Cell><Link className="primary-color">Michael Smith</Link></Table.Cell>
-							<Table.Cell><Link className="primary-color" onClick={this.openModal}>Interactive Read aloud</Link></Table.Cell>
+						<Table.Cell>5th</Table.Cell>
+						<Table.Cell><Link className="primary-color" onClick={this.openModal}>Interactive Read aloud</Link></Table.Cell>
 							<Table.Cell>
 								<Label className="green">Active</Label>
 							</Table.Cell>
@@ -67,19 +73,10 @@ class AssignTemplatePage extends Component {
 							</Table.Cell>
 						</Table.Row>
 						<Table.Row>
+						<Table.Cell><Link className="primary-color">Liberal Arts and Science Academy High School</Link></Table.Cell>
 						<Table.Cell><Link className="primary-color">Maria Garcia</Link></Table.Cell>
+						<Table.Cell>8th</Table.Cell>
 							<Table.Cell><Link className="primary-color" onClick={this.openModal}>Writers workshop</Link></Table.Cell>
-							<Table.Cell>
-								<Label className="green">Active</Label>
-							</Table.Cell>
-							<Table.Cell textAlign="right">
-								<Icon name="edit" className="primary-color" link/>
-								<Icon name="trash alternate" color="red" link/>
-							</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-						<Table.Cell><Link className="primary-color">Jane Doe</Link></Table.Cell>
-							<Table.Cell><Link className="primary-color" onClick={this.openModal}>Readers workshop</Link></Table.Cell>
 							<Table.Cell>
 								<Label className="green">Active</Label>
 							</Table.Cell>

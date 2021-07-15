@@ -43,11 +43,11 @@ const Book = [
 		  <Table>
 			<Table.Header>
 				<Table.Row>
-					<Table.HeaderCell>Grade</Table.HeaderCell>
-					<Table.HeaderCell>Book</Table.HeaderCell>
-					<Table.HeaderCell>Chapter</Table.HeaderCell>
-					<Table.HeaderCell>Page</Table.HeaderCell>
-					<Table.HeaderCell>Audio</Table.HeaderCell>
+					<Table.HeaderCell>Grade <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Book <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Chapter <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Page <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Audio <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
 					<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
 				</Table.Row>
 			</Table.Header>
@@ -73,11 +73,11 @@ const Book = [
 		   <Table>
 			<Table.Header>
 				<Table.Row>
-					<Table.HeaderCell>Grade</Table.HeaderCell>
-					<Table.HeaderCell>Book</Table.HeaderCell>
-					<Table.HeaderCell>Chapter</Table.HeaderCell>
-					<Table.HeaderCell>Page</Table.HeaderCell>
-					<Table.HeaderCell>Video</Table.HeaderCell>
+					<Table.HeaderCell>Grade <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Book <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Chapter <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Page <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Video <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
 					<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
 				</Table.Row>
 			</Table.Header>
@@ -103,11 +103,12 @@ const Book = [
 		   <Table fixed singleLine>
 			<Table.Header>
 				<Table.Row>
-					<Table.HeaderCell>Grade</Table.HeaderCell>
-					<Table.HeaderCell>Book</Table.HeaderCell>
-					<Table.HeaderCell>Chapter</Table.HeaderCell>
-					<Table.HeaderCell>Page</Table.HeaderCell>
-					<Table.HeaderCell>Article</Table.HeaderCell>
+					<Table.HeaderCell>Grade <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Book <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Chapter <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Page <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Article <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
+					<Table.HeaderCell>Pdf <Icon  name="sort" className="priamry-color" link/></Table.HeaderCell>
 					<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
 				</Table.Row>
 			</Table.Header>
@@ -118,6 +119,7 @@ const Book = [
 					<Table.Cell>3rd</Table.Cell>
 					<Table.Cell>5th</Table.Cell>
 					<Table.Cell><Link className="primary-color" as={Link} to="https://test.com">https://test.doc</Link></Table.Cell>
+					<Table.Cell>-</Table.Cell>
 					<Table.Cell textAlign="right">
 						<Icon  className="primary-color" name="edit" link/>
 						<Icon  color='red'  name="trash alternate" link/>
@@ -162,10 +164,8 @@ class ResourcesPage extends Component {
 								<Form.Input label="Video" placeholder="Embed URL"/>
 							</Grid.Column>
 							<Grid.Column width="16">
-								<Form.Input label="Article" placeholder="Embed URL"/>
+								<Form.Input label="Article" placeholder="Embed URL" action='Upload Pdf'/>
 							</Grid.Column>
-							
-
 							<Grid.Column width="16" textAlign="right">
 								<Button className="secondaryBtn">Cancel</Button>
 								<Button className="primaryBtn">Save</Button>

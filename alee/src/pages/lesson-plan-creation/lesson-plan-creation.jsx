@@ -5,17 +5,6 @@ import InviteTeacher from "../../shared/components/organisms/modal/invite-teache
 import AddNotes from "../../shared/components/organisms/modal/add-notes/index"
 
 
-const Template = [
-	{ key: 'Template 1', value: 'Template 1', text: 'Template 1' },
-	{ key: 'Template 2', value: 'Template 2', text: 'Template 2' },
-	{ key: 'Template 3', value: 'Template 3', text: 'Template 3' },
-	{ key: 'Template 4', value: 'Template 4', text: 'Template 4' },
-	{ key: 'Template 5', value: 'Template 5', text: 'Template 5' },
-  ]
-  
-
-
-
 class LessonPlanCreationPage extends Component {
 	constructor(props) {
 		super(props);
@@ -74,11 +63,7 @@ class LessonPlanCreationPage extends Component {
 			</Grid.Column>
 			<Grid.Column width={8}>
 				<div className="chapterBox">
-					<Header as="h4">Content</Header>
-					<Form>
-					<Form.Input label="Lesson Plan Name"/>
-					<Form.Select placeholder='Select template' label="Template" options={Template} fluid/>
-					</Form>
+					<Header as="h4">Lesson Plan</Header>
 					<div className="contentDragDrop">
 						<p>Drag & Drop</p>
 					</div>

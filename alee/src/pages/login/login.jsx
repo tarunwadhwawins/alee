@@ -5,6 +5,20 @@ import { Logo } from "../../shared/functional/global-image-import";
 
 class LoginForm extends Component {
 
+  constructor() {
+    super();
+    localStorage.setItem("BookType","" );
+  }
+
+
+  buttonChange = (userType)=>{
+    localStorage.setItem("Usertype",userType );
+
+    this.setState({
+      activeButton:userType
+    })
+  }
+
 
   render() {
   
@@ -31,7 +45,7 @@ class LoginForm extends Component {
                       <Form.Input label="Password" placeholder="******"/>
                     </Grid.Column>
                     <Grid.Column width={7} >
-                      <Button as={Link} to={`${env.PUBLIC_URL}/profile`} className="primaryBtn">Sign In</Button>
+                    <Button as={Link} to={`${env.PUBLIC_URL}/profile-setup`} className="primaryBtn" onClick={()=>this.buttonChange("teacher")}>Sign Up</Button>
                     </Grid.Column>
                     <Grid.Column width={9} textAlign="right" verticalAlign="middle">
                       <Link to="" className="primary-color">Forget Password</Link>

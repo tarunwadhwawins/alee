@@ -28,6 +28,7 @@
 		.subMenu {
 			margin-left: 15px!important;
 		}
+		
 		.ui.menu {
 			width: 100%;
 			.item {
@@ -44,7 +45,8 @@
 						display: none;
 					}
 				}
-				span {
+				&.chapterMenu {
+					margin-left: 10px!important;
 				}
 				&:hover {
 					background-color: $secondary-color;

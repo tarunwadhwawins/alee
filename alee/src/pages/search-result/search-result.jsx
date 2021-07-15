@@ -37,6 +37,16 @@ class SearchResultPage extends Component {
 
     this.setState({ activeIndex: newIndex })
   }
+
+  addChapter = () => {
+	debugger;
+	if (localStorage.getItem("Usertype") === "teacher") {
+	  localStorage.setItem("BookType", "With Topic Chapter");
+	  setTimeout(() => {
+		window.location.reload();
+	  }, 1000);
+	}
+  };
   render() {
 	const { activeIndex } = this.state
     return (
@@ -74,7 +84,7 @@ class SearchResultPage extends Component {
 				<Grid.Column width={12}>
 					<div className="booksResult">
 						<Item.Group>
-							<Item as={Link} to="lesson-plan">
+							<Item as={Link} onClick={this.addChapter} to="book-flip">
 							<Item.Image size='tiny' src={Book} />
 							<Item.Content>
 								<Item.Header><span>Animal Farm</span> <Icon name="heart outline" link/></Item.Header>
@@ -86,7 +96,7 @@ class SearchResultPage extends Component {
 							</Item.Content>
 							</Item>
 
-							<Item as={Link} to="lesson-plan">
+							<Item as={Link} to="book-flip">
 							<Item.Image size='tiny' src={Book} />
 							<Item.Content>
 								<Item.Header><span>America Dreams</span> <Icon name="heart outline" link/></Item.Header>

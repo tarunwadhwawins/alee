@@ -131,11 +131,6 @@ class Sidebar extends Component {
 						<Image src={SubscriptionBlue} className="blue"/>
 						<span>Subscription</span>
 					</Menu.Item>
-					<Menu.Item as={Link} to="subscription-manage" name='subscription-manage' active={activeItem === 'subscription-manage'} onClick={this.handleItemClick}>
-						<Image src={StandardsWhite} className="white"/>
-						<Image src={StandardsBlue} className="blue"/>
-						<span>Subscription Manage</span>
-					</Menu.Item>
 					<Menu.Item as={Link} to="add-tags-listing" name='add-tags-listing' active={activeItem === 'add-tags-listing'} onClick={this.handleItemClick}>
 						<Image src={AddTagListingWhite} className="white"/>
 						<Image src={AddTagListingBlue} className="blue"/>
@@ -263,21 +258,12 @@ class Sidebar extends Component {
 
 				  {localStorage.getItem("BookType") === "With Topic Chapter" && 
 				  <Menu text vertical>
-					  <Menu.Item className="lessonPlan"  name='Page Summary' active={activeItem === 'Page Summary'} onClick={this.handleItemClick}>
-						<span>Book Summary</span>
-						<Icon name="caret down"  onClick={()=>this.handleClick('Page Summary') }/>
-					</Menu.Item>
-					<Menu.Item className="lessonPlan chapterMenu"  name='ChapterOne1' active={activeItem === 'ChapterOne1'} onClick={this.handleItemClick}>
+					<Menu.Item className="lessonPlan"  name='ChapterOne1' active={activeItem === 'ChapterOne1'} onClick={this.handleItemClick}>
 						<span>Chapter One</span>
 						<Icon name="caret down"  onClick={()=>this.handleClick('chapterone11') }/>
 					</Menu.Item>
 					<div className={`lessonPlanMenu  ${isActive==='chapterone11' ? "show" : ""}`}>
 
-					<Menu.Item className="lessonPlan"  name='ChapterSummary' active={activeItem === 'ChapterSummary'} onClick={this.handleItemClick}>
-						<span>Chapter Summary</span>
-						<Icon name="caret down"  onClick={()=>this.handleClick('ChapterSummary') }/>
-					</Menu.Item>
-					
 						<Menu.Item className="topic"  name='Topic1' active={activeItem === 'Topic1'} onClick={this.handleItemClick}>
 							<span>Topic 1</span>
 							<Icon name="caret down"  onClick={()=>this.handleClick('Topic1') }/>
@@ -317,7 +303,7 @@ class Sidebar extends Component {
 						</Menu.Item>
 						</div>
 					</div>
-					<Menu.Item   className="lessonPlan chapterMenu" name='ChapterTwo1' active={activeItem === 'ChapterTwo1'} onClick={this.handleItemClick}>
+					<Menu.Item   className="lessonPlan" name='ChapterTwo1' active={activeItem === 'ChapterTwo1'} onClick={this.handleItemClick}>
 						<span>Chapter Two</span>
 						<Icon name="caret down"  onClick={()=>this.handleClick('chaptertwo22') }/>
 					</Menu.Item>

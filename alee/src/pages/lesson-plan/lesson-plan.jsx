@@ -15,7 +15,7 @@ class LessonPlanPage extends Component {
 				<Header as="h3" className="commonHeading">Lesson Plan</Header>
 			</Grid.Column>
 			<Grid.Column width={8} textAlign="right">
-				<Button className="primaryBtn" as={Link} to="my-books"><Icon name="plus"/> New Lesson Plan</Button>
+				<Button className="primaryBtn" as={Link} to="search"><Icon name="plus"/> New Lesson Plan</Button>
 			</Grid.Column>
 			<Grid.Column width={16}>
 				<Table>
@@ -50,7 +50,7 @@ class LessonPlanPage extends Component {
 						<Table.Row>
 							<Table.Cell>Old Man & Sea</Table.Cell>
 							<Table.Cell>Chapter Five</Table.Cell>
-							<Table.Cell>LastWeekWork</Table.Cell>
+							<Table.Cell><Link to="lesson-plan-creation" className="primary-color">LastWeekWork</Link></Table.Cell>
 							<Table.Cell textAlign="right">
 									<Icon name="edit" className="primary-color" link/>
 									<Icon name="trash alternate" color="red" link/>

@@ -132,7 +132,7 @@ h4.ui.header.bookName {
 	
 	.contentDragDrop {
 		border: 1px dashed $gray-color;
-		height: 144px;
+		height: 337px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -369,5 +369,37 @@ h4.ui.header.bookName {
 		span {
 			margin-right: 15px;
 		}
+	}
+}
+.addTagsModal.ui.modal {
+	background: transparent;
+	>.header {
+		background: rgba(255,255,255,.8);
+	}
+	>.content {
+		background: rgba(255,255,255,.8);
+		
+	}
+	>.actions {
+		background: rgba(249, 250, 251, 0.8);
+	}
+}
+
+.bookFlip {
+	.bookFlipOuter{
+		height: 510px!important;
+		overflow: hidden;
+	}
+	.stf__parent {
+		// height: 500px!important;
+		// overflow: hidden;
+		.demoPage {
+			height: 500px!important;
+		} 
+	}
+	img.ui.image {
+		height: 300px;
+		object-fit: cover;
+		margin: 0 auto;
 	}
 }
