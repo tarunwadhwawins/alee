@@ -28,7 +28,7 @@ class SchoolManageTeacherPage extends Component {
 							<Table.Row>
 								<Table.Cell>Jane Doe</Table.Cell>
 								<Table.Cell>jdoe@gmail.com</Table.Cell>
-								<Table.Cell>janedoe</Table.Cell>
+								<Table.Cell>jdoe@gmail.com</Table.Cell>
 								<Table.Cell>janedoe@123</Table.Cell>
 								<Table.Cell><Label color="green">Active</Label></Table.Cell>
 								<Table.Cell textAlign="right">
@@ -39,7 +39,7 @@ class SchoolManageTeacherPage extends Component {
 							<Table.Row>
 								<Table.Cell>Maria Garcia</Table.Cell>
 								<Table.Cell>mgarica@gmail.com</Table.Cell>
-								<Table.Cell>mariagarcia</Table.Cell>
+								<Table.Cell>mgarica@gmail.com</Table.Cell>
 								<Table.Cell>mariagarcia@123</Table.Cell>
 								<Table.Cell><Label color="green">Active</Label></Table.Cell>
 								<Table.Cell textAlign="right">
@@ -50,7 +50,7 @@ class SchoolManageTeacherPage extends Component {
 							<Table.Row>
 								<Table.Cell>Michael Smith</Table.Cell>
 								<Table.Cell>msmith@gmail.com</Table.Cell>
-								<Table.Cell>michaelsmith</Table.Cell>
+								<Table.Cell>msmith@gmail.com</Table.Cell>
 								<Table.Cell>michaelsmith@123</Table.Cell>
 								<Table.Cell><Label color="blue">Inactive</Label></Table.Cell>
 								<Table.Cell textAlign="right">

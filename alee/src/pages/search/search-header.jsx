@@ -3,20 +3,7 @@ import { Grid, Form, Dropdown, Checkbox, Header, Image, Button } from "semantic-
 import { Link, } from "../../../src/shared/functional/global-import";
 import {Book} from "../../shared/functional/global-image-import";
 
-const Grade = [
-	{ key: '5th', value: '5th', text: '5th' },
-	{ key: '6th', value: '6th', text: '6th' },
-	{ key: '7th', value: '7th', text: '7th' },
-	{ key: '8th', value: '8th', text: '8th' },
-	{ key: '9th', value: '9th', text: '9th' },
-	{ key: '10th', value: '10th', text: '9th' },
-]
-const Template = [
-	{ key: 'Shared text', value: 'Shared text', text: 'Shared text' },
-	{ key: 'Readers workshop', value: 'Readers workshop', text: 'Readers workshop' },
-	{ key: 'Writers workshop', value: 'Writers workshop', text: 'Writers workshop' },
-	{ key: 'Interactive Read aloud', value: 'Interactive Read aloud', text: 'Interactive Read aloud' },
-]
+
 
 
 class SearchHeader extends Component {
@@ -33,18 +20,10 @@ class SearchHeader extends Component {
 			<Grid.Column width={16}>
 				<Header as="h3" className="commonHeading">Lesson Library</Header>
 			</Grid.Column>
-			<Grid.Column width={16}>
-				<Form>
-					<Form.Group widths="equal">
-						<Form.Input placeholder="Lesson Plan"/>
-						<Form.Select placeholder="Choose Template"  options={Template}/>
-						<Form.Input placeholder="Grade" options={Grade} />
-					</Form.Group>
-				</Form>
-			</Grid.Column>
+			
 				<Grid.Column width={16}>
 					<Form>
-						<Form.Input icon="search" iconPosition="left" placeholder="Search by keyword : Book Title" fluid/>
+						<Form.Input icon="search" iconPosition="left" placeholder="Search by Book Title" fluid/>
 					</Form>
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">
@@ -124,7 +103,7 @@ class SearchHeader extends Component {
 					</Dropdown>
 				</Grid.Column>
 				<Grid.Column width={16}>
-					<Header as="h3" className="commonHeading">Books/Literature available</Header>
+					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
 				</Grid.Column>
 				<Grid.Column width={3}>
 					<div className="bookDetail">

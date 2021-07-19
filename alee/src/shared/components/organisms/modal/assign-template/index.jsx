@@ -9,6 +9,7 @@ const School = [
 	{ key: 'Liberal Arts and Science Academy High School', value: 'Liberal Arts and Science Academy High School', text: 'Liberal Arts and Science Academy High School' },
 ]
 const Teacher = [
+	{ key: 'All', value: 'All', text: 'All' },
 	{ key: 'Jane Doe', value: 'Jane Doe', text: 'Jane Doe' },
 	{ key: 'Michael Smith', value: 'Michael Smith', text: 'Michael Smith' },
 	{ key: 'Maria Garcia', value: 'Maria Garcia', text: 'Maria Garcia' },
@@ -22,6 +23,7 @@ const Grade = [
 	{ key: '10th', value: '10th', text: '9th' },
 ]
 const Template = [
+	{ key: 'All', value: 'All', text: 'All' },
 	{ key: 'Shared text', value: 'Shared text', text: 'Shared text' },
 	{ key: 'Readers workshop', value: 'Readers workshop', text: 'Readers workshop' },
 	{ key: 'Writers workshop', value: 'Writers workshop', text: 'Writers workshop' },
@@ -50,13 +52,13 @@ class AddAssignTemplate extends Component {
 								<Form.Select label="School" placeholder="Select School" options={School}/>
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select label="Teacher" placeholder="Select Teacher" options={Teacher}/>
+								<Form.Select multiple label="Teacher" placeholder="Select Teacher" options={Teacher}/>
 							</Grid.Column>
 							<Grid.Column width={8}>
 								<Form.Select label="Grade" placeholder="Select Grade" options={Grade}/>
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select label="Template" placeholder="Select Template" options={Template}/>
+								<Form.Select multiple label="Template" placeholder="Select Template" options={Template}/>
 							</Grid.Column>
 							<Grid.Column width={8}  className='status'>
 								<p>Status</p>

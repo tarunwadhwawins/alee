@@ -81,6 +81,12 @@
 				.extra {
 					font-size: 13px;
 					margin-top: 5px;
+					.icons {
+						position: absolute;
+						right: 0;
+						bottom: 0;
+						margin: 0;
+					}
 				}
 			}
 		}

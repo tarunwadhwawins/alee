@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Button, Header, Image, Popup } from "semantic-ui-react";
+import { Grid, Button, Header, Image, Popup, Form } from "semantic-ui-react";
 import { Link, } from "../../../src/shared/functional/global-import";
 import { BookPage1, BookPage2, BookPage3, BookPage4, BookPage5, BookPage6 } from "../../shared/functional/global-image-import";
 import HTMLFlipBook from 'react-pageflip';
@@ -7,6 +7,20 @@ import AddPageSummary from "../../../src/shared/components/organisms/modal/add-p
 import InviteTeacher from "../../../src/shared/components/organisms/modal/invite-teacher/index";
 
 import AddTags from "../../../src/shared/components/organisms/modal/add-tags"
+const Grade = [
+	{ key: '5th', value: '5th', text: '5th' },
+	{ key: '6th', value: '6th', text: '6th' },
+	{ key: '7th', value: '7th', text: '7th' },
+	{ key: '8th', value: '8th', text: '8th' },
+	{ key: '9th', value: '9th', text: '9th' },
+	{ key: '10th', value: '10th', text: '9th' },
+]
+const Template = [
+	{ key: 'Shared text', value: 'Shared text', text: 'Shared text' },
+	{ key: 'Readers workshop', value: 'Readers workshop', text: 'Readers workshop' },
+	{ key: 'Writers workshop', value: 'Writers workshop', text: 'Writers workshop' },
+	{ key: 'Interactive Read aloud', value: 'Interactive Read aloud', text: 'Interactive Read aloud' },
+]
 
 class BookFlipPage extends Component {
 	constructor(props) {
@@ -122,12 +136,19 @@ class BookFlipPage extends Component {
 		{ localStorage.getItem("Usertype") === "teacher" &&
 		
 			<Grid>
-			<Grid.Column width={16}>
-
-			</Grid.Column>
-			<Grid.Column width={16} id="lessonPlan">
+				<Grid.Column width={16} id="lessonPlan">
 				<Header as="h3" className="commonHeading">Lesson Plan Creation</Header>
 			</Grid.Column>
+			<Grid.Column width={16}>
+				<Form>
+					<Form.Group widths="equal">
+						<Form.Input placeholder="Lesson Plan"/>
+						<Form.Select placeholder="Choose Template"  options={Template}/>
+						<Form.Input placeholder="Grade" options={Grade} />
+					</Form.Group>
+				</Form>
+			</Grid.Column>
+			
 			<Grid.Column width={16}>
 				<Header as="h4" className="bookName">Animal Farm</Header>
 			</Grid.Column>
@@ -174,7 +195,7 @@ class BookFlipPage extends Component {
 			<Grid.Column width={16} textAlign="right">
 				<Button className="secondaryBtn" onClick={this.openModal3}>Invite Teacher</Button>
 				<Button className="alternateBtn">Save as Draft</Button>
-				<Button className="primaryBtn">Save Plan</Button>
+				<Button className="primaryBtn" as={Link} to="lesson-plan">Save Plan</Button>
 			</Grid.Column>
 		</Grid>
   }

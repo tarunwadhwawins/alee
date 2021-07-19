@@ -48,10 +48,10 @@ class SignupForm extends Component {
                         <Grid.Column width={8} textAlign="right">
                           <Button.Group >
                               <Button className={this.state.activeButton==='school'?'active':''} onClick={()=>this.buttonChange("school")}>School</Button>
-                              <Button className={this.state.activeButton==='admin'?'active':''} onClick={()=>this.buttonChange("admin")}>Admin</Button>
+                              <Button className={this.state.activeButton==='teacher'?'active':''} onClick={()=>this.buttonChange("teacher")}>Teacher</Button>
                           </Button.Group>
                         </Grid.Column>
-                        { localStorage.getItem("Usertype") === "admin" &&
+                        { localStorage.getItem("Usertype") === "teacher" &&
                         <>
                         <Grid.Column width={8}>
                           <Form.Input label="First Name" placeholder="First Name"/>
@@ -84,7 +84,7 @@ class SignupForm extends Component {
                         </Grid.Column>
                         
                         <Grid.Column width={16} >
-                          { localStorage.getItem("Usertype") === "admin" &&	  <Button as={Link} to="scan-book" className="primaryBtn" >Sign Up</Button>}
+                          { localStorage.getItem("Usertype") === "teacher" &&	  <Button as={Link} to="profile-setup" className="primaryBtn" >Sign Up</Button>}
                           { localStorage.getItem("Usertype") === "school" &&	  <Button as={Link} to="upload-excel" className="primaryBtn" >Sign Up</Button>}
                         </Grid.Column>
                     </Grid>

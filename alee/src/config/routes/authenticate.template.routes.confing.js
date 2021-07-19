@@ -197,6 +197,12 @@ const AuthenticateTemplateRoutesConfing = [
     path: `${env.PUBLIC_URL}/subscription-manage`,
     component: lazy(() => import('../../pages/subscription-manage'))
   },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/school-dashboard`,
+    component: lazy(() => import('../../pages/school-dashboard'))
+  },
   
 ];
 
