@@ -4,19 +4,7 @@ import { env } from '../../shared/functional/global-import';
 // Configure all routes of the application that contain authenticate template
 const AuthenticateTemplateRoutesConfing = [
 
-  {
-    exact: true,
-    private: false,
-    path: `${env.PUBLIC_URL}/user-setting`,
-    component: lazy(() => import('../../pages/user-setting'))
-  },
-  {
-    exact: true,
-    private: false,
-    path: `${env.PUBLIC_URL}/reset-password`,
-    component: lazy(() => import('../../pages/reset-password-page'))
 
-  },
   {
     exact: true,
     private: false,

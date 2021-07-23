@@ -1,30 +1,26 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Header, Sidebar } from '..';
 
-
-class AuthenticateUserTemplate extends Component {
-    state = { isActive: false };
-    handleToggle = () => {
-        this.setState({ isActive: !this.state.isActive });
+function AuthenticateUserTemplate(props) {
+    const [isActive, setIsActive] = React.useState(false)
+    
+    const handleToggle = () => {
+        setIsActive(!isActive)
     };
     
-    render() {
-        const { children } = this.props;
-        const isActive = this.state.isActive;
-        return (
-            <div className={`App ${isActive ? "menuCollapse" : ""}`}>
-                <div>
-                    <Header onMenuClick={this.handleToggle}/>
-                    <Sidebar />
-                </div>
-                <div className="main-container">
-                    <div className="main-page">
-                        {children}
-                    </div>
+    return (
+        <div className={`App ${isActive ? "menuCollapse" : ""}`}>
+            <div>
+                <Header onMenuClick={handleToggle}/>
+                <Sidebar />
+            </div>
+            <div className="main-container">
+                <div className="main-page">
+                    {props.children}
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 
