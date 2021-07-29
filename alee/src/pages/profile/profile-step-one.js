@@ -1,83 +1,124 @@
-import React from "react";
-import { Form, Grid, Icon, Button} from "semantic-ui-react";
+import React  from "react";
+import { Form, Grid} from "semantic-ui-react";
 
-
-const passingYear = [
+const schoolname = [
 	{
-		key: '2012',
-		text: '2012',
-		value: '2012',
+	  key: 'Thomas Jefferson High School for Science and Technology',
+	  text: 'Thomas Jefferson High School for Science and Technology',
+	  value: 'Thomas Jefferson High School for Science and Technology',
 	},
 	{
-		key: '2013',
-		text: '2013',
-		value: '2013',
+	  key: 'Carnegie Vanguard High School',
+	  text: 'Carnegie Vanguard High School',
+	  value: 'Carnegie Vanguard High School',
 	},
 	{
-		key: '2014',
-		text: '2014',
-		value: '2014',
+	  key: 'Liberal Arts and Science Academy High School',
+	  text: 'Liberal Arts and Science Academy High School',
+	  value: 'Liberal Arts and Science Academy High School',
 	},
 	{
-		key: '2015',
-		text: '2015',
-		value: '2015',
+	  key: 'Gilbert Classical Academy',
+	  text: 'Gilbert Classical Academy',
+	  value: 'Gilbert Classical Academy',
 	},
 	{
-	  key: '2016',
-	  text: '2016',
-	  value: '2016',
+	  key: 'Design and Architecture Senior High School',
+	  text: 'Design and Architecture Senior High School',
+	  value: 'Design and Architecture Senior High School',
 	},
 	{
-	  key: '2017',
-	  text: '2017',
-	  value: '2017',
-	},
-	{
-	  key: '2018',
-	  text: '2018',
-	  value: '2018',
-	},
-	{
-	  key: '2019',
-	  text: '2019',
-	  value: '2019',
-	},
-	{
-	  key: '2020',
-	  text: '2020',
-	  value: '2020',
-	},
-	{
-	  key: '2021',
-	  text: '2021',
-	  value: '2021',
+	  key: 'Stanton College Preparatory School',
+	  text: 'Stanton College Preparatory School',
+	  value: 'Stanton College Preparatory School',
 	},
   ]
-  
-  function ProfileStepOne() {
 
-		return (
-				<Form>
-					<Grid>
-						<Grid.Column width={8}>
-							<Form.Input action={{ icon: 'plus' }} placeholder='Degree' className="addBtnInput"/>
-							<Form.Checkbox label="In progress"/>
-						</Grid.Column>
-						<Grid.Column width={8}>
-							<Form.Input action={{ icon: 'plus' }} placeholder='School/College/University' className="addBtnInput"/>
-						</Grid.Column>
-						<Grid.Column width={8}>
-								<Form.Dropdown placeholder='Year of Passing' fluid selection options={passingYear}  className="passingYear"/>
-						</Grid.Column>
-					</Grid>   
-					<Grid>
-						<Grid.Column width={16}>
-							<Button className="primaryBtn"> <Icon name="plus circle"/> Add more </Button>
-						</Grid.Column>
-					</Grid>
-				</Form> 
-		);
+  const curriculums = [
+	{
+	  key: 'American Common Core',
+	  text: 'American Common Core',
+	  value: 'American Common Core',
+	},
+	{
+	  key: 'Next Generation Science Standards (NGSS)',
+	  text: 'Next Generation Science Standards (NGSS)',
+	  value: 'Next Generation Science Standards (NGSS)',
+	},
+	{
+	  key: 'Diploma Programme (DP)',
+	  text: 'Diploma Programme (DP)',
+	  value: 'Diploma Programme (DP)',
+	},
+	{
+	  key: 'Middle Years Programme (MYP)',
+	  text: 'Middle Years Programme (MYP)',
+	  value: 'Middle Years Programme (MYP)',
+	},
+	{
+	  key: 'English Curriculum',
+	  text: 'English Curriculum',
+	  value: 'English Curriculum',
+	},
+	{
+	  key: 'Primary Years Programme (PYP)',
+	  text: 'Primary Years Programme (PYP)',
+	  value: 'Primary Years Programme (PYP)',
+	},
+  ]
+
+  const subjects = [
+	{
+	  key: 'Accounting',
+	  text: 'Accounting',
+	  value: 'Accounting',
+	},
+	{
+	  key: 'Business management',
+	  text: 'Business management',
+	  value: 'Business management',
+	},
+	{
+	  key: 'Calculus',
+	  text: 'Calculus',
+	  value: 'Calculus',
+	},
+	{
+	  key: 'Chemistry',
+	  text: 'Chemistry',
+	  value: 'Chemistry',
+	},
+	{
+	  key: 'Computer Science',
+	  text: 'Computer Science',
+	  value: 'Computer Science',
+	},
+	{
+	  key: 'English Literature',
+	  text: 'English Literature',
+	  value: 'English Literature',
+	},
+  ]
+
+
+
+function ProfileStepOne() {
+	return (
+			<Form>
+				<Grid>
+					<Grid.Column width={8}>
+						<Form.Dropdown placeholder='School Name' fluid selection search options={schoolname} />
+                    </Grid.Column>
+                    <Grid.Column width={8} >
+						<Form.Dropdown placeholder='Choose Curriculums' fluid selection search options={curriculums} />
+                    </Grid.Column>
+                    <Grid.Column width={8} >
+						<Form.Dropdown placeholder='Choose Subjects' fluid selection search options={subjects} />
+                    </Grid.Column>
+					
+				</Grid>   
+			</Form> 
+	);
 }
 	  
 export default ProfileStepOne;

@@ -10,6 +10,17 @@ const trigger = (
 )
 
 function Header(props) {
+  	const [activeButton, setActiveButton] = React.useState(localStorage.getItem("Usertype")?localStorage.getItem("Usertype"):"school")
+    localStorage.setItem("BookType","" );
+  
+
+
+    const buttonChange = (userType)=>{
+      localStorage.setItem("Usertype",userType );
+  
+      setActiveButton( userType )
+    }
+  
     return (
       <React.Fragment>
         <div className="Header">
@@ -23,13 +34,13 @@ function Header(props) {
             <Grid.Column width={8} className="profile">
                 <Dropdown trigger={trigger}>
                   <Dropdown.Menu className="left setting-dropdown">
-                    
+                  { localStorage.getItem("Usertype") === "teacher" &&	
                     <Dropdown.Item
                       as={Link}
                       to="profile"
                       icon="user"
                       text="My Profile"
-                    />
+                    />}
                     <Dropdown.Item
                       icon="repeat"
                       text="Change Password"

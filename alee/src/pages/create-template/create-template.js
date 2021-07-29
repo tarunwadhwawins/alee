@@ -1,14 +1,19 @@
 import React from "react";
 import { Grid, Icon, Header, Button, Table, Label } from "semantic-ui-react";
 import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
+import AddTemplateModal from "../../shared/components/organisms/modal/add-template/index"
 import { Link } from "../../shared/functional/global-import";
 
 
 function CreateTemplatePage() {
 	const [lesson, setLesson] = React.useState(false)
+	const [template, setTemplate] = React.useState(false)
 	
 	const openModal = () => {
 		setLesson(!lesson)
+	}
+	const openModal2 = () => {
+		setTemplate(!template)
 	}
 	
     return (
@@ -18,7 +23,7 @@ function CreateTemplatePage() {
 				<Header as="h3" className="commonHeading">Create Template</Header>
 			</Grid.Column>
 			<Grid.Column width={8} textAlign="right">
-				<Button className="primaryBtn"><Icon name="plus"/>Create new template</Button>
+				<Button className="primaryBtn" onClick={openModal2}><Icon name="plus"/>Create new template</Button>
 			</Grid.Column>
 			<Grid.Column width={16}>
 				<Table>
@@ -76,6 +81,7 @@ function CreateTemplatePage() {
 			</Grid.Column>
 		</Grid>
 			<LessonPlanCustomModal openModal={lesson} closeModal={openModal} />
+			<AddTemplateModal openModal={template} closeModal={openModal2} />
 		</div>
 		);
   }

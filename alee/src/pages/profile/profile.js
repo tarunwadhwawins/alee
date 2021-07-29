@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button, Step, Grid, Divider, Header } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import ProfileStepOne from "./profile-step-one";
@@ -33,7 +33,7 @@ function MyProfile() {
       case 1:
         return (
           <>
-            <ProfileStepThree />
+            <ProfileStepTwo />
 
             <Divider hidden />
             <Grid>
@@ -54,7 +54,7 @@ function MyProfile() {
       case 2:
         return (
           <>
-            <ProfileStepTwo />
+            <ProfileStepThree />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
@@ -119,7 +119,7 @@ function MyProfile() {
               <Step.Content>
                 <Step.Description>1</Step.Description>
                 <Step.Title>
-                  <span>Education<br /> Qualification </span>
+                  <span>Basic Info</span>
                 </Step.Title>
 
               </Step.Content>
@@ -132,10 +132,8 @@ function MyProfile() {
               <Step.Content>
                 <Step.Description>2</Step.Description>
                 <Step.Title>
-
-                  <span>Work/Employment <br /> History </span>
+                  <span>Education<br /> Qualification </span>
                 </Step.Title>
-
               </Step.Content>
             </Step>
             <Step
@@ -146,7 +144,7 @@ function MyProfile() {
               <Step.Content>
                 <Step.Description>3</Step.Description>
                 <Step.Title>
-                  <span>Key <br />Skillset </span>
+                  <span>Work/Employment <br /> History </span>
                 </Step.Title>
 
               </Step.Content>
@@ -159,7 +157,7 @@ function MyProfile() {
               <Step.Content>
                 <Step.Description>4</Step.Description>
                 <Step.Title>
-                  <span>Lesson Plan<br /> Format </span>
+                <span>Key <br />Skillset </span>
                 </Step.Title>
 
               </Step.Content>

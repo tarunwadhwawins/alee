@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Grid, Modal, Button, Form } from "semantic-ui-react";
+import { Grid, Modal, Button, Form, Image } from "semantic-ui-react";
 import {Link} from "../../../../functional/global-import"
+
 
 
 

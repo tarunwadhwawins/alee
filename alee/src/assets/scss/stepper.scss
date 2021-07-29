@@ -11,9 +11,10 @@
 		position: absolute;
 		left: 0;
 		right: 0;
-		top: 28px;
+		top: 50%;
 		background-color: $primary-color;
 		height: 1.5px;
+		transform: translateY(-50%);
 	}
 	.step {
 		border: none!important;

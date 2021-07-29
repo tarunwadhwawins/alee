@@ -39,10 +39,10 @@ function LoginForm() {
                   <Form.Input label="Password" placeholder="******" />
                 </Grid.Column>
                 <Grid.Column width={7} >
-                  <Button as={Link} to={`${env.PUBLIC_URL}/scan-book`} className="primaryBtn" onClick={() => buttonChange("admin")}>Sign Up</Button>
+                  <Button as={Link} to={`${env.PUBLIC_URL}/scan-book`} className="primaryBtn" onClick={() => buttonChange("admin")}>Sign In</Button>
                 </Grid.Column>
                 <Grid.Column width={9} textAlign="right" verticalAlign="middle">
-                  <Link to="" className="primary-color">Forget Password</Link>
+                  <Link to="" className="primary-color">Forgot Password</Link>
                 </Grid.Column>
               </Grid>
             </Grid.Column>

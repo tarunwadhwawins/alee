@@ -7,10 +7,20 @@ import AddStudent from "../../shared/components/organisms/modal/add-student/inde
 
 function StudentListPage() {	
 	const [student, setStudent] = React.useState(false)
+	const [file, setFile] = React.useState(null)
 
 	const openModal = () => {
 		setStudent(!student)
 	}
+
+	
+	
+	  const fileInputRef = React.createRef();	
+	
+	  const fileChange = e => {
+		setFile( e.target.files[0] )
+	  }
+	
     return (
 		<div className="common-shadow">
 		<Grid>
@@ -19,6 +29,8 @@ function StudentListPage() {
 			</Grid.Column>
 			<Grid.Column width={8} textAlign="right">
 				<Button className="primaryBtn"  onClick={openModal}><Icon name="plus"/> Add Student</Button>
+				<Button className="alternateBtn"  onClick={() => fileInputRef.current.click()} ><Icon name="upload"/> Upload Excel</Button>
+				<input ref={fileInputRef} type="file" hidden onChange={fileChange}/>
 			</Grid.Column>
 			<Grid.Column width={16}>
 			<Table>
