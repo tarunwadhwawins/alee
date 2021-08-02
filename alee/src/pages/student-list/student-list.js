@@ -5,6 +5,7 @@ import AddStudent from "../../shared/components/organisms/modal/add-student/inde
 function StudentListPage() {	
 	const [student, setStudent] = React.useState(false)
 	const [file, setFile] = React.useState(null)
+	const [];
 
 	const openModal = () => {
 		setStudent(!student)
