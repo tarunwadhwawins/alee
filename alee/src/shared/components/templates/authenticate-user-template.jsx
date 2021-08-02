@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Header, Sidebar } from '..';
 
 function AuthenticateUserTemplate(props) {
-    const [isActive, setIsActive] = React.useState(false)
+    const [isActive, setIsActive] = useState(false)
     
     const handleToggle = () => {
         setIsActive(!isActive)

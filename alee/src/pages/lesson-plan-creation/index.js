@@ -2,7 +2,7 @@ import React from 'react';
 import  LessonPlanCreationPage  from './lesson-plan-creation';
 
 
-const LessonPlanCreation = () => {
+const LessonPlanCreation = () => { 
     return (
         <LessonPlanCreationPage/>
     );

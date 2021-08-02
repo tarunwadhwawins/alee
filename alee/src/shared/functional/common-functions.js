@@ -107,8 +107,8 @@ const getFormData = (data) => {
         }
       }
       else if (key === "images") {
-        var array = val;
-        for (var i = 0; i < array.length; i++) {
+        var arr = val;
+        for (var i = 0; i < arr.length; i++) {
           let file = val[i].file === undefined ? val[i] : val[i].file;
           formData.append(key, file);
         }

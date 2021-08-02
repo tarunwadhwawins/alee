@@ -1,5 +1,5 @@
-import React from "react";
-import { Icon, Grid, Dropdown, Image, Card, Feed } from "semantic-ui-react";
+import React ,{useState} from "react";
+import { Icon, Grid, Dropdown, Image } from "semantic-ui-react";
 import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
 
@@ -10,16 +10,8 @@ const trigger = (
 )
 
 function Header(props) {
-  	const [activeButton, setActiveButton] = React.useState(localStorage.getItem("Usertype")?localStorage.getItem("Usertype"):"school")
+  	const [activeButton, setActiveButton] = useState(localStorage.getItem("Usertype")?localStorage.getItem("Usertype"):"school")
     localStorage.setItem("BookType","" );
-  
-
-
-    const buttonChange = (userType)=>{
-      localStorage.setItem("Usertype",userType );
-  
-      setActiveButton( userType )
-    }
   
     return (
       <React.Fragment>

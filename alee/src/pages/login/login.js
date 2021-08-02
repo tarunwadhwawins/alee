@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
-import { Link, env } from "../../shared/functional/global-import";
+import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
+import { useHistory } from "react-router-dom";
 
+function LoginForm(props) {
+  const [logInForm, setLogInForm] = useState({ email: "", password: "" })
+  let history = useHistory();
 
-function LoginForm() {
-  const [activeButton, setActiveButton] = React.useState()
-  localStorage.setItem("BookType", "");
-
-  const buttonChange = (userType) => {
-    localStorage.setItem("Usertype", userType);
-
-    setActiveButton (userType)
+  const onHandleChange = (e, { value, data }) => {
+    setLogInForm({ ...logInForm, [data]: value })
   }
 
-
+  const onsubmit = () => {
+    props.actions.apiCall({
+      urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
+        history.push(`${env.PUBLIC_URL}/scan-book`);
+      },showNotification: true
+    });
+  }
 
   return (
     <div className="signIn">
@@ -33,21 +37,17 @@ function LoginForm() {
                   <Header as="h2">Sign In</Header>
                 </Grid.Column>
                 <Grid.Column width={16}>
-                  <Form.Input label="Email" placeholder="abc@gmail.com" />
+                  <Form.Input label="Email" placeholder="abc@gmail.com" data="email" onChange={onHandleChange} />
                 </Grid.Column>
                 <Grid.Column width={16} >
-                  <Form.Input label="Password" placeholder="******" />
-                </Grid.Column>
-                <Grid.Column width={8}  verticalAlign="middle">
-                    <Form.Checkbox label='Remember me' />
-                </Grid.Column>
-                <Grid.Column width={8} textAlign="right" verticalAlign="middle">
-                  <Link to="" className="primary-color">Forgot Password</Link>
+                  <Form.Input label="Password" placeholder="******" data="password" onChange={onHandleChange} />
                 </Grid.Column>
                 <Grid.Column width={7} >
-                  <Button as={Link} to={`${env.PUBLIC_URL}/scan-book`} className="primaryBtn" onClick={() => buttonChange("admin")}>Sign In</Button>
+                  <Button className="primaryBtn" onClick={onsubmit}>Sign In</Button>
                 </Grid.Column>
-                
+                <Grid.Column width={9} textAlign="right" verticalAlign="middle">
+                  <Link to="" className="primary-color">Forgot Password</Link>
+                </Grid.Column>
               </Grid>
             </Grid.Column>
           </Grid>
@@ -56,6 +56,22 @@ function LoginForm() {
     </div>
   );
 }
+const mapStateToProps = state => {
+  return {
+    api: state.api,
+    auth: state.auth,
+    global: state.global,
+  };
+};
 
-export default LoginForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: {
+      apiCall: bindActionCreators(actions.apiCall, dispatch),
+      storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+
 

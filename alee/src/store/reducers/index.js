@@ -7,7 +7,6 @@ import { combineReducers } from "redux";
 import authReducer from "./auth.reducer";
 import globalReducer from './global.reducer';
 import apiReducer from './api.reducer';
-import newOrder from './newOrder.reducer';
 import {reducer as notifications} from 'react-notification-system-redux';
 
 
@@ -20,9 +19,6 @@ const rootReducer = combineReducers({
 
     // The global reducer manages state for global code values.
     global: globalReducer,
-
-    // for new order modal.
-    newOrderDetail : newOrder,
 
     // The notification reducer used for manging nofitications of the application.
     notifications

@@ -2,9 +2,6 @@ import React from "react";
 import { Grid, Header, Table, Button, Icon, Label} from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
 
-  
-
-
 function StudentListPage() {	
 	const [student, setStudent] = React.useState(false)
 	const [file, setFile] = React.useState(null)
