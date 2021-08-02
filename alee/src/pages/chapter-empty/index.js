@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import  ChapterEmptyPage  from './chapter-empty';
 
 const ChapterEmpty = () => {

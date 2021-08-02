@@ -7,7 +7,7 @@ import ProfileStepThree from "./profile-step-three";
 import ProfileStepFour from "./profile-step-four";
 
 function MyProfile() {
-  const [activeStep, setActiveStep] = React.useState(0)
+  const [activeStep, setActiveStep] = useState(0)
 
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
 

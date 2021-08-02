@@ -34,7 +34,7 @@ const LiteraryElements = [
 	{ key: 'Metaphor', value: 'Metaphor', text: 'Metaphor' },
 ]
 function AddTagPage() {
-	const [showObserve, setShowObserve] = React.useState(false)
+	const [showObserve, setShowObserve] = useState(false)
 
 		const showObserveHandle = () => setShowObserve( true );
 		

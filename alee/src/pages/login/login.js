@@ -3,9 +3,8 @@ import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
 import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 
-
 function LoginForm() {
-  const [activeButton, setActiveButton] = React.useState()
+  const [activeButton, setActiveButton] = useState()
   localStorage.setItem("BookType", "");
 
   const buttonChange = (userType) => {
@@ -13,8 +12,6 @@ function LoginForm() {
 
     setActiveButton (userType)
   }
-
-
 
   return (
     <div className="signIn">

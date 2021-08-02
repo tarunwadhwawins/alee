@@ -6,8 +6,6 @@ const DateFormatInput = ({ onChange, value, placeholder, error, name, data }) =>
         <DateInput name={name} type="text" placeholder={placeholder} value={value} dateFormat="MMM DD, YYYY" iconPosition="right" onChange={onChange} error={error} data={data} closable fluid />
     );
 };
-
-
 DateFormatInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.isRequired,

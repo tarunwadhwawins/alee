@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Grid, Header, Popup, Button, Image} from "semantic-ui-react";
 import InviteTeacher from "../../shared/components/organisms/modal/invite-teacher/index";
 import AddNotes from "../../shared/components/organisms/modal/add-notes/index"
@@ -8,8 +8,8 @@ import HTMLFlipBook from 'react-pageflip';
 
 
 function LessonPlanCreationPage() {
-	const [invite, setInvite] = React.useState(false)
-	const [notes, setNotes] = React.useState(false)
+	const [invite, setInvite] = useState(false)
+	const [notes, setNotes] = useState(false)
 	
 	const openModal = () => {
 		setInvite(!invite)

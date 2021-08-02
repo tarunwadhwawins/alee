@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TotalBoxes from "./total-boxes";
 import PerformanceMatrix from "./performance-matrix";
 

@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, CurrentLessonWhite, CurrentLessonBlue, PreviousLessonWhite, PreviousLessonBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, SettingWhite, SettingBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite } from "../../../functional/global-image-import";
+import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite } from "../../../functional/global-image-import";
 
 
 function Sidebar() {
-	const [activeItem, setActiveItem] = React.useState("closest")
-	const [isActive, setIsActive] = React.useState("")
-	// state = { activeItem: 'closest' }
-	// state = { isActive: '' };
-	const handleItemClick = (e, { name }) => setActiveItem( name );
-	const handleToggle = () => setIsActive(!isActive);
-	
+	const [activeItem, setActiveItem] = useState("closest")
+	const [isActive, setIsActive] = useState("")
 
-	const handleClick = (chapterName) => setIsActive( chapterName );
-	
-
-
+	const handleItemClick = (e, { name }) => setActiveItem(name);
+	const handleClick = (chapterName) => setIsActive(chapterName);
 
 	return (
 		<div className="Sidebar">
@@ -97,11 +90,11 @@ function Sidebar() {
 					</Menu>
 				}
 				{!localStorage.getItem("BookType") && localStorage.getItem("Usertype") === "admin" && <Menu text vertical>
-						<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
-							<Image src={DashboardWhite} className="white" />
-							<Image src={DashboardBlue} className="blue" />
-							<span>Dashboard</span>
-						</Menu.Item>
+					<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
+						<Image src={DashboardWhite} className="white" />
+						<Image src={DashboardBlue} className="blue" />
+						<span>Dashboard</span>
+					</Menu.Item>
 					<Menu.Item as={Link} to="scan-book" name='ScanBook' active={activeItem === 'ScanBook'} onClick={handleItemClick}>
 						<Image src={ScanBookWhite} className="white" />
 						<Image src={ScanBookBlue} className="blue" />
@@ -127,18 +120,18 @@ function Sidebar() {
 						<Image src={SubAdminBlue} className="blue" />
 						<span>Sub-admin</span>
 					</Menu.Item>
-					<Menu.Item  className="lessonPlan" as={Link} to="subscription" name='subscription' active={activeItem === 'subscription'} onClick={handleItemClick}>
+					<Menu.Item className="lessonPlan" as={Link} to="subscription" name='subscription' active={activeItem === 'subscription'} onClick={handleItemClick}>
 						<Image src={SubscriptionWhite} className="white" />
 						<Image src={SubscriptionBlue} className="blue" />
 						<span>Subscription</span>
 						<Icon name="caret down" onClick={() => handleClick('Subscription')} />
 					</Menu.Item>
 					<div className={`lessonPlanMenu  ${isActive === 'Subscription' ? "show" : ""}`}>
-					<Menu.Item as={Link} to="subscription-manage" name='subscription-manage' active={activeItem === 'subscription-manage'} onClick={handleItemClick}>
-						<Image src={StandardsWhite} className="white" />
-						<Image src={StandardsBlue} className="blue" />
-						<span>Subscription Manage</span>
-					</Menu.Item>
+						<Menu.Item as={Link} to="subscription-manage" name='subscription-manage' active={activeItem === 'subscription-manage'} onClick={handleItemClick}>
+							<Image src={StandardsWhite} className="white" />
+							<Image src={StandardsBlue} className="blue" />
+							<span>Subscription Manage</span>
+						</Menu.Item>
 					</div>
 					<Menu.Item as={Link} to="add-tags-listing" name='add-tags-listing' active={activeItem === 'add-tags-listing'} onClick={handleItemClick}>
 						<Image src={AddTagListingWhite} className="white" />
@@ -160,18 +153,18 @@ function Sidebar() {
 						<Image src={PaymentManagementBlue} className="blue" />
 						<span>Payment Manangement</span>
 					</Menu.Item>
-					<Menu.Item  className="lessonPlan" as={Link} to="create-template" name='create-template' active={activeItem === 'create-template'} onClick={handleItemClick}>
+					<Menu.Item className="lessonPlan" as={Link} to="create-template" name='create-template' active={activeItem === 'create-template'} onClick={handleItemClick}>
 						<Image src={CreateTemplateWhite} className="white" />
 						<Image src={CreateTemplateBlue} className="blue" />
 						<span>Create Template</span>
 						<Icon name="caret down" onClick={() => handleClick('Template')} />
 					</Menu.Item>
 					<div className={`lessonPlanMenu  ${isActive === 'Template' ? "show" : ""}`}>
-					<Menu.Item as={Link} to="assign-template" name='assign-template' active={activeItem === 'assign-template'} onClick={handleItemClick}>
-						<Image src={AssignTemplateWhite} className="white" />
-						<Image src={AssignTemplateBlue} className="blue" />
-						<span>Assign Template</span>
-					</Menu.Item>
+						<Menu.Item as={Link} to="assign-template" name='assign-template' active={activeItem === 'assign-template'} onClick={handleItemClick}>
+							<Image src={AssignTemplateWhite} className="white" />
+							<Image src={AssignTemplateBlue} className="blue" />
+							<span>Assign Template</span>
+						</Menu.Item>
 					</div>
 				</Menu>
 				}

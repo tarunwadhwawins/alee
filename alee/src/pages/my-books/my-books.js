@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Item, Header, Icon } from "semantic-ui-react";
 import { Link, } from "../../shared/functional/global-import";
 import {Book} from "../../shared/functional/global-image-import"
 
 
 function MyBookPage() {
-
-	
 	const addChapter = () => {
 		if (localStorage.getItem("Usertype") === "teacher") {
 		  localStorage.setItem("BookType", "With Topic Chapter");

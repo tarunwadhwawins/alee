@@ -24,9 +24,9 @@ const Template = [
 
 function BookFlipPage() {
 
-	const [summary, setSummary] = React.useState(false)
-	const [tag, setTags] = React.useState(false)
-	const [invite, setInvite] = React.useState(false)
+	const [summary, setSummary] = useState(false)
+	const [tag, setTags] = useState(false)
+	const [invite, setInvite] = useState(false)
 	
 	const openModal = () => {
 		setSummary(!summary)

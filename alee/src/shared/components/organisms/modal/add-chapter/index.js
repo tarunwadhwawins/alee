@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import { Grid, Modal, Button, Form, Image } from "semantic-ui-react";
+import React from "react";
+import { Grid, Modal, Button, Form } from "semantic-ui-react";
 import {Link} from "../../../../functional/global-import"
-
-
-
-
 
 function AddChapter(props) {
 
@@ -14,8 +10,6 @@ function AddChapter(props) {
 			window.location.reload();
 			}, (1000));
 	  }
-	
-
 
     return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="small">

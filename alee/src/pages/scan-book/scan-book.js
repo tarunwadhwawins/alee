@@ -3,7 +3,7 @@ import { Grid, Icon, Form, Header, Button } from "semantic-ui-react";
 import { Link, } from "../../shared/functional/global-import";
 
 function ScanBookPage() {
-	const [file, setFile] = React.useState(null)
+	const [file, setFile] = useState(null)
 	
 	  const fileInputRef = React.createRef();	
 	

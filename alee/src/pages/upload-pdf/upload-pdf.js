@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { Grid, Icon, Form, Button, Header } from "semantic-ui-react";
 import { Link, } from "../../shared/functional/global-import";
 
-
-
-
 function UploadPdfPage() {
-	const [file, setFile] = React.useState(null)
+	const [file, setFile] = useState(null)
 	
 	  const fileInputRef = React.createRef();	
 	

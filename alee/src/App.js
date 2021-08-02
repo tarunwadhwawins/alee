@@ -9,13 +9,7 @@ import AppContainer from './app-container';
 import * as env from "./config/env.config";
 import { Loader } from 'semantic-ui-react';
 
-
-
 class App extends Component {
-
-  
-
-
 
   render() {
     return (
