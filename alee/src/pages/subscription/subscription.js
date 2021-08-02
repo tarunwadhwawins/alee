@@ -1,79 +1,95 @@
-import React from "react";
-import { Grid, Header, Table, Button, Icon, Label} from "semantic-ui-react";
+import React, { useEffect } from "react";
+import { Grid, Header, Table, Button, Icon, Label, Dimmer, Loader } from "semantic-ui-react";
 import AddSubscription from "../../shared/components/organisms/modal/subscription/index";
+import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
 
-  
-
-
-function SubscriptionPage() {
+function SubscriptionPage(props) {
 	const [subscription, setSubscription] = React.useState(false)
-	
+	const [subscriptionList, setSubscriptionList] = React.useState("")
+
 	const openModal = () => {
 		setSubscription(!subscription)
 	}
 
-    return (
+	useEffect(() => {
+		getSubscriptionList();
+	}, []);
+
+	const getSubscriptionList = () => {
+		props.actions.apiCall({
+			urls: ["GETSUBSCRIPTIONPLANLIST"], method: "GET", data: subscriptionList, onSuccess: (response) => {
+				if (response.length > 0) {
+					setSubscriptionList(response)
+				}
+			}
+		});
+	}
+
+	return (
 		<div className="common-shadow">
-		<Grid>
-			<Grid.Column width={8} verticalAlign="middle">
-				<Header as="h3" className="commonHeading">Subscription</Header>
-			</Grid.Column>
-			<Grid.Column width={8} textAlign="right">
-				<Button className="primaryBtn"  onClick={openModal}><Icon name="plus"/> Add Subscription</Button>
-			</Grid.Column>
-			<Grid.Column width={16}>
-			<Table>
-				<Table.Header>
-					<Table.Row>
-						<Table.HeaderCell>Subscription Plan</Table.HeaderCell>
-						<Table.HeaderCell>Duration</Table.HeaderCell>
-						<Table.HeaderCell>No. of Students</Table.HeaderCell>
-						<Table.HeaderCell textAlign="right">Price</Table.HeaderCell>
-						<Table.HeaderCell>Status</Table.HeaderCell>
-						<Table.HeaderCell  textAlign="right">Action</Table.HeaderCell>
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					<Table.Row>
-						<Table.Cell>Gold</Table.Cell>
-						<Table.Cell>Monthly</Table.Cell>
-						<Table.Cell>10</Table.Cell>
-						<Table.Cell textAlign="right">$89.00</Table.Cell>
-						<Table.Cell><Label color="green">Active</Label></Table.Cell>
-						<Table.Cell textAlign="right">
-							<Icon name="edit" className="primary-color" link/>
-							<Icon name="trash alternate" color="red" link/>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>Silver</Table.Cell>
-						<Table.Cell>Yearly</Table.Cell>
-						<Table.Cell>20</Table.Cell>
-						<Table.Cell textAlign="right">$129.00</Table.Cell>
-						<Table.Cell><Label color="green">Active</Label></Table.Cell>
-						<Table.Cell textAlign="right">
-							<Icon name="edit" className="primary-color" link/>
-							<Icon name="trash alternate" color="red" link/>
-						</Table.Cell>
-					</Table.Row>
-					<Table.Row>
-						<Table.Cell>Premium</Table.Cell>
-						<Table.Cell>Monthly</Table.Cell>
-						<Table.Cell>30</Table.Cell>
-						<Table.Cell textAlign="right">$119.00</Table.Cell>
-						<Table.Cell><Label color="green">Active</Label></Table.Cell>
-						<Table.Cell textAlign="right">
-							<Icon name="edit" className="primary-color" link/>
-							<Icon name="trash alternate" color="red" link/>
-						</Table.Cell>
-					</Table.Row>
-				</Table.Body>
-			</Table>
-			</Grid.Column>
-		</Grid>
-		<AddSubscription openModal={subscription} closeModal={openModal} />
+
+			{props.api.isApiLoading && (
+				<Dimmer active inverted>
+					<Loader />
+				</Dimmer>
+
+			)}
+			<Grid>
+				<Grid.Column width={8} verticalAlign="middle">
+					<Header as="h3" className="commonHeading">Subscription</Header>
+				</Grid.Column>
+				<Grid.Column width={8} textAlign="right">
+					<Button className="primaryBtn" onClick={openModal}><Icon name="plus" /> Add Subscription</Button>
+				</Grid.Column>
+				<Grid.Column width={16}>
+					<Table>
+						<Table.Header>
+							<Table.Row>
+								<Table.HeaderCell>Subscription Plan</Table.HeaderCell>
+								<Table.HeaderCell>Duration</Table.HeaderCell>
+								<Table.HeaderCell>No. of Students</Table.HeaderCell>
+								<Table.HeaderCell textAlign="right">Price</Table.HeaderCell>
+								<Table.HeaderCell>Status</Table.HeaderCell>
+								<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
+							</Table.Row>
+						</Table.Header>
+						<Table.Body>
+							{subscriptionList && subscriptionList.map((sub) => {
+								return(
+								<Table.Row>
+									<Table.Cell>{sub.subscriptionPlanName}</Table.Cell>
+									<Table.Cell>{sub.duration}</Table.Cell>
+									<Table.Cell>{sub.noOfStudents}</Table.Cell>
+									<Table.Cell textAlign="right">{sub.price}</Table.Cell>
+									<Table.Cell><Label color="green">{sub.isActive}</Label></Table.Cell>
+									<Table.Cell textAlign="right">
+										<Icon name="edit" className="primary-color" link />
+										<Icon name="trash alternate" color="red" link />
+									</Table.Cell>
+								</Table.Row>
+							)})}
+						</Table.Body>
+					</Table>
+				</Grid.Column>
+			</Grid>
+			<AddSubscription openModal={subscription} closeModal={openModal} />
 		</div>
-		);
-  }
-  
-  export default SubscriptionPage;
+	);
+}
+const mapStateToProps = state => {
+	return {
+		api: state.api,
+		auth: state.auth,
+		global: state.global,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		actions: {
+			apiCall: bindActionCreators(actions.apiCall, dispatch),
+			storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
+		}
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SubscriptionPage);
