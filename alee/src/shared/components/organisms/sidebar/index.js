@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, CurrentLessonWhite, CurrentLessonBlue, PreviousLessonWhite, PreviousLessonBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, SettingWhite, SettingBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite } from "../../../functional/global-image-import";
+import { Logo2, UserManagementBlue, UserManagementWhite, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, CurrentLessonWhite, CurrentLessonBlue, PreviousLessonWhite, PreviousLessonBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, SettingWhite, SettingBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite } from "../../../functional/global-image-import";
 
 
 function Sidebar() {
@@ -11,13 +11,8 @@ function Sidebar() {
 	// state = { isActive: '' };
 	const handleItemClick = (e, { name }) => setActiveItem( name );
 	const handleToggle = () => setIsActive(!isActive);
-	
-
 	const handleClick = (chapterName) => setIsActive( chapterName );
 	
-
-
-
 	return (
 		<div className="Sidebar">
 			<div className="logo">
@@ -102,6 +97,24 @@ function Sidebar() {
 							<Image src={DashboardBlue} className="blue" />
 							<span>Dashboard</span>
 						</Menu.Item>
+						<Menu.Item className="lessonPlan" as={Link} to="user-management" name='user-management' active={activeItem === 'user-management'} onClick={handleItemClick}>
+							<Image src={UserManagementWhite} className="white" />
+							<Image src={UserManagementBlue} className="blue" />
+							<span>User Management</span>
+							<Icon name="caret down" onClick={() => handleClick('UserManagement')} />
+						</Menu.Item>
+						<div className={`lessonPlanMenu  ${isActive === 'UserManagement' ? "show" : ""}`}>
+							<Menu.Item as={Link} to="manage-teachers" name='manage-teacher' active={activeItem === 'manage-teacher'} onClick={handleItemClick}>
+								<Image src={ManageTeacherWhite} className="white" />
+								<Image src={ManageTeacherBlue} className="blue" />
+								<span>Manage Teachers</span>
+							</Menu.Item>
+							<Menu.Item as={Link} to="manage-schools" name='manage-schools' active={activeItem === 'manage-schools'} onClick={handleItemClick}>
+								<Image src={ManageSchoolWhite} className="white" />
+								<Image src={ManageSchoolBlue} className="blue" />
+								<span>Manage Schools</span>
+							</Menu.Item>
+						</div>
 					<Menu.Item as={Link} to="scan-book" name='ScanBook' active={activeItem === 'ScanBook'} onClick={handleItemClick}>
 						<Image src={ScanBookWhite} className="white" />
 						<Image src={ScanBookBlue} className="blue" />
@@ -145,16 +158,7 @@ function Sidebar() {
 						<Image src={AddTagListingBlue} className="blue" />
 						<span>Add Tags Listing</span>
 					</Menu.Item>
-					<Menu.Item as={Link} to="manage-teachers" name='manage-teacher' active={activeItem === 'manage-teacher'} onClick={handleItemClick}>
-						<Image src={ManageTeacherWhite} className="white" />
-						<Image src={ManageTeacherBlue} className="blue" />
-						<span>Manage Teachers</span>
-					</Menu.Item>
-					<Menu.Item as={Link} to="manage-schools" name='manage-schools' active={activeItem === 'manage-schools'} onClick={handleItemClick}>
-						<Image src={ManageSchoolWhite} className="white" />
-						<Image src={ManageSchoolBlue} className="blue" />
-						<span>Manage Schools</span>
-					</Menu.Item>
+					
 					<Menu.Item as={Link} to="payment-management" name='payment-management' active={activeItem === 'payment-management'} onClick={handleItemClick}>
 						<Image src={PaymentManagementWhite} className="white" />
 						<Image src={PaymentManagementBlue} className="blue" />

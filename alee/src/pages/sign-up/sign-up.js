@@ -73,14 +73,10 @@ function SignupForm() {
                         <Grid.Column width={8} >
                           <Form.Input label="Password" placeholder="********"/>
                         </Grid.Column>
-                        { localStorage.getItem("Usertype") === "school" &&
                         <Grid.Column width={8} >
                           <Form.Input label="Confirm Password" placeholder="********"/>
                         </Grid.Column>
-                          }
-                          <Grid.Column width={10} verticalAlign="middle">
-                          <Form.Checkbox label='Remember me' />
-                          </Grid.Column>
+                          
                         <Grid.Column width={6} >
                           { localStorage.getItem("Usertype") === "teacher" &&	  <Button as={Link} to="profile" className="primaryBtn" >Sign Up</Button>}
                           { localStorage.getItem("Usertype") === "school" &&	  <Button as={Link} to="upload-excel" className="primaryBtn" >Sign Up</Button>}
