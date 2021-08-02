@@ -1,5 +1,5 @@
 import React ,{useState} from "react";
-import { Icon, Grid, Dropdown, Image } from "semantic-ui-react";
+import { Icon, Grid, Dropdown, Image ,Feed,Card} from "semantic-ui-react";
 import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
 
