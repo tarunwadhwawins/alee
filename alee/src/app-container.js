@@ -11,19 +11,19 @@ class AppContainer extends Component {
       window.scroll(0, 0);
       debugger;
       if (localStorage.getItem("BookType") !== "") {
-        if (location.pathname === "/alee/chapter-empty" ) {
+        if (location.pathname === "/chapter-empty" ) {
           localStorage.setItem("BookType", "No Chapter");
         }
-        else if (location.pathname === "/alee/chapter") {
+        else if (location.pathname === "/chapter") {
           localStorage.setItem("BookType", "With Chapter");
         }
-        else if (location.pathname === "/alee/subtitle" || location.pathname === "/alee/add-tags" || location.pathname === "book-summary") {
+        else if (location.pathname === "/subtitle" || location.pathname === "/add-tags" || location.pathname === "book-summary") {
           localStorage.setItem("BookType", "With Topic Chapter");
         }
-        else if (location.pathname !== "/alee/chapter-empty" && location.pathname !== "/alee/chapter" && location.pathname !== "/alee/subtitle" && location.pathname !== "/alee/book-summary") {
+        else if (location.pathname !== "/chapter-empty" && location.pathname !== "/chapter" && location.pathname !== "/alee/subtitle" && location.pathname !== "/alee/book-summary") {
           localStorage.setItem("BookType", "");
         }
-        if (location.pathname === "/alee/lesson-plan-creation" || action !== "PUSH") {
+        if (location.pathname === "/lesson-plan-creation" || action !== "PUSH") {
           window.location.reload();
         }
       }

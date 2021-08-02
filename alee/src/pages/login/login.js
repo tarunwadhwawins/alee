@@ -15,8 +15,18 @@ function LoginForm(props) {
   const onsubmit = () => {
     props.actions.apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
-        history.push(`${env.PUBLIC_URL}/scan-book`);
-      },showNotification: true
+        debugger
+        props.actions.loginSuccess(response.role);
+        if (response.role === "Admin") {
+          history.push(`${env.PUBLIC_URL}/scan-book`);
+        }
+        if (response.role === "School") {
+          history.push(`${env.PUBLIC_URL}/upload-excel`);
+        }
+        if (response.role ==="Teacher") {
+          history.push(`${env.PUBLIC_URL}/profile`);
+        }
+      }, showNotification: true
     });
   }
 
@@ -40,7 +50,10 @@ function LoginForm(props) {
                   <Form.Input label="Email" placeholder="abc@gmail.com" data="email" onChange={onHandleChange} />
                 </Grid.Column>
                 <Grid.Column width={16} >
-                  <Form.Input label="Password" placeholder="******" data="password" onChange={onHandleChange} />
+                  <Form.Input label="Password" type="password" placeholder="******" data="password" onChange={onHandleChange} />
+                </Grid.Column>
+                <Grid.Column width={10} verticalAlign="middle">
+                  <Form.Checkbox label='Remember me' />
                 </Grid.Column>
                 <Grid.Column width={7} >
                   <Button className="primaryBtn" onClick={onsubmit}>Sign In</Button>
@@ -68,7 +81,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: {
       apiCall: bindActionCreators(actions.apiCall, dispatch),
-      storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
+      storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch),
+      loginSuccess: bindActionCreators(actions.loginSuccess, dispatch)
     }
   };
 };

@@ -1,18 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Grid, Button, Form } from "semantic-ui-react";
-import { Link } from "../../shared/functional/global-import";
+import { env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { useHistory } from "react-router-dom";
 
 function SchoolSignup(props) {
   const [schoolForm, setSchoolForm] = useState({ schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", password: "", confirmPassword: "" })
-
+  let history = useHistory();
 
   const onHandleChange = (e, { value, data }) => {
     setSchoolForm({ ...schoolForm, [data]: value })
   }
 
   const onsubmit = () => {
-
- 
+    props.actions.apiCall({
+      urls: ["SCHOOLREGISTRATION"], method: "Post", data: schoolForm, onSuccess: (response) => {
+        history.push(`${env.PUBLIC_URL}`);
+      }, showNotification: true
+    });
   }
 
 
@@ -34,21 +38,35 @@ function SchoolSignup(props) {
         <Form.Input label="Phone Number" placeholder="(123) 456-7890" data="schoolContactNo" onChange={onHandleChange} />
       </Grid.Column>
       <Grid.Column width={8} >
-        <Form.Input label="Password" placeholder="********" data="password" onChange={onHandleChange} />
+        <Form.Input label="Password" placeholder="********" type="password" data="password" onChange={onHandleChange} />
       </Grid.Column>
       <Grid.Column width={8} >
-        <Form.Input label="Confirm Password" placeholder="********" data="confirmPassword" onChange={onHandleChange} />
+        <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange} />
       </Grid.Column>
-      <Grid.Column width={10} verticalAlign="middle">
-        <Form.Checkbox label='Remember me' />
-      </Grid.Column>
+      
       <Grid.Column width={6} >
-        <Button as={Link} to="upload-excel" className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
+        <Button className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
       </Grid.Column>
 
     </>
   );
 }
+const mapStateToProps = state => {
+  return {
+    api: state.api,
+    auth: state.auth,
+    global: state.global,
+  };
+};
 
-export default SchoolSignup;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: {
+      apiCall: bindActionCreators(actions.apiCall, dispatch),
+      storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SchoolSignup);
+
 

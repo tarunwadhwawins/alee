@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { Grid, Button, Form } from "semantic-ui-react";
-import { Link } from "../../shared/functional/global-import";
-import { bindActionCreators, connect, actions } from "../../shared/functional/global-import";
-
+import { bindActionCreators, connect, actions, env } from "../../shared/functional/global-import";
+import { useHistory } from "react-router-dom";
 function TeacherSignup(props) {
 
     const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "" })
-
+    let history = useHistory();
     const onHandleChange = (e, { value, data }) => {
         setTeacherForm({ ...teacherForm, [data]: value })
     }
 
     const onsubmit = () => {
         props.actions.apiCall({
-            urls: ["TEACHERREGISTRATION"], method: "POST", data: teacherForm, onSuccess: (response) => {
-
-            }
+            urls: ["TEACHERREGISTRATION"], method: "Post", data: teacherForm, onSuccess: (response) => {
+                history.push(`${env.PUBLIC_URL}`);
+            }, showNotification: true
         });
     }
+
     return (
         <>
             <Grid.Column width={8}>
@@ -33,16 +33,14 @@ function TeacherSignup(props) {
                 <Form.Input label="Phone Number" placeholder="(123) 456-7890" data="contactNo" onChange={onHandleChange} />
             </Grid.Column>
             <Grid.Column width={8} >
-                <Form.Input label="Password" placeholder="********" data="password" onChange={onHandleChange} />
+                <Form.Input label="Password" placeholder="********" type="password" data="password" onChange={onHandleChange} />
             </Grid.Column>
             <Grid.Column width={8} >
-                <Form.Input label="Confirm Password" placeholder="********" data="confirmPassword" onChange={onHandleChange} />
+                <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange} />
             </Grid.Column>
-            <Grid.Column width={10} verticalAlign="middle">
-                <Form.Checkbox label='Remember me' />
-            </Grid.Column>
+            
             <Grid.Column width={6} >
-                <Button as={Link} to="profile" className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
+                <Button className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
             </Grid.Column>
         </>
     );
