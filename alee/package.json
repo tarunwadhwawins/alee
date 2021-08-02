@@ -55,7 +55,8 @@
     "semantic-ui-calendar-react": "^0.15.3",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "simple-react-validator": "^1.6.0",
+    "simple-react-validator": "^1.6.1",
+    "simple-react-validator-hooks": "^1.0.0",
     "swiper": "^6.4.15",
     "web-vitals": "^0.2.4"
   },
