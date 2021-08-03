@@ -1,12 +1,15 @@
 import React ,{useState,useEffect}from "react";
 import { Grid, Header, Table, Button, Icon, Label,Dimmer,Loader} from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
-import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { apiCall } from "../../../src/store/actions/api.actions";
+import { useDispatch,useSelector } from 'react-redux';
+
 
 function StudentListPage(props) {	
 	const [student, setStudent] = React.useState(false)
 	const [file, setFile] = React.useState(null)
 	const [studentList ,setStudentList] = useState(null)
+	const dispatch = useDispatch();
 
 	const openModal = () => {
 		setStudent(!student)
@@ -20,21 +23,22 @@ function StudentListPage(props) {
 	  useEffect(() => {
 		getStundentList();
 	}, []);
-
-
 	  const getStundentList = () => {
-		props.actions.apiCall({
+		
+		dispatch(apiCall({
 			urls: ["GETSTUDENTSLIST"], method: "GET",onSuccess: (response) => {
+				debugger;
 				if (response.length > 0) {
 					setStudentList(response)
 				}
 			}
-		});
+		}));
 	}
-	  
+	const hooksData = useSelector(state => state.api)
+
     return (
 		<div className="common-shadow">
-			{props.api.isApiLoading && (
+			{hooksData.isApiLoading && (
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
@@ -80,25 +84,7 @@ function StudentListPage(props) {
 			</Table>
 			</Grid.Column>
 		</Grid>
-		<AddStudent openModal={student} closeModal={openModal} />
-		</div>
+		<AddStudent openModal={student} closeModal={openModal}/></div>
 		);
   }
-  const mapStateToProps = state => {
-	return {
-	  api: state.api,
-	  auth: state.auth,
-	  global: state.global,
-	};
-  };
-  
-  const mapDispatchToProps = (dispatch) => {
-	return {
-	  actions: {
-		apiCall: bindActionCreators(actions.apiCall, dispatch),
-		storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch),
-		loginSuccess: bindActionCreators(actions.loginSuccess, dispatch)
-	  }
-	};
-  };
-  export default connect(mapStateToProps, mapDispatchToProps)(StudentListPage);
+  export default StudentListPage;

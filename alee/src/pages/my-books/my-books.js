@@ -2,11 +2,14 @@ import React , {useState,useEffect} from "react";
 import { Grid, Item, Header,Dimmer,Loader} from "semantic-ui-react";
 import {Book} from "../../shared/functional/global-image-import";
 import { bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { useDispatch,useSelector } from 'react-redux';
+import { apiCall } from "../../../src/store/actions/api.actions";
 
 
 
 function MyBookPage(props) {
 	const [bookList ,setBookList] = useState(null)
+	const dispatch = useDispatch();
 
 
 	const addChapter = () => {
@@ -23,21 +26,22 @@ function MyBookPage(props) {
 	  useEffect(() => {
 		 getBookList();
 	}, []);
+	
 
  //  get api //
 	  const getBookList = () => {
-		props.actions.apiCall({
+        dispatch(apiCall({
 			urls: ["GETBOOKSLIST"], method: "GET",onSuccess: (response) => {
 				if (response.length > 0) {
 					setBookList(response)
 				}
 			}
-		});
+		}));
 	}
+	const hooksData = useSelector(state => state.api)
     return (
-		
 			<>
-			{props.api.isApiLoading && (
+			{hooksData.isApiLoading && (
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
