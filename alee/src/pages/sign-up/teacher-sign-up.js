@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Grid, Button, Form } from "semantic-ui-react";
-import { bindActionCreators, connect, actions, env } from "../../shared/functional/global-import";
+import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
+import { apiCall } from "../../../src/store/actions/api.actions";
+import { useDispatch } from 'react-redux';
+
 function TeacherSignup(props) {
 
     const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "" })
@@ -9,13 +12,13 @@ function TeacherSignup(props) {
     const onHandleChange = (e, { value, data }) => {
         setTeacherForm({ ...teacherForm, [data]: value })
     }
-
+    const dispatch = useDispatch();
     const onsubmit = () => {
-        props.actions.apiCall({
+        dispatch(apiCall({
             urls: ["TEACHERREGISTRATION"], method: "Post", data: teacherForm, onSuccess: (response) => {
                 history.push(`${env.PUBLIC_URL}`);
             }, showNotification: true
-        });
+        }))
     }
 
     return (
@@ -38,7 +41,7 @@ function TeacherSignup(props) {
             <Grid.Column width={8} >
                 <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange} />
             </Grid.Column>
-            
+
             <Grid.Column width={6} >
                 <Button className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
             </Grid.Column>
@@ -46,22 +49,5 @@ function TeacherSignup(props) {
     );
 }
 
-
-const mapStateToProps = state => {
-    return {
-        api: state.api,
-        auth: state.auth,
-        global: state.global,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: {
-            apiCall: bindActionCreators(actions.apiCall, dispatch),
-            storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
-        }
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(TeacherSignup);
+export default TeacherSignup;
 

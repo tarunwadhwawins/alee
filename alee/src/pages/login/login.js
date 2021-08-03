@@ -1,33 +1,35 @@
 import React, { useState } from "react";
 import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
-import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
+import { apiCall } from "../../../src/store/actions/api.actions";
+import { loginSuccess } from "../../../src/store/actions/auth.actions";
+import { useDispatch } from 'react-redux';
 
 function LoginForm(props) {
   const [logInForm, setLogInForm] = useState({ email: "", password: "" })
   let history = useHistory();
-
+  const dispatch = useDispatch();
   const onHandleChange = (e, { value, data }) => {
     setLogInForm({ ...logInForm, [data]: value })
   }
 
   const onsubmit = () => {
-    props.actions.apiCall({
+    dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
-        debugger
-        props.actions.loginSuccess(response.role);
+        dispatch(loginSuccess(response.role));
         if (response.role === "Admin") {
           history.push(`${env.PUBLIC_URL}/scan-book`);
         }
         if (response.role === "School") {
           history.push(`${env.PUBLIC_URL}/upload-excel`);
         }
-        if (response.role ==="Teacher") {
+        if (response.role === "Teacher") {
           history.push(`${env.PUBLIC_URL}/profile`);
         }
       }, showNotification: true
-    });
+    }))
   }
 
   return (
@@ -69,23 +71,6 @@ function LoginForm(props) {
     </div>
   );
 }
-const mapStateToProps = state => {
-  return {
-    api: state.api,
-    auth: state.auth,
-    global: state.global,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: {
-      apiCall: bindActionCreators(actions.apiCall, dispatch),
-      storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch),
-      loginSuccess: bindActionCreators(actions.loginSuccess, dispatch)
-    }
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;
 
 

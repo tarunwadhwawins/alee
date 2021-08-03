@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
 import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite } from "../../../functional/global-image-import";
-import { env, bindActionCreators, connect, actions } from "../../../functional/global-import";
+import {useSelector} from 'react-redux';
 
 function Sidebar(props) {
 	const [activeItem, setActiveItem] = useState("closest")
 	const [isActive, setIsActive] = useState("")
+
+	const api = useSelector(state=>state.auth)
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 	const handleClick = (chapterName) => setIsActive(chapterName);
@@ -17,7 +19,7 @@ function Sidebar(props) {
 				<Link to="dashboard"><Image src={Logo2} /></Link>
 			</div>
 			<div className="mainMenu">
-				{props.auth.loggedIn === "School" &&
+				{api.loggedIn === "School" &&
 					<Menu text vertical>
 						<Menu.Item as={Link} to="upload-excel" name='UploadExcel' active={activeItem === 'UploadExcel'} onClick={handleItemClick}>
 							<Image src={DashboardWhite} className="white" />
@@ -36,7 +38,7 @@ function Sidebar(props) {
 						</Menu.Item>
 					</Menu>
 				}
-				{props.auth.loggedIn === "Teacher" &&
+				{api.loggedIn === "Teacher" &&
 					<Menu text vertical>
 
 						<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
@@ -73,7 +75,7 @@ function Sidebar(props) {
 						</Menu.Item>
 					</Menu>
 				}
-				{props.auth.loggedIn === "Admin" && <Menu text vertical>
+				{api.loggedIn === "Admin" && <Menu text vertical>
 					<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
 						<Image src={DashboardWhite} className="white" />
 						<Image src={DashboardBlue} className="blue" />
@@ -331,21 +333,5 @@ function Sidebar(props) {
 		</div>
 	);
 }
-const mapStateToProps = state => {
-	return {
-		api: state.api,
-		auth: state.auth,
-		global: state.global,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		actions: {
-			apiCall: bindActionCreators(actions.apiCall, dispatch),
-			storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
-		}
-	};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default Sidebar;
 
