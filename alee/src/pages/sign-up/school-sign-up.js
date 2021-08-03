@@ -1,24 +1,27 @@
 import React, { useState } from "react";
 import { Grid, Button, Form } from "semantic-ui-react";
-import { env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
+import { apiCall } from "../../../src/store/actions/api.actions";
+import { useDispatch } from 'react-redux';
 
 function SchoolSignup(props) {
   const [schoolForm, setSchoolForm] = useState({ schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", password: "", confirmPassword: "" })
   let history = useHistory();
+
+  const dispatch = useDispatch();
 
   const onHandleChange = (e, { value, data }) => {
     setSchoolForm({ ...schoolForm, [data]: value })
   }
 
   const onsubmit = () => {
-    props.actions.apiCall({
+    dispatch(apiCall({
       urls: ["SCHOOLREGISTRATION"], method: "Post", data: schoolForm, onSuccess: (response) => {
         history.push(`${env.PUBLIC_URL}`);
       }, showNotification: true
-    });
+    }));
   }
-
 
   return (
     <>
@@ -43,30 +46,13 @@ function SchoolSignup(props) {
       <Grid.Column width={8} >
         <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange} />
       </Grid.Column>
-      
       <Grid.Column width={6} >
         <Button className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
       </Grid.Column>
-
     </>
   );
 }
-const mapStateToProps = state => {
-  return {
-    api: state.api,
-    auth: state.auth,
-    global: state.global,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: {
-      apiCall: bindActionCreators(actions.apiCall, dispatch),
-      storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
-    }
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(SchoolSignup);
+export default SchoolSignup;
 
 
