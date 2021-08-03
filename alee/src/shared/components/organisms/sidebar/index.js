@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
 import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite } from "../../../functional/global-image-import";
+import {useSelector} from 'react-redux';
 
-
-function Sidebar() {
+function Sidebar(props) {
 	const [activeItem, setActiveItem] = useState("closest")
 	const [isActive, setIsActive] = useState("")
+
+	const api = useSelector(state=>state.auth)
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 	const handleClick = (chapterName) => setIsActive(chapterName);
@@ -17,7 +19,7 @@ function Sidebar() {
 				<Link to="dashboard"><Image src={Logo2} /></Link>
 			</div>
 			<div className="mainMenu">
-				{!localStorage.getItem("BookType") && localStorage.getItem("Usertype") === "school" &&
+				{api.loggedIn === "School" &&
 					<Menu text vertical>
 						<Menu.Item as={Link} to="upload-excel" name='UploadExcel' active={activeItem === 'UploadExcel'} onClick={handleItemClick}>
 							<Image src={DashboardWhite} className="white" />
@@ -36,7 +38,7 @@ function Sidebar() {
 						</Menu.Item>
 					</Menu>
 				}
-				{!localStorage.getItem("BookType") && localStorage.getItem("Usertype") === "teacher" &&
+				{api.loggedIn === "Teacher" &&
 					<Menu text vertical>
 
 						<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
@@ -44,11 +46,7 @@ function Sidebar() {
 							<Image src={DashboardBlue} className="blue" />
 							<span>Dashboard</span>
 						</Menu.Item>
-						{/* <Menu.Item name='Standards' active={activeItem === 'Standards'} onClick={handleItemClick}>
-						<Image src={StandardsWhite} className="white"/>
-						<Image src={StandardsBlue} className="blue"/>
-						<span>Standards</span>
-					</Menu.Item> */}
+						
 						<Menu.Item as={Link} to="student-list" name='StudentList' active={activeItem === 'StudentList'} onClick={handleItemClick}>
 							<Image src={StudentListWhite} className="white" />
 							<Image src={StudentListBlue} className="blue" />
@@ -69,27 +67,15 @@ function Sidebar() {
 							<Image src={MyBookBlue} className="blue" />
 							<span>My Books</span>
 						</Menu.Item>
-						{/* <Menu.Item name='Setting' active={activeItem === 'Setting'}  className="lessonPlan" onClick={handleItemClick}>
-						<Image src={SettingWhite} className="white"/>
-						<Image src={SettingBlue} className="blue"/>
-						<span>Setting</span>
-						<Icon name="caret down"  onClick={()=>handleClick('Setting') }/>
-					</Menu.Item>
-					<div className={`lessonPlanMenu  ${isActive==='Setting' ? "show" : ""}`}>
-						<Menu.Item as={Link} to="subscription-plan" name='subscription-plan' active={activeItem === 'subscription-plan'} onClick={handleItemClick}>
-							<Image src={SubscriptionWhite} className="white"/>
-							<Image src={SubscriptionBlue} className="blue"/>
-							<span>Subscription</span>
-						</Menu.Item>
-					</div> */}
-						<Menu.Item as={Link} to="/alee" name='LogOut' active={activeItem === 'LogOut'} onClick={handleItemClick}>
+						
+						<Menu.Item as={Link} to="" name='LogOut' active={activeItem === 'LogOut'} onClick={handleItemClick}>
 							<Image src={LogOutWhite} className="white" />
 							<Image src={LogOutBlue} className="blue" />
 							<span>Log Out</span>
 						</Menu.Item>
 					</Menu>
 				}
-				{!localStorage.getItem("BookType") && localStorage.getItem("Usertype") === "admin" && <Menu text vertical>
+				{api.loggedIn === "Admin" && <Menu text vertical>
 					<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
 						<Image src={DashboardWhite} className="white" />
 						<Image src={DashboardBlue} className="blue" />
@@ -138,7 +124,7 @@ function Sidebar() {
 						<Image src={AddTagListingBlue} className="blue" />
 						<span>Add Tags Listing</span>
 					</Menu.Item>
-					
+
 					<Menu.Item as={Link} to="payment-management" name='payment-management' active={activeItem === 'payment-management'} onClick={handleItemClick}>
 						<Image src={PaymentManagementWhite} className="white" />
 						<Image src={PaymentManagementBlue} className="blue" />
@@ -249,7 +235,6 @@ function Sidebar() {
 					</Menu>
 				}
 
-
 				{/* Chapter with Topic */}
 
 				{localStorage.getItem("BookType") === "With Topic Chapter" &&
@@ -344,16 +329,9 @@ function Sidebar() {
 					</Menu>
 				}
 
-
-
-
-
 			</div>
 		</div>
 	);
 }
-
-
-
-
 export default Sidebar;
+

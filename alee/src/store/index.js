@@ -35,7 +35,7 @@ const configureStore = () => {
       ? applyMiddleware(...middleware)
       : compose(
         applyMiddleware(...middleware),
-        // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
       );
   // create redux store
   const store = createStore(persistedReducer, enhancers);
