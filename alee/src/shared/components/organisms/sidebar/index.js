@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite } from "../../../functional/global-image-import";
-import {useSelector} from 'react-redux';
+import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite ,UserManagementBlue,UserManagementWhite} from "../../../functional/global-image-import";
+import { useSelector } from 'react-redux';
 
 function Sidebar(props) {
 	const [activeItem, setActiveItem] = useState("closest")
 	const [isActive, setIsActive] = useState("")
 
-	const api = useSelector(state=>state.auth)
+	const api = useSelector(state => state.auth)
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 	const handleClick = (chapterName) => setIsActive(chapterName);
@@ -46,7 +46,7 @@ function Sidebar(props) {
 							<Image src={DashboardBlue} className="blue" />
 							<span>Dashboard</span>
 						</Menu.Item>
-						
+
 						<Menu.Item as={Link} to="student-list" name='StudentList' active={activeItem === 'StudentList'} onClick={handleItemClick}>
 							<Image src={StudentListWhite} className="white" />
 							<Image src={StudentListBlue} className="blue" />
@@ -67,7 +67,7 @@ function Sidebar(props) {
 							<Image src={MyBookBlue} className="blue" />
 							<span>My Books</span>
 						</Menu.Item>
-						
+
 						<Menu.Item as={Link} to="" name='LogOut' active={activeItem === 'LogOut'} onClick={handleItemClick}>
 							<Image src={LogOutWhite} className="white" />
 							<Image src={LogOutBlue} className="blue" />
@@ -81,6 +81,24 @@ function Sidebar(props) {
 						<Image src={DashboardBlue} className="blue" />
 						<span>Dashboard</span>
 					</Menu.Item>
+					<Menu.Item className="lessonPlan" as={Link} to="user-management" name='user-management' active={activeItem === 'user-management'} onClick={handleItemClick}>
+						<Image src={UserManagementWhite} className="white" />
+						<Image src={UserManagementBlue} className="blue" />
+						<span>User Management</span>
+						<Icon name="caret down" onClick={() => handleClick('UserManagement')} />
+					</Menu.Item>
+					<div className={`lessonPlanMenu  ${isActive === 'UserManagement' ? "show" : ""}`}>
+						<Menu.Item as={Link} to="manage-teachers" name='manage-teacher' active={activeItem === 'manage-teacher'} onClick={handleItemClick}>
+							<Image src={ManageTeacherWhite} className="white" />
+							<Image src={ManageTeacherBlue} className="blue" />
+							<span>Manage Teachers</span>
+						</Menu.Item>
+						<Menu.Item as={Link} to="manage-schools" name='manage-schools' active={activeItem === 'manage-schools'} onClick={handleItemClick}>
+							<Image src={ManageSchoolWhite} className="white" />
+							<Image src={ManageSchoolBlue} className="blue" />
+							<span>Manage Schools</span>
+						</Menu.Item>
+					</div>
 					<Menu.Item as={Link} to="scan-book" name='ScanBook' active={activeItem === 'ScanBook'} onClick={handleItemClick}>
 						<Image src={ScanBookWhite} className="white" />
 						<Image src={ScanBookBlue} className="blue" />

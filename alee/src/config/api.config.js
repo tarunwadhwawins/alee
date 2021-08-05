@@ -10,9 +10,12 @@ const API_ENDPOINTS = {
     GETSUBSCRIPTIONPLANLIST: "/Subscription/GetSubscriptionPlanList",
     GETTEACHERSLIST: "/Teacher/GetTeachersList",
     GETUSERMANAGEMENTLIST: "/Authentication/GetUserManagementList",
-    SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",  
+    SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",
+    APPROVEUSERMANAGEMENT:"/Authentication/ApproveUser", 
     GETBOOKSLIST:"/Books/GetBooksList",
    
+    DELETESTUDENT:"/Student/DeleteStudent",
+    STUDENTTOGGLE:"/Student/ToggleIsActive",
 };
 export const getApiUrl = key => {
     return API_URL + API_ENDPOINTS[key];
