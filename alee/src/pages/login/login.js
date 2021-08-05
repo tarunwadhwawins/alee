@@ -15,7 +15,6 @@ function LoginForm() {
   const onHandleChange = (e, { value, data }) => {
     setLogInForm({ ...logInForm, [data]: value })
   }
-
   const onsubmit = () => {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {

@@ -1,33 +1,39 @@
 import React, { useEffect } from "react";
-import { Grid, Icon, Table, Label, Header, Form } from "semantic-ui-react";
-import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
-import { useDispatch } from 'react-redux';
+import { Grid, Icon, Table, Label, Header, Form,Dimmer,Loader } from "semantic-ui-react";
+import { useDispatch,useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
 
-
-function ManageTeacherPage(props) {
-	const initUser = { schoolId: -1 };
-	const [teacher, setTeacher] = React.useState(initUser)
+function ManageTeacherPage() {
+     debugger;
+    const initialValue = [
+     {schoolId:-1}];
+	const [teacher, setTeacher] = React.useState(initialValue)
+	;
 	const dispatch = useDispatch();
 	useEffect(() => {
 		getTeachersList();
 	}, []);
-
 	const getTeachersList = () => {
-		debugger
+	  debugger;
 		dispatch(apiCall({
-			urls: ["GETTEACHERSLIST"], method: "GET", data: teacher, onSuccess: (response) => {
+			urls: [" GETTEACHERSLIST"], method: "GET", data: teacher, onSuccess: (response) => {
 				if (response.length > 0) {
 					setTeacher(response)
 				}
 			}
-		}))
+		}));
 	}
+	const hooksData = useSelector(state => state.api)
 	return (
 		<Form>
+       	{hooksData.isApiLoading && (
+				<Dimmer active inverted>
+					<Loader />
+				</Dimmer>
+			)}
 			<Grid>
 				<Grid.Column width={16}>
-					<Header as="h3" className="commonHeading">Manage Teacher</Header>
+					<Header as="h3" className="commonHeading">ManageTeacher</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<Table singleLine>
@@ -68,4 +74,7 @@ function ManageTeacherPage(props) {
 		</Form>
 	);
 }
+
 export default ManageTeacherPage;
+
+

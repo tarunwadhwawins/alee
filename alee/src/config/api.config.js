@@ -13,6 +13,7 @@ const API_ENDPOINTS = {
     SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",
     APPROVEUSERMANAGEMENT:"/Authentication/ApproveUser", 
     GETBOOKSLIST:"/Books/GetBooksList",
+   
     DELETESTUDENT:"/Student/DeleteStudent",
     STUDENTTOGGLE:"/Student/ToggleIsActive",
 };
