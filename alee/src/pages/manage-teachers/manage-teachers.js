@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
-import { Grid, Icon, Table, Label, Header, Form,Dimmer,Loader } from "semantic-ui-react";
-import { useDispatch,useSelector } from 'react-redux';
+import { Grid, Icon, Table, Label, Header, Form, Dimmer, Loader } from "semantic-ui-react";
+import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
 
 function ManageTeacherPage() {
-     debugger;
-    const initialValue = [
-     {schoolId:-1}];
+	debugger;
+	const initialValue = [
+		{ schoolId: -1 }];
 	const [teacher, setTeacher] = React.useState(initialValue)
-	;
+		;
 	const dispatch = useDispatch();
 	useEffect(() => {
 		getTeachersList();
 	}, []);
 	const getTeachersList = () => {
-	  debugger;
+		debugger;
 		dispatch(apiCall({
-			urls: [" GETTEACHERSLIST"], method: "GET", data: teacher, onSuccess: (response) => {
+			urls: ["GETTEACHERSLIST"], method: "GET", data: teacher, onSuccess: (response) => {
 				if (response.length > 0) {
 					setTeacher(response)
 				}
@@ -26,7 +26,7 @@ function ManageTeacherPage() {
 	const hooksData = useSelector(state => state.api)
 	return (
 		<Form>
-       	{hooksData.isApiLoading && (
+			{hooksData.isApiLoading && (
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
@@ -50,7 +50,7 @@ function ManageTeacherPage() {
 
 
 						<Table.Body>
-							{teacher.map((teach) => {
+							{teacher && teacher.map((teach) => {
 								return (
 									<Table.Row>
 										<Table.Cell>{teach.firstName}{" "}{teach.lastName}</Table.Cell>

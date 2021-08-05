@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Icon, Table, Label, Header, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Icon, Table, Label, Header, Dimmer, Loader, Form } from "semantic-ui-react";
 import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { DataTable } from "../../../src/shared/components/organisms";
 
 function SchoolManageTeacherPage(props) {
+
 	const [teacher, setTeacher] = React.useState("")
 
 	useEffect(() => {
@@ -24,43 +26,60 @@ function SchoolManageTeacherPage(props) {
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
-
 			)}
 			<Grid>
 				<Grid.Column width={16}>
 					<Header as="h3" className="commonHeading">Manage Teachers</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
-					<Table singleLine>
-						<Table.Header>
-							<Table.Row>
-								<Table.HeaderCell>Teacher Name</Table.HeaderCell>
-								<Table.HeaderCell>Email</Table.HeaderCell>
-								<Table.HeaderCell>Username</Table.HeaderCell>
-								<Table.HeaderCell>Password</Table.HeaderCell>
-								<Table.HeaderCell>Status</Table.HeaderCell>
-								<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
-							</Table.Row>
-						</Table.Header>
-
-						<Table.Body>
-							{teacher && teacher.map((teach) => {
-								return (
-									<Table.Row>
-										<Table.Cell>Jane Doe</Table.Cell>
-										<Table.Cell>jdoe@gmail.com</Table.Cell>
-										<Table.Cell>jdoe@gmail.com</Table.Cell>
-										<Table.Cell>janedoe@123</Table.Cell>
-										<Table.Cell><Label color="green">Active</Label></Table.Cell>
-										<Table.Cell textAlign="right">
+					<DataTable
+						allApi={{ getApiName: "GETTEACHERSLIST", deleteApiName: "DELETETEACHER", toggleApiName: "TEACHERTOGGLE" }}
+						additionalParams={{ schoolId: -1}}
+						searchOption={{ show: false, placeHolder: "Search" }}
+						columns={[
+							{
+								headerName: "School Name",
+								fieldName: "schoolName",
+								isSorting: true,
+							},
+							{
+								headerName: "Email",
+								fieldName: "email",
+								isSorting: true
+							},
+							{
+								headerName: "User Name",
+								fieldName: "email",
+								isSorting: true
+							},
+							{
+								headerName: "Status",
+								fieldName: "isActive",
+								isSorting: true,
+								Cell: (props, confirmModalOpen) => {
+									debugger
+									return (
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "toggle")} />
+									);
+								},
+							},
+							{
+								headerName: "Action",
+								fieldName: "Action",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									debugger
+									return (
+										<>
 											<Icon name="edit" className="primary-color" link />
-											<Icon name="trash alternate" color="red" link />
-										</Table.Cell>
-									</Table.Row>
-								)
-							})}
-						</Table.Body>
-					</Table>
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.schoolId, "delete")} />
+										</>
+									);
+								},
+							},
+						]}
+
+					></DataTable>
 				</Grid.Column>
 			</Grid>
 		</div>
