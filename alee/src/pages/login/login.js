@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
-import { Link, env, Notifications } from "../../shared/functional/global-import";
+import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
@@ -11,7 +11,7 @@ function LoginForm() {
   const [logInForm, setLogInForm] = useState({ email: "", password: "" })
   let history = useHistory();
   const dispatch = useDispatch();
-  const api = useSelector(state => state.action)
+  const api = useSelector(state => state.api)
   const onHandleChange = (e, { value, data }) => {
     setLogInForm({ ...logInForm, [data]: value })
   }
@@ -19,7 +19,6 @@ function LoginForm() {
   const onsubmit = () => {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
-
         dispatch(loginSuccess(response.role));
         if (response.isSuccess) {
           if (response.role === "Admin") {
@@ -64,7 +63,7 @@ function LoginForm() {
                   <Form.Checkbox label='Remember me' />
                 </Grid.Column>
                 <Grid.Column width={7} >
-                  <Button className="primaryBtn" onClick={onsubmit}>Sign In</Button>
+                  <Button className="primaryBtn" onClick={onsubmit} loading={api.isApiLoading}>Sign In</Button>
                 </Grid.Column>
                 <Grid.Column width={9} textAlign="right" verticalAlign="middle">
                   <Link to="" className="primary-color">Forgot Password</Link>

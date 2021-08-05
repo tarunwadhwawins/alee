@@ -7,13 +7,13 @@ function ConfirmModal(props) {
     return (
         <Modal size="tiny" open={props.open.modalStatus}>
             <Modal.Content>
-                <p style={{ fontSize: 17 }}>{props.open.type === "delete" ? "Do you want to delete this record ?" : "Do you want to update this record ?"}</p>
+                <p style={{ fontSize: 17 }}>  {"Do you want to"} {props.open.type} {"this record ?"} </p>
             </Modal.Content>
             <Modal.Actions>
-                <Button onClick={props.close}>
+                <Button className="secondaryBtn" onClick={props.close}>
                     Cancel
                 </Button>
-                <Button onClick={props.onConfirm} loading={api.isApiLoading} >
+                <Button className="primaryBtn" onClick={props.onConfirm} loading={api.isApiLoading} >
                     Confirm
                 </Button>
             </Modal.Actions>

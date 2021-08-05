@@ -3,7 +3,7 @@ import { Grid, Button, Form } from "semantic-ui-react";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function TeacherSignup(props) {
 
@@ -13,6 +13,7 @@ function TeacherSignup(props) {
         setTeacherForm({ ...teacherForm, [data]: value })
     }
     const dispatch = useDispatch();
+    const api = useSelector(state => state.api)
     const onsubmit = () => {
         dispatch(apiCall({
             urls: ["TEACHERREGISTRATION"], method: "Post", data: teacherForm, onSuccess: (response) => {
@@ -43,7 +44,7 @@ function TeacherSignup(props) {
             </Grid.Column>
 
             <Grid.Column width={6} >
-                <Button className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
+                <Button className="primaryBtn" onClick={onsubmit} loading={api.isApiLoading}>Sign Up</Button>
             </Grid.Column>
         </>
     );

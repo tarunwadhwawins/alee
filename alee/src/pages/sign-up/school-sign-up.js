@@ -3,14 +3,14 @@ import { Grid, Button, Form } from "semantic-ui-react";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function SchoolSignup(props) {
   const [schoolForm, setSchoolForm] = useState({ schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", password: "", confirmPassword: "" })
   let history = useHistory();
 
   const dispatch = useDispatch();
-
+  const api = useSelector(state => state.api)
   const onHandleChange = (e, { value, data }) => {
     setSchoolForm({ ...schoolForm, [data]: value })
   }
@@ -47,7 +47,7 @@ function SchoolSignup(props) {
         <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange} />
       </Grid.Column>
       <Grid.Column width={6} >
-        <Button className="primaryBtn" onClick={onsubmit}>Sign Up</Button>
+        <Button className="primaryBtn" onClick={onsubmit} loading={api.isApiLoading}>Sign Up</Button>
       </Grid.Column>
     </>
   );
