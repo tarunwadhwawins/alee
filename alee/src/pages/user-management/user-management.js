@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "semantic-ui-react";
+import { Divider, Form, Grid, Header } from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
 import Moment from "react-moment";
 import { useDispatch } from 'react-redux';
@@ -15,12 +15,17 @@ function UserManagementPage(props) {
 
 	return (
 		<div className="common-shadow">
-
+			<Grid.Column width={16} verticalAlign="middle">
+				<Header as="h3" className="commonHeading">User Management</Header>
+			</Grid.Column>
+			<Grid.Column width={16}>
+				<Divider hidden></Divider>
+			</Grid.Column>
 			<AddStudent openModal={student} closeModal={openModal} />
 			<DataTable
 				allApi={{ getApiName: "GETUSERMANAGEMENTLIST", toggleApiName: "APPROVEUSERMANAGEMENT", deleteApiName: "DELETESTUDENT" }}
 				isSorting={false}
-				searchOption={{ show: false, placeHolder: "Search" }}
+				searchOption={{ show: true, placeHolder: "Search" }}
 				columns={[
 					{
 						headerName: "User Name",
@@ -36,7 +41,7 @@ function UserManagementPage(props) {
 					{
 						headerName: "Role",
 						fieldName: "roleName",
-						isSorting: false,
+						isSorting: true,
 					},
 					{
 						headerName: "Created At",
@@ -54,7 +59,7 @@ function UserManagementPage(props) {
 						isSorting: false,
 						Cell: (props, confirmModalOpen) => {
 							return (
-								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.userId,"toggle")} />
+								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.userId, "approve")} />
 							);
 						},
 					},

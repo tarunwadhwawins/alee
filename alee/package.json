@@ -33,6 +33,7 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-images-uploading": "^3.1.2",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-infinite-scroll-hook": "^4.0.1",
     "react-lines-ellipsis": "^0.14.1",
     "react-loading-skeleton": "^2.2.0",
     "react-moment": "^1.1.1",

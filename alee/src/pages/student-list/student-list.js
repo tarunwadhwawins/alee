@@ -1,13 +1,11 @@
 import React from "react";
 import { Grid, Header, Button, Icon, Form} from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
-import { useDispatch } from 'react-redux';
 import { DataTable } from "../../../src/shared/components/organisms";
 
-function StudentListPage(props) {
+function StudentListPage() {
 	const [student, setStudent] = React.useState(false)
 	const [file, setFile] = React.useState(null)
-	const dispatch = useDispatch();
 
 	const openModal = () => {
 		setStudent(!student)
@@ -34,8 +32,8 @@ function StudentListPage(props) {
 				
 					<DataTable
 						allApi={{ getApiName: "GETSTUDENTSLIST", deleteApiName: "DELETESTUDENT",toggleApiName:"STUDENTTOGGLE"}}
-						isSorting={false}
-						searchOption={{ show: false, placeHolder: "Search" }}
+						searchOption={{ show: true, placeHolder: "Search" }}
+						additionalParams={{ a:"a",b:"b"}}
 						columns={[
 							{
 								headerName: "Name",
@@ -51,16 +49,15 @@ function StudentListPage(props) {
 							{
 								headerName: "Grade",
 								fieldName: "gradeName",
-								isSorting: false,
+								isSorting: true,
 							},
 							{
 								headerName: "Status",
 								fieldName: "isActive",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									debugger
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.studentId,"toggle")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.studentId,"update")} />
 									);
 								},
 							},
@@ -69,7 +66,6 @@ function StudentListPage(props) {
 								fieldName: "Action",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									debugger
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link />
