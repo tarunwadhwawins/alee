@@ -10,7 +10,7 @@ const API_ENDPOINTS = {
     GETSUBSCRIPTIONPLANLIST: "/Subscription/GetSubscriptionPlanList",
     GETTEACHERSLIST: "/Teacher/GetTeachersList",
     DELETETEACHER: "/Teacher/DeleteTeacher",
-    TEACHERTOGGLE:"/Teacher/ToggleIsActive",
+    TEACHERTOGGLE: "/Teacher/ToggleIsActive",
     GETUSERMANAGEMENTLIST: "/Authentication/GetUserManagementList",
     SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",
     APPROVEUSERMANAGEMENT: "/Authentication/ApproveUser",
@@ -21,7 +21,25 @@ const API_ENDPOINTS = {
     GETRESOURCESLIST: "/Resource/GetResourcesList",
     GETSCHOOLSLIST: "/School/GetSchoolsList",
     TOGGLEISACTIVE: "/School/ToggleIsActive",
-    DELETESCHOOL: "/School/DeleteSchool"
+    DELETESCHOOL: "/School/DeleteSchool",
+
+    SUBSCRIPTIONTOGGLE: "/Subscription/ToggleIsActive",
+    DELETESUBSCRIPTION: "/Subscription/DeleteSubscription",
+
+
+    TAGTOGGLEISACTIVE: "/Tags​/ToggleIsActive",
+    TAGSDELETETAG: "/Tags/DeleteTag",
+
+    GETLESSONPLANLIST: "/Lesson/GetLessonPlanList",
+    DELETELESSONPLAN: "/Lesson/DeleteLessonPlan",
+    LESSONTOGGLEISACTIVE: "/Lesson/ToggleIsActive",
+
+
+
+
+
+
+
 };
 export const getApiUrl = key => {
     return API_URL + API_ENDPOINTS[key];

@@ -38,9 +38,11 @@ function MyBookPage(props) {
 			}
 		}));
 	}
+	
+	debugger
 	const hooksData = useSelector(state => state.api)
     return (
-			<>
+		<>
 			{hooksData.isApiLoading && (
 				<Dimmer active inverted>
 					<Loader />
@@ -79,22 +81,5 @@ function MyBookPage(props) {
 			</>
     );
 }
- const mapStateToProps = state => {
-	return {
-	  api: state.api,
-	  auth: state.auth,
-	  global: state.global,
-	};
-  };
-  
-  const mapDispatchToProps = (dispatch) => {
-	return {
-	  actions: {
-		apiCall: bindActionCreators(actions.apiCall, dispatch),
-		storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch),
-		loginSuccess: bindActionCreators(actions.loginSuccess, dispatch)
-	  }
-	};
-  };
-  export default connect(mapStateToProps, mapDispatchToProps)(MyBookPage);
+  export default MyBookPage;
 

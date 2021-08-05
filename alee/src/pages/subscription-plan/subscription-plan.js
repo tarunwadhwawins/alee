@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, Icon,Table,Label, Header } from "semantic-ui-react";
-
+import { Grid, Icon,Table,Label, Header,Form } from "semantic-ui-react";
+import { DataTable } from "../../../src/shared/components/organisms";
 
 function SubscriptionPlanPage() {	
     return (
@@ -9,35 +9,59 @@ function SubscriptionPlanPage() {
 					<Header as="h3" className="commonHeading">Subscription Plan</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
-					<Table singleLine>
-						<Table.Header>
-							<Table.Row>
-								<Table.HeaderCell>Plan</Table.HeaderCell>
-								<Table.HeaderCell>Duration</Table.HeaderCell>
-								<Table.HeaderCell>Start Date</Table.HeaderCell>
-								<Table.HeaderCell>End Date</Table.HeaderCell>
-								<Table.HeaderCell>Status</Table.HeaderCell>
-								<Table.HeaderCell  textAlign="right">Action</Table.HeaderCell>
-							</Table.Row>
-						</Table.Header>
+						<DataTable
+	           allApi={{ getApiName:"GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION",toggleApiName:"SUBSCRIPTIONTOGGLE"}}isSorting=     {false}
+						searchOption={{ show: false, placeHolder: "Search" }}
+						columns={[
+							{
+								headerName: "Plan",
+								fieldName: "subscriptionPlanName",
+								isSorting: true,
+							},
+							{
+								headerName:"Duration",
+                                fieldName:"duration",
+								isSorting: true,
+							},
+							{
+								headerName: "Start Date",
+								fieldName: "noOfStudents",
+								isSorting: true
+							},
 
-						<Table.Body>
-							<Table.Row>
-								<Table.Cell>Silver</Table.Cell>
-								<Table.Cell>Yearly</Table.Cell>
-								<Table.Cell>June 25, 2021</Table.Cell>
-								<Table.Cell>June 24, 2022</Table.Cell>
-								<Table.Cell><Label color="green">Active</Label></Table.Cell>
-								<Table.Cell textAlign="right">
-									<Icon name="repeat" className="primary-color" link/>
-									<Icon name="plus" color='green' link/>
-									<Icon name="close" color="red" link/>
-								</Table.Cell>
-							</Table.Row>
-						</Table.Body>
-					</Table>
+							{
+								headerName: "End Date",
+								fieldName: "price",
+							isSorting: false,
+							},
+							{
+								headerName: "Status",
+								fieldName: "isActive",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subscriptionPlanId,"toggle")} />
+									);
+								},
+							},
+		
+							{
+								headerName: "Action",
+								fieldName: "Action",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<>
+											<Icon name="repeat" className="primary-color" link/>
+								        	<Icon name="plus" color='green' link/>
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId,"delete")} />
+										</>
+									);
+								},
+							},
+						]}
+					></DataTable>
 				</Grid.Column>
-			
 			</Grid>
     );
 }
