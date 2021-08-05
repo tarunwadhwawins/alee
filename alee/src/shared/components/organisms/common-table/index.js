@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Table, Input } from "semantic-ui-react";
+import { Grid, Table, Input, Dimmer, Loader } from "semantic-ui-react";
 import TableHeader from "./table-header";
 import TableRow from "./table-row";
 import { Fragment } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../store/actions/api.actions";
 import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index"
 
@@ -11,31 +11,26 @@ function DataTable(props) {
 
     const [values, setValues] = useState([])
     const [sorting, setSorting] = useState({ sortOrder: "asc", sortArrow: "sort" })
-    const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "" })
+    const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
 
     const dispatch = useDispatch();
-
+    const api = useSelector(state => state.api)
     useEffect(() => {
         getCommonTable();
     }, []);
 
-    // useEffect(() => {
-    //     if (props.apiHit) {
-    //         getCommonTable();
-    //     }
-    // }, [props.apiHit]);
-
     const getCommonTable = () => {
         dispatch(apiCall({
-            urls: [props.getApiName], method: "GET", onSuccess: (response) => {
+            urls: [props.allApi.getApiName], method: "GET", onSuccess: (response) => {
                 if (response.length > 0) {
                     setValues(response)
                 }
             }
         }))
     }
-    const confirmModalOpen = (userId) => {
-        setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: userId })
+    const confirmModalOpen = (id, type) => {
+        debugger
+        setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type })
     }
 
     const modalClose = () => {
@@ -44,9 +39,18 @@ function DataTable(props) {
 
     const upDateToggle = () => {
         dispatch(apiCall({
-            urls: [props.toggleApiName], method: "PATCH", data: { userId: confirmModal.selectedId }, onSuccess: (response) => {
-                getCommonTable();
+            urls: [props.allApi.toggleApiName], method: "PATCH", data: { studentId: confirmModal.selectedId }, onSuccess: (response) => {
                 modalClose();
+                getCommonTable();
+            }, showNotification: true
+        }))
+    }
+
+    const onHandleDelete = () => {
+        dispatch(apiCall({
+            urls: [props.allApi.deleteApiName], method: "DELETE", data: { studentId: confirmModal.selectedId }, onSuccess: (response) => {
+                modalClose();
+                getCommonTable();
             }, showNotification: true
         }))
     }
@@ -65,7 +69,7 @@ function DataTable(props) {
     //     }, 500);
     // };
 
-
+    const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
     return (
         <Fragment>
             {props.searchOption && props.searchOption.show &&
@@ -75,6 +79,11 @@ function DataTable(props) {
             }
             <Grid.Column width={16}>
                 <div>
+                    {api.isApiLoading && (
+                        <Dimmer active inverted>
+                            <Loader />
+                        </Dimmer>
+                    )}
                     <Table singleLine>
                         <TableHeader
                             columns={props.columns}
@@ -95,7 +104,7 @@ function DataTable(props) {
                 </div>
             </Grid.Column>
 
-            <ConfirmModal open={confirmModal.modalStatus} upDateToggle={upDateToggle} close={modalClose} />
+            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} />
 
         </Fragment>
     );
