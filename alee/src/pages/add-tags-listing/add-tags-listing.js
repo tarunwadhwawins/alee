@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Grid, Header, Button, Label, Table, Icon, Dimmer, Loader } from "semantic-ui-react";
 import AddTagsListing from "../../shared/components/organisms/modal/add-tags-lisiting"
 import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { useDispatch } from 'react-redux';
+import { apiCall } from "../../../src/store/actions/api.actions";
 
 
 
 function AddTagsListingPage(props) {
 	const [taglisting, setTaglisting] = React.useState(false)
 	const [tag, setTag] = React.useState(null)
+	const dispatch = useDispatch();
 	const openModal = () => {
 		setTaglisting(!taglisting)
 	}
@@ -19,24 +22,24 @@ function AddTagsListingPage(props) {
 	const getTag = () => {
 		console.log("dfghjk")
 
-		props.actions.apiCall({
+		dispatch(apiCall({
 			urls: ["GETTAGSLIST"], method: "GET", data: tag, onSuccess: (response) => {
 				if (response.length > 0) {
 					setTag(response)
 				}
 			}
-		});
+		}))
 	}
 
 	return (
 		<div className="bookSummary">
 
-			{props.api.isApiLoading && (
+			{/* {props.api.isApiLoading && (
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
 
-			)}
+			)} */}
 
 			<Grid>
 				<Grid.Column width={8}>
@@ -79,21 +82,22 @@ function AddTagsListingPage(props) {
 	);
 }
 
-const mapStateToProps = state => {
-	return {
-		api: state.api,
-		auth: state.auth,
-		global: state.global,
-	};
-};
+// const mapStateToProps = state => {
+// 	return {
+// 		api: state.api,
+// 		auth: state.auth,
+// 		global: state.global,
+// 	};
+// };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		actions: {
-			apiCall: bindActionCreators(actions.apiCall, dispatch),
-			storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
-		}
-	};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(AddTagsListingPage);
+// const mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		actions: {
+// 			apiCall: bindActionCreators(actions.apiCall, dispatch),
+// 			storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
+// 		}
+// 	};
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(AddTagsListingPage);
 
+export default AddTagsListingPage;

@@ -1,24 +1,27 @@
 import React, { useEffect } from "react";
 import { Grid, Icon, Table, Label, Header, Form } from "semantic-ui-react";
 import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import { useDispatch } from 'react-redux';
+import { apiCall } from "../../../src/store/actions/api.actions";
 
 
 function ManageTeacherPage(props) {
-
-	const [teacher, setTeacher] = React.useState("")
-
+	const initUser = { schoolId: -1 };
+	const [teacher, setTeacher] = React.useState(initUser)
+	const dispatch = useDispatch();
 	useEffect(() => {
 		getTeachersList();
 	}, []);
 
 	const getTeachersList = () => {
-		props.actions.apiCall({
+		debugger
+		dispatch(apiCall({
 			urls: ["GETTEACHERSLIST"], method: "GET", data: teacher, onSuccess: (response) => {
 				if (response.length > 0) {
 					setTeacher(response)
 				}
 			}
-		});
+		}))
 	}
 	return (
 		<Form>
@@ -41,7 +44,7 @@ function ManageTeacherPage(props) {
 
 
 						<Table.Body>
-							{teacher && teacher.map((teach) => {
+							{teacher.map((teach) => {
 								return (
 									<Table.Row>
 										<Table.Cell>{teach.firstName}{" "}{teach.lastName}</Table.Cell>
@@ -65,22 +68,4 @@ function ManageTeacherPage(props) {
 		</Form>
 	);
 }
-const mapStateToProps = state => {
-	return {
-		api: state.api,
-		auth: state.auth,
-		global: state.global,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		actions: {
-			apiCall: bindActionCreators(actions.apiCall, dispatch),
-			storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
-		}
-	};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ManageTeacherPage);
-
-
+export default ManageTeacherPage;
