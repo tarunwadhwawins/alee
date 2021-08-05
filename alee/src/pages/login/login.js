@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
 import { loginSuccess } from "../../../src/store/actions/auth.actions";
 import { useDispatch } from 'react-redux';
-
 function LoginForm(props) {
   const [logInForm, setLogInForm] = useState({ email: "", password: "" })
   let history = useHistory();
@@ -14,7 +13,6 @@ function LoginForm(props) {
   const onHandleChange = (e, { value, data }) => {
     setLogInForm({ ...logInForm, [data]: value })
   }
-
   const onsubmit = () => {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {

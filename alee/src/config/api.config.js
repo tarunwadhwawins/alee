@@ -12,6 +12,7 @@ const API_ENDPOINTS = {
     GETUSERMANAGEMENTLIST: "/Authentication/GetUserManagementList",
     SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",  
     GETBOOKSLIST:"/Books/GetBooksList",
+   
 };
 export const getApiUrl = key => {
     return API_URL + API_ENDPOINTS[key];
