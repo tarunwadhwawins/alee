@@ -24,8 +24,8 @@ function UserManagementPage(props) {
 			<AddStudent openModal={student} closeModal={openModal} />
 			<DataTable
 				allApi={{ getApiName: "GETUSERMANAGEMENTLIST", toggleApiName: "APPROVEUSERMANAGEMENT", deleteApiName: "DELETESTUDENT" }}
-				isSorting={false}
 				searchOption={{ show: true, placeHolder: "Search" }}
+
 				columns={[
 					{
 						headerName: "User Name",
@@ -59,7 +59,7 @@ function UserManagementPage(props) {
 						isSorting: false,
 						Cell: (props, confirmModalOpen) => {
 							return (
-								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.userId, "approve")} />
+								<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "Update")} />
 							);
 						},
 					},

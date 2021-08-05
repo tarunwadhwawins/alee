@@ -7,26 +7,8 @@ function SchoolManageTeacherPage(props) {
 
 	const [teacher, setTeacher] = React.useState("")
 
-	useEffect(() => {
-		getTeachersList();
-	}, []);
-
-	const getTeachersList = () => {
-		props.actions.apiCall({
-			urls: [""], method: "GET", data: teacher, onSuccess: (response) => {
-				if (response.length > 0) {
-					setTeacher(response)
-				}
-			}
-		});
-	}
 	return (
 		<div className="common-shadow">
-			{props.api.isApiLoading && (
-				<Dimmer active inverted>
-					<Loader />
-				</Dimmer>
-			)}
 			<Grid>
 				<Grid.Column width={16}>
 					<Header as="h3" className="commonHeading">Manage Teachers</Header>
@@ -34,8 +16,8 @@ function SchoolManageTeacherPage(props) {
 				<Grid.Column width={16}>
 					<DataTable
 						allApi={{ getApiName: "GETTEACHERSLIST", deleteApiName: "DELETETEACHER", toggleApiName: "TEACHERTOGGLE" }}
-						additionalParams={{ schoolId: -1}}
-						searchOption={{ show: false, placeHolder: "Search" }}
+						additionalParams={{ schoolId: -1 }}
+						searchOption={{ show: true, placeHolder: "Search" }}
 						columns={[
 							{
 								headerName: "School Name",
@@ -55,11 +37,10 @@ function SchoolManageTeacherPage(props) {
 							{
 								headerName: "Status",
 								fieldName: "isActive",
-								isSorting: true,
+								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									debugger
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "toggle")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "Update")} />
 									);
 								},
 							},
