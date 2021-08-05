@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Grid, Table, Input, Dimmer, Loader } from "semantic-ui-react";
 import TableHeader from "./table-header";
 import TableRow from "./table-row";
-import { Fragment } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../store/actions/api.actions";
 import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index"
@@ -10,26 +9,24 @@ import ConfirmModal from "../../../components/organisms/modal/common-confirm-mod
 function DataTable(props) {
 
     const [values, setValues] = useState([])
-    const [sorting, setSorting] = useState({ sortOrder: "asc", sortArrow: "sort" })
+    const [gridObjects, setGridObjects] = useState({ pageNo: 1, pageSize: 10, sortArrow: "sort", orderBy: "", searchValue: "", orderByDescending: null, heading: "" })
     const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
 
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     useEffect(() => {
         getCommonTable();
-    }, []);
+    }, [gridObjects]);
+
 
     const getCommonTable = () => {
         dispatch(apiCall({
-            urls: [props.allApi.getApiName], method: "GET", onSuccess: (response) => {
-                if (response.length > 0) {
-                    setValues(response)
-                }
+            urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams }, onSuccess: (response) => {
+                setValues(response)
             }
         }))
     }
     const confirmModalOpen = (id, type) => {
-        debugger
         setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type })
     }
 
@@ -56,25 +53,22 @@ function DataTable(props) {
     }
 
     const onHandleSorting = (heading) => {
-        let sortOrder = sorting.sortOrder === "asc" ? "desc" : "asc";
-        let sortArrow = sorting.sortArrow === "sort up" ? "sort down" : "sort up";
-        setSorting({ ...sorting, sortOrder: sortOrder, sortArrow: sortArrow })
+        let orderBy = heading.charAt(0).toUpperCase() + heading.slice(1);
+        let orderByDescending = gridObjects.orderByDescending === false ? true : false;
+        let sortArrow = gridObjects.sortArrow === "sort up" ? "sort down" : "sort up";
+        setGridObjects({ ...gridObjects, sortArrow: sortArrow, heading: heading, orderBy: orderBy, orderByDescending: orderByDescending }, s => getCommonTable())
     }
 
-    // const fetchMoreData = () => {
-    //     const countPageNo = this.state.getGridDataObj.pageNo + 1;
-    //     // 20 more records in 1.5 secs  
-    //     setTimeout(() => {
-    //         this.setState({ getGridDataObj: { ...this.state.getGridDataObj, pageNo: countPageNo } }, () => { this.getGridData() });
-    //     }, 500);
-    // };
+    const onHandleChangeSearch = (e, { value }) => {
+        setGridObjects({ ...gridObjects, searchValue: value })
+    }
 
     const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
     return (
-        <Fragment>
+        <Grid>
             {props.searchOption && props.searchOption.show &&
                 <Grid.Column computer={8} tablet={8}>
-                    <Input fluid icon="search" name="searchValue" data="searchValue" iconPosition="left" placeholder={props.searchOption.placeHolder ? props.searchOption.placeHolder : "Search"} className="common-search-bar" />
+                    <Input fluid icon="search" name="searchValue" data="searchValue" iconPosition="left" placeholder={props.searchOption.placeHolder ? props.searchOption.placeHolder : "Search"} className="common-search-bar" onChange={onHandleChangeSearch} />
                 </Grid.Column>
             }
             <Grid.Column width={16}>
@@ -88,8 +82,7 @@ function DataTable(props) {
                         <TableHeader
                             columns={props.columns}
                             onHandleSorting={onHandleSorting}
-                            sortingArrow={sorting.sortArrow}
-                            sortColumn={sorting.sortOrder}
+                            gridObjects={gridObjects}
                         />
                         <TableRow singleLine
                             columns={props.columns}
@@ -97,7 +90,6 @@ function DataTable(props) {
                             getCommonTable={getCommonTable}
                             confirmModalOpen={confirmModalOpen}
 
-                        //fetchMoreData={fetchMoreData}
                         />
 
                     </Table>
@@ -106,7 +98,7 @@ function DataTable(props) {
 
             <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} />
 
-        </Fragment>
+        </Grid>
     );
 }
 
