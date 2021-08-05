@@ -16,6 +16,24 @@ const API_ENDPOINTS = {
    
     DELETESTUDENT:"/Student/DeleteStudent",
     STUDENTTOGGLE:"/Student/ToggleIsActive",
+    
+    SUBSCRIPTIONTOGGLE:"/Subscription/ToggleIsActive",
+    DELETESUBSCRIPTION:"/Subscription/DeleteSubscription",
+
+    
+    TAGTOGGLEISACTIVE:"/Tags​/ToggleIsActive",
+    TAGSDELETETAG:"/Tags/DeleteTag",
+ 
+   GETLESSONPLANLIST:"/Lesson/GetLessonPlanList",
+   DELETELESSONPLAN:"/Lesson/DeleteLessonPlan",
+   LESSONTOGGLEISACTIVE:"/Lesson/ToggleIsActive",
+
+   
+  
+
+
+
+
 };
 export const getApiUrl = key => {
     return API_URL + API_ENDPOINTS[key];

@@ -39,7 +39,7 @@ function DataTable(props) {
 
     const upDateToggle = () => {
         dispatch(apiCall({
-            urls: [props.allApi.toggleApiName], method: "PATCH", data: { studentId: confirmModal.selectedId }, onSuccess: (response) => {
+            urls: [props.allApi.toggleApiName], method: "PATCH", data: { id: confirmModal.selectedId }, onSuccess: (response) => {
                 modalClose();
                 getCommonTable();
             }, showNotification: true
@@ -48,7 +48,7 @@ function DataTable(props) {
 
     const onHandleDelete = () => {
         dispatch(apiCall({
-            urls: [props.allApi.deleteApiName], method: "DELETE", data: { studentId: confirmModal.selectedId }, onSuccess: (response) => {
+            urls: [props.allApi.deleteApiName], method: "DELETE", data: { id: confirmModal.selectedId }, onSuccess: (response) => {
                 modalClose();
                 getCommonTable();
             }, showNotification: true

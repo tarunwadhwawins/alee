@@ -1,13 +1,12 @@
 import React from "react";
 import { Grid, Header, Button, Icon, Form} from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
-import { useDispatch } from 'react-redux';
 import { DataTable } from "../../../src/shared/components/organisms";
 
 function StudentListPage(props) {
 	const [student, setStudent] = React.useState(false)
 	const [file, setFile] = React.useState(null)
-	const dispatch = useDispatch();
+
 
 	const openModal = () => {
 		setStudent(!student)
