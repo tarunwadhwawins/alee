@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
-import { Link, env } from "../../shared/functional/global-import";
+import { Link, env, Notifications } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
 import { loginSuccess } from "../../../src/store/actions/auth.actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-function LoginForm(props) {
+function LoginForm() {
   const [logInForm, setLogInForm] = useState({ email: "", password: "" })
   let history = useHistory();
   const dispatch = useDispatch();
+  const api = useSelector(state => state.action)
   const onHandleChange = (e, { value, data }) => {
     setLogInForm({ ...logInForm, [data]: value })
   }
@@ -18,18 +19,23 @@ function LoginForm(props) {
   const onsubmit = () => {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
+
         dispatch(loginSuccess(response.role));
-        if (response.role === "Admin") {
-          history.push(`${env.PUBLIC_URL}/scan-book`);
-        }
-        if (response.role === "School") {
-          history.push(`${env.PUBLIC_URL}/upload-excel`);
-        }
-        if (response.role === "Teacher") {
-          history.push(`${env.PUBLIC_URL}/profile`);
+        if (response.isSuccess) {
+          if (response.role === "Admin") {
+            history.push(`${env.PUBLIC_URL}/scan-book`);
+          }
+          if (response.role === "School") {
+            history.push(`${env.PUBLIC_URL}/upload-excel`);
+          }
+          if (response.role === "Teacher") {
+            history.push(`${env.PUBLIC_URL}/profile`);
+          }
         }
       }, showNotification: true
     }))
+    //dispatch(Notifications.error({ title: "Error", message: "", position: 'br', autoDismiss: 5 }));
+    //(Notifications.success({ title: "warning", message: "a", position: 'br', autoDismiss: 5 }));
   }
 
   return (

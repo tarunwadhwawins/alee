@@ -9,7 +9,6 @@ import { Notifications } from '../../shared/functional/global-import';
 
 const apiMiddleware = ({ dispatch, getState }) => next => action => {
     next(action);
-
     if (action.type !== types.API_CALL) return;
 
     let state = getState();
@@ -19,7 +18,8 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
     if (state.auth && state.auth.loggedIn && state.auth.loggedIn.token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${state.auth.loggedIn.token}`;
     }
-    const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
+    
+    const dataOrParams = ["GET", "DELETE","PATCH"].includes(method) ? "params" : "data";
 
 
     // Application level loading start
