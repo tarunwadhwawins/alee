@@ -22,6 +22,7 @@ function SubscriptionPage() {
 					<DataTable
 						allApi={{ getApiName: "GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION", toggleApiName: "SUBSCRIPTIONTOGGLE" }} isSorting={false}
 						searchOption={{ show: true, placeHolder: "Search" }}
+						messageInModal= "subscription"
 						columns={[
 							{
 								headerName: "Name",
@@ -50,7 +51,7 @@ function SubscriptionPage() {
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subscriptionPlanId,"update")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subscriptionPlanId,"update",props.isActive)} />
 									);
 								},
 							},

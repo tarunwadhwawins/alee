@@ -12,6 +12,7 @@ function ManageSchoolPage() {
 				<DataTable
 					allApi={{ getApiName: "GETSCHOOLSLIST", deleteApiName: "DELETESCHOOL", toggleApiName: "SCHOOLTOGGLE" }}
 					searchOption={{ show: true, placeHolder: "Search" }}
+					messageInModal= "school"
 					columns={[
 						{
 							headerName: "School Name",
@@ -30,7 +31,7 @@ function ManageSchoolPage() {
 							isSorting: true,
 							Cell: (props, confirmModalOpen) => {
 								return (
-									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "toggle")} />
+									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "update",props.isActive)} />
 								);
 							},
 						},

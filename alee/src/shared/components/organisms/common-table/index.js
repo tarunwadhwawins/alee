@@ -10,24 +10,26 @@ function DataTable(props) {
 
     const [values, setValues] = useState([])
     const [gridObjects, setGridObjects] = useState({ pageNo: 1, pageSize: 100, sortArrow: "sort", orderBy: "", searchValue: "", orderByDescending: null, heading: "" })
-    const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
+    const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
 
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     useEffect(() => {
+        debugger;
         getCommonTable();
     }, [gridObjects]);
 
 
     const getCommonTable = () => {
+        debugger
         dispatch(apiCall({
             urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams }, onSuccess: (response) => {
                 setValues(response)
             }
         }))
     }
-    const confirmModalOpen = (id, type) => {
-        setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type })
+    const confirmModalOpen = (id, type, isActive) => {
+        setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type, isActive: isActive })
     }
 
     const modalClose = () => {
@@ -64,6 +66,10 @@ function DataTable(props) {
     }
 
     const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
+    const showMessage = props.messageInModal !== undefined ? props.messageInModal : "record"
+    const bb = confirmModal.isActive ? "deactivate" : "activate"
+    const message = "Do you want to " + (confirmModal.type==="update" ? bb : confirmModal.type )+ " this " + showMessage + " ?"
+
     return (
         <Grid>
             {props.searchOption && props.searchOption.show &&
@@ -95,7 +101,7 @@ function DataTable(props) {
                 </div>
             </Grid.Column>
 
-            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} />
+            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} />
 
         </Grid>
     );

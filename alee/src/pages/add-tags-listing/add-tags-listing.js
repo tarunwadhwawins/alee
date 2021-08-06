@@ -24,6 +24,7 @@ function AddTagsListingPage(props) {
 					<DataTable
 						allApi={{ getApiName: "GETTAGSLIST", deleteApiName: "TAGSDELETETAG", toggleApiName: "TAGTOGGLEISACTIVE" }}
 						searchOption={{ show: true, placeHolder: "Search" }}
+						messageInModal= "tag"
 						columns={[
 							{
 								headerName: "Tag Name",
@@ -42,7 +43,7 @@ function AddTagsListingPage(props) {
 								Cell: (props, confirmModalOpen) => {
 
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId,"update")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId,"update",props.isActive)} />
 									);
 								},
 							},

@@ -28,7 +28,7 @@ function LessonPlanPage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-						allApi={{ getApiName: "GETLESSONPLANLIST", deleteApiName: "DELETELESSONPLAN", toggleApiName: "LESSONTOGGLEISACTIVE" }} isSorting={false}
+						allApi={{ getApiName: "GETLESSONPLANLIST", deleteApiName: "DELETELESSONPLAN", toggleApiName: "LESSONTOGGLEISACTIVE" }} messageInModal= "lesson Plan"
 						searchOption={{ show: true, placeHolder: "Search" }}
 						columns={[
 							{
@@ -52,7 +52,7 @@ function LessonPlanPage() {
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.lessonPlanId, "update")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.lessonPlanId, "update",props.isActive)} />
 									);
 								},
 							},

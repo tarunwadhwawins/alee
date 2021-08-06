@@ -2,8 +2,11 @@ import React from "react";
 import { Grid, Icon, Header, Form } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import Moment from "react-moment";
+import { useSelector } from 'react-redux';
 
-function SubscriptionPlanPage() {
+function SubscriptionPlanPage(props) {
+
+  const schoolId = useSelector(state => state.global.schoolDetail)
   return (
     <Grid>
       <Grid.Column width={16}>
@@ -20,7 +23,8 @@ function SubscriptionPlanPage() {
             toggleApiName: "USERSUBSCRIPTIONTOGGLE",
           }}
           searchOption={{ show: false, placeHolder: "Search" }}
-          additionalParams={{ schoolId: -1 }}
+          additionalParams={{ schoolId: schoolId }}
+          messageInModal= "subscription Plan"
           columns={[
             {
               headerName: "Plan",
@@ -60,7 +64,7 @@ function SubscriptionPlanPage() {
                     toggle
                     className="commonToggle"
                     onChange={() =>
-                      confirmModalOpen(props.userSubscriptionPlanId, "update")
+                      confirmModalOpen(props.userSubscriptionPlanId, "update",props.isActive)
                     }
                   />
                 );

@@ -12,16 +12,6 @@ function MyBookPage(props) {
 	const dispatch = useDispatch();
 	const auth = useSelector(state => state.auth)
 
-	// const addChapter = () => {
-	// 	if (localStorage.getItem("Usertype") === "teacher") {
-	// 	  localStorage.setItem("BookType", "With Topic Chapter");
-	// 	  setTimeout(() => {
-	// 		window.location.reload();
-	// 	  }, 1000);
-	// 	}
-	//   };
-
-
 	//  call the api //
 	useEffect(() => {
 		getBookList();
