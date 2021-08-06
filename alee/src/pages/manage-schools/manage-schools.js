@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Icon, Table, Label, Header, Form } from "semantic-ui-react";
+import { Grid, Icon, Header, Form } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 
 function ManageSchoolPage() {
@@ -10,9 +10,8 @@ function ManageSchoolPage() {
 			</Grid.Column>
 			<Grid.Column width={16}>
 				<DataTable
-					allApi={{ getApiName: "GETSCHOOLSLIST", deleteApiName: "DELETESCHOOL", toggleApiName: "TOGGLEISACTIVE" }}
-					isSorting={false}
-					searchOption={{ show: false, placeHolder: "Search" }}
+					allApi={{ getApiName: "GETSCHOOLSLIST", deleteApiName: "DELETESCHOOL", toggleApiName: "SCHOOLTOGGLE" }}
+					searchOption={{ show: true, placeHolder: "Search" }}
 					columns={[
 						{
 							headerName: "School Name",
@@ -30,7 +29,6 @@ function ManageSchoolPage() {
 							fieldName: "isActive",
 							isSorting: true,
 							Cell: (props, confirmModalOpen) => {
-								debugger
 								return (
 									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "toggle")} />
 								);
@@ -41,7 +39,6 @@ function ManageSchoolPage() {
 							fieldName: "Action",
 							isSorting: false,
 							Cell: (props, confirmModalOpen) => {
-								debugger
 								return (
 									<>
 										<Icon name="edit" className="primary-color" link />

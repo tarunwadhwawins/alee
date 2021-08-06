@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Icon, Table, Label, Header, Form } from "semantic-ui-react";
+import { Grid, Icon, Header, Form } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import Moment from "react-moment";
 
@@ -12,6 +12,7 @@ function SubscriptionPlanPage() {
         </Header>
       </Grid.Column>
       <Grid.Column width={16}>
+
         <DataTable
           allApi={{
             getApiName: "GETUSERSUBSCRIPTIONLIST",

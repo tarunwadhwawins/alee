@@ -1,6 +1,5 @@
 import React from "react";
-import { Grid, Header, Button, Form, Tab, Table, Icon } from "semantic-ui-react";
-import { Link } from "../../shared/functional/global-import";
+import { Grid, Header, Button, Form, Tab, Icon } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 
 const Grade = [
@@ -43,9 +42,8 @@ const panes = [
 			<Tab.Pane attached={false}>
 
 				<DataTable
-					allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "", toggleApiName: "" }}
-					isSorting={false}
-					searchOption={{ show: false, placeHolder: "Search" }}
+					allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
+					searchOption={{ show: true, placeHolder: "Search" }}
 					columns={[
 						{
 							headerName: "Grade",
@@ -82,7 +80,7 @@ const panes = [
 								return (
 									<>
 										<Icon name="edit" className="primary-color" link />
-										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
+										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId , "delete")} />
 									</>
 								);
 							},
@@ -98,9 +96,8 @@ const panes = [
 		render: () => <Tab.Pane attached={false}>
 
 			<DataTable
-				allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "", toggleApiName: "" }}
-				isSorting={false}
-				searchOption={{ show: false, placeHolder: "Search" }}
+				allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
+				searchOption={{ show: true, placeHolder: "Search" }}
 				columns={[
 					{
 						headerName: "Grade",
@@ -137,7 +134,7 @@ const panes = [
 							return (
 								<>
 									<Icon name="edit" className="primary-color" link />
-									<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
+									<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId , "delete")} />
 								</>
 							);
 						},
@@ -152,9 +149,8 @@ const panes = [
 		render: () => <Tab.Pane attached={false}>
 
 			<DataTable
-				allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "", toggleApiName: "" }}
-				isSorting={false}
-				searchOption={{ show: false, placeHolder: "Search" }}
+				allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
+				searchOption={{ show: true, placeHolder: "Search" }}
 				columns={[
 					{
 						headerName: "Grade",
@@ -196,7 +192,7 @@ const panes = [
 							return (
 								<>
 									<Icon name="edit" className="primary-color" link />
-									<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
+									<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId , "delete")} />
 								</>
 							);
 						},

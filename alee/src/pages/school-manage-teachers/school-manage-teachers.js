@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Icon, Table, Label, Header, Dimmer, Loader, Form } from "semantic-ui-react";
-import { Link, env, bindActionCreators, connect, actions } from "../../shared/functional/global-import";
+import React from "react";
+import { Grid, Icon, Header, Form } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 
 function SchoolManageTeacherPage(props) {
-
-	const [teacher, setTeacher] = React.useState("")
 
 	return (
 		<div className="common-shadow">
@@ -39,8 +36,9 @@ function SchoolManageTeacherPage(props) {
 								fieldName: "isActive",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
+									debugger
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "Update")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "Update")} />
 									);
 								},
 							},
@@ -53,7 +51,7 @@ function SchoolManageTeacherPage(props) {
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.schoolId, "delete")} />
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
 										</>
 									);
 								},
@@ -66,20 +64,4 @@ function SchoolManageTeacherPage(props) {
 		</div>
 	);
 }
-const mapStateToProps = state => {
-	return {
-		api: state.api,
-		auth: state.auth,
-		global: state.global,
-	};
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		actions: {
-			apiCall: bindActionCreators(actions.apiCall, dispatch),
-			storeGlobalCodes: bindActionCreators(actions.storeGlobalCodes, dispatch)
-		}
-	};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(SchoolManageTeacherPage);
+export default SchoolManageTeacherPage;

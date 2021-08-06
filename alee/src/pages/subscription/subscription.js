@@ -21,7 +21,7 @@ function SubscriptionPage() {
 				<Grid.Column width={16}>
 					<DataTable
 						allApi={{ getApiName: "GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION", toggleApiName: "SUBSCRIPTIONTOGGLE" }} isSorting={false}
-						searchOption={{ show: false, placeHolder: "Search" }}
+						searchOption={{ show: true, placeHolder: "Search" }}
 						columns={[
 							{
 								headerName: "Name",
@@ -42,7 +42,7 @@ function SubscriptionPage() {
 							{
 								headerName: "Price",
 								fieldName: "price",
-								isSorting: false,
+								isSorting: true,
 							},
 							{
 								headerName: "Status",

@@ -4,7 +4,7 @@ import TableHeader from "./table-header";
 import TableRow from "./table-row";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../store/actions/api.actions";
-import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index"
+import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index";
 
 function DataTable(props) {
 

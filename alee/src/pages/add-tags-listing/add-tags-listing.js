@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Header, Button, Label, Table, Icon, Dimmer, Loader, Form } from "semantic-ui-react";
+import React from "react";
+import { Grid, Header, Button,Icon, Form } from "semantic-ui-react";
 import AddTagsListing from "../../shared/components/organisms/modal/add-tags-lisiting"
 import { DataTable } from "../../../src/shared/components/organisms";
 
@@ -23,8 +23,7 @@ function AddTagsListingPage(props) {
 
 					<DataTable
 						allApi={{ getApiName: "GETTAGSLIST", deleteApiName: "TAGSDELETETAG", toggleApiName: "TAGTOGGLEISACTIVE" }}
-						isSorting={false}
-						searchOption={{ show: false, placeHolder: "Search" }}
+						searchOption={{ show: true, placeHolder: "Search" }}
 						columns={[
 							{
 								headerName: "Tag Name",
