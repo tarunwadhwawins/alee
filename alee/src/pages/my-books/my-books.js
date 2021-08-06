@@ -11,27 +11,14 @@ function MyBookPage(props) {
 	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "",type:""})
 	const dispatch = useDispatch();
 	const auth = useSelector(state => state.auth)
-
-	// const addChapter = () => {
-	// 	if (localStorage.getItem("Usertype") === "teacher") {
-	// 	  localStorage.setItem("BookType", "With Topic Chapter");
-	// 	  setTimeout(() => {
-	// 		window.location.reload();
-	// 	  }, 1000);
-	// 	}
-	//   };
-
-
 	//  call the api //
 	useEffect(() => {
 		getBookList();
 	}, [values]);
-
-
 	//  get api //
 	const getBookList = () => {
 		dispatch(apiCall({
-			urls: ["GETBOOKSLIST"], method: "GET", data: values, onSuccess: (response) => {
+			urls: ["GETGLOBALCODESLIST"], method: "GET", data: values, onSuccess: (response) => {
 				setBookList(response)
 			}
 		}));
