@@ -1,71 +1,107 @@
 import React from "react";
-import { Grid, Icon,Table,Label, Header } from "semantic-ui-react";
-
-
+import { Grid, Icon, Table, Header, Form } from "semantic-ui-react";
+import { DataTable } from "../../../src/shared/components/organisms";
+import Moment from "react-moment";
 function SubscriptionManagePage() {
-    return (
-			<Grid>
-				<Grid.Column width={16}>
-					<Header as="h3" className="commonHeading">Subscription Manage</Header>
-				</Grid.Column>
-				<Grid.Column width={16}>
-					<Table singleLine>
-						<Table.Header>
-							<Table.Row>
-								<Table.HeaderCell>Buyer</Table.HeaderCell>
-								<Table.HeaderCell>Plan</Table.HeaderCell>
-								<Table.HeaderCell>Duration</Table.HeaderCell>
-								<Table.HeaderCell>Start Date</Table.HeaderCell>
-								<Table.HeaderCell>End Date</Table.HeaderCell>
-								<Table.HeaderCell>Status</Table.HeaderCell>
-								<Table.HeaderCell  textAlign="right">Action</Table.HeaderCell>
-							</Table.Row>
-						</Table.Header>
+  return (
+    <Grid>
+      <Grid.Column width={16}>
+        <Header as="h3" className="commonHeading">
+          Subscription Manage
+        </Header>
+      </Grid.Column>
+      <Grid.Column width={16}>
+      
+          <DataTable
+            allApi={{
+              getApiName: "GETUSERSUBSCRIPTIONLIST",
+              deleteApiName: "DELETEUSERSUBSCRIPTION",
+              toggleApiName: "USERSUBSCRIPTIONTOGGLE",
+            }}
+            searchOption={{ show: true, placeHolder: "Search" }}
+            additionalParams={{ schoolId:-1 }}
+			messageInModal= "buyer"
+            columns={[
+              {
+                headerName: "Buyer",
+                fieldName: "buyer",
+                isSorting: true,
+              },
 
-						<Table.Body>
-							<Table.Row>
-								<Table.Cell>Stanton College Preparatory School</Table.Cell>
-								<Table.Cell>Silver</Table.Cell>
-								<Table.Cell>Yearly</Table.Cell>
-								<Table.Cell>June 25, 2021</Table.Cell>
-								<Table.Cell>June 24, 2022</Table.Cell>
-								<Table.Cell><Label color="green">Active</Label></Table.Cell>
-								<Table.Cell textAlign="right">
-									<Icon name="edit" className="primary-color" link/>
-									<Icon name="close" color="red" link/>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row>
-								<Table.Cell>Gilbert Classical Academy</Table.Cell>
-								<Table.Cell>Gold</Table.Cell>
-								<Table.Cell>Monthly</Table.Cell>
-								<Table.Cell>March 25, 2021</Table.Cell>
-								<Table.Cell>April 24, 2022</Table.Cell>
-								<Table.Cell><Label color="blue">Inactive</Label></Table.Cell>
-								<Table.Cell textAlign="right">
-									<Icon name="edit" className="primary-color" link/>
-									<Icon name="close" color="red" link/>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row>
-								<Table.Cell>Liberal Arts and Science Academy High School</Table.Cell>
-								<Table.Cell>Gold</Table.Cell>
-								<Table.Cell>Yearly</Table.Cell>
-								<Table.Cell>May 25, 2021</Table.Cell>
-								<Table.Cell>May 24, 2022</Table.Cell>
-								<Table.Cell><Label color="green">Active</Label></Table.Cell>
-								<Table.Cell textAlign="right">
-									<Icon name="edit" className="primary-color" link/>
-									<Icon name="close" color="red" link/>
-								</Table.Cell>
-							</Table.Row>
-						</Table.Body>
-					</Table>
-				</Grid.Column>
-			
-			</Grid>
-    );
+              {
+                headerName: "Plan",
+                fieldName: "plan",
+                isSorting: true,
+              },
+              {
+                headerName: "Duration",
+                fieldName: "duration",
+                isSorting: true,
+              },
+              {
+                headerName: "Start Date",
+                isSorting: true,
+                fieldName: "startDate",
+                Cell: (props) => {
+                  return <Moment format="MM/DD/YYYY">{props.createdAt}</Moment>;
+                },
+              },
+
+              {
+                headerName: "End Date",
+                fieldName: "endDate",
+                isSorting: true,
+                Cell: (props) => {
+                  return <Moment format="MM/DD/YYYY">{props.endDate}</Moment>;
+                },
+              },
+              {
+                headerName: "Status",
+                fieldName: "isActive",
+                isSorting: false,
+                Cell: (props, confirmModalOpen) => {
+                  return (
+                    <Form.Checkbox
+                      checked={props.isActive ? true : false}
+                      toggle
+                      className="commonToggle"
+                      onChange={() =>
+                        confirmModalOpen(props.userSubscriptionPlanId, "update",props.isActive)
+                      }
+                    />
+                  );
+                },
+              },
+
+              {
+                headerName: "Action",
+                fieldName: "Action",
+                isSorting: false,
+                Cell: (props, confirmModalOpen) => {
+                  return (
+                    <>
+                      <Icon name="repeat" className="primary-color" link />
+                      <Icon name="plus" color="green" link />
+                      <Icon
+                        name="trash alternate"
+                        color="red"
+                        link
+                        onClick={() =>
+                          confirmModalOpen(
+                            props.userSubscriptionPlanId,
+                            "delete"
+                          )
+                        }
+                      />
+                    </>
+                  );
+                },
+              },
+            ]}
+          ></DataTable>
+      </Grid.Column>
+    </Grid>
+  );
 }
 
 export default SubscriptionManagePage;
-
