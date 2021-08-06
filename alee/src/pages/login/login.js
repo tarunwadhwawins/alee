@@ -27,7 +27,7 @@ function LoginForm() {
           }
           if (response.role === "School") {
             dispatch(storeSchoolDetails(response.schoolId));
-            history.push(`${env.PUBLIC_URL}/dashboard`);
+            history.push(`${env.PUBLIC_URL}/upload-excel`);
           }
           if (response.role === "Teacher") {
             dispatch(storeSchoolDetails(response.teacherId));

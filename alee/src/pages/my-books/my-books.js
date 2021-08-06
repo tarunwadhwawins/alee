@@ -18,7 +18,7 @@ function MyBookPage(props) {
 	//  get api //
 	const getBookList = () => {
 		dispatch(apiCall({
-			urls: ["GETGLOBALCODESLIST"], method: "GET", data: values, onSuccess: (response) => {
+			urls: ["GETBOOKSLIST"], method: "GET", data: values, onSuccess: (response) => {
 				setBookList(response)
 			}
 		}));
