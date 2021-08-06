@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Header, Button, Label, Table, Icon, Dimmer, Loader,Form } from "semantic-ui-react";
+import { Grid, Header, Button, Label, Table, Icon, Dimmer, Loader, Form } from "semantic-ui-react";
 import AddTagsListing from "../../shared/components/organisms/modal/add-tags-lisiting"
 import { DataTable } from "../../../src/shared/components/organisms";
 
@@ -20,9 +20,9 @@ function AddTagsListingPage(props) {
 					<Button className="primaryBtn" onClick={openModal}><Icon name="plus" /> New Tag</Button>
 				</Grid.Column>
 				<Grid.Column width={16}>
-	
-				<DataTable
-						allApi={{ getApiName: "GETTAGSLIST", deleteApiName: "TAGSDELETETAG",toggleApiName:"TAGTOGGLEISACTIVE"}}
+
+					<DataTable
+						allApi={{ getApiName: "GETTAGSLIST", deleteApiName: "TAGSDELETETAG", toggleApiName: "TAGTOGGLEISACTIVE" }}
 						isSorting={false}
 						searchOption={{ show: false, placeHolder: "Search" }}
 						columns={[
@@ -41,7 +41,7 @@ function AddTagsListingPage(props) {
 								fieldName: "isActive",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-								
+
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId,"update")} />
 									);
@@ -55,7 +55,7 @@ function AddTagsListingPage(props) {
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.tagId,"delete")} />
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.tagId, "delete")} />
 										</>
 									);
 								},
@@ -70,4 +70,3 @@ function AddTagsListingPage(props) {
 }
 
 export default AddTagsListingPage;
-

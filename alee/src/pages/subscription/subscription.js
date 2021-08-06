@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Grid, Header, Table, Button, Icon, Label, Dimmer, Loader,Form } from "semantic-ui-react";
+import React from "react";
+import { Grid, Header, Button, Icon, Form } from "semantic-ui-react";
 import AddSubscription from "../../shared/components/organisms/modal/subscription/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 
@@ -7,7 +7,7 @@ import { DataTable } from "../../../src/shared/components/organisms";
 function SubscriptionPage() {
 	const [subscription, setSubscription] = React.useState(false)
 	const openModal = () => {
-	setSubscription(!subscription)
+		setSubscription(!subscription)
 	}
 	return (
 		<div className="common-shadow">
@@ -20,7 +20,7 @@ function SubscriptionPage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-	           allApi={{ getApiName:"GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION",toggleApiName:"SUBSCRIPTIONTOGGLE"}}isSorting=     {false}
+						allApi={{ getApiName: "GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION", toggleApiName: "SUBSCRIPTIONTOGGLE" }} isSorting={false}
 						searchOption={{ show: false, placeHolder: "Search" }}
 						columns={[
 							{
@@ -29,8 +29,8 @@ function SubscriptionPage() {
 								isSorting: true,
 							},
 							{
-								headerName:"Duration",
-                                fieldName:"duration",
+								headerName: "Duration",
+								fieldName: "duration",
 								isSorting: true,
 							},
 							{
@@ -42,7 +42,7 @@ function SubscriptionPage() {
 							{
 								headerName: "Price",
 								fieldName: "price",
-							isSorting: false,
+								isSorting: false,
 							},
 							{
 								headerName: "Status",
@@ -54,7 +54,7 @@ function SubscriptionPage() {
 									);
 								},
 							},
-							
+
 							{
 								headerName: "Action",
 								fieldName: "Action",
@@ -63,7 +63,7 @@ function SubscriptionPage() {
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId,"delete")} />
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId, "delete")} />
 										</>
 									);
 								},
@@ -71,7 +71,7 @@ function SubscriptionPage() {
 						]}
 
 					></DataTable>
-			</Grid.Column>
+				</Grid.Column>
 			</Grid>
 			<AddSubscription openModal={subscription} closeModal={openModal} />
 		</div>

@@ -1,42 +1,20 @@
 import React, { useEffect } from "react";
-import { Grid, Icon, Table, Label, Header, Form,Dimmer,Loader } from "semantic-ui-react";
-import { useDispatch,useSelector } from 'react-redux';
+import { Grid, Icon, Table, Label, Header, Form, Dimmer, Loader } from "semantic-ui-react";
+import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
+import { DataTable } from "../../../src/shared/components/organisms";
 
 function ManageTeacherPage() {
-     debugger;
-    const initialValue = [
-     {schoolId:-1}];
-	const [teacher, setTeacher] = React.useState(initialValue)
-	;
-	const dispatch = useDispatch();
-	useEffect(() => {
-		getTeachersList();
-	}, []);
-	const getTeachersList = () => {
-	  debugger;
-		dispatch(apiCall({
-			urls: [" GETTEACHERSLIST"], method: "GET", data: teacher, onSuccess: (response) => {
-				if (response.length > 0) {
-					setTeacher(response)
-				}
-			}
-		}));
-	}
-	const hooksData = useSelector(state => state.api)
+
+	const [teacher, setTeacher] = React.useState("")
 	return (
 		<Form>
-       	{hooksData.isApiLoading && (
-				<Dimmer active inverted>
-					<Loader />
-				</Dimmer>
-			)}
 			<Grid>
 				<Grid.Column width={16}>
 					<Header as="h3" className="commonHeading">ManageTeacher</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
-					<Table singleLine>
+					{/* <Table singleLine>
 						<Table.Header>
 
 							<Table.Row>
@@ -67,7 +45,53 @@ function ManageTeacherPage() {
 								)
 							})}
 						</Table.Body>
-					</Table>
+					</Table> */}
+
+					<DataTable
+						allApi={{ getApiName: "GETTEACHERSLIST", toggleApiName: "TEACHERTOGGLE", deleteApiName: "DELETETEACHER" }}
+						isSorting={false}
+						searchOption={{ show: true, placeHolder: "Search" }}
+						additionalParams={{ schoolId: 1 }}
+						columns={[
+							{
+								headerName: "Teacher Name",
+								fieldName: "firstName",
+								isSorting: true,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<>
+											{props.firstName}{" "}{props.lastName}
+										</>
+									);
+								},
+
+
+							},
+							{
+								headerName: "Email",
+								fieldName: "email",
+								isSorting: true
+							},
+
+							{
+								headerName: "Associated School",
+								fieldName: "schoolName",
+								isSorting: true,
+							},
+							{
+								headerName: "Status",
+								fieldName: "createdAt",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									debugger
+									return (
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "Update")} />
+									);
+								}
+							},
+						]}
+
+					></DataTable>
 				</Grid.Column>
 
 			</Grid>
