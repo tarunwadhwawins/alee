@@ -49,7 +49,7 @@ function UserManagementPage(props) {
 						isSorting: false,
 						Cell: (props) => {
 							return (
-								<Moment format="MMMM DD,YYYY">{props.createdAt} </Moment>
+								<Moment format="MM/DD/YYYY">{props.createdAt}</Moment>
 							);
 						},
 					},

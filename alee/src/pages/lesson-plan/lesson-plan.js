@@ -55,7 +55,7 @@ function LessonPlanPage() {
 								Cell: (props, confirmModalOpen) => {
 									debugger
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.lessonPlanId,"toggle")}/>
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.lessonPlanId,"update")}/>
 									);
 								},
 							},

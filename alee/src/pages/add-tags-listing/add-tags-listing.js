@@ -43,7 +43,7 @@ function AddTagsListingPage(props) {
 								Cell: (props, confirmModalOpen) => {
 								
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId,"toggle")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId,"update")} />
 									);
 								},
 							},

@@ -1,40 +1,32 @@
-import * as env from './env.config';
+import * as env from "./env.config";
 // Read api url from env file
 const API_URL = env.API_URL;
-// API end points 
+// API end points
 const API_ENDPOINTS = {
-    LOGIN: "/Authentication/Login",
-    TEACHERREGISTRATION: "/Authentication/TeacherRegistration",
-    GETTAGSLIST: "/Tags/GetTagsList",
-    GETSTUDENTSLIST:"/Student/GetStudentsList",
-    GETSUBSCRIPTIONPLANLIST: "/Subscription/GetSubscriptionPlanList",
-    GETTEACHERSLIST: "/Teacher/GetTeachersList",
-    GETUSERMANAGEMENTLIST: "/Authentication/GetUserManagementList",
-    SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",
-    APPROVEUSERMANAGEMENT:"/Authentication/ApproveUser", 
-    GETBOOKSLIST:"/Books/GetBooksList",
-   
-    DELETESTUDENT:"/Student/DeleteStudent",
-    STUDENTTOGGLE:"/Student/ToggleIsActive",
-    
-    SUBSCRIPTIONTOGGLE:"/Subscription/ToggleIsActive",
-    DELETESUBSCRIPTION:"/Subscription/DeleteSubscription",
-
-    
-    TAGTOGGLEISACTIVE:"/Tags​/ToggleIsActive",
-    TAGSDELETETAG:"/Tags/DeleteTag",
- 
-   GETLESSONPLANLIST:"/Lesson/GetLessonPlanList",
-   DELETELESSONPLAN:"/Lesson/DeleteLessonPlan",
-   LESSONTOGGLEISACTIVE:"/Lesson/ToggleIsActive",
-
-   
-  
-
-
-
-
+  LOGIN: "/Authentication/Login",
+  TEACHERREGISTRATION: "/Authentication/TeacherRegistration",
+  GETTAGSLIST: "/Tags/GetTagsList",
+  GETSTUDENTSLIST: "/Student/GetStudentsList",
+  GETSUBSCRIPTIONPLANLIST: "/Subscription/GetSubscriptionPlanList",
+  GETTEACHERSLIST: "/Teacher/GetTeachersList",
+  GETUSERMANAGEMENTLIST: "/Authentication/GetUserManagementList",
+  SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",
+  APPROVEUSERMANAGEMENT: "/Authentication/ApproveUser",
+  GETBOOKSLIST: "/Books/GetBooksList",
+  DELETESTUDENT: "/Student/DeleteStudent",
+  STUDENTTOGGLE: "/Student/ToggleIsActive",
+  SUBSCRIPTIONTOGGLE: "/Subscription/ToggleIsActive",
+  DELETESUBSCRIPTION: "/Subscription/DeleteSubscription",
+  TAGSDELETETAG: "/Tags/DeleteTag",
+  GETLESSONPLANLIST: "/Lesson/GetLessonPlanList",
+  DELETELESSONPLAN: "/Lesson/DeleteLessonPlan",
+  LESSONTOGGLEISACTIVE: "/Lesson/ToggleIsActive",
+  GETUSERSUBSCRIPTIONLIST: "/Subscription/GetUserSubscriptionList",
+  TAGTOGGLEISACTIVE:"/Tags/ToggleIsActive",
+  DELETEUSERSUBSCRIPTION:"/Subscription/DeleteUserSubscription",
+  USERSUBSCRIPTIONTOGGLE:"/Subscription/UserSubscriptionToggleIsActive",
 };
-export const getApiUrl = key => {
-    return API_URL + API_ENDPOINTS[key];
+
+export const getApiUrl = (key) => {
+  return API_URL + API_ENDPOINTS[key];
 };
