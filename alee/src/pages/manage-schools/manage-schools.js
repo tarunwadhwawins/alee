@@ -30,7 +30,7 @@ function ManageSchoolPage() {
 							isSorting: true,
 							Cell: (props, confirmModalOpen) => {
 								return (
-									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "toggle")} />
+									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "update")} />
 								);
 							},
 						},

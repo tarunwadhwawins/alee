@@ -53,7 +53,7 @@ function UserManagementPage(props) {
 						},
 					},
 					{
-						headerName: "Approve/Disapprove",
+						headerName: "Disapprove/Approve",
 						fieldName: "isUser",
 						isSorting: false,
 						Cell: (props, confirmModalOpen) => {
