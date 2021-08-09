@@ -4,8 +4,7 @@ import { DataTable } from "../../../src/shared/components/organisms";
 import { useSelector } from 'react-redux';
 
 function SchoolManageTeacherPage(props) {
-
-debugger
+	debugger
 	const schoolId = useSelector(state => state.global.schoolDetail)
 	return (
 		<div className="common-shadow">
@@ -18,7 +17,7 @@ debugger
 						allApi={{ getApiName: "GETTEACHERSLIST", deleteApiName: "DELETETEACHER", toggleApiName: "TEACHERTOGGLE" }}
 						additionalParams={{ schoolId: schoolId }}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal= "school"
+						messageInModal="school"
 						columns={[
 							{
 								headerName: "School Name",
@@ -41,7 +40,7 @@ debugger
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update",props.isActive)} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update", props.isActive)} />
 									);
 								},
 							},

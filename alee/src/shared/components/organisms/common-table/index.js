@@ -15,13 +15,11 @@ function DataTable(props) {
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     useEffect(() => {
-        debugger;
         getCommonTable();
     }, [gridObjects]);
 
 
     const getCommonTable = () => {
-        debugger
         dispatch(apiCall({
             urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams }, onSuccess: (response) => {
                 setValues(response)
@@ -68,8 +66,7 @@ function DataTable(props) {
     const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
     const showMessage = props.messageInModal !== undefined ? props.messageInModal : "record"
     const bb = confirmModal.isActive ? "deactivate" : "activate"
-    const message = "Do you want to " + (confirmModal.type==="update" ? bb : confirmModal.type )+ " this " + showMessage + " ?"
-
+    const message = "Do you want to " + (confirmModal.type === "update" ? bb : confirmModal.type) + " this " + showMessage + " ?"
     return (
         <Grid>
             {props.searchOption && props.searchOption.show &&

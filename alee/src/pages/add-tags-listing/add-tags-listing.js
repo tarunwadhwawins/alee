@@ -1,8 +1,7 @@
 import React from "react";
-import { Grid, Header, Button,Icon, Form } from "semantic-ui-react";
+import { Grid, Header, Button, Icon, Form } from "semantic-ui-react";
 import AddTagsListing from "../../shared/components/organisms/modal/add-tags-lisiting"
 import { DataTable } from "../../../src/shared/components/organisms";
-
 
 function AddTagsListingPage(props) {
 	const [taglisting, setTaglisting] = React.useState(false)
@@ -24,7 +23,7 @@ function AddTagsListingPage(props) {
 					<DataTable
 						allApi={{ getApiName: "GETTAGSLIST", deleteApiName: "TAGSDELETETAG", toggleApiName: "TAGTOGGLEISACTIVE" }}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal= "tag"
+						messageInModal="tag"
 						columns={[
 							{
 								headerName: "Tag Name",
@@ -43,7 +42,7 @@ function AddTagsListingPage(props) {
 								Cell: (props, confirmModalOpen) => {
 
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId,"update",props.isActive)} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId, "update", props.isActive)} />
 									);
 								},
 							},
