@@ -4,8 +4,8 @@ import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
-import { loginSuccess } from "../../../src/store/actions/auth.actions";
-import { storeSchoolDetails } from "../../../src/store/actions/global.actions";
+import { loginSuccess,storeUserDetail } from "../../../src/store/actions/auth.actions";
+import { storeGlobalCodes,storeSchoolDetails } from "../../../src/store/actions/global.actions";
 import { useDispatch, useSelector } from 'react-redux';
 
 function LoginForm() {
@@ -20,17 +20,18 @@ function LoginForm() {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
         debugger
-        dispatch(loginSuccess(response.role));
+        
         if (response.isSuccess) {
+          //dispatch(loginSuccess(response.role));
+          dispatch(storeUserDetail(response));
+          getGlobalCode();
           if (response.role === "Admin") {
             history.push(`${env.PUBLIC_URL}/dashboard`);
           }
           if (response.role === "School") {
-            dispatch(storeSchoolDetails(response.schoolId));
             history.push(`${env.PUBLIC_URL}/upload-excel`);
           }
           if (response.role === "Teacher") {
-            dispatch(storeSchoolDetails(response.teacherId));
             history.push(`${env.PUBLIC_URL}/dashboard`);
           }
         }
@@ -38,6 +39,14 @@ function LoginForm() {
     }))
     //dispatch(Notifications.error({ title: "Error", message: "", position: 'br', autoDismiss: 5 }));
     //(Notifications.success({ title: "warning", message: "a", position: 'br', autoDismiss: 5 }));
+  }
+
+  const getGlobalCode = () => {
+    dispatch(apiCall({
+      urls: ["GLOBALCODELIST"], method: "GET", data: {"categoryId":-1}, onSuccess: (response) => {
+         dispatch(storeGlobalCodes(response));
+      }, showNotification: false
+    }))
   }
 
   return (

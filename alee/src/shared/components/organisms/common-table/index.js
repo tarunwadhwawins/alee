@@ -15,7 +15,6 @@ function DataTable(props) {
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     useEffect(() => {
-        debugger;
         getCommonTable();
     }, [gridObjects]);
 

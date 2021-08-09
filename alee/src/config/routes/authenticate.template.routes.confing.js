@@ -20,8 +20,8 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: false,
-    path: `${env.PUBLIC_URL}/search`,
-    component: lazy(() => import('../../pages/search'))
+    path: `${env.PUBLIC_URL}/lesson-library`,
+    component: lazy(() => import('../../pages/lesson-library'))
   },
   {
     exact: true,

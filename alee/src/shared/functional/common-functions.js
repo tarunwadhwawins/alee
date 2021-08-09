@@ -135,7 +135,6 @@ const getSingleValue = (globalCodeData, categoryType, codeName) => {
 }
 
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-
   const singlevalue = globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });
