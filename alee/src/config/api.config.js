@@ -35,10 +35,44 @@ const API_ENDPOINTS = {
     RESOURCESTOGGLE: "/Resource/ToggleIsActive",
     DELETEBOOKS: "/Books/DeleteBook",
     GETGLOBALCODESLIST: "/GlobalCodes/GetGlobalCodesList",
-    ADDTAG: "/Tags/AddTag"
+    ADDTAG: "/Tags/AddTag",
+    //   LOGIN: "/Authentication/Login",
+    //   GLOBALCODELIST:"/GlobalCodes/GetGlobalCodesList",
+    //   TEACHERREGISTRATION: "/Authentication/TeacherRegistration",
+    //   GETTAGSLIST: "/Tags/GetTagsList",
+    //   GETSTUDENTSLIST: "/Student/GetStudentsList",
+    //   GETSUBSCRIPTIONPLANLIST: "/Subscription/GetSubscriptionPlanList",
+    //   GETTEACHERSLIST: "/Teacher/GetTeachersList",
+    //   GETUSERMANAGEMENTLIST: "/Authentication/GetUserManagementList",
+    //   SCHOOLREGISTRATION: "/Authentication/SchoolRegistration",
+    //   APPROVEUSERMANAGEMENT: "/Authentication/ApproveUser",
+    //   GETBOOKSLIST: "/Books/GetBooksList",
+    //   DELETESTUDENT: "/Student/DeleteStudent",
+    //   STUDENTTOGGLE: "/Student/ToggleIsActive",
+    //   SUBSCRIPTIONTOGGLE: "/Subscription/ToggleIsActive",
+    //   DELETESUBSCRIPTION: "/Subscription/DeleteSubscription",
+    //   TAGSDELETETAG: "/Tags/DeleteTag",
+    //   GETLESSONPLANLIST: "/Lesson/GetLessonPlanList",
+    //   DELETELESSONPLAN: "/Lesson/DeleteLessonPlan",
+    //   LESSONTOGGLEISACTIVE: "/Lesson/ToggleIsActive",
+    //   GETUSERSUBSCRIPTIONLIST: "/Subscription/GetUserSubscriptionList",
+    //   TAGTOGGLEISACTIVE:"/Tags/ToggleIsActive",
+    //   DELETEUSERSUBSCRIPTION:"/Subscription/DeleteUserSubscription",
+    //   USERSUBSCRIPTIONTOGGLE:"/Subscription/UserSubscriptionToggleIsActive",
+    //   TEACHERTOGGLE:"/Teacher/ToggleIsActive",
+    //   DELETETEACHER:"/Teacher/DeleteTeacher",
+    //   GETSCHOOLSLIST:"/School/GetSchoolsList",
+    //   DELETESCHOOL:"/School/DeleteSchool",
+    //   SCHOOLTOGGLE:"/School/ToggleIsActive",
+    //   GETRESOURCESLIST:"/Resource/GetResourcesList",
+    //   DELETERESOURCES:"/Resource/DeleteResources",
+    //   RESOURCESTOGGLE:"/Resource/ToggleIsActive",
+    //   DELETEBOOKS:"/Books/DeleteBook",
+    //   GETGLOBALCODESLIST:"/GlobalCodes/GetGlobalCodesList",
+    ADDSTUDENT: "Student/AddUpdateStudent",
+    GETTAGLISTBYID: "/Tags/GetTagListByTagTypeId"
 
 };
-
 export const getApiUrl = (key) => {
     return API_URL + API_ENDPOINTS[key];
 };

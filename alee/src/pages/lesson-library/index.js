@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import  SearchHeader  from './search-header';
+import React  from 'react';
+import  LessonLibrary  from './lesson-library';
 
 
 const Search = () => {
     return (
         <div className="common-shadow">
-            <SearchHeader/>
+            <LessonLibrary/>
         </div>
     );
 }
