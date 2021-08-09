@@ -4,6 +4,7 @@ const API_URL = env.API_URL;
 // API end points
 const API_ENDPOINTS = {
   LOGIN: "/Authentication/Login",
+  GLOBALCODELIST:"/GlobalCodes/GetGlobalCodesList",
   TEACHERREGISTRATION: "/Authentication/TeacherRegistration",
   GETTAGSLIST: "/Tags/GetTagsList",
   GETSTUDENTSLIST: "/Student/GetStudentsList",
@@ -35,7 +36,8 @@ const API_ENDPOINTS = {
   RESOURCESTOGGLE:"/Resource/ToggleIsActive",
   DELETEBOOKS:"/Books/DeleteBook",
   GETGLOBALCODESLIST:"/GlobalCodes/GetGlobalCodesList",
-  ADDSTUDENT:"Student/AddUpdateStudent"
+  ADDSTUDENT:"Student/AddUpdateStudent",
+  GETTAGLISTBYID:"/Tags/GetTagListByTagTypeId"
   
 };
 export const getApiUrl = (key) => {

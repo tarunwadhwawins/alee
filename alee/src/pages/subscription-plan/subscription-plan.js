@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 function SubscriptionPlanPage(props) {
 
-  const schoolId = useSelector(state => state.global.schoolDetail)
+  const schoolId = useSelector(state => state.auth.userDetail.schoolId)
   return (
     <Grid>
       <Grid.Column width={16}>
@@ -53,24 +53,6 @@ function SubscriptionPlanPage(props) {
                 return <Moment format="MM/DD/YYYY">{props.endDate}</Moment>;
               },
             },
-            {
-              headerName: "Status",
-              fieldName: "isActive",
-              isSorting: false,
-              Cell: (props, confirmModalOpen) => {
-                return (
-                  <Form.Checkbox
-                    checked={props.isActive ? true : false}
-                    toggle
-                    className="commonToggle"
-                    onChange={() =>
-                      confirmModalOpen(props.userSubscriptionPlanId, "update",props.isActive)
-                    }
-                  />
-                );
-              },
-            },
-
             {
               headerName: "Action",
               fieldName: "Action",

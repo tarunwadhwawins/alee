@@ -10,7 +10,7 @@ function MyBookPage(props) {
 	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "",type:""})
 	const dispatch = useDispatch();
-	const auth = useSelector(state => state.auth)
+	const auth = useSelector(state => state.auth.userDetail.role)
 	//  call the api //
 	useEffect(() => {
 		getBookList();
@@ -82,7 +82,7 @@ function MyBookPage(props) {
 											<Item.Description>
 												{data.bookSummary} ?
 											</Item.Description>
-											<Item.Extra>Other Tags: 6.4, Empathy, Twist { auth.loggedIn === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId,"delete")} /></div> }</Item.Extra>
+											<Item.Extra>Other Tags: 6.4, Empathy, Twist { auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId,"delete")} /></div> }</Item.Extra>
 										</Item.Content>
 									</Item>
 								</Item.Group>
@@ -90,7 +90,9 @@ function MyBookPage(props) {
 						})}
 					</div>
 				</Grid.Column>
-				<ConfirmModal open={confirmModal} onConfirm={onHandleDelete} close={modalClose} />
+				{/* <ConfirmModal open={confirmModal} onConfirm={onHandleDelete} close={modalClose} /> */}
+
+				<ConfirmModal open={confirmModal} onConfirm={onHandleDelete} close={modalClose} message={"Do you want to delete this book ?"} />
 			</Grid>
 		</>
 	);

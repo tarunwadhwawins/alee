@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, MyBookWhite, MyBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, AddTagListingBlue, AddTagListingWhite ,UserManagementBlue,UserManagementWhite} from "../../../functional/global-image-import";
+import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite,MyBookWhite, MyBookBlue,AddTagListingBlue, AddTagListingWhite ,UserManagementBlue,UserManagementWhite} from "../../../functional/global-image-import";
 import { useSelector } from 'react-redux';
 
 function Sidebar(props) {
 	const [activeItem, setActiveItem] = useState("closest")
 	const [isActive, setIsActive] = useState("")
-
-	const api = useSelector(state => state.auth)
+	const api = useSelector(state => state.auth.userDetail.role)
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 	const handleClick = (chapterName) => setIsActive(chapterName);
@@ -19,7 +18,7 @@ function Sidebar(props) {
 				<Link to="dashboard"><Image src={Logo2} /></Link>
 			</div>
 			<div className="mainMenu">
-				{api.loggedIn === "School" &&
+				{api === "School" &&
 					<Menu text vertical>
 						<Menu.Item as={Link} to="upload-excel" name='UploadExcel' active={activeItem === 'UploadExcel'} onClick={handleItemClick}>
 							<Image src={DashboardWhite} className="white" />
@@ -38,7 +37,7 @@ function Sidebar(props) {
 						</Menu.Item>
 					</Menu>
 				}
-				{api.loggedIn === "Teacher" &&
+				{api === "Teacher" &&
 					<Menu text vertical>
 
 						<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
@@ -57,15 +56,10 @@ function Sidebar(props) {
 							<Image src={LessonPlanBlue} className="blue" />
 							<span>Lesson Plan</span>
 						</Menu.Item>
-						<Menu.Item as={Link} to="search" name='LessonLibrary' active={activeItem === 'LessonLibrary'} onClick={handleItemClick}>
+						<Menu.Item as={Link} to="lesson-library" name='LessonLibrary' active={activeItem === 'LessonLibrary'} onClick={handleItemClick}>
 							<Image src={LessonLibraryWhite} className="white" />
 							<Image src={LessonLibraryBlue} className="blue" />
 							<span>Lesson Library</span>
-						</Menu.Item>
-						<Menu.Item as={Link} to="my-books" name='mybooks' active={activeItem === 'mybooks'} onClick={handleItemClick}>
-							<Image src={MyBookWhite} className="white" />
-							<Image src={MyBookBlue} className="blue" />
-							<span>My Books</span>
 						</Menu.Item>
 
 						<Menu.Item as={Link} to="" name='LogOut' active={activeItem === 'LogOut'} onClick={handleItemClick}>
@@ -75,7 +69,7 @@ function Sidebar(props) {
 						</Menu.Item>
 					</Menu>
 				}
-				{api.loggedIn === "Admin" && <Menu text vertical>
+				{api === "Admin" && <Menu text vertical>
 					<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
 						<Image src={DashboardWhite} className="white" />
 						<Image src={DashboardBlue} className="blue" />

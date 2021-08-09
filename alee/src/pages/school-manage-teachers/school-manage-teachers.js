@@ -4,9 +4,8 @@ import { DataTable } from "../../../src/shared/components/organisms";
 import { useSelector } from 'react-redux';
 
 function SchoolManageTeacherPage(props) {
-
-debugger
-	const schoolId = useSelector(state => state.global.schoolDetail)
+	
+	const schoolId = useSelector(state => state.auth.userDetail.schoolId)
 	return (
 		<div className="common-shadow">
 			<Grid>

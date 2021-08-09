@@ -11,7 +11,7 @@ function LessonPlanPage() {
 					<Header as="h3" className="commonHeading">Lesson Plan</Header>
 				</Grid.Column>
 				<Grid.Column width={8} textAlign="right">
-					<Button className="primaryBtn" as={Link} to="search"><Icon name="plus" /> New Lesson Plan</Button>
+					<Button className="primaryBtn" as={Link} to="lesson-library"><Icon name="plus" /> New Lesson Plan</Button>
 				</Grid.Column>
 				<Grid.Column width={12}>
 					<Form>
@@ -45,16 +45,6 @@ function LessonPlanPage() {
 								headerName: "Lesson Plan Name",
 								fieldName: "lessonPlanName",
 								isSorting: true
-							},
-							{
-								headerName: "Status",
-								fieldName: "isActive",
-								isSorting: false,
-								Cell: (props, confirmModalOpen) => {
-									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.lessonPlanId, "update",props.isActive)} />
-									);
-								},
 							},
 							{
 								headerName: "Action",
