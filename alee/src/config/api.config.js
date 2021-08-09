@@ -34,10 +34,10 @@ const API_ENDPOINTS = {
   DELETERESOURCES:"/Resource/DeleteResources",
   RESOURCESTOGGLE:"/Resource/ToggleIsActive",
   DELETEBOOKS:"/Books/DeleteBook",
-  GETGLOBALCODESLIST:"/GlobalCodes/GetGlobalCodesList"
+  GETGLOBALCODESLIST:"/GlobalCodes/GetGlobalCodesList",
+  ADDSTUDENT:"Student/AddUpdateStudent"
   
 };
-
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];
 };
