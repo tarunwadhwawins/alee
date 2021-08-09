@@ -33,7 +33,7 @@ function StudentListPage() {
 					<DataTable
 						allApi={{ getApiName: "GETSTUDENTSLIST", deleteApiName: "DELETESTUDENT",toggleApiName:"STUDENTTOGGLE"}}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						additionalParams={{ a:"a",b:"b"}}
+						messageInModal= "Student"
 						columns={[
 							{
 								headerName: "Name",
@@ -57,7 +57,7 @@ function StudentListPage() {
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.studentId,"update")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.studentId,"update",props.isActive)} />
 									);
 								},
 							},

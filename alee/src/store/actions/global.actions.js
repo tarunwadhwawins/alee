@@ -4,6 +4,6 @@ export const storeGlobalCodes = (data) => {
     return { type: types.STORE_GLOBAL_CODES, payload: data }
 }
 
-export const storeBussinessDetail = (data) => {
-    return { type: types.STORE_BUSSINESS_DETAIL, payload: data }
+export const storeSchoolDetails = (data) => {
+    return { type: types.STORE_SCHOOL_DETAIL, payload: data }
 }

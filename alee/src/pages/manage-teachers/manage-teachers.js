@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Header, Form} from "semantic-ui-react";
+import { Grid, Header, Form,Icon} from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 
 function ManageTeacherPage() {
@@ -7,13 +7,14 @@ function ManageTeacherPage() {
 		<Form>
 			<Grid>
 				<Grid.Column width={16}>
-					<Header as="h3" className="commonHeading">ManageTeacher</Header>
+					<Header as="h3" className="commonHeading">Manage Teachers</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
 						allApi={{ getApiName: "GETTEACHERSLIST", toggleApiName: "TEACHERTOGGLE", deleteApiName: "DELETETEACHER" }}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						additionalParams={{ schoolId: 1 }}
+						messageInModal= "teacher"
+						additionalParams={{ schoolId: -1 }}
 						columns={[
 							{
 								headerName: "Teacher Name",
@@ -44,9 +45,22 @@ function ManageTeacherPage() {
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "Update")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update",props.isActive)} />
 									);
 								}
+							},
+							{
+								headerName: "Action",
+								fieldName: "Action",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<>
+											<Icon name="edit" className="primary-color" link />
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
+										</>
+									);
+								},
 							},
 						]}
 

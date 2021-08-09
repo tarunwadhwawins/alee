@@ -1,9 +1,12 @@
 import React from "react";
 import { Grid, Icon, Header, Form } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
+import { useSelector } from 'react-redux';
 
 function SchoolManageTeacherPage(props) {
 
+debugger
+	const schoolId = useSelector(state => state.global.schoolDetail)
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -13,8 +16,9 @@ function SchoolManageTeacherPage(props) {
 				<Grid.Column width={16}>
 					<DataTable
 						allApi={{ getApiName: "GETTEACHERSLIST", deleteApiName: "DELETETEACHER", toggleApiName: "TEACHERTOGGLE" }}
-						additionalParams={{ schoolId: -1 }}
+						additionalParams={{ schoolId: schoolId }}
 						searchOption={{ show: true, placeHolder: "Search" }}
+						messageInModal= "school"
 						columns={[
 							{
 								headerName: "School Name",
@@ -36,9 +40,8 @@ function SchoolManageTeacherPage(props) {
 								fieldName: "isActive",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									debugger
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "Update")} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update",props.isActive)} />
 									);
 								},
 							},
@@ -47,7 +50,6 @@ function SchoolManageTeacherPage(props) {
 								fieldName: "Action",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									debugger
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link />

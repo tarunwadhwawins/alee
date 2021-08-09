@@ -7,7 +7,7 @@ function ConfirmModal(props) {
     return (
         <Modal size="tiny" open={props.open.modalStatus}>
             <Modal.Content>
-                <p style={{ fontSize: 17 }}>  {"Do you want to"} {props.open.type} {"this record ?"} </p>
+                <p style={{ fontSize: 17 }}>  {props.message} </p>
             </Modal.Content>
             <Modal.Actions>
                 <Button className="secondaryBtn" onClick={props.close}>

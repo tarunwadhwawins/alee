@@ -38,12 +38,13 @@ const Book = [
 const panes = [
 	{
 		menuItem: 'Audio',
-		render: () =>
-			<Tab.Pane attached={false}>
-
+		render: () => {
+			return <Tab.Pane attached={false} key="Audio">
 				<DataTable
 					allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
 					searchOption={{ show: true, placeHolder: "Search" }}
+					additionalParams={{ resourceTypeId: 18 }}
+					messageInModal="audio"
 					columns={[
 						{
 							headerName: "Grade",
@@ -76,11 +77,126 @@ const panes = [
 							fieldName: "Action",
 							isSorting: false,
 							Cell: (props, confirmModalOpen) => {
-								debugger
 								return (
 									<>
 										<Icon name="edit" className="primary-color" link />
-										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId , "delete")} />
+										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")} />
+									</>
+								);
+							},
+						},
+					]}
+
+				></DataTable>
+			</Tab.Pane>
+		}
+	},
+	{
+		menuItem: 'Video',
+		render: () => {
+			return <Tab.Pane attached={false} key="Video">
+
+				<DataTable
+					allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
+					searchOption={{ show: true, placeHolder: "Search" }}
+					additionalParams={{ resourceTypeId: 19 }}
+					messageInModal="video"
+					columns={[
+						{
+							headerName: "Grade",
+							fieldName: "gradeName",
+							isSorting: true,
+						},
+						{
+							headerName: "Book",
+							fieldName: "bookName",
+							isSorting: true
+						},
+
+						{
+							headerName: "Chapter",
+							fieldName: "chapterId",
+							isSorting: true,
+						},
+						{
+							headerName: "Page",
+							fieldName: "pageId",
+							isSorting: true,
+						},
+						{
+							headerName: "Video",
+							fieldName: "link",
+							isSorting: true,
+						},
+						{
+							headerName: "Action",
+							fieldName: "Action",
+							isSorting: false,
+							Cell: (props, confirmModalOpen) => {
+								return (
+									<>
+										<Icon name="edit" className="primary-color" link />
+										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")} />
+									</>
+								);
+							},
+						},
+					]}
+
+				></DataTable>
+			</Tab.Pane>
+		}
+	},
+	{
+		menuItem: 'Article',
+		render: () => {
+			return <Tab.Pane attached={false} key="Article">
+				<DataTable
+					allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
+					searchOption={{ show: true, placeHolder: "Search" }}
+					additionalParams={{ resourceTypeId: 20 }}
+					messageInModal="article"
+					columns={[
+						{
+							headerName: "Grade",
+							fieldName: "gradeName",
+							isSorting: true,
+						},
+						{
+							headerName: "Book",
+							fieldName: "bookName",
+							isSorting: true
+						},
+
+						{
+							headerName: "Chapter",
+							fieldName: "chapterId",
+							isSorting: true,
+						},
+						{
+							headerName: "Page",
+							fieldName: "pageId",
+							isSorting: true,
+						},
+						{
+							headerName: "Article",
+							fieldName: "link",
+							isSorting: true,
+						},
+						{
+							headerName: "Pdf",
+							fieldName: "",
+							isSorting: true,
+						},
+						{
+							headerName: "Action",
+							fieldName: "Action",
+							isSorting: false,
+							Cell: (props, confirmModalOpen) => {
+								return (
+									<>
+										<Icon name="edit" className="primary-color" link />
+										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")} />
 									</>
 								);
 							},
@@ -89,125 +205,16 @@ const panes = [
 
 				></DataTable>
 
-			</Tab.Pane>,
-	},
-	{
-		menuItem: 'Video',
-		render: () => <Tab.Pane attached={false}>
-
-			<DataTable
-				allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
-				searchOption={{ show: true, placeHolder: "Search" }}
-				columns={[
-					{
-						headerName: "Grade",
-						fieldName: "gradeName",
-						isSorting: true,
-					},
-					{
-						headerName: "Book",
-						fieldName: "bookName",
-						isSorting: true
-					},
-
-					{
-						headerName: "Chapter",
-						fieldName: "chapterId",
-						isSorting: true,
-					},
-					{
-						headerName: "Page",
-						fieldName: "pageId",
-						isSorting: true,
-					},
-					{
-						headerName: "Video",
-						fieldName: "link",
-						isSorting: true,
-					},
-					{
-						headerName: "Action",
-						fieldName: "Action",
-						isSorting: false,
-						Cell: (props, confirmModalOpen) => {
-							debugger
-							return (
-								<>
-									<Icon name="edit" className="primary-color" link />
-									<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId , "delete")} />
-								</>
-							);
-						},
-					},
-				]}
-
-			></DataTable>
-		</Tab.Pane>,
-	},
-	{
-		menuItem: 'Article',
-		render: () => <Tab.Pane attached={false}>
-
-			<DataTable
-				allApi={{ getApiName: "GETRESOURCESLIST", deleteApiName: "DELETERESOURCES", toggleApiName: "RESOURCESTOGGLE" }}
-				searchOption={{ show: true, placeHolder: "Search" }}
-				columns={[
-					{
-						headerName: "Grade",
-						fieldName: "gradeName",
-						isSorting: true,
-					},
-					{
-						headerName: "Book",
-						fieldName: "bookName",
-						isSorting: true
-					},
-
-					{
-						headerName: "Chapter",
-						fieldName: "chapterId",
-						isSorting: true,
-					},
-					{
-						headerName: "Page",
-						fieldName: "pageId",
-						isSorting: true,
-					},
-					{
-						headerName: "Article",
-						fieldName: "link",
-						isSorting: true,
-					},
-					{
-						headerName: "Pdf",
-						fieldName: "",
-						isSorting: true,
-					},
-					{
-						headerName: "Action",
-						fieldName: "Action",
-						isSorting: false,
-						Cell: (props, confirmModalOpen) => {
-							debugger
-							return (
-								<>
-									<Icon name="edit" className="primary-color" link />
-									<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId , "delete")} />
-								</>
-							);
-						},
-					},
-				]}
-
-			></DataTable>
-
-		</Tab.Pane>,
+			</Tab.Pane>
+		}
 	},
 ]
 
 
 function ResourcesPage() {
 	const [tag, setTag] = React.useState(null)
+
+
 
 	return (
 		<div className="common-shadow resources">

@@ -1,16 +1,20 @@
-import React,{ useState } from "react";
-import { Grid, Form, Dropdown, Checkbox, Header, Image, Button } from "semantic-ui-react";
+import React,{ useState,useEffect } from "react";
+import { Grid, Form, Dropdown, Checkbox, Header, Image, Button,Input,Dimmer,Loader } from "semantic-ui-react";
 import { Link, } from "../../../src/shared/functional/global-import";
 import {Book} from "../../shared/functional/global-image-import";
+import { useDispatch, useSelector } from 'react-redux';
+import { apiCall } from "../../../src/store/actions/api.actions";
+function SearchHeader(){	
+	const [radiovalueOne, setRadiovalueOne] = useState("")
+	const [radiovalueTwo, setRadiovalueTwo] = useState("")
+	const [radiovalueThree, setRadiovalueThree] = useState("")
+	const [radiovalueFour, setRadiovalueFour] = useState("")
+	const api = useSelector(state => state.api)
+	///////////////
+	const dispatch = useDispatch();
+	const [bookList, setBookList] = useState(null)
+	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 
-
-
-function SearchHeader() {	
-
-	const [radiovalueOne, setRadiovalueOne] = React.useState("")
-	const [radiovalueTwo, setRadiovalueTwo] = React.useState("")
-	const [radiovalueThree, setRadiovalueThree] = React.useState("")
-	const [radiovalueFour, setRadiovalueFour] = React.useState("")
 
 	const handleStandardChange = (e, { value }) => {
 		setRadiovalueOne(value)
@@ -24,19 +28,53 @@ function SearchHeader() {
 	const handleElementsChange = (e, { value }) => {
 		setRadiovalueFour(value)
 	}
+	const onHandleChangeSearch = (e, { value }) => {
+		setValues({ ...values, searchValue: value })
+	}
+   //  call the api //
+    useEffect(() => {
+	getBookList();
+    }, [values]);
+
+      //  get api //
+    const getBookList = () => {
+	dispatch(apiCall({
+		urls: ["GETBOOKSLIST"], method: "GET",data:values, onSuccess: (response) => {
+			setBookList(response)
+		}
+	}));
+}
+// const getBookList = () => {
+// 	dispatch(apiCall({
+// 		urls: ["GETBOOKSLIST"], method: "GET",data:values, onSuccess: (response) => {
+// 			setBookList(response)
+// 		}
+// 	}));
+// }
 
     return (
 		<div className="searchHeader">
+			{api.isApiLoading && (
+				<Dimmer active inverted>
+					<Loader />
+				</Dimmer>
+
+			)}
 			<Grid>
 			<Grid.Column width={16}>
 				<Header as="h3" className="commonHeading">Lesson Library</Header>
 			</Grid.Column>
 			
-				<Grid.Column width={16}>
+				{/* <Grid.Column width={16}>
 					<Form>
-						<Form.Input icon="search" iconPosition="left" placeholder="Search by Book Title" fluid/>
+		<Form.Input icon="search" iconPosition="left" placeholder="Search by Book Title" fluid/>
+
 					</Form>
+				</Grid.Column> */}
+				<Grid.Column computer={8} tablet={8}>
+					<Input fluid icon="search" name="searchValue" data="searchValue" iconPosition="left" placeholder="Search by Book Title" className="common-search-bar" onChange={onHandleChangeSearch} />
 				</Grid.Column>
+
 				<Grid.Column width={16} className="filterDropdwon">
 					<Dropdown text='Standards' pointing item simple className='link item'>
 						<Dropdown.Menu>
@@ -113,37 +151,46 @@ function SearchHeader() {
 						</Dropdown.Menu>
 					</Dropdown>
 				</Grid.Column>
+			
 				<Grid.Column width={16}>
 					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
 				</Grid.Column>
+				{bookList && bookList.map((data, index) => {
+							debugger
+							return (
+								<>
 				<Grid.Column width={3}>
+					
 					<div className="bookDetail">
 						<Image src={Book}/>
-						<Header>Animal Farm</Header>
+						<Header>{data.bookName}</Header>
 						<p>J.K. Rownling</p>
 					</div>
 				</Grid.Column>
 				<Grid.Column width={3}>
 					<div className="bookDetail">
 						<Image src={Book}/>
-						<Header>America Dreams</Header>
+						<Header>{data.bookName}</Header>
 						<p>J.K. Rownling</p>
 					</div>
 				</Grid.Column>
 				<Grid.Column width={3}>
 					<div className="bookDetail">
 						<Image src={Book}/>
-						<Header>Old Man & Sea</Header>
+						<Header>{data.bookName}</Header>
 						<p>J.K. Rownling</p>
 					</div>
 				</Grid.Column>
 				<Grid.Column width={3}>
 					<div className="bookDetail">
 						<Image src={Book}/>
-						<Header>Animal Farm</Header>
+						<Header>{data.bookName}</Header>
 						<p>J.K. Rownling</p>
 					</div>
 				</Grid.Column>
+				</>
+					)
+				})}
 				<Grid.Column width={16}>
 					<Button as={Link} to="search-result" className="primaryBtn">Show Search Result</Button>
 				</Grid.Column>

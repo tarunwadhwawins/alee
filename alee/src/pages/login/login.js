@@ -5,6 +5,7 @@ import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
 import { loginSuccess } from "../../../src/store/actions/auth.actions";
+import { storeSchoolDetails } from "../../../src/store/actions/global.actions";
 import { useDispatch, useSelector } from 'react-redux';
 
 function LoginForm() {
@@ -18,16 +19,19 @@ function LoginForm() {
   const onsubmit = () => {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
+        debugger
         dispatch(loginSuccess(response.role));
         if (response.isSuccess) {
           if (response.role === "Admin") {
-            history.push(`${env.PUBLIC_URL}/scan-book`);
+            history.push(`${env.PUBLIC_URL}/dashboard`);
           }
           if (response.role === "School") {
+            dispatch(storeSchoolDetails(response.schoolId));
             history.push(`${env.PUBLIC_URL}/upload-excel`);
           }
           if (response.role === "Teacher") {
-            history.push(`${env.PUBLIC_URL}/profile`);
+            dispatch(storeSchoolDetails(response.teacherId));
+            history.push(`${env.PUBLIC_URL}/dashboard`);
           }
         }
       }, showNotification: true
