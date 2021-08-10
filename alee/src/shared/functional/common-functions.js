@@ -6,7 +6,7 @@ import moment from 'moment';
 const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
   const path = data.split(".");
   const depth = path.length;
-  const state = { ...obj };
+  const state = {...obj};
   let ref = state;
   for (let i = 0; i < depth; i += 1) {
     if (i === depth - 1) {
@@ -128,7 +128,8 @@ const getSingleValue = (globalCodeData, categoryType, codeName) => {
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-  const singlevalue = Array.isArray(globalCodeData) && globalCodeData.filter((code) => {
+  debugger;
+  const singlevalue = globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });
   return singlevalue[0];
