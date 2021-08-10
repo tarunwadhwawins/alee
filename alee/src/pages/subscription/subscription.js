@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Header, Button, Icon, Form } from "semantic-ui-react";
 import AddSubscription from "../../shared/components/organisms/modal/subscription/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 
-
 function SubscriptionPage() {
-	const [subscription, setSubscription] = React.useState(false)
+	const [subscription, setSubscription] = useState(false)
+	const [reload, SetReload] = useState(false)
+	const [editData, SetEditData] = useState([])
 	const openModal = () => {
 		setSubscription(!subscription)
 	}
+
+	const GridReload = () => {
+		SetReload(!reload)
+	}
+
+	const onHandleEdit = (data) => {
+		SetEditData(data)
+		openModal();
+	}
+
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -20,9 +31,9 @@ function SubscriptionPage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-						allApi={{ getApiName: "GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION", toggleApiName: "SUBSCRIPTIONTOGGLE" }} isSorting={false}
+						allApi={{ getApiName: "GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION", toggleApiName: "SUBSCRIPTIONTOGGLE" }} reload={reload}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal= "subscription"
+						messageInModal="subscription"
 						columns={[
 							{
 								headerName: "Name",
@@ -51,11 +62,10 @@ function SubscriptionPage() {
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subscriptionPlanId,"update",props.isActive)} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subscriptionPlanId, "update", props.isActive)} />
 									);
 								},
 							},
-
 							{
 								headerName: "Action",
 								fieldName: "Action",
@@ -63,18 +73,17 @@ function SubscriptionPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link />
+											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
 											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId, "delete")} />
 										</>
 									);
 								},
 							},
 						]}
-
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddSubscription openModal={subscription} closeModal={openModal} />
+			<AddSubscription openModal={subscription} closeModal={openModal} GridReload={GridReload} editData={editData}/>
 		</div>
 	);
 }
