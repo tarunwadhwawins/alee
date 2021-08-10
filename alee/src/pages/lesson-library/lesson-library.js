@@ -151,22 +151,22 @@ function LessonLibrary() {
 							})}
 						</Dropdown.Menu>
 					</Dropdown>
-					
+
 					<Button>Filter</Button>
-				
+
 				</Grid.Column>
 
 				<Grid.Column computer={16}>
 					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
 				</Grid.Column>
-				
+
 				{bookList && bookList.map((data, index) => {
 					return (
 						<Grid.Column width={3}>
 							<div className="bookDetail">
 								<Image src={Book} />
 								<Header as="h5">{data.bookName}</Header>
-								
+
 								<p>{data.tagName}</p>
 							</div>
 						</Grid.Column>

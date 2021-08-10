@@ -36,13 +36,13 @@ function AddTagsListing(props) {
 	}, []);
 	const getTagType = () => {
 		dispatch(apiCall({
-			urls: ["GETGLOBALCODESLIST"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Standards")).globalCodeId }, onSuccess: (response) => {
+			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "ComprehensionStrategies")).globalCodeId }, onSuccess: (response) => {
 				debugger
 				const tagList = response.map((singleTag) => {
 					return { value: singleTag.tagId, text: singleTag.tagTypeName }
 				});
-				setStandards(tagList)
-				console.log("stsnhgfd", standards)
+				setTaglisting(tagList)
+
 			}
 		}));
 	}
