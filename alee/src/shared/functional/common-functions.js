@@ -1,8 +1,7 @@
 import SimpleReactValidator from "simple-react-validator";
-import { Label } from "semantic-ui-react";
+import { Label, Form } from "semantic-ui-react";
 import { env } from "../functional/global-import";
 import moment from 'moment';
-
 // This function is used to handle common onchange in all the forms in the application.
 const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
   const path = data.split(".");
@@ -58,6 +57,7 @@ const initializeSimpleValidator = () => {
         },
         required: true, // optional
       },
+
       // For Custom error message in confirm Password field
       validConfirmPassword: {
         message: "The 'Password' and 'Confirm Password' doesn't match'",
@@ -68,7 +68,6 @@ const initializeSimpleValidator = () => {
         },
         required: true, // optional
       },
-
       validRoles: {
         message: "Must be Select One Roles",
         rule: (val, params, validator) => {
@@ -81,13 +80,11 @@ const initializeSimpleValidator = () => {
     },
   });
 };
-
 const concatenateImageWithAPIUrl = (Image) => {
   if (Image && Image !== "") {
     return `${env.API_URL.replace("/api", "")}${Image}`;
   }
 };
-
 const getFormData = (data) => {
   var formData = new FormData();
   Object.entries(data).map(function ([key, val]) {
@@ -120,26 +117,23 @@ const getFormData = (data) => {
   });
   return formData;
 };
-
 const formattedDate = (date) => {
   return moment(date).format("MMM DD, YYYY");
 }
-
 const saveFormattedDate = (date) => {
   return moment(date).format("YYYY-MM-DD");
 }
-
 const getSingleValue = (globalCodeData, categoryType, codeName) => {
-  const singlevalue = globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName)
+  const singlevalue = globalCodeData && globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName)
   return singlevalue[0].categoryId;
 }
-
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-  const singlevalue = globalCodeData.filter((code) => {
+  const singlevalue = Array.isArray(globalCodeData) && globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });
   return singlevalue[0];
 }
+
 export const commonFunctions = {
   onHandleChange,
   onHandleFormSubmit,
@@ -149,5 +143,5 @@ export const commonFunctions = {
   formattedDate,
   saveFormattedDate,
   getSingleValue,
-  getGlobalCodeDetails
+  getGlobalCodeDetails,
 };

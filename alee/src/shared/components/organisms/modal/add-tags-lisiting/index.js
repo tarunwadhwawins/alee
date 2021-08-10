@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Grid } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../store/actions/api.actions";
-import { env } from "../../../../functional/global-import";
+import { env, commonFunctions } from "../../../../functional/global-import";
 import { useHistory } from "react-router-dom";
 
 const type = [
@@ -13,9 +13,11 @@ const type = [
 ]
 
 function AddTagsListing(props) {
-	const [taglisting, setTaglisting] = React.useState({ tagId: "", tagTypeId: "", tagName: "", isActive: false, actionPerformedBy: "Admin" })
+	const [taglisting, setTaglisting] = React.useState({ tagId: "", tagTypeId: 6, tagName: "", isActive: false, actionPerformedBy: "Admin" })
 
 	const [isActive, setIsActive] = React.useState(false)
+	const globalCode = useSelector(state => state.global.codes)
+	const [standards, setStandards] = React.useState([])
 
 	// let history = useHistory();
 	const dispatch = useDispatch();
@@ -29,6 +31,21 @@ function AddTagsListing(props) {
 		setIsActive({ ...isActive, [data]: value })
 	}
 
+	useEffect(() => {
+		getTagType();
+	}, []);
+	const getTagType = () => {
+		dispatch(apiCall({
+			urls: ["GETGLOBALCODESLIST"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Standards")).globalCodeId }, onSuccess: (response) => {
+				debugger
+				const tagList = response.map((singleTag) => {
+					return { value: singleTag.tagId, text: singleTag.tagTypeName }
+				});
+				setStandards(tagList)
+				console.log("stsnhgfd", standards)
+			}
+		}));
+	}
 	// const onHandleToggle = () => setIsActive(!isActive);
 	const onsubmit = () => {
 		dispatch(apiCall({
