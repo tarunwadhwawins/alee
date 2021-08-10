@@ -38,9 +38,9 @@ const API_ENDPOINTS = {
   GETGLOBALCODESLIST:"/GlobalCodes/GetGlobalCodesList",
   GETTAGLISTBYID:"/Tags/GetTagListByTagTypeId",
   POSTSUBSCRIPTION:"/Subscription/AddSubscription",
+  ADDSTUDENT:"Student/AddUpdateStudent",
   
 };
-
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];
 };
