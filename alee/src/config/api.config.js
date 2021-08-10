@@ -36,7 +36,8 @@ const API_ENDPOINTS = {
   RESOURCESTOGGLE:"/Resource/ToggleIsActive",
   DELETEBOOKS:"/Books/DeleteBook",
   GETGLOBALCODESLIST:"/GlobalCodes/GetGlobalCodesList",
-  GETTAGLISTBYID:"/Tags/GetTagListByTagTypeId"
+  GETTAGLISTBYID:"/Tags/GetTagListByTagTypeId",
+  POSTSUBSCRIPTION:"/Subscription/AddSubscription",
   
 };
 

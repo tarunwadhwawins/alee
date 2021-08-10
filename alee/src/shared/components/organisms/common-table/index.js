@@ -16,11 +16,10 @@ function DataTable(props) {
     const api = useSelector(state => state.api)
     useEffect(() => {
         getCommonTable();
-    }, [gridObjects]);
+    }, [gridObjects,props.reload]);
 
 
     const getCommonTable = () => {
-        debugger
         dispatch(apiCall({
             urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams }, onSuccess: (response) => {
                 setValues(response)
