@@ -92,12 +92,11 @@ const getFormData = (data) => {
       // if (key === "image" && val !== null) {
       //   formData.append(key, val[0].file);
       // }
-      if (key === "image" && val !== null && data.image.length > 0) {
+      if (key === "file" && val !== null && data.file.length > 0) {
         let file = val[0].file === undefined ? val[0] : val[0].file;
         formData.append(key, file);
       }
-      else if (key === "businessLocationCategories" || key === "businessCategories" ||
-        key === "userLocations" || key === "documentBusinessCategoryType" || key === "categoryTag") {
+      else if (key === "ids") {
         var array = val;
         for (var i = 0; i < array.length; i++) {
           formData.append(key, array[i]);

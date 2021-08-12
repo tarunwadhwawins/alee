@@ -43,7 +43,12 @@ const API_ENDPOINTS = {
   DELETESUBADMIN:"/SubAdmin/DeleteSubAdmin",
   SUBADMINTOGGLE:"/SubAdmin/ToggleIsActive",
   SUBADMINREGISTRATION:"/Authentication/SubAdminRegistration",
-  UPDATESUBADMIN:"/SubAdmin/UpdateSubAdmin"
+  UPDATESUBADMIN:"/SubAdmin/UpdateSubAdmin",
+  // ADDSTUDENT:"/Student/AddUpdateStudent",
+  UPLOADEXCEL:"/Teacher/UploadExcel",
+  ADDTEACHEREXCEL:"/Teacher/AddTeacherFromExcel",
+  ADDTEACHERBASICINFO:"/Teacher/AddTeacherBasicInfo",
+  
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

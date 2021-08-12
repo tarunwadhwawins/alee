@@ -23,7 +23,7 @@ function ProfileStepThree() {
 					<Grid>
 
 						 <Grid.Column width={6}>
-							<Form.Input placeholder='Current Company'/>
+							<Form.Input placeholder='Previous Company'/>
 						</Grid.Column>
 						<Grid.Column width={5}>
 							<Form.Input placeholder='Position'/>
@@ -31,12 +31,12 @@ function ProfileStepThree() {
 						<Grid.Column width={5}>
 							<Form.Dropdown placeholder='Grade(s) taught ' fluid multiple selection options={Grade} />
 						</Grid.Column>
-						<Grid.Column width={6}>
+						{/* <Grid.Column width={6}>
 							<Form.Input placeholder='Previous Company'/>
 						</Grid.Column>
 						<Grid.Column width={5}>
 							<Form.Input placeholder='Position'/>
-						</Grid.Column>
+						</Grid.Column> */}
 						<Grid.Column width={12}>
 							<Button className="primaryBtn">  <Icon name='plus' /> Add Additional</Button>
 						</Grid.Column>

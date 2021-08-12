@@ -113,7 +113,7 @@
 			.menuBar {
 				i.icon {
 					&:before {
-						content: "\f30b"!important;
+						transform: matrix(-1, 0, 0, 1, 0, 0);
 					}
 				}
 			}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Grid} from "semantic-ui-react";
+import { Form, Grid,Button,Icon} from "semantic-ui-react";
 
 
 function ProfileStepFour() {
@@ -8,12 +8,11 @@ function ProfileStepFour() {
 				<Form>
 					<Grid>
 						<Grid.Column width={16}>
-							<Form.Input action={{ icon: 'plus' }} placeholder='Add Skill' className="addBtnInput"/>
+							<Form.Input  placeholder='Add Skill' className="addBtnInput"/>
 						</Grid.Column>
 						<Grid.Column width={16}>
-							<Form.Input action={{ icon: 'plus' }} placeholder='Add Skill' className="addBtnInput"/>
+							<Button className="primaryBtn"> <Icon name="plus circle"/> Add more </Button>
 						</Grid.Column>
-						
 					</Grid>   
 				</Form> 
 		);

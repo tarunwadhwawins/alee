@@ -2,6 +2,7 @@ import React ,{useState} from "react";
 import { Icon, Grid, Dropdown, Image ,Feed,Card} from "semantic-ui-react";
 import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
+import { useSelector } from 'react-redux';
 
 const trigger = (
   <span>
@@ -10,8 +11,8 @@ const trigger = (
 )
 
 function Header(props) {
-  	const [activeButton, setActiveButton] = useState(localStorage.getItem("Usertype")?localStorage.getItem("Usertype"):"school")
-    localStorage.setItem("BookType","" );
+
+    const api = useSelector(state => state.auth.userDetail.role)
   
     return (
       <React.Fragment>
@@ -74,7 +75,7 @@ function Header(props) {
               </Dropdown>
                 <Dropdown trigger={trigger}>
                   <Dropdown.Menu className="left setting-dropdown">
-                  { localStorage.getItem("Usertype") === "teacher" &&	
+                  { api === "Teacher" &&	
                     <Dropdown.Item
                       as={Link}
                       to="profile"
