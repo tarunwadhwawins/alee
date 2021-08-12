@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
-import { connect } from '../../../functional/global-import';
 import { useSelector } from 'react-redux';
 
 const GlobalCodeSelect = ({ placeholder, name, onChange, value, categoryType, data, error, disabled ,label}) => {

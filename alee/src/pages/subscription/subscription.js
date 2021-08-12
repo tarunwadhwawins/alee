@@ -16,7 +16,7 @@ function SubscriptionPage() {
 	}
 
 	const onHandleEdit = (data) => {
-		SetEditData(data)
+		SetEditData(editData.concat(data))
 		openModal();
 	}
 
@@ -83,7 +83,7 @@ function SubscriptionPage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddSubscription openModal={subscription} closeModal={openModal} GridReload={GridReload} editData={editData}/>
+			<AddSubscription openModal={subscription} closeModal={openModal} GridReload={GridReload} editData={editData} />
 		</div>
 	);
 }

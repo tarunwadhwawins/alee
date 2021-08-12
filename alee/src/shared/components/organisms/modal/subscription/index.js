@@ -32,10 +32,9 @@ const AddSubscription = (props) => {
 	}, [props.editData]);
 
 	const editForm = () => {
-		debugger
-		if(props.editData!==undefined || props.editData.length>0){
-		const { subscriptionPlanName, durationTypeId, description, price, subscriptionPlanId, noOfStudents, isActive } = props.editData;
-		setValues({ ...values, subscriptionPlanId: subscriptionPlanId, subscriptionPlanName: subscriptionPlanName, durationTypeId: durationTypeId, noOfStudents: noOfStudents, price: price, description: description, isActive: isActive })
+		if (props.editData.length > 0) {
+			const { subscriptionPlanName, durationTypeId, description, price, subscriptionPlanId, noOfStudents, isActive } = props.editData[props.editData.length-1];
+			setValues({ ...values, subscriptionPlanId: subscriptionPlanId, subscriptionPlanName: subscriptionPlanName, durationTypeId: durationTypeId, noOfStudents: noOfStudents, price: price, description: description, isActive: isActive })
 		}
 	}
 	const closeModal = () => {

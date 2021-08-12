@@ -1,29 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Step, Grid, Divider, Header } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
+import { useDispatch, useSelector } from 'react-redux';
+import { apiCall } from "../../store/actions/api.actions";
 import ProfileStepOne from "./profile-step-one";
 import ProfileStepTwo from "./profile-step-two";
 import ProfileStepThree from "./profile-step-three";
 import ProfileStepFour from "./profile-step-four";
 
+const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, actionPerformedBy: "" }
 function MyProfile() {
   const [activeStep, setActiveStep] = useState(0)
+  const [values, setValues] = useState(initialState)
 
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
+  const teacherId = useSelector(state => state.auth.userDetail.teacherId)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setValues({ ...values, teacherId: teacherId })
+  }, [values.teacherId]);
+
+
+  const onHandleChange = (e, { data, value }) => {
+    setValues({ ...values, [data]: value })
+  }
+
+  const onStepFirst = () => {
+    dispatch(apiCall({
+      urls: ["ADDTEACHERBASICINFO"], method: "POST", data: values, onSuccess: (response) => {
+        changeStep(1);
+      }, showNotification: true
+    }))
+  }
+
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
         return (
           <>
-            <ProfileStepOne />
+            <ProfileStepOne onHandleChange={onHandleChange} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
-                <Button className="alternateBtn" onClick={() => onNext(1)}>
+                <Button className="alternateBtn" onClick={() => changeStep(1)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={() => onNext(1)}>
+                <Button className="primaryBtn" onClick={onStepFirst}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -38,13 +61,13 @@ function MyProfile() {
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
-                <Button className="secondaryBtn" onClick={() => onPrevious(0)}>
+                <Button className="secondaryBtn" onClick={() => changeStep(0)}>
                   Back
                 </Button>
-                <Button className="alternateBtn" onClick={() => onNext(2)}>
+                <Button className="alternateBtn" onClick={() => changeStep(2)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={() => onNext(2)}>
+                <Button className="primaryBtn" onClick={() => changeStep(2)}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -58,13 +81,13 @@ function MyProfile() {
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
-                <Button className="secondaryBtn" onClick={() => onPrevious(1)}>
+                <Button className="secondaryBtn" onClick={() => changeStep(1)}>
                   Back
                 </Button>
-                <Button className="alternateBtn" onClick={() => onNext(3)}>
+                <Button className="alternateBtn" onClick={() => changeStep(3)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={() => onNext(3)}>
+                <Button className="primaryBtn" onClick={() => changeStep(3)}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -78,13 +101,13 @@ function MyProfile() {
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
-                <Button className="secondaryBtn" onClick={() => onPrevious(2)}>
+                <Button className="secondaryBtn" onClick={() => changeStep(2)}>
                   Back
                 </Button>
                 <Button className="alternateBtn">
                   Preview
                 </Button>
-                <Button className="primaryBtn" as={Link} to="search">
+                <Button className="primaryBtn" as={Link} to="lesson-library">
                   Save & Continue
                 </Button>
               </Grid.Column>
@@ -95,10 +118,6 @@ function MyProfile() {
         return null;
     }
   };
-  const onNext = (step) => setActiveStep(step);
-
-  const onPrevious = (step) => setActiveStep(step);
-
 
   return (
     <>
@@ -157,7 +176,7 @@ function MyProfile() {
               <Step.Content>
                 <Step.Description>4</Step.Description>
                 <Step.Title>
-                <span>Key <br />Skillset </span>
+                  <span>Key <br />Skillset </span>
                 </Step.Title>
 
               </Step.Content>
@@ -165,7 +184,6 @@ function MyProfile() {
           </Step.Group>
         </Grid.Column>
       </Grid>
-
       <div>{getStepContent(activeStep)}</div>
     </>
   );

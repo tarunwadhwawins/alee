@@ -38,7 +38,10 @@ const API_ENDPOINTS = {
   GETGLOBALCODESLIST:"/GlobalCodes/GetGlobalCodesList",
   GETTAGLISTBYID:"/Tags/GetTagListByTagTypeId",
   POSTSUBSCRIPTION:"/Subscription/AddSubscription",
-  ADDSTUDENT:"Student/AddUpdateStudent",
+  ADDSTUDENT:"/Student/AddUpdateStudent",
+  UPLOADEXCEL:"/Teacher/UploadExcel",
+  ADDTEACHEREXCEL:"/Teacher/AddTeacherFromExcel",
+  ADDTEACHERBASICINFO:"/Teacher/AddTeacherBasicInfo",
   
 };
 export const getApiUrl = (key) => {
