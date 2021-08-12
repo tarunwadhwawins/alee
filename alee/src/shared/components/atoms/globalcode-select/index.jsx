@@ -8,9 +8,10 @@ const GlobalCodeSelect = ({ placeholder, name, onChange, value, categoryType, da
     let filteredGlobalCodes = []
 
     const globalCode = useSelector(state => state.global.codes)
-
+    debugger
     let globalCodes = globalCode.filter(code => code.categoryName === categoryType).map((filtercode) => {
         return { filtercode: filtercode.codeName, value: filtercode.globalCodeId, text: filtercode.codeName }
+        debugger;
     });
     filteredGlobalCodes.push({ filtercode: -1, value: -1, text: placeholder, disabled: true })
     filteredGlobalCodes = filteredGlobalCodes.concat(globalCodes)
