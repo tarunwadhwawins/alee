@@ -9,9 +9,12 @@ import ProfileStepThree from "./profile-step-three";
 import ProfileStepFour from "./profile-step-four";
 
 const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, actionPerformedBy: "" }
+const initialStateStepSecond = { degree: "", college: "", inProgress: null, yearOfPassing: "", index: null }
 function MyProfile() {
   const [activeStep, setActiveStep] = useState(0)
   const [values, setValues] = useState(initialState)
+  const [secondstepValues, setsecondstepValues] = useState(initialStateStepSecond)
+  const [formSecondStep, setFormSecondStep] = useState([])
 
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId)
@@ -21,8 +24,13 @@ function MyProfile() {
   }, [values.teacherId]);
 
 
-  const onHandleChange = (e, { data, value }) => {
+  const onChangeFirststep = (e, { data, value }) => {
     setValues({ ...values, [data]: value })
+  }
+
+  const onChangeSecondStep = (e, { data, value, checked, type }) => {
+    const qualificationValue = type === "checkbox" ? checked : value;
+    setsecondstepValues({ ...secondstepValues, [data]: qualificationValue })
   }
 
   const onStepFirst = () => {
@@ -33,13 +41,34 @@ function MyProfile() {
     }))
   }
 
+  const addMoreQualification = () => {
+    setFormSecondStep(formSecondStep.concat({ degree: secondstepValues.degree, college: secondstepValues.college, inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing }))
+    setsecondstepValues(initialStateStepSecond)
+  }
+
+  const removeQualification = (index) => {
+    const rows = [...formSecondStep]
+    rows.splice(index, 1);
+    setFormSecondStep(rows)
+  }
+
+  const editQualification = (data, index) => {
+    setsecondstepValues({ ...secondstepValues, degree: data.degree, college: data.college, inProgress: data.inProgress, yearOfPassing: data.yearOfPassing, index: index })
+  }
+
+  const updateQualification = () => {
+    const items = [...formSecondStep];
+    items[secondstepValues.index] = { "degree": secondstepValues.degree, "college": secondstepValues.college, "inProgress": secondstepValues.inProgress, "yearOfPassing": secondstepValues.yearOfPassing }
+    setFormSecondStep(items)
+    setsecondstepValues(initialStateStepSecond)
+  }
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
         return (
           <>
-            <ProfileStepOne onHandleChange={onHandleChange} />
+            <ProfileStepOne onHandleChange={onChangeFirststep} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
@@ -56,7 +85,7 @@ function MyProfile() {
       case 1:
         return (
           <>
-            <ProfileStepTwo />
+            <ProfileStepTwo onHandleChange={onChangeSecondStep} addMoreQualification={addMoreQualification} formSecondStep={formSecondStep} removeQualification={removeQualification} secondstepValues={secondstepValues} editQualification={editQualification} updateQualification={updateQualification} />
 
             <Divider hidden />
             <Grid>
