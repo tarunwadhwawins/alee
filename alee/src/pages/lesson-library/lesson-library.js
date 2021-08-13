@@ -30,7 +30,18 @@ function LessonLibrary() {
 		getLiteraryElementsTags();
 	}, []);
 
-	
+	useEffect(() => {
+		getBookList();
+	}, [values]);
+
+	//  get api //
+	const getBookList = () => {
+		dispatch(apiCall({
+			urls: ["GETBOOKSLIST"], method: "GET", data: values, onSuccess: (response) => {
+				setBookList(response)
+			}
+		}));
+	}
 
 	const getStandardsTags = () => {
 		dispatch(apiCall({
@@ -153,7 +164,9 @@ function LessonLibrary() {
 					return (
 						<Grid.Column width={3}>
 							<div className="bookDetail">
-								<Image src={Book} />
+							
+								<Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+										/>
 								<Header as="h5">{data.bookName}</Header>
 								
 								<p>{data.tagName}</p>
