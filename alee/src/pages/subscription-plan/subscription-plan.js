@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Icon, Header, Form } from "semantic-ui-react";
+import { Grid, Icon, Header, Label } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import Moment from "react-moment";
 import { useSelector } from 'react-redux';
@@ -59,6 +59,15 @@ function SubscriptionPlanPage(props) {
               },
             },
             {
+              headerName: "Status",
+              fieldName: "isActive",
+              isSorting: true,
+              Cell: (props) => {
+                debugger 
+                return <Label className={props.isActive ? "green" : "red"}>{props.isActive ? "Active" : "Inactive"}</Label>;
+              },
+            },
+            {
               headerName: "Action",
               fieldName: "Action",
               isSorting: false,
@@ -67,14 +76,6 @@ function SubscriptionPlanPage(props) {
                   <>
                     <Icon name="repeat" className="primary-color" link />
                     <Icon name="plus" color="green" link onClick={openModal} />
-                    <Icon
-                      name="trash alternate"
-                      color="red"
-                      link
-                      onClick={() =>
-                        confirmModalOpen(props.userSubscriptionPlanId, "delete")
-                      }
-                    />
                   </>
                 );
               },

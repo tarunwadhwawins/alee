@@ -121,7 +121,8 @@ function UploadExcelPage() {
 					<Loader />
 				</Dimmer>
 			)}
-			{excelData.length > 0 && <Table singleLine>
+			<Grid.Column width={16}>
+			{excelData.length > 0 && <Table>
 				<Table.Header>
 					<Table.Row>
 						{excelHeading.length > 0 && <Table.HeaderCell>
@@ -144,9 +145,9 @@ function UploadExcelPage() {
 					{excelData.map((dataExcel, index) => {
 						return (
 							<Table.Row key={index}>
-								{excelData.length > 0 && <Table.HeaderCell>
+								{excelData.length > 0 && <Table.Cell>
 									<Form.Checkbox onChange={onHandleSelect} name={dataExcel.Id} value={dataExcel.IsChecked} checked={selectedTeachers.includes(dataExcel.Id)} />
-								</Table.HeaderCell>}
+								</Table.Cell>}
 								{excelHeading.map((singleField, index) => {
 									return (
 										<>
@@ -161,9 +162,10 @@ function UploadExcelPage() {
 					})}
 				</Table.Body>
 			</Table>}
+			</Grid.Column>
 			{excelData.length > 0 && <>
 				<Grid.Column width={16} textAlign="right">
-					<Button className="primaryBtn" className="secondaryBtn" onClick={() => modalOpen("remove")}> Remove </Button>
+					<Button className="primaryBtn" className="secondaryBtn" onClick={() => modalOpen("remove")}> Cancel </Button>
 					<Button className="primaryBtn" onClick={() => modalOpen("save")}> Save </Button>
 				</Grid.Column> </>}
 
