@@ -246,9 +246,14 @@ const panes = [
 function ResourcesPage() {
   const [booklist, setBooklist] = useState(null);
   const api = useSelector(state => state.api)
- 
+  const [file, setFile] = useState(null)
   const [reload, SetReload] = useState(false);
+  const fileInputRef = React.createRef();	
+  const fileChange = e => {
+  setFile( e.target.files[0] )
+  }
 
+  
 	const dispatch = useDispatch();
   const initialValues ={
     ResourceId:null,
@@ -257,10 +262,16 @@ function ResourcesPage() {
     ChapterId:2,
     PageId:5,
     UploadPdf:null,
+    AudioLink:null,
+    VideoLink:null,
+    ArticleLink:null
+
   }
   const [resources,setResources] = useState(initialValues);
-  const onHandleChange = (e, { data, value, checked, type }) => {
-    
+
+
+  const onHandleChange = (e, { data, value }) => {
+    debugger;
     setResources({ ...resources, [data]: value });
   };
   useEffect(() => {
@@ -354,15 +365,17 @@ function ResourcesPage() {
                 />
               </Grid.Column>
               <Grid.Column width="8">
-                <Form.Input label="Audio" placeholder="Embed URL" value="" onChange={onHandleChange}/>
+                <Form.Input label="Audio" placeholder="Embed URL" value={resources.AudioLink} data="AudioLink" onChange={onHandleChange}/>
               </Grid.Column>
               <Grid.Column width="8">
-                <Form.Input label="Video" placeholder="Embed URL" onChange={onHandleChange}/>
+                <Form.Input label="Video" placeholder="Embed URL" value={resources.VideoLink} data="VideoLink" onChange={onHandleChange}/>
               </Grid.Column>
               <Grid.Column width="8">
                 <Form.Input
                   label="Article"
                   placeholder="Article"
+                  value={resources.ArticleLink}
+                  data="ArticleLink"
                   onChange={onHandleChange}
                 />
                 </Grid.Column>
@@ -370,14 +383,20 @@ function ResourcesPage() {
                 <Form.Input
                   label="Upload Pdf"
                   placeholder="Embed URL"
+                  value={resources.UploadPdf}
+                  data="UploadPdf"
                   action="Upload Pdf"
                   onChange={onHandleChange}
                 />
+                {/* <Form.Field>
+								<Button content="Upload Pdf" onClick={() => fileInputRef.current.click()} />
+								<input ref={fileInputRef} type="file" hidden onChange={fileChange}/>
+							</Form.Field> */}
                </Grid.Column>
               <Grid.Column width="16" textAlign="right">
                 <Button className="secondaryBtn"onClick={() => closeModal()}> Cancel </Button>
                 <Button className="primaryBtn"  onClick={onHandleSubmit}
-          loading={api.isApiLoading}>Save</Button>
+                   loading={api.isApiLoading}>Save</Button>
               </Grid.Column>
 
               <Grid.Column width={16}>

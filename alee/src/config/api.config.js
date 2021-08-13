@@ -44,7 +44,6 @@ const API_ENDPOINTS = {
   SUBADMINTOGGLE:"/SubAdmin/ToggleIsActive",
   SUBADMINREGISTRATION:"/Authentication/SubAdminRegistration",
   UPDATESUBADMIN:"/SubAdmin/UpdateSubAdmin",
-  // ADDSTUDENT:"/Student/AddUpdateStudent",
   UPLOADEXCEL:"/Teacher/UploadExcel",
   ADDTEACHEREXCEL:"/Teacher/AddTeacherFromExcel",
   ADDTEACHERBASICINFO:"/Teacher/AddTeacherBasicInfo",

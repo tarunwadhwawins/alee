@@ -68,7 +68,7 @@ function SubAdminPage() {
 									<>
 										<Icon name="edit" className="primary-color" link 
 									     onClick={()=>onHandleEdit(props)}/>
-										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subAdminId,"delete")} />
+										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subAdminId,"delete")}/>
 									</>
 								);
 							},

@@ -38,16 +38,6 @@ const onHandleFormSubmit = (e, formObj) => {
     return true;
   }
 };
-
-// // This function is used for image URL concatnation 
-// const concatenateImageWithAPIUrl = (Image) => {
-//   if (Image === null) {
-//     return `${noImage}`;
-//   }
-//   else {
-//     return `${env.API_URL.replace("/api", "")}${Image}`;
-//   }
-// };
 const initializeSimpleValidator = () => {
   return new SimpleReactValidator({
     element: (message) => (
@@ -89,11 +79,16 @@ const initializeSimpleValidator = () => {
     },
   });
 };
+
+
+// This function is used for image URL concatnation 
 const concatenateImageWithAPIUrl = (Image) => {
   if (Image && Image !== "") {
     return `${env.API_URL.replace("/api", "")}${Image}`;
   }
 };
+
+
 const getFormData = (data) => {
   var formData = new FormData();
   Object.entries(data).map(function ([key, val]) {
