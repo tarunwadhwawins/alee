@@ -164,7 +164,9 @@ function LessonLibrary() {
 					return (
 						<Grid.Column width={3}>
 							<div className="bookDetail">
-								<Image src={Book} />
+							
+								<Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+										/>
 								<Header as="h5">{data.bookName}</Header>
 								
 								<p>{data.tagName}</p>

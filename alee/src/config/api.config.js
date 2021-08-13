@@ -23,6 +23,7 @@ const API_ENDPOINTS = {
   DELETELESSONPLAN: "/Lesson/DeleteLessonPlan",
   LESSONTOGGLEISACTIVE: "/Lesson/ToggleIsActive",
   GETUSERSUBSCRIPTIONLIST: "/Subscription/GetUserSubscriptionList",
+  ADDSTUDENTFORMEXCEL: "/Student/AddStudentFromExcel",
   TAGTOGGLEISACTIVE: "/Tags/ToggleIsActive",
   DELETEUSERSUBSCRIPTION: "/Subscription/DeleteUserSubscription",
   USERSUBSCRIPTIONTOGGLE: "/Subscription/UserSubscriptionToggleIsActive",
@@ -48,9 +49,9 @@ const API_ENDPOINTS = {
   UPLOADEXCEL: "/Teacher/UploadExcel",
   ADDTEACHEREXCEL: "/Teacher/AddTeacherFromExcel",
   ADDTEACHERBASICINFO: "/Teacher/AddTeacherBasicInfo",
-  ADDSTUDENTFORMEXCEL:"/Student/AddStudentFromExcel",
-
+  ADDUPDATERESOURCES: "/Resource/AddUpdateResources"
 };
+
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];
 };

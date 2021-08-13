@@ -35,7 +35,7 @@ function AddStudent(props) {
         method: "Post",
         data: addStudent,
         onSuccess: (response) => {
-          debugger;
+          
           closeModal();
           props.GridReload();
           setAddStudent(initialValues);

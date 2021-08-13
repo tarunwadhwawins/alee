@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Item, Header, Dimmer, Loader, Input, Table,Icon } from "semantic-ui-react";
-import { Book } from "../../shared/functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
 import ConfirmModal from "../../shared/components/organisms/modal/common-confirm-modal/index";
+import {commonFunctions } from "../../shared/functional/global-import";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
@@ -75,7 +75,8 @@ function MyBookPage(props) {
 									<Item>
 
 										{/* <Item as={Link} onClick={addChapter} to={`${localStorage.getItem("Usertype") === "admin"? "book-flip":"book-summary"}`}>  */}
-										<Item.Image size='tiny' src={Book} />
+		     	<Item.Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+										/>
 										<Item.Content >
 											<Item.Header><span>{data.bookName}</span></Item.Header>
 											{/* <Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta> */}
