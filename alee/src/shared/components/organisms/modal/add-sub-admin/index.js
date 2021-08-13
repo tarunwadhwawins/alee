@@ -26,7 +26,6 @@ function AddSubAdmin(props) {
   };
 
   useEffect(() => {
-    debugger
     if (props.modalType === "EDIT"){
       editSubAdmin();
     } 

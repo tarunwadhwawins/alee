@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Header, Button, Icon, Form, Dimmer, Loader, Table } from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
 import { DataTable } from "../../../src/shared/components/organisms";
@@ -11,14 +11,15 @@ function StudentListPage() {
 	const [student, setStudent] = React.useState(false);
 	const [reload, SetReload] = useState(false)
 	const [editData, SetEditData] = useState([]);
-	const auth = useSelector((state) => state.auth);
 	const [excel, setExcel] = useState(false)
 	const [excelHeading, setExcelHeading] = useState([])
 	const [excelData, setExcelData] = useState([])
 	const [useOfModal, setUseOfModal] = useState("");
 	const [modalStatus, setModalStatus] = useState(false);
 	const [selectedTeachers, setSelectedTeachers] = useState([]);
+	const [template, setTemplate] = useState("");
 
+	const auth = useSelector((state) => state.auth);
 	const openModal = () => {
 		setStudent(!student)
 	}
@@ -33,6 +34,18 @@ function StudentListPage() {
 	}
 	const GridReload = () => {
 		SetReload(!reload)
+	}
+
+	useEffect(() => {
+		getExcelTemplate();
+	}, []);
+
+	const getExcelTemplate = () => {
+		dispatch(apiCall({
+			urls: ["GETEXCELTEMPLATE"], method: "GET", onSuccess: (response) => {
+				setTemplate(response.responseMessage)
+			}, showNotification: false
+		}))
 	}
 
 	const onFileChange = (event) => {
@@ -92,10 +105,14 @@ function StudentListPage() {
 	return (
 		<div className="common-shadow">
 			{!excel ? <Grid>
-				<Grid.Column width={8} verticalAlign="middle">
+				<Grid.Column width={4} verticalAlign="middle">
 					<Header as="h3" className="commonHeading">Student list</Header>
 				</Grid.Column>
-				<Grid.Column width={8} textAlign="right">
+				<Grid.Column width={8} verticalAlign="middle" textAlign="right">
+					<Icon name="file excel" className="primary-color" link /> Excel Template <a href={commonFunctions.concatenateImageWithAPIUrl(template)}>Download</a>
+				</Grid.Column>
+
+				<Grid.Column width={4} textAlign="right">
 					<Button className="primaryBtn" onClick={openModal}><Icon name="plus" /> Add Student</Button>
 					<Button className="alternateBtn" onClick={() => fileInputRef.current.click()} ><Icon name="upload" /> Upload Excel</Button>
 					<input ref={fileInputRef} type="file" hidden onChange={onFileChange} />

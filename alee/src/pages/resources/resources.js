@@ -1,9 +1,12 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Header, Button, Form, Tab, Icon } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { GlobalCodeSelect } from "../../shared/components";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
+import {commonFunctions } from "../../shared/functional/global-import";
+
+
 const Chapter = [
   { key: "Chapter 1", value: "Chapter 1", text: "Chapter 1" },
   { key: "Chapter 2", value: "Chapter 2", text: "Chapter 2" },
@@ -69,6 +72,11 @@ const panes = [
                 headerName: "Audio",
                 fieldName: "link",
                 isSorting: true,
+                Cell: (props, confirmModalOpen) => {
+                  return (
+                    <a href={props.link} target="_blank">{props.link}</a>
+                  );
+                },
               },
               {
                 headerName: "Action",
@@ -136,6 +144,11 @@ const panes = [
                 headerName: "Video",
                 fieldName: "link",
                 isSorting: true,
+                Cell: (props, confirmModalOpen) => {
+                  return (
+                    <a href={props.link} target="_blank">{props.link}</a>
+                  );
+                },
               },
               {
                 headerName: "Action",
@@ -204,7 +217,7 @@ const panes = [
                 fieldName: "link",
                 isSorting: true,
                 Cell: (props) => {
-                    return props.link?.indexOf('pdf') < 0 ? props.link :'-'
+                  return props.link?.indexOf('pdf') < 0 ? props.link : '-'
                 },
               },
               {
@@ -212,7 +225,7 @@ const panes = [
                 fieldName: "link",
                 isSorting: true,
                 Cell: (props) => {
-                  return props.link?.indexOf('pdf')  > 0 ?  <a href={props.link} target="_blank"><Icon name="file pdf" className="primary-color" link  /></a> : '-'
+                  return props.link?.indexOf('pdf') > 0 ? <a href={commonFunctions.concatenateImageWithAPIUrl(props.link)} target="_blank"><Icon name="file pdf" className="primary-color" link /></a> : '-'
                 }
               },
               {
@@ -246,56 +259,56 @@ const panes = [
 function ResourcesPage() {
   const [booklist, setBooklist] = useState(null);
   const api = useSelector(state => state.api)
- 
+
   const [reload, SetReload] = useState(false);
 
-	const dispatch = useDispatch();
-  const initialValues ={
-    ResourceId:null,
-    GradeId:null,
-    BookId:null,
-    ChapterId:2,
-    PageId:5,
-    UploadPdf:null,
+  const dispatch = useDispatch();
+  const initialValues = {
+    ResourceId: null,
+    GradeId: null,
+    BookId: null,
+    ChapterId: 2,
+    PageId: 5,
+    UploadPdf: null,
   }
-  const [resources,setResources] = useState(initialValues);
+  const [resources, setResources] = useState(initialValues);
   const onHandleChange = (e, { data, value, checked, type }) => {
-    
+
     setResources({ ...resources, [data]: value });
   };
   useEffect(() => {
     getBookList();
   }, []);
-  
+
   //  get api //
   const getBookList = () => {
     dispatch(apiCall({
       urls: ["GETBOOKSLIST"], method: "GET", data: booklist, onSuccess: (response) => {
-        
-        const booklist = response.map((singledata)=>{
-             return{text:singledata.bookName,value:singledata.bookId}
+
+        const booklist = response.map((singledata) => {
+          return { text: singledata.bookName, value: singledata.bookId }
         })
-        
+
         setBooklist(booklist)
       }
     }));
   }
   const GridReload = () => {
-		SetReload(!reload)
-	}
+    SetReload(!reload)
+  }
   const closeModal = () => {
     closeModal();
     setResources(initialValues);
   };
   const onHandleSubmit = () => {
-    
+
     dispatch(
       apiCall({
         urls: ["ADDUPDATERESOURCES"],
         method: "Post",
         data: resources,
         onSuccess: (response) => {
-          
+
           closeModal();
           GridReload();
           setResources(initialValues);
@@ -316,12 +329,12 @@ function ResourcesPage() {
           <Form>
             <Grid>
               <Grid.Column width="4">
-            
+
                 <GlobalCodeSelect
                   label="Grade"
                   placeholder="Grades"
                   categoryType="Grades"
-                   onChange={onHandleChange}
+                  onChange={onHandleChange}
                   data="gradeId"
                 //   value={addStudent.gradeId}
                 />
@@ -340,7 +353,7 @@ function ResourcesPage() {
                   label="Chapter"
                   placeholder="Select Chapter"
                   options={Chapter}
-                  data ="ChapterId"
+                  data="ChapterId"
                   onChange={onHandleChange}
                 />
               </Grid.Column>
@@ -354,10 +367,10 @@ function ResourcesPage() {
                 />
               </Grid.Column>
               <Grid.Column width="8">
-                <Form.Input label="Audio" placeholder="Embed URL" value="" onChange={onHandleChange}/>
+                <Form.Input label="Audio" placeholder="Embed URL" value="" onChange={onHandleChange} />
               </Grid.Column>
               <Grid.Column width="8">
-                <Form.Input label="Video" placeholder="Embed URL" onChange={onHandleChange}/>
+                <Form.Input label="Video" placeholder="Embed URL" onChange={onHandleChange} />
               </Grid.Column>
               <Grid.Column width="8">
                 <Form.Input
@@ -365,19 +378,19 @@ function ResourcesPage() {
                   placeholder="Article"
                   onChange={onHandleChange}
                 />
-                </Grid.Column>
-                <Grid.Column width="8">
+              </Grid.Column>
+              <Grid.Column width="8">
                 <Form.Input
                   label="Upload Pdf"
                   placeholder="Embed URL"
                   action="Upload Pdf"
                   onChange={onHandleChange}
                 />
-               </Grid.Column>
+              </Grid.Column>
               <Grid.Column width="16" textAlign="right">
-                <Button className="secondaryBtn"onClick={() => closeModal()}> Cancel </Button>
-                <Button className="primaryBtn"  onClick={onHandleSubmit}
-          loading={api.isApiLoading}>Save</Button>
+                <Button className="secondaryBtn" onClick={() => closeModal()}> Cancel </Button>
+                <Button className="primaryBtn" onClick={onHandleSubmit}
+                  loading={api.isApiLoading}>Save</Button>
               </Grid.Column>
 
               <Grid.Column width={16}>
