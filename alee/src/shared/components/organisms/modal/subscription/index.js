@@ -13,13 +13,13 @@ const AddSubscription = (props) => {
 	const onHandleChange = (e, { data, value, checked, type }) => {
 		setValues({ ...values, [data]: value })
 		if (type === "checkbox") {
-			setValues({ ...values, [data]: checked })
+	    	setValues({ ...values, [data]: checked})
 		}
 	}
-
 	const onHandleSubmit = () => {
 		dispatch(apiCall({
 			urls: ["POSTSUBSCRIPTION"], method: "POST", data: values, onSuccess: (response) => {
+				debugger;
 				props.closeModal();
 				props.GridReload();
 				setValues(initialValues);
@@ -38,6 +38,7 @@ const AddSubscription = (props) => {
 		}
 	}
 	const closeModal = () => {
+		debugger;
 		props.closeModal();
 		setValues(initialValues);
 	}
@@ -59,7 +60,7 @@ const AddSubscription = (props) => {
 								<Form.Input label="No. of Students" onChange={onHandleChange} data="noOfStudents" value={values.noOfStudents} />
 							</Grid.Column>
 							<Grid.Column>
-								<Form.Input label="Price" onChange={onHandleChange} data="price" value={values.price} />
+								<Form.Input label="Price" onChange={onHandleChange} data="price" value={values.price}/>
 							</Grid.Column>
 							<Grid.Column className='status'>
 								<p>Status</p>
@@ -69,7 +70,7 @@ const AddSubscription = (props) => {
 								</div>
 							</Grid.Column>
 							<Grid.Column width={16}>
-								<Form.TextArea label="Description" rows="2" onChange={onHandleChange} data="description" value={values.description} />
+								<Form.TextArea label="Description" rows="2" onChange={onHandleChange} data="description"value={values.description} />
 							</Grid.Column>
 						</Grid>
 					</Form>
