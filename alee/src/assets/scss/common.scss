@@ -37,6 +37,9 @@ a {
     border-radius: 5px;
     background-color: $white-color;
 }
+.blueDivider {
+    border-top-color: $primary-color!important;
+}
 .field {
     label {
         font-weight: 100!important;
