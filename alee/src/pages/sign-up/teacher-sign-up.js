@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function TeacherSignup(props) {
 
-    const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "" })
+    const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "",teacherId:null,actionPerformedBy:"" })
     let history = useHistory();
     const onHandleChange = (e, { value, data }) => {
         setTeacherForm({ ...teacherForm, [data]: value })
