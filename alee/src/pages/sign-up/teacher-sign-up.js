@@ -46,38 +46,41 @@ function TeacherSignup(props) {
 
     return (
         <Form onSubmit={handleSubmit(onsubmit)}>
-            <Grid.Column width={8}>
-                <Form.Input label="First Name" placeholder="First Name" data="firstName" onChange={onHandleChange} {...register("firstName")} />
-                <p>{errors.firstName?.message}</p>
-            </Grid.Column>
-            <Grid.Column width={8} >
-                <Form.Input label="Last Name" placeholder="Last Name" data="lastName" onChange={onHandleChange} {...register("lastName")} />
-                <p>{errors.lastName?.message}</p>
-            </Grid.Column>
-            <Grid.Column width={8} >
-                <Form.Input label="Email" placeholder="abc@gmail.com" data="email" onChange={onHandleChange} {...register("email")} />
-                <p>{errors.email?.message}</p>
-            </Grid.Column>
-            <Grid.Column width={8} >
-                <Form.Input label="Phone Number" placeholder="(123) 456-7890" data="contactNo" onChange={onHandleChange} {...register("contactNo")} />
-                <p>{errors.contactNo?.message}</p>
-            </Grid.Column>
-            <Grid.Column width={8} >
-                <Form.Input label="Address" placeholder="Address" data="address" onChange={onHandleChange} {...register("address")} />
-                <p>{errors.address?.message}</p>
-            </Grid.Column>
-            <Grid.Column width={8} >
-                <Form.Input label="Password" placeholder="********" type="password" data="password" onChange={onHandleChange} {...register("password")} />
-                <p>{errors.password?.message}</p>
-            </Grid.Column>
-            <Grid.Column width={8} >
-                <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange} {...register("confirmPassword")} />
-                <p>{errors.confirmPassword?.message}</p>
-            </Grid.Column>
+            <Grid>
+                <Grid.Column width={8}>
+                    <Form.Input label="First Name" placeholder="First Name" data="firstName" onChange={onHandleChange} {...register("firstName")} />
+                    <p className="error">{errors.firstName?.message}</p>
+                </Grid.Column>
+                <Grid.Column width={8} >
+                    <Form.Input label="Last Name" placeholder="Last Name" data="lastName" onChange={onHandleChange} {...register("lastName")} />
+                    <p className="error">{errors.lastName?.message}</p>
+                </Grid.Column>
+                <Grid.Column width={8} >
+                    <Form.Input label="Email" placeholder="abc@gmail.com" data="email" onChange={onHandleChange} {...register("email")} />
+                    <p className="error">{errors.email?.message}</p>
+                </Grid.Column>
+                <Grid.Column width={8} >
+                    <Form.Input label="Phone Number" placeholder="(123) 456-7890" data="contactNo" onChange={onHandleChange} {...register("contactNo")} />
+                    <p className="error">{errors.contactNo?.message}</p>
+                </Grid.Column>
+                <Grid.Column width={8} >
+                    <Form.Input label="Address" placeholder="Address" data="address" onChange={onHandleChange} {...register("address")} />
+                    <p className="error">{errors.address?.message}</p>
+                </Grid.Column>
+                <Grid.Column width={8} >
+                    <Form.Input label="Password" placeholder="********" type="password" data="password" onChange={onHandleChange} {...register("password")} />
+                    <p className="error">{errors.password?.message}</p>
+                </Grid.Column>
+                <Grid.Column width={8} >
+                    <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange} {...register("confirmPassword")} />
+                    <p className="error">{errors.confirmPassword?.message}</p>
+                </Grid.Column>
 
-            <Grid.Column width={6} >
-                <Button className="primaryBtn" type="submit" loading={api.isApiLoading}>Sign Up</Button>
-            </Grid.Column>
+                <Grid.Column width={8} textAlign="right">
+                    <Button className="primaryBtn" type="submit" loading={api.isApiLoading}>Sign Up</Button>
+                </Grid.Column>
+
+            </Grid>
         </Form>
     );
 }

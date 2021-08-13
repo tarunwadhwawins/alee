@@ -80,11 +80,11 @@ function LoginForm() {
                 </Grid.Column>
                 <Grid.Column width={16}>
                   <Form.Input label="Email" placeholder="abc@gmail.com" data="email" type="email" name="email" onChange={onHandleChange}  {...register("email")} />
-                  <p>{errors.email?.message}</p>
+                  <p className="error">{errors.email?.message}</p>
                 </Grid.Column>
                 <Grid.Column width={16} >
                   <Form.Input label="Password" type="password" placeholder="******" data="password" onChange={onHandleChange}  {...register("password")} />
-                  <p>{errors.password?.message}</p>
+                  <p className="error">{errors.password?.message}</p>
                 </Grid.Column>
                 <Grid.Column width={10} verticalAlign="middle">
                   <Form.Checkbox label='Remember me' />
