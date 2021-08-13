@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../store/actions/api.actions";
 import { env, commonFunctions } from "../../../../functional/global-import";
 import { useHistory } from "react-router-dom";
+import { GlobalCodeSelect } from "../../../../components";
+
 
 const type = [
 	{ key: 'Standards', value: 'Standards', text: 'Standards' },
@@ -12,47 +14,49 @@ const type = [
 	{ key: 'Literary Elements', value: 'Literary Elements', text: 'Literary Elements' },
 ]
 
-function AddTagsListing(props) {
-	const [taglisting, setTaglisting] = React.useState({ tagId: "", tagTypeId: 6, tagName: "", isActive: false, actionPerformedBy: "Admin" })
 
-	const [isActive, setIsActive] = React.useState(false)
+function AddTagsListing(props) {
+	const initialValues = { tagId: null, tagTypeId: "", tagName: "", isActive: true, actionPerformedBy: "Admin" }
+
+	const [taglisting, setTaglisting] = React.useState(initialValues)
 	const globalCode = useSelector(state => state.global.codes)
-	const [standards, setStandards] = React.useState([])
 
 	// let history = useHistory();
 	const dispatch = useDispatch();
 
-	const onHandleChange = (e, { value, data }) => {
-		debugger
+	const onHandleChange = (e, { value, data, checked, type }) => {
 		setTaglisting({ ...taglisting, [data]: value })
-	}
-	const onHandleToggle = (e, { value, data }) => {
-		debugger
-		setIsActive({ ...isActive, [data]: value })
+		if (type === "checkbox") {
+			setTaglisting({ ...taglisting, [data]: checked })
+		}
 	}
 
-	useEffect(() => {
-		getTagType();
-	}, []);
-	const getTagType = () => {
-		dispatch(apiCall({
-			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "ComprehensionStrategies")).globalCodeId }, onSuccess: (response) => {
-				debugger
-				const tagList = response.map((singleTag) => {
-					return { value: singleTag.tagId, text: singleTag.tagTypeName }
-				});
-				setTaglisting(tagList)
-
-			}
-		}));
-	}
 	// const onHandleToggle = () => setIsActive(!isActive);
 	const onsubmit = () => {
 		dispatch(apiCall({
 			urls: ["ADDTAG"], method: "Post", data: taglisting, onSuccess: (response) => {
 				// history.push(`${env.PUBLIC_URL}`);
+				props.closeModal();
+				props.GridReload();
+				setTaglisting(initialValues);
 			}, showNotification: true
 		}));
+	}
+
+	useEffect(() => {
+		editForm();
+	}, [props.editData]);
+
+	const editForm = () => {
+		debugger
+		if (props.editData !== undefined || props.editData.length > 0) {
+			const { modifiedDate, tagId, tagName, tagTypeId, tagType, isActive } = props.editData;
+			setTaglisting({ ...taglisting, tagId: tagId, tagName: tagName, tagTypeId: tagTypeId, isActive: isActive })
+		}
+	}
+	const closeModal = () => {
+		props.closeModal();
+		setTaglisting(initialValues);
 	}
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
@@ -62,16 +66,16 @@ function AddTagsListing(props) {
 					<Form>
 						<Grid>
 							<Grid.Column width={8}>
-								<Form.Input label="Tag Name" data="tagName" onChange={onHandleChange} />
+								<Form.Input label="Tag Name" data="tagName" value={taglisting.tagName} onChange={onHandleChange} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select label="Type" placeholder="Select Type" data="type" options={type} onChange={onHandleChange} />
+								<GlobalCodeSelect label="Type" placeholder="Select Tag Type" data="tagTypeId" categoryType="TagType" onChange={onHandleChange} value={taglisting.tagTypeId} />
 							</Grid.Column>
 							<Grid.Column width={8} className='status'>
 								<p>Status</p>
 								<div className="statusToggle">
 									<span>Inactive</span>
-									<Form.Checkbox label="Active" value={isActive} toggle className="commonToggle" data="isActive" onChange={onHandleToggle} />
+									<Form.Checkbox label="Active" toggle className="commonToggle" data="isActive" value={taglisting.isActive} checked={taglisting.isActive ? true : false} onChange={onHandleChange} />
 								</div>
 							</Grid.Column>
 						</Grid>
@@ -79,8 +83,8 @@ function AddTagsListing(props) {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onsubmit}>Confirm</Button>
+				<Button className="secondaryBtn" onClick={closeModal}>Cancel</Button>
+				{taglisting.tagId > 0 ? <Button className="primaryBtn" onClick={onsubmit}>Update</Button> : <Button className="primaryBtn" onClick={onsubmit}>Confirm</Button>}
 				{/* <Button className="primaryBtn" onClick={props.closeModal}>Confirm</Button> */}
 			</Modal.Actions>
 		</Modal>
