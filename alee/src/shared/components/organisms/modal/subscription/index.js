@@ -19,7 +19,7 @@ const AddSubscription = (props) => {
 	const onHandleSubmit = () => {
 		dispatch(apiCall({
 			urls: ["POSTSUBSCRIPTION"], method: "POST", data: values, onSuccess: (response) => {
-				debugger;
+				
 				props.closeModal();
 				props.GridReload();
 				setValues(initialValues);
@@ -38,7 +38,7 @@ const AddSubscription = (props) => {
 		}
 	}
 	const closeModal = () => {
-		debugger;
+		
 		props.closeModal();
 		setValues(initialValues);
 	}

@@ -21,7 +21,7 @@ function StudentListPage() {
 		setFile(e.target.files[0])
 	}
 	const onHandleEdit = (data) => {
-		debugger;
+		
 		SetEditData(data)
 		openModal();
 	}

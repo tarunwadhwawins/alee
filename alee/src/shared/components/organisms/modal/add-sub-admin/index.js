@@ -33,7 +33,7 @@ function AddSubAdmin(props) {
   }, [props.openModal]);
 
   const editSubAdmin = () => {
-    debugger;
+    
     if (props.editDetail) {
       const {
         userName,

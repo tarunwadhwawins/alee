@@ -30,18 +30,7 @@ function LessonLibrary() {
 		getLiteraryElementsTags();
 	}, []);
 
-	useEffect(() => {
-		getBookList();
-	}, [values]);
-
-	//  get api //
-	const getBookList = () => {
-		dispatch(apiCall({
-			urls: ["GETBOOKSLIST"], method: "GET", data: values, onSuccess: (response) => {
-				setBookList(response)
-			}
-		}));
-	}
+	
 
 	const getStandardsTags = () => {
 		dispatch(apiCall({

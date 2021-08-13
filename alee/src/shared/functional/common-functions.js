@@ -39,6 +39,15 @@ const onHandleFormSubmit = (e, formObj) => {
   }
 };
 
+// // This function is used for image URL concatnation 
+// const concatenateImageWithAPIUrl = (Image) => {
+//   if (Image === null) {
+//     return `${noImage}`;
+//   }
+//   else {
+//     return `${env.API_URL.replace("/api", "")}${Image}`;
+//   }
+// };
 const initializeSimpleValidator = () => {
   return new SimpleReactValidator({
     element: (message) => (
@@ -127,7 +136,7 @@ const getSingleValue = (globalCodeData, categoryType, codeName) => {
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-  debugger;
+  
   const singlevalue = globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });

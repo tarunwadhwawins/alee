@@ -48,8 +48,9 @@ const API_ENDPOINTS = {
   UPLOADEXCEL:"/Teacher/UploadExcel",
   ADDTEACHEREXCEL:"/Teacher/AddTeacherFromExcel",
   ADDTEACHERBASICINFO:"/Teacher/AddTeacherBasicInfo",
-  
+   ADDUPDATERESOURCES:"/Resource/AddUpdateResources"
 };
+
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];
 };
