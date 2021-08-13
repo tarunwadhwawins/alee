@@ -12,6 +12,7 @@ function AddSubAdmin(props) {
     confirmPassword: "",
     subAdminId: null,
     userName: "",
+    isActive:true,
     userId: auth.userDetail.userId,
     actionPerformedBy: "string",
     actionPerformedDate: "2021-08-11T04:52:29.657Z",
@@ -26,7 +27,6 @@ function AddSubAdmin(props) {
   };
 
   useEffect(() => {
-    debugger
     if (props.modalType === "EDIT"){
       editSubAdmin();
     } 

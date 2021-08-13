@@ -556,10 +556,14 @@ h4.ui.header.bookName {
 }
 
 .buyPlan {
-	background-color: #ddd;
 	padding: 15px;
 	border-radius: 5px;
 	text-align: center;
+	border: 2px solid #fff;
+	box-shadow: 0 0 5px rgba(0,0,0,.1);
+	&:hover{
+		border-color: $primary-color;
+	}
 	h4.ui.header {
 		color: $primary-color;
 	}

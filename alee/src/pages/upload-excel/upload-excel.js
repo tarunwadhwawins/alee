@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Grid, Header, Form, Button, Table, Dimmer, Loader } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Grid, Header, Form, Button, Table, Dimmer, Loader, Icon } from "semantic-ui-react";
 import { apiCall } from "../../store/actions/api.actions";
 import { useSelector, useDispatch } from 'react-redux';
 import { commonFunctions, Link, env } from "../../shared/functional/global-import";
@@ -15,12 +15,25 @@ function UploadExcelPage() {
 	const [selectedTeachers, setSelectedTeachers] = useState([]);
 	const [modalStatus, setModalStatus] = useState(false);
 	const [useOfModal, setUseOfModal] = useState("");
+	const [template, setTemplate] = useState("");
 
 	const fileInputRef = React.createRef();
 	const dispatch = useDispatch();
 	const api = useSelector(state => state.api)
 	const schoolId = useSelector(state => state.auth.userDetail.schoolId)
 	let history = useHistory();
+
+	useEffect(() => {
+		getExcelTemplate();
+	}, []);
+
+	const getExcelTemplate = () => {
+		dispatch(apiCall({
+			urls: ["GETEXCELTEMPLATE"], method: "GET", onSuccess: (response) => {
+				setTemplate(response.responseMessage)
+			}, showNotification: false
+		}))
+	}
 
 	const onFileChange = (event) => {
 		const files = event.target.files;
@@ -87,8 +100,11 @@ function UploadExcelPage() {
 
 	return (
 		<Grid>
-			<Grid.Column width={16}>
+			<Grid.Column width={8}>
 				<Header as="h3" className="commonHeading">Upload Excel</Header>
+			</Grid.Column>
+			<Grid.Column width={8} textAlign="right">
+				<Icon name="file excel" className="primary-color" link /> Excel Template <a href={commonFunctions.concatenateImageWithAPIUrl(template)}>Download</a>
 			</Grid.Column>
 			{excelData.length === 0 &&
 				<> <Grid.Column width={16}>
@@ -121,49 +137,51 @@ function UploadExcelPage() {
 					<Loader />
 				</Dimmer>
 			)}
-			{excelData.length > 0 && <Table singleLine>
-				<Table.Header>
-					<Table.Row>
-						{excelHeading.length > 0 && <Table.HeaderCell>
-							<Form.Checkbox onChange={() => selectAll()} checked={selectedTeachers.length === excelData.length} />
-						</Table.HeaderCell>}
-						{excelHeading.map((singleData, index) => {
-							return (
-								<>
-									{!(index === 0) && <Table.HeaderCell>
-										{singleData}
-									</Table.HeaderCell>}
-								</>
-							)
-						}
-						)}
-					</Table.Row>
-				</Table.Header>
+			<Grid.Column width={16}>
+				{excelData.length > 0 && <Table>
+					<Table.Header>
+						<Table.Row>
+							{excelHeading.length > 0 && <Table.HeaderCell>
+								<Form.Checkbox onChange={() => selectAll()} checked={selectedTeachers.length === excelData.length} />
+							</Table.HeaderCell>}
+							{excelHeading.map((singleData, index) => {
+								return (
+									<>
+										{!(index === 0) && <Table.HeaderCell>
+											{singleData}
+										</Table.HeaderCell>}
+									</>
+								)
+							}
+							)}
+						</Table.Row>
+					</Table.Header>
 
-				<Table.Body>
-					{excelData.map((dataExcel, index) => {
-						return (
-							<Table.Row key={index}>
-								{excelData.length > 0 && <Table.HeaderCell>
-									<Form.Checkbox onChange={onHandleSelect} name={dataExcel.Id} value={dataExcel.IsChecked} checked={selectedTeachers.includes(dataExcel.Id)} />
-								</Table.HeaderCell>}
-								{excelHeading.map((singleField, index) => {
-									return (
-										<>
-											{!(index === 0) && <Table.Cell key={index}>
-												{dataExcel[singleField]}
-											</Table.Cell>}
-										</>
-									);
-								})}
-							</Table.Row>
-						)
-					})}
-				</Table.Body>
-			</Table>}
+					<Table.Body>
+						{excelData.map((dataExcel, index) => {
+							return (
+								<Table.Row key={index}>
+									{excelData.length > 0 && <Table.Cell>
+										<Form.Checkbox onChange={onHandleSelect} name={dataExcel.Id} value={dataExcel.IsChecked} checked={selectedTeachers.includes(dataExcel.Id)} />
+									</Table.Cell>}
+									{excelHeading.map((singleField, index) => {
+										return (
+											<>
+												{!(index === 0) && <Table.Cell key={index}>
+													{dataExcel[singleField]}
+												</Table.Cell>}
+											</>
+										);
+									})}
+								</Table.Row>
+							)
+						})}
+					</Table.Body>
+				</Table>}
+			</Grid.Column>
 			{excelData.length > 0 && <>
 				<Grid.Column width={16} textAlign="right">
-					<Button className="primaryBtn" className="secondaryBtn" onClick={() => modalOpen("remove")}> Remove </Button>
+					<Button className="primaryBtn" className="secondaryBtn" onClick={() => modalOpen("remove")}> Cancel </Button>
 					<Button className="primaryBtn" onClick={() => modalOpen("save")}> Save </Button>
 				</Grid.Column> </>}
 

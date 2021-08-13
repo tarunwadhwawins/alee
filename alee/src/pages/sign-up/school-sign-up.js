@@ -6,7 +6,7 @@ import { apiCall } from "../../../src/store/actions/api.actions";
 import { useDispatch, useSelector } from 'react-redux';
 
 function SchoolSignup(props) {
-  const [schoolForm, setSchoolForm] = useState({ schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", password: "", confirmPassword: "" })
+  const [schoolForm, setSchoolForm] = useState({ schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", password: "", confirmPassword: "" ,schoolId: null,actionPerformedBy:""})
   let history = useHistory();
 
   const dispatch = useDispatch();

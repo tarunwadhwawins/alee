@@ -10,11 +10,13 @@ import ProfileStepFour from "./profile-step-four";
 
 const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, actionPerformedBy: "" }
 const initialStateStepSecond = { degree: "", college: "", inProgress: null, yearOfPassing: "", index: null }
+const initialStateStepThird = { school: "", position: "", grades: [], index: null }
 function MyProfile() {
   const [activeStep, setActiveStep] = useState(0)
   const [values, setValues] = useState(initialState)
   const [secondstepValues, setsecondstepValues] = useState(initialStateStepSecond)
   const [formSecondStep, setFormSecondStep] = useState([])
+  const [thirdStepValues, setThirdStepValues] = useState(initialStateStepThird)
 
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId)
@@ -31,6 +33,10 @@ function MyProfile() {
   const onChangeSecondStep = (e, { data, value, checked, type }) => {
     const qualificationValue = type === "checkbox" ? checked : value;
     setsecondstepValues({ ...secondstepValues, [data]: qualificationValue })
+  }
+
+  const onChangeThirdstep = (e, { data, value }) => {
+    setThirdStepValues({ ...thirdStepValues, [data]: value })
   }
 
   const onStepFirst = () => {
@@ -106,7 +112,7 @@ function MyProfile() {
       case 2:
         return (
           <>
-            <ProfileStepThree />
+            <ProfileStepThree onHandleChange={onChangeThirdstep} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">

@@ -19,7 +19,6 @@ function LoginForm() {
   const onsubmit = () => {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
-        debugger
         
         if (response.isSuccess) {
           //dispatch(loginSuccess(response.role));
