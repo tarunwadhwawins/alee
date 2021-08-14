@@ -113,7 +113,7 @@ function StudentListPage() {
 				</Grid.Column>
 
 				<Grid.Column width={4} textAlign="right">
-					<Button className="primaryBtn" onClick={openModal}><Icon name="plus" /> Add Student</Button>
+					<Button className="primaryBtn" onClick={openModal}><Icon name="plus"/> Add Student</Button>
 					<Button className="alternateBtn" onClick={() => fileInputRef.current.click()} ><Icon name="upload" /> Upload Excel</Button>
 					<input ref={fileInputRef} type="file" hidden onChange={onFileChange} />
 				</Grid.Column>

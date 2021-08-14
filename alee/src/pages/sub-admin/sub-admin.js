@@ -1,5 +1,5 @@
 import React,{useState}from "react";
-import { Grid, Header, Table, Button, Icon,Form} from "semantic-ui-react";
+import { Grid, Header,Button, Icon,Form} from "semantic-ui-react";
 import AddSubAdmin from "../../shared/components/organisms/modal/add-sub-admin/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 function SubAdminPage() {
