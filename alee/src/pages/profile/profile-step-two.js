@@ -1,83 +1,65 @@
 import React from "react";
-import { Form, Grid, Icon, Button} from "semantic-ui-react";
+import { Form, Grid, Icon, Button, Table } from "semantic-ui-react";
 
-
-const passingYear = [
-	{
-		key: '2012',
-		text: '2012',
-		value: '2012',
-	},
-	{
-		key: '2013',
-		text: '2013',
-		value: '2013',
-	},
-	{
-		key: '2014',
-		text: '2014',
-		value: '2014',
-	},
-	{
-		key: '2015',
-		text: '2015',
-		value: '2015',
-	},
-	{
-	  key: '2016',
-	  text: '2016',
-	  value: '2016',
-	},
-	{
-	  key: '2017',
-	  text: '2017',
-	  value: '2017',
-	},
-	{
-	  key: '2018',
-	  text: '2018',
-	  value: '2018',
-	},
-	{
-	  key: '2019',
-	  text: '2019',
-	  value: '2019',
-	},
-	{
-	  key: '2020',
-	  text: '2020',
-	  value: '2020',
-	},
-	{
-	  key: '2021',
-	  text: '2021',
-	  value: '2021',
-	},
-  ]
-  
-  function ProfileStepTwo() {
-
-		return (
-				<Form>
-					<Grid>
-						<Grid.Column width={8}>
-							<Form.Input action={{ icon: 'plus' }} placeholder='Degree' className="addBtnInput"/>
-							<Form.Checkbox label="In progress"/>
-						</Grid.Column>
-						<Grid.Column width={8}>
-							<Form.Input action={{ icon: 'plus' }} placeholder='School/College/University' className="addBtnInput"/>
-						</Grid.Column>
-						<Grid.Column width={8}>
-								<Form.Dropdown placeholder='Year of Passing' fluid selection options={passingYear}  className="passingYear"/>
-						</Grid.Column>
-					</Grid>   
-					<Grid>
-						<Grid.Column width={16}>
-							<Button className="primaryBtn"> <Icon name="plus circle"/> Add more </Button>
-						</Grid.Column>
-					</Grid>
-				</Form> 
-		);
+const passingYear = [];
+let years = new Date().getFullYear()
+let lastYears = years - 40;
+for (let i = years; i > lastYears; i--) {
+	passingYear.push({ key: i, text: i, value: i });
 }
-	  
+function ProfileStepTwo(props) {
+
+	return (
+		<Form>
+			<Grid>
+				<Grid.Column width={8}>
+					<Form.Input placeholder='Degree' className="addBtnInput" onChange={props.onHandleChange} data="degree" value={props.secondstepValues.degree} />
+					<Form.Checkbox label="In progress" onChange={props.onHandleChange} data="inProgress" value={props.secondstepValues.inProgress} checked={props.secondstepValues.inProgress ? true : false} />
+				</Grid.Column>
+				<Grid.Column width={8}>
+					<Form.Input placeholder='School/College/University' className="addBtnInput" onChange={props.onHandleChange} data="college" value={props.secondstepValues.college} />
+				</Grid.Column>
+				<Grid.Column width={8}>
+					<Form.Dropdown placeholder='Year of Passing' fluid selection options={passingYear} className="passingYear" onChange={props.onHandleChange} data="yearOfPassing" value={props.secondstepValues.yearOfPassing} />
+				</Grid.Column>
+			</Grid>
+			<Grid>
+				<Grid.Column width={16}>
+					<Button className="primaryBtn" onClick={props.addMoreQualification}> <Icon name="plus circle" /> Add </Button>
+					<Button className="primaryBtn" onClick={props.updateQualification}> <Icon name="plus circle" /> update </Button>
+				</Grid.Column>
+			</Grid>
+
+			<React.Fragment>
+				{props.formSecondStep && props.formSecondStep.length > 0 && <Table fixed>
+					<Table.Header>
+						<Table.Row>
+							<Table.HeaderCell>Degree</Table.HeaderCell>
+							<Table.HeaderCell>School/College/University</Table.HeaderCell>
+							<Table.HeaderCell>Year of Passing</Table.HeaderCell>
+							<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{props.formSecondStep && props.formSecondStep.map((singleData, index) => {
+							debugger
+							return (
+								<Table.Row key={index}>
+									<Table.Cell>{singleData.degree}</Table.Cell>
+									<Table.Cell>{singleData.college}</Table.Cell>
+									<Table.Cell>{singleData.yearOfPassing}</Table.Cell>
+									<Table.Cell textAlign="right">
+										<Icon name="pencil alternate" size="large" link onClick={() => props.editQualification(singleData,index)}/>
+										<Icon name="trash alternate" size="large" link onClick={() => props.removeQualification(index)} />
+									</Table.Cell>
+								</Table.Row>
+							)
+						})}
+					</Table.Body>
+				</Table>}
+			</React.Fragment>
+		</Form>
+	);
+}
+
 export default ProfileStepTwo;

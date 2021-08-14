@@ -38,7 +38,6 @@ const onHandleFormSubmit = (e, formObj) => {
     return true;
   }
 };
-
 const initializeSimpleValidator = () => {
   return new SimpleReactValidator({
     element: (message) => (
@@ -80,11 +79,16 @@ const initializeSimpleValidator = () => {
     },
   });
 };
+
+
+// This function is used for image URL concatnation 
 const concatenateImageWithAPIUrl = (Image) => {
   if (Image && Image !== "") {
     return `${env.API_URL.replace("/api", "")}${Image}`;
   }
 };
+
+
 const getFormData = (data) => {
   var formData = new FormData();
   Object.entries(data).map(function ([key, val]) {
@@ -92,12 +96,11 @@ const getFormData = (data) => {
       // if (key === "image" && val !== null) {
       //   formData.append(key, val[0].file);
       // }
-      if (key === "image" && val !== null && data.image.length > 0) {
+      if (key === "file" && val !== null && data.file.length > 0) {
         let file = val[0].file === undefined ? val[0] : val[0].file;
         formData.append(key, file);
       }
-      else if (key === "businessLocationCategories" || key === "businessCategories" ||
-        key === "userLocations" || key === "documentBusinessCategoryType" || key === "categoryTag") {
+      else if (key === "ids") {
         var array = val;
         for (var i = 0; i < array.length; i++) {
           formData.append(key, array[i]);
@@ -128,7 +131,7 @@ const getSingleValue = (globalCodeData, categoryType, codeName) => {
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-  debugger;
+  
   const singlevalue = globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });

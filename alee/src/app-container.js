@@ -9,7 +9,7 @@ class AppContainer extends Component {
     super(props);
     browserHistory.listen((location, action) => {
       window.scroll(0, 0);
-      debugger;
+      
       if (localStorage.getItem("BookType") !== "") {
         if (location.pathname === "/chapter-empty" ) {
           localStorage.setItem("BookType", "No Chapter");

@@ -6,7 +6,7 @@ import { DataTable } from "../../../src/shared/components/organisms";
 function SubscriptionPage() {
 	const [subscription, setSubscription] = useState(false)
 	const [reload, SetReload] = useState(false)
-	const [editData, SetEditData] = useState([])
+	const [editData, SetEditData] = useState([]);
 	const openModal = () => {
 		setSubscription(!subscription)
 	}
@@ -14,9 +14,8 @@ function SubscriptionPage() {
 	const GridReload = () => {
 		SetReload(!reload)
 	}
-
 	const onHandleEdit = (data) => {
-		SetEditData(data)
+		SetEditData(editData.concat(data))
 		openModal();
 	}
 
@@ -74,7 +73,7 @@ function SubscriptionPage() {
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId, "delete")} />
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId,"delete")}/>
 										</>
 									);
 								},
@@ -83,7 +82,7 @@ function SubscriptionPage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddSubscription openModal={subscription} closeModal={openModal} GridReload={GridReload} editData={editData}/>
+			<AddSubscription openModal={subscription} closeModal={openModal} GridReload={GridReload} editData={editData} />
 		</div>
 	);
 }

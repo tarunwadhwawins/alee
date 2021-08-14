@@ -15,10 +15,12 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
     const { urls, method, data, onSuccess, onFailure, onFinally, headers, showNotification,isFormData } = action.payload;
     // axios default configs
     axios.defaults.headers.common["Content-Type"] =  isFormData ? "multipart/form-data" :"application/json";
-    if (state.auth && state.auth.loggedIn && state.auth.loggedIn.token) {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${state.auth.loggedIn.token}`;
+    // if (state.auth && state.auth.loggedIn && state.auth.loggedIn.token) {
+    //     axios.defaults.headers.common["Authorization"] = `Bearer ${state.auth.loggedIn.token}`;
+    // }
+    if (state.auth && state.auth.userDetail && state.auth.userDetail.token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${state.auth.userDetail.token}`;
     }
-    
     const dataOrParams = ["GET", "DELETE","PATCH"].includes(method) ? "params" : "data";
 
 

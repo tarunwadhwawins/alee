@@ -20,9 +20,14 @@ function SchoolManageTeacherPage(props) {
 						messageInModal="school"
 						columns={[
 							{
-								headerName: "School Name",
-								fieldName: "schoolName",
+								headerName: "Teacher Name",
+								fieldName: "firstName",
 								isSorting: true,
+								Cell: (props) => {
+									return (
+										<span>{props.firstName} {props.lastName}</span> 
+									);
+								},
 							},
 							{
 								headerName: "Email",

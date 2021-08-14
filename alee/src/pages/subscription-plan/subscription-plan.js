@@ -1,12 +1,18 @@
-import React from "react";
-import { Grid, Icon, Header, Form } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Grid, Icon, Header, Label } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import Moment from "react-moment";
 import { useSelector } from 'react-redux';
+import BuyPlan from "../../shared/components/organisms/modal/buy-subscription/index";
 
 function SubscriptionPlanPage(props) {
-
+  const [modalStatus, setModalStatus] = useState(false)
   const schoolId = useSelector(state => state.auth.userDetail.schoolId)
+
+  const openModal = () => {
+    setModalStatus(!modalStatus)
+  }
+
   return (
     <Grid>
       <Grid.Column width={16}>
@@ -24,7 +30,7 @@ function SubscriptionPlanPage(props) {
           }}
           searchOption={{ show: false, placeHolder: "Search" }}
           additionalParams={{ schoolId: schoolId }}
-          messageInModal= "subscription Plan"
+          messageInModal="subscription Plan"
           columns={[
             {
               headerName: "Plan",
@@ -44,13 +50,21 @@ function SubscriptionPlanPage(props) {
                 return <Moment format="MM/DD/YYYY">{props.createdAt}</Moment>;
               },
             },
-
             {
               headerName: "End Date",
               fieldName: "endDate",
               isSorting: true,
-			  Cell: (props) => {
+              Cell: (props) => {
                 return <Moment format="MM/DD/YYYY">{props.endDate}</Moment>;
+              },
+            },
+            {
+              headerName: "Status",
+              fieldName: "isActive",
+              isSorting: true,
+              Cell: (props) => {
+                debugger 
+                return <Label className={props.isActive ? "green" : "red"}>{props.isActive ? "Active" : "Inactive"}</Label>;
               },
             },
             {
@@ -61,15 +75,7 @@ function SubscriptionPlanPage(props) {
                 return (
                   <>
                     <Icon name="repeat" className="primary-color" link />
-                    <Icon name="plus" color="green" link />
-                    <Icon
-                      name="trash alternate"
-                      color="red"
-                      link
-                      onClick={() =>
-                        confirmModalOpen(props.userSubscriptionPlanId, "delete")
-                      }
-                    />
+                    <Icon name="plus" color="green" link onClick={openModal} />
                   </>
                 );
               },
@@ -77,6 +83,8 @@ function SubscriptionPlanPage(props) {
           ]}
         ></DataTable>
       </Grid.Column>
+
+      <BuyPlan openModal={modalStatus} closeModal={openModal} />
     </Grid>
   );
 }

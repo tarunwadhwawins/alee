@@ -1,85 +1,162 @@
-import React,{useState}from "react";
-import { Grid, Modal, Button, Form ,Dimmer,Loader } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Grid, Modal, Button, Form, Dimmer, Loader } from "semantic-ui-react";
 import { apiCall } from "../../../../../store/actions/api.actions";
-import { useDispatch, useSelector } from 'react-redux';
- import { commonFunctions } from "../../../../functional/global-import";
-// const Grade = [
-// 	{ key: 'Grade 1', value: 'Grade 1', text: 'Grade 1' },
-// 	{ key: 'Grade 2', value: 'Grade 2', text: 'Grade 2' },
-// 	{ key: 'Grade 3', value: 'Grade 3', text: 'Grade 3' },
-// 	{ key: 'Grade 4', value: 'Grade 4', text: 'Grade 4' },
-// 	{ key: 'Grade 5', value: 'Grade 5', text: 'Grade 5' },
-// 	{ key: 'Grade 6', value: 'Grade 6', text: 'Grade 6' },
-// 	{ key: 'Grade 7', value: 'Grade 7', text: 'Grade 7' },
-//   ]
-  function AddStudent(props) {
-	  const auth = useSelector(state => state.auth);
-	  const global =useSelector(state => state.global);
-	//   const globalCode = useSelector(state => state.global.codes);
-	  const [addStudent, setAddStudent] = useState({ "teacherId":auth.loggedIn,firstName: "",lastName: "",email:"", 
-	  gradeId:-1,
-	  actionPerformedBy:auth.userDetail.userId});
-	const dispatch = useDispatch();
-	const api = useSelector(state => state.api);
-	const onHandleChange = (e, { value, data }) => {
-        setAddStudent({ ...addStudent, [data]: value})
-    }
-	const onHandleSubmit = () => {
-        dispatch(apiCall({
-            urls: ["ADDSTUDENT"],method: "Post", data: addStudent, onSuccess: (response) => {
-				debugger;
-				props.closeModal();
-            }, showNotification: true
-        })) 	
-    }
-    return (
-		<Modal open={props.openModal} onClose={props.closeModal} size="small">
-			{api.isApiLoading && (
-			<Dimmer active inverted>
-				<Loader />
-			</Dimmer>
+import { useDispatch, useSelector } from "react-redux";
+import { GlobalCodeSelect } from "../../../../components";
 
-		)}
-			<Modal.Header>Add Student</Modal.Header>
-			<Modal.Content scrolling>
-				<Modal.Description>
-					<Form>
-						<Grid columns="2">
-							<Grid.Column>
-								<Form.Input label="FirstName" data="firstName"
-								onChange={onHandleChange}/>
-							</Grid.Column>
-							<Grid.Column>
-								<Form.Input label="LastName" data="lastName"
-								
-								 onChange={onHandleChange}/>
-							</Grid.Column>
-							<Grid.Column>
-								<Form.Input label="Email" data="email"
-								 onChange={onHandleChange}/>
-							</Grid.Column>
-							<Grid.Column>
-								<Form.Select label="Grade" options={addStudent.Grade} 
-								data="gradeId" 
-								onChange={onHandleChange} />
-							</Grid.Column>
-							<Grid.Column className='status'>
-								<p>Status</p>
-								<div className="statusToggle"> 
-								<span>Inactive</span>
-								<Form.Checkbox label="Active" toggle className="commonToggle"/>
-								</div>
-							</Grid.Column>
-						</Grid>
-					</Form>
-				</Modal.Description>
-			</Modal.Content>
-			<Modal.Actions>
-				<Button className="secondaryBtn"  onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onHandleSubmit} loading={api.isApiLoading}>Save</Button>
-			</Modal.Actions>
-		</Modal>
-		);
-  }
-  
-  export default AddStudent;
+function AddStudent(props) {
+  const auth = useSelector((state) => state.auth);
+  const initialValues = {
+    teacherId: auth.userDetail.teacherId,
+    studentId: null,
+    firstName: "",
+    lastName: "",
+    email: "",
+    isActive: true,
+    gradeId: null,
+    actionPerformedBy: "string",
+  };
+  const [addStudent, setAddStudent] = useState(initialValues);
+  const api = useSelector((state) => state.api);
+
+  const dispatch = useDispatch();
+
+  const onHandleChange = (e, { data, value, checked, type }) => {
+    setAddStudent({ ...addStudent, [data]: value });
+    if (type === "checkbox") {
+      setAddStudent({ ...addStudent, [data]: checked });
+    }
+  };
+
+  const onHandleSubmit = () => {
+    dispatch(
+      apiCall({
+        urls: ["ADDUPDATESTUDENT"],
+        method: "Post",
+        data: addStudent,
+        onSuccess: (response) => {
+          
+          closeModal();
+          props.GridReload();
+          setAddStudent(initialValues);
+        },
+        showNotification: true,
+      })
+    );
+  };
+  useEffect(() => {
+    editStudentlist();
+  }, [props.editData]);
+
+  const editStudentlist = () => {
+    if (props.editData !== undefined) {
+      const {
+        firstName,
+        lastName,
+        email,
+        isActive,
+        gradeId,
+        studentId,
+      } = props.editData;
+      setAddStudent({
+        ...addStudent,
+        studentId: studentId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        isActive: isActive,
+        gradeId: gradeId,
+      });
+    }
+  };
+  const closeModal = () => {
+    props.closeModal();
+    setAddStudent(initialValues);
+  };
+  return (
+    <Modal
+      open={props.openModal}
+      onClose={props.closeModal}
+      closeOnDimmerClick={false}
+      size="small"
+    >
+      {api.isApiLoading && (
+        <Dimmer active inverted>
+          <Loader />
+        </Dimmer>
+      )}
+      <Modal.Header>Add Student</Modal.Header>
+      <Modal.Content scrolling>
+        <Modal.Description>
+          <Form>
+            <Grid columns="2">
+              <Grid.Column>
+                <Form.Input
+                  label="FirstName"
+                  data="firstName"
+                  value={addStudent.firstName}
+                  onChange={onHandleChange}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Input
+                  label="LastName"
+                  data="lastName"
+                  value={addStudent.lastName}
+                  onChange={onHandleChange}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Input
+                  label="Email"
+                  data="email"
+                  onChange={onHandleChange}
+                  value={addStudent.email}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <GlobalCodeSelect
+                  label="Grade"
+                  placeholder="Grades"
+                  categoryType="Grades"
+                  onChange={onHandleChange}
+                  data="gradeId"
+                  value={addStudent.gradeId}
+                />
+              </Grid.Column>
+              <Grid.Column className="status">
+                <p>Status</p>
+                <div className="statusToggle">
+                  <span>Inactive</span>
+                  <Form.Checkbox
+                    label="Active"
+                    toggle
+                    className="commonToggle"
+                    onChange={onHandleChange}
+                    data="isActive"
+                    checked={addStudent.isActive ? true : false}
+                    value={addStudent.isActive}
+                  />
+                </div>
+              </Grid.Column>
+            </Grid>
+          </Form>
+        </Modal.Description>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button className="secondaryBtn" onClick={() => closeModal()}>
+          {" "}
+          Cancel{" "}
+        </Button>
+        <Button
+          className="primaryBtn"
+          onClick={onHandleSubmit}
+          loading={api.isApiLoading}>
+          {addStudent.studentId > 0 ? "Update" : "Save"}
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  );
+}
+
+export default AddStudent;

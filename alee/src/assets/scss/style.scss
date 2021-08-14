@@ -409,3 +409,178 @@ h4.ui.header.bookName {
 		margin: 0 auto;
 	}
 }
+
+.profileView {
+	.profileViewHeader {
+		display: flex;
+		padding: 50px 15px 15px 15px;
+		margin: -15px -15px 0;
+		position: relative;
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			background-color: $primary-color;
+			height: 150px;
+		}
+		.header {
+			color: #fff;
+			margin: 0 !important;
+			span {
+				position: absolute;
+			}
+		}
+		p {
+			color: #fff;
+			// margin: 5px 0 0 !important;
+			span {
+				color: #ddd;
+			}
+		}
+		.profileImgOuter {
+			margin-right: 30px;
+			text-align: center;
+			i.icon {
+				background-color: $primary-color;
+				height: 30px;
+				width: 30px;
+				text-align: center;
+				line-height: 30px;
+				text-align: center;
+				border-radius: 5px;
+				color: #fff;
+				border-radius: 50%;
+				font-size: 12px;
+				cursor: pointer;
+				// &.blue {
+				// 	color: $primary-color;
+				// }
+			}
+		}
+		.profileImg {
+			position: relative;
+			height: 145px;
+			width: 145px;
+			min-width: 145px;
+			border-radius: 50%;
+			overflow: hidden;
+			margin: 0 auto 15px;
+			img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+		.profileViewHeaderDesc {
+			z-index: 1;
+			width: 100%;
+			padding: 25px 0 0;
+			.blue {
+				color: $primary-color;
+				span {
+					color: #ddd;
+				}
+			}
+			.ui.horizontal.list.basicInfo {
+				.item {
+					display: inline-flex;
+					color: #fff;
+					i.icon {
+						color: #ddd;
+					}
+				}
+			}
+			.ui.horizontal.list.gradePlan {
+				display: flex;
+				flex-wrap: wrap;
+				margin: 10px 0 0;
+				justify-content: flex-end;
+				.item {
+					margin: 0 30px 0 0;
+					display: flex;
+					align-items: center;
+					.ui.avatar.image {
+						width: 50px;
+						height: 50px;
+						background-color: $primary-color;
+						padding: 5px;
+					}
+					.content {
+						display: flex;
+						align-items: center;
+						span {
+							width: 60px;
+							height: 60px;
+							background-color: $primary-color;
+							border-radius: 50%;
+							line-height: 60px;
+							color: #fff;
+							text-align: center;
+							margin: 0 10px 0 0;
+							font-family: 'latoblack'!important;
+							font-size: 18px;
+						}
+						.header {
+							font-size: 22px;
+							color: $primary-color;
+							// background-color: $primary-color;
+							// color: #ddd;
+							// width: 100px;
+							// text-align: center;
+							// height: 100px;
+							// border-radius: 50%;
+							// display: flex;
+							// align-items: center;
+							// justify-content: center;
+							span {
+								font-size: 25px;
+								color: #fff;
+								line-height: 30px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.profileViewBody {
+		p {
+			margin: 5px 0 !important;
+			span {
+				color: #999;
+			}
+		}
+	}
+}
+
+.buyPlan {
+	padding: 15px;
+	border-radius: 5px;
+	text-align: center;
+	border: 2px solid #fff;
+	box-shadow: 0 0 5px rgba(0,0,0,.1);
+	&:hover{
+		border-color: $primary-color;
+	}
+	h4.ui.header {
+		color: $primary-color;
+	}
+	p {
+		color: #999;
+		font-size: 18px;
+		.dollor {
+			color: $primary-color;
+			font-size: 14px;
+		}
+		.value {
+			color: $primary-color;
+			font-size: 25px;
+		}
+	}
+	.primaryBtn.ui.button {
+		width: 100%;
+		margin-top: 60px;
+	}
+}

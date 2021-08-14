@@ -8,10 +8,8 @@ function UploadPdfPage() {
 	  const fileInputRef = React.createRef();	
 	
 	  const fileChange = e => {
-		setFile( e.target.files[0] )
+		setFile( e.target.files[0])
 	  }
-	
-
     return (
 		<div className="scanBook">
 			<Grid>
