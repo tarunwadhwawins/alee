@@ -119,7 +119,9 @@ const API_ENDPOINTS = {
   ADDTEACHEREXCEL: "/Teacher/AddTeacherFromExcel",
   ADDTEACHERBASICINFO: "/Teacher/AddTeacherBasicInfo",
   ADDUPDATERESOURCES: "/Resource/AddUpdateResources",
-  GETEXCELTEMPLATE: "/Teacher/ExcelTemplate"
+  GETEXCELTEMPLATE: "/Teacher/ExcelTemplate",
+  GETADMINDASHBOARD:"/Dashboard/GetAdminDashboard",
+  GETADMINDASHBOARDPERFORMANCE:"/Dashboard/GetAdminDashboardPerformance"
 };
 
 export const getApiUrl = (key) => {

@@ -6,14 +6,12 @@ import { env, commonFunctions } from "../../../../functional/global-import";
 import { useHistory } from "react-router-dom";
 import { GlobalCodeSelect } from "../../../../components";
 
-
 const type = [
 	{ key: 'Standards', value: 'Standards', text: 'Standards' },
 	{ key: 'Comprehension Strategies', value: 'Comprehension Strategies', text: 'Comprehension Strategies' },
 	{ key: 'Values', value: 'Values', text: 'Values' },
 	{ key: 'Literary Elements', value: 'Literary Elements', text: 'Literary Elements' },
 ]
-
 
 function AddTagsListing(props) {
 	const initialValues = { tagId: null, tagTypeId: "", tagName: "", isActive: true, actionPerformedBy: "Admin" }
@@ -25,6 +23,7 @@ function AddTagsListing(props) {
 	const dispatch = useDispatch();
 
 	const onHandleChange = (e, { value, data, checked, type }) => {
+		debugger
 		setTaglisting({ ...taglisting, [data]: value })
 		if (type === "checkbox") {
 			setTaglisting({ ...taglisting, [data]: checked })
