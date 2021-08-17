@@ -12,10 +12,8 @@ const type = [
 	{ key: 'Values', value: 'Values', text: 'Values' },
 	{ key: 'Literary Elements', value: 'Literary Elements', text: 'Literary Elements' },
 ]
-
 function AddTagsListing(props) {
 	const initialValues = { tagId: null, tagTypeId: "", tagName: "", isActive: true, actionPerformedBy: "Admin" }
-
 	const [taglisting, setTaglisting] = React.useState(initialValues)
 	const globalCode = useSelector(state => state.global.codes)
 
@@ -43,16 +41,16 @@ function AddTagsListing(props) {
 	}
 
 	useEffect(() => {
-		editForm();
+		const { editData } = props
+		if (editData !== undefined && Object.keys(editData).length > 0)
+			editForm();
 	}, [props.editData]);
 
 	const editForm = () => {
-		debugger
-		if (props.editData !== undefined || props.editData.length > 0) {
-			const { modifiedDate, tagId, tagName, tagTypeId, tagType, isActive } = props.editData;
-			setTaglisting({ ...taglisting, tagId: tagId, tagName: tagName, tagTypeId: tagTypeId, isActive: isActive })
-		}
+		const { modifiedDate, tagId, tagName, tagTypeId, tagType, isActive } = props.editData;
+		setTaglisting({ ...taglisting, tagId: tagId, tagName: tagName, tagTypeId: tagTypeId, isActive: isActive })
 	}
+
 	const closeModal = () => {
 		props.closeModal();
 		setTaglisting(initialValues);
@@ -74,7 +72,7 @@ function AddTagsListing(props) {
 								<p>Status</p>
 								<div className="statusToggle">
 									<span>Inactive</span>
-									<Form.Checkbox label="Active" toggle className="commonToggle" data="isActive" value={taglisting.isActive} checked={taglisting.isActive ? true : false} onChange={onHandleChange} />
+									<Form.Checkbox label="Active" toggle className="commonToggle" data="isActive" value={taglisting.isActive} checked={taglisting.isActive} onChange={onHandleChange} />
 								</div>
 							</Grid.Column>
 						</Grid>

@@ -95,8 +95,8 @@ function LessonLibrary() {
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
-
 			)}
+			
 			<Grid>
 				<Grid.Column computer={16}>
 					<Header as="h3" className="commonHeading">Lesson Library</Header>

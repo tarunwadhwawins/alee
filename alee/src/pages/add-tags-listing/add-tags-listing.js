@@ -5,7 +5,7 @@ import { DataTable } from "../../../src/shared/components/organisms";
 
 function AddTagsListingPage(props) {
 	const [taglisting, setTaglisting] = React.useState(false)
-	const [editData, SetEditData] = useState([])
+	const [editData, SetEditData] = useState()
 	const [reload, SetReload] = useState(false)
 
 	const openModal = () => {
