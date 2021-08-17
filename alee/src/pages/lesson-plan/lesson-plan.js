@@ -18,14 +18,6 @@ function LessonPlanPage() {
 						{/* <Form.Input placeholder="Search lesson plan"/> */}
 					</Form>
 				</Grid.Column>
-				<Grid.Column width={4} textAlign="right" verticalAlign="middle">
-					<Dropdown text='Filter' icon='filter'>
-						<Dropdown.Menu>
-							<Dropdown.Item content="Newest" />
-							<Dropdown.Item content="Oldest" />
-						</Dropdown.Menu>
-					</Dropdown>
-				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
 						allApi={{ getApiName: "GETLESSONPLANLIST", deleteApiName: "DELETELESSONPLAN", toggleApiName: "LESSONTOGGLEISACTIVE" }} messageInModal= "lesson Plan"

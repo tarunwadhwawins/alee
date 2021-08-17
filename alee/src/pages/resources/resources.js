@@ -24,15 +24,6 @@ const Page = [
   { key: "Page 6", value: "Page 6", text: "Page 6" },
   { key: "Page 7", value: "Page 7", text: "Page 7" },
 ];
-const Book = [
-  { key: "Animal Farm", value: "Animal Farm", text: "Animal Farm" },
-  { key: "America Dreams", value: "America Dreams", text: "America Dreams" },
-  { key: "Old Man & Sea", value: "Old Man & Sea", text: "Old Man & Sea" },
-];
-
-
-
-
 function ResourcesPage() {
   const [booklist, setBooklist] = useState(null);
   const api = useSelector((state) => state.api);
@@ -64,16 +55,25 @@ function ResourcesPage() {
     setFile(e.target.files[0]);
   };
 
+ 
   const onHandleEdit = (data) => {
-    debugger;
-
+    debugger
     const { resourceId, gradeId, bookId, chapterId, pageId, resourceTypeName, resourceTypeId, resourceLinkId, link } = data;
-    
-    if(data.resourceTypeName === "Audio"){
-      setResources({...resources,ResourceId:resourceId,GradeId:gradeId,BookId:bookId,ChapterId:chapterId,PageId:pageId,AudioLink:link})
+
+    if (data.resourceTypeName === "Audio") {
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, AudioLink: link })
     }
-    else if(data.resourceTypeName === "Video"){
-      setResources({...resources,ResourceId:resourceId,GradeId:gradeId,BookId:bookId,ChapterId:chapterId,PageId:pageId,AudioLink:link})
+    else if (data.resourceTypeName === "Video") {
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, VideoLink: link })
+    }
+    else if (data.resourceTypeName === "Article" && data.link.indexOf("pdf") > 0) {
+      setResources({
+        ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, UploadPdf: link,
+      })
+    }
+
+    else if (data.resourceTypeName === "Article" && data.link.indexOf("pdf") < 0) {
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
   }
 
@@ -249,7 +249,7 @@ function ResourcesPage() {
                   Cell: (props, confirmModalOpen) => {
                     return (
                       <>
-                        <Icon name="edit" className="primary-color" link onClick={(props) => onHandleEdit(props)} />
+                        <Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
                         <Icon
                           name="trash alternate"
                           color="red"
@@ -478,7 +478,7 @@ function ResourcesPage() {
               </Grid.Column>
 
               <Grid.Column width={16}>
-                <Tab menu={{ text: true }} panes={panes} />
+                <Tab menu={{ text: true }} panes={panes} onTabChange={cancelClear} />
               </Grid.Column>
             </Grid>
           </Form>

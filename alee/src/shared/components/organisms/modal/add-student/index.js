@@ -10,15 +10,15 @@ function AddStudent(props) {
     teacherId: auth.userDetail.teacherId,
     studentId: null,
     firstName: "",
-    lastName: "",
-    email: "",
-    isActive: true,
+    lastName:"",
+    email:"",
+    isActive:true,
     gradeId: null,
     actionPerformedBy: "string",
   };
+
   const [addStudent, setAddStudent] = useState(initialValues);
   const api = useSelector((state) => state.api);
-
   const dispatch = useDispatch();
   const onHandleChange = (e, { data, value, checked, type }) => {
     setAddStudent({ ...addStudent, [data]: value });
@@ -26,7 +26,6 @@ function AddStudent(props) {
       setAddStudent({ ...addStudent, [data]: checked });
     }
   };
-
   const onHandleSubmit = () => {
     dispatch(
       apiCall({
@@ -134,7 +133,7 @@ function AddStudent(props) {
                     className="commonToggle"
                     onChange={onHandleChange}
                     data="isActive"
-                    checked={addStudent.isActive ? true : false}
+                    checked={addStudent.isActive}
                     value={addStudent.isActive}
                   />
                 </div>

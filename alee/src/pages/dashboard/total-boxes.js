@@ -36,37 +36,7 @@ function TotalBoxes() {
 					</Grid.Column>
 				)
 			})}
-			{/* 
-			<Grid.Column>
-				<div className="totalBoxesInnerr">
-					<p>Grade</p>
-					<Header as="h5">8th</Header>
-				</div>
-			</Grid.Column>
-			<Grid.Column>
-				<div className="totalBoxesInnerr">
-					<p>Total Lessons</p>
-					<Header as="h5">120</Header>
-				</div>
-			</Grid.Column>
-			<Grid.Column>
-				<div className="totalBoxesInnerr">
-					<p>Total Books</p>
-					<Header as="h5">150</Header>
-				</div>
-			</Grid.Column>
-			<Grid.Column>
-				<div className="totalBoxesInnerr">
-					<p>Recent Lesson</p>
-					<Header as="h5"><Link>Animal Farm, week one</Link></Header>
-				</div>
-			</Grid.Column>
-			<Grid.Column>
-				<div className="totalBoxesInnerr">
-					<p>Upcoming Lesson</p>
-					<Header as="h5"><Link>Animal Farm, week one</Link></Header>
-				</div>
-			</Grid.Column> */}
+			
 		</Grid>
 	);
 }
