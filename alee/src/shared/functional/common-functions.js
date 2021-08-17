@@ -137,7 +137,6 @@ const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
   });
   return singlevalue[0];
 }
-
 export const commonFunctions = {
   onHandleChange,
   onHandleFormSubmit,
