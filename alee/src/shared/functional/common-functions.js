@@ -1,5 +1,5 @@
 import SimpleReactValidator from "simple-react-validator";
-import { Label } from "semantic-ui-react";
+import { Label, Form } from "semantic-ui-react";
 import { env } from "../functional/global-import";
 import moment from 'moment';
 // This function is used to handle common onchange in all the forms in the application.
@@ -127,7 +127,7 @@ const saveFormattedDate = (date) => {
   return moment(date).format("YYYY-MM-DD");
 }
 const getSingleValue = (globalCodeData, categoryType, codeName) => {
-  const singlevalue = globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName)
+  const singlevalue = globalCodeData && globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName)
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
@@ -136,13 +136,6 @@ const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });
   return singlevalue[0];
-}
-// This function is used for cancel button inital set state of form in all application
-const onCancelInitialState = (stateRefInitial) => {
-  stateRefInitial.setState(stateRefInitial.initialState)
-  stateRefInitial.validator = initializeSimpleValidator();
-  // setting form changed to false as form is cleared through this fiunction
-  // onApiSucessFormChangedFalse(stateRefInitial)
 }
 export const commonFunctions = {
   onHandleChange,
@@ -154,5 +147,4 @@ export const commonFunctions = {
   saveFormattedDate,
   getSingleValue,
   getGlobalCodeDetails,
-  onCancelInitialState
 };

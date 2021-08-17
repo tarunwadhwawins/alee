@@ -1,13 +1,22 @@
-import React from "react";
-import { Grid, Header, Button,Icon, Form } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Grid, Header, Button, Icon, Form } from "semantic-ui-react";
 import AddTagsListing from "../../shared/components/organisms/modal/add-tags-lisiting"
 import { DataTable } from "../../../src/shared/components/organisms";
 
-
 function AddTagsListingPage(props) {
 	const [taglisting, setTaglisting] = React.useState(false)
+	const [editData, SetEditData] = useState()
+	const [reload, SetReload] = useState(false)
+
 	const openModal = () => {
 		setTaglisting(!taglisting)
+	}
+	const onHandleEdit = (data) => {
+		SetEditData(data)
+		openModal();
+	}
+	const GridReload = () => {
+		SetReload(!reload)
 	}
 	return (
 		<div className="bookSummary">
@@ -23,8 +32,8 @@ function AddTagsListingPage(props) {
 
 					<DataTable
 						allApi={{ getApiName: "GETTAGSLIST", deleteApiName: "TAGSDELETETAG", toggleApiName: "TAGTOGGLEISACTIVE" }}
-						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal= "tag"
+						searchOption={{ show: true, placeHolder: "Search" }} reload={reload}
+						messageInModal="tag"
 						columns={[
 							{
 								headerName: "Tag Name",
@@ -41,9 +50,8 @@ function AddTagsListingPage(props) {
 								fieldName: "isActive",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId,"update",props.isActive)} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId, "update", props.isActive)} />
 									);
 								},
 							},
@@ -54,7 +62,7 @@ function AddTagsListingPage(props) {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link />
+											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
 											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.tagId, "delete")} />
 										</>
 									);
@@ -64,7 +72,7 @@ function AddTagsListingPage(props) {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddTagsListing openModal={taglisting} closeModal={openModal} />
+			<AddTagsListing openModal={taglisting} closeModal={openModal} GridReload={GridReload} editData={editData} />
 		</div>
 	);
 }

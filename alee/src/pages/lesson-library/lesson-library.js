@@ -95,8 +95,8 @@ function LessonLibrary() {
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
-
 			)}
+			
 			<Grid>
 				<Grid.Column computer={16}>
 					<Header as="h3" className="commonHeading">Lesson Library</Header>
@@ -151,15 +151,15 @@ function LessonLibrary() {
 							})}
 						</Dropdown.Menu>
 					</Dropdown>
-					
+
 					<Button>Filter</Button>
-				
+
 				</Grid.Column>
 
 				<Grid.Column computer={16}>
 					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
 				</Grid.Column>
-				
+
 				{bookList && bookList.map((data, index) => {
 					return (
 						<Grid.Column width={3}>
@@ -168,7 +168,7 @@ function LessonLibrary() {
 								<Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
 										/>
 								<Header as="h5">{data.bookName}</Header>
-								
+
 								<p>{data.tagName}</p>
 							</div>
 						</Grid.Column>

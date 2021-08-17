@@ -1,98 +1,104 @@
 .signIn {
-	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: stretch;
-	justify-content: center;
-	height: 100vh;
-	background-color: $secondary-color;
-	.signInner {
-		max-width: 800px;
-		width: 100%;
-		align-self: center!important;
-		padding: 15px;
-		border-radius: 10px;
-		.ui.form {
-			.field {
-				label {
-					font-weight: 400;
-				}
-				.ui.input {
-					input {
-						border: none;
-						border-bottom: 1.5px solid $secondary-color;
-						border-radius: 0;
-						padding:5px 0;
-					}
-				}
-			}
-		}
-		.signInnerLeft {
-			// background-color: $primary-color;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-			border-radius: 10px;
-			z-index: 2;
-			&:before {
-				content: "";
-				position: absolute;
-				right: -40px;
-				bottom: 0;
-				left: 0;
-				top: 0;
-				background-image: url(../images/bg.png);
-				background-size: 100% 100%;
-			}
-			img.ui.image {
-				max-width: 120px;
-			}
-			p {
-				position: absolute;
-				bottom: 20px;
-				left: 0;
-				right: 0;
-				color: #ddd;
-				font-size: 13px;
-				text-align: center;
-				a {
-					color: #fff;
-					padding-left: 2px;
-				}
-			}
-		}
-		.signInnerRight {
-			padding:30px 15px!important; 
-			.ui.grid {
-				background-color: $white-color;
-				padding: 30px 15px 30px 50px!important;
-				border-radius:0 10px 10px 0;
-				h2.ui.header {
-					color: $primary-color;
-					font-size: 25px;
-				}
-			}
-			.ui.buttons{
-				margin: 0;
-				
-				.ui.button {
-					background-color:$secondary-color ;
-					color: $primary-color;
-					padding: 10px 20px;
-					&:first-child {
-						border-radius: 25px 0 0 25px;
-					}
-					&:last-child {
-						border-radius: 0 25px 25px 0;
-					}
-					&.active {
-						background-color:$primary-color!important;
-						color: $white-color!important;
-					}
-				}
-			}
-		}
-	}
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  height: 100vh;
+  background-color: $secondary-color;
+  .signInner {
+    max-width: 800px;
+    width: 100%;
+    align-self: center !important;
+    padding: 15px;
+    border-radius: 10px;
+    .ui.form {
+      .field {
+        label {
+          font-weight: 400;
+        }
+        .ui.input {
+          input {
+            border: none;
+            border-bottom: 1.5px solid $secondary-color;
+            border-radius: 0;
+            padding: 5px 0;
+          }
+        }
+      }
+    }
+    .signInnerLeft {
+      // background-color: $primary-color;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-radius: 10px;
+      z-index: 2;
+      &:before {
+        content: "";
+        position: absolute;
+        right: -40px;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        background-image: url(../images/bg.png);
+        background-size: 100% 100%;
+      }
+      img.ui.image {
+        max-width: 120px;
+      }
+      p {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        color: #ddd;
+        font-size: 13px;
+        text-align: center;
+        a {
+          color: #fff;
+          padding-left: 2px;
+        }
+      }
+    }
+    .signInnerRight {
+      padding: 30px 15px !important;
+      .error {
+        position: absolute;
+        bottom: 10px;
+        font-size: 12px;
+        color: #f00;
+      }
+      .ui.grid {
+        background-color: $white-color;
+        padding: 30px 15px 30px 50px !important;
+        border-radius: 0 10px 10px 0;
+        h2.ui.header {
+          color: $primary-color;
+          font-size: 25px;
+        }
+      }
+      .ui.buttons {
+        margin: 0;
+
+        .ui.button {
+          background-color: $secondary-color;
+          color: $primary-color;
+          padding: 10px 20px;
+          &:first-child {
+            border-radius: 25px 0 0 25px;
+          }
+          &:last-child {
+            border-radius: 0 25px 25px 0;
+          }
+          &.active {
+            background-color: $primary-color !important;
+            color: $white-color !important;
+          }
+        }
+      }
+    }
+  }
 }

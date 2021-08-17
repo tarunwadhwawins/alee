@@ -15,7 +15,7 @@ function Signup() {
     return (
         <div className="signIn">
             <div className="signInner">
-                <Form>
+                <div>
                     <Grid>
                         <Grid.Column width={6} className="p-0">
                             <div className="signInnerLeft">
@@ -45,7 +45,7 @@ function Signup() {
                             </Grid>
                         </Grid.Column>
                     </Grid>
-                </Form>
+                </div>
             </div>
         </div>
     );
