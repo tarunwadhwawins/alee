@@ -86,8 +86,8 @@ function AddSubAdmin(props) {
   };
 
   const closeModal = () => {
-    setSubAdmin({ initialAddValues });
     props.closeModal();
+    setSubAdmin({ initialAddValues });
   };
 
   return (
