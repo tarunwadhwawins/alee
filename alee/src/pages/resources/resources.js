@@ -474,7 +474,6 @@ function ResourcesPage() {
                   className="primaryBtn"
                   onClick={onHandleSubmit}
                   loading={api.isApiLoading} >{resources.ResourceId > 0 ? "Update" : "Save"}
-                  Save
                 </Button>
               </Grid.Column>
 
