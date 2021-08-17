@@ -137,6 +137,13 @@ const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
   });
   return singlevalue[0];
 }
+// This function is used for cancel button inital set state of form in all application
+const onCancelInitialState = (stateRefInitial) => {
+  stateRefInitial.setState(stateRefInitial.initialState)
+  stateRefInitial.validator = initializeSimpleValidator();
+  // setting form changed to false as form is cleared through this fiunction
+  // onApiSucessFormChangedFalse(stateRefInitial)
+}
 export const commonFunctions = {
   onHandleChange,
   onHandleFormSubmit,
@@ -146,5 +153,6 @@ export const commonFunctions = {
   formattedDate,
   saveFormattedDate,
   getSingleValue,
-  getGlobalCodeDetails
+  getGlobalCodeDetails,
+  onCancelInitialState
 };

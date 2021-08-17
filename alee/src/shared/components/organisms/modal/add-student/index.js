@@ -20,7 +20,6 @@ function AddStudent(props) {
   const api = useSelector((state) => state.api);
 
   const dispatch = useDispatch();
-
   const onHandleChange = (e, { data, value, checked, type }) => {
     setAddStudent({ ...addStudent, [data]: value });
     if (type === "checkbox") {
@@ -35,7 +34,6 @@ function AddStudent(props) {
         method: "Post",
         data: addStudent,
         onSuccess: (response) => {
-          
           closeModal();
           props.GridReload();
           setAddStudent(initialValues);
@@ -45,10 +43,12 @@ function AddStudent(props) {
     );
   };
   useEffect(() => {
+    debugger
     editStudentlist();
   }, [props.editData]);
 
   const editStudentlist = () => {
+    debugger
     if (props.editData !== undefined) {
       const {
         firstName,
