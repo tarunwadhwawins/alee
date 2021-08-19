@@ -4,6 +4,7 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalCodeSelect } from "../../../../components";
 
+
 function AddStudent(props) {
   const auth = useSelector((state) => state.auth);
   const initialValues = {
@@ -151,7 +152,7 @@ function AddStudent(props) {
           className="primaryBtn"
           onClick={onHandleSubmit}
           loading={api.isApiLoading}>
-          {addStudent.studentId > 0 ? "Update" : "Save"}
+          {addStudent.studentId > 0 ? "Update":"Save"}
         </Button>
       </Modal.Actions>
     </Modal>

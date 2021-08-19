@@ -126,7 +126,17 @@ const API_ENDPOINTS = {
   ADDTOPIC: "/Topics/AddTopic",
   GETCHAPTERSTOPIC: "/Topics/GetChaptersTopic",
   DELETETOPIC:"/Topics/DeleteTopic",
-  GETBOOKSUMMARY:"/Books/GetBookSummary"
+  GETBOOKSUMMARY:"/Books/GetBookSummary",
+  GETADMINDASHBOARD:"/Dashboard/GetAdminDashboard",
+  GETADMINDASHBOARDPERFORMANCE:"/Dashboard/GetAdminDashboardPerformance",
+  ADDUPDATECHAPTER:"/Chapter/AddUpdateChapter",
+  GETCHAPTERLIST:"/Chapter/GetChaptersList",
+  ADDCHAPTERSUMMARY:"/Chapter/AddChapterSummary",
+  DELETECHAPTER:"/Chapter/DeleteChapter",
+  ADDGRADE:"/Grades/AddGrade",
+  GETGRADESLIST:"/Grades/GetGradesList",
+  DELETEGRADE:"/Grades/DeleteGrade",
+  GRADESTOGGLE:"/Grades/ToggleIsActive"
 };
 
 export const getApiUrl = (key) => {

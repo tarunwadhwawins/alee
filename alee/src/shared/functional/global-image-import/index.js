@@ -60,6 +60,9 @@ export { default as ManageTeacherWhite } from "../../../assets/images/manage-tea
 export { default as AssignTemplateBlue } from "../../../assets/images/assign-template-blue.svg";
 export { default as AssignTemplateWhite } from "../../../assets/images/assign-template-white.svg";
 
+// export { default as AddGradeBlue } from "../../../assets/images";
+// export { default as AddGradeWhite } from "../../../assets/images/user management-white.svg";
+
 export { default as UserManagementBlue } from "../../../assets/images/user management-blue.svg";
 export { default as UserManagementWhite } from "../../../assets/images/user management-white.svg";
 

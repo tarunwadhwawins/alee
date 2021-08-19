@@ -33,7 +33,6 @@ function LessonLibrary() {
 	useEffect(() => {
 		getBookList();
 	}, [values]);
-
 	//  get api //
 	const getBookList = () => {
 		dispatch(apiCall({
@@ -42,7 +41,6 @@ function LessonLibrary() {
 			}
 		}));
 	}
-
 	const getStandardsTags = () => {
 		dispatch(apiCall({
 			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Standards")).globalCodeId }, onSuccess: (response) => {
