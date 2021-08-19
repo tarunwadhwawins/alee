@@ -16,7 +16,7 @@ function DataTable(props) {
     const api = useSelector(state => state.api)
     useEffect(() => {
         getCommonTable();
-    }, [gridObjects,props.reload]);
+    }, [gridObjects, props.reload]);
 
 
     const getCommonTable = () => {
@@ -45,7 +45,7 @@ function DataTable(props) {
 
     const onHandleDelete = () => {
         dispatch(apiCall({
-            urls: [props.allApi.deleteApiName], method: "DELETE", data: {id: confirmModal.selectedId}, onSuccess: (response) => {
+            urls: [props.allApi.deleteApiName], method: "DELETE", data: { id: confirmModal.selectedId }, onSuccess: (response) => {
                 modalClose();
                 getCommonTable();
             }, showNotification: true
@@ -66,7 +66,7 @@ function DataTable(props) {
     const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
     const showMessage = props.messageInModal !== undefined ? props.messageInModal : "record"
     const bb = confirmModal.isActive ? "deactivate" : "activate"
-    const message = "Do you want to " + (confirmModal.type==="update" ? bb : confirmModal.type )+ " this " + showMessage + " ?"
+    const message = "Do you want to " + (confirmModal.type === "update" ? bb : confirmModal.type) + " this " + showMessage + " ?"
     return (
         <Grid>
             {props.searchOption && props.searchOption.show &&

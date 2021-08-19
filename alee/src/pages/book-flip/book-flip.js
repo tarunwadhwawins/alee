@@ -7,21 +7,6 @@ import { storeBookDetails } from "../../../src/store/actions/global.actions";
 import { apiCall } from "../../store/actions/api.actions";
 import { animateScroll } from "react-scroll";
 
-const Grade = [
-	{ key: '5th', value: '5th', text: '5th' },
-	{ key: '6th', value: '6th', text: '6th' },
-	{ key: '7th', value: '7th', text: '7th' },
-	{ key: '8th', value: '8th', text: '8th' },
-	{ key: '9th', value: '9th', text: '9th' },
-	{ key: '10th', value: '10th', text: '9th' },
-]
-const Template = [
-	{ key: 'Shared text', value: 'Shared text', text: 'Shared text' },
-	{ key: 'Readers workshop', value: 'Readers workshop', text: 'Readers workshop' },
-	{ key: 'Writers workshop', value: 'Writers workshop', text: 'Writers workshop' },
-	{ key: 'Interactive Read aloud', value: 'Interactive Read aloud', text: 'Interactive Read aloud' },
-]
-
 function BookFlipPage(props) {
 
 	const [bookPage, setBookPage] = useState({ PageId: 1136, BookId: 48 })
@@ -86,21 +71,11 @@ function BookFlipPage(props) {
 	// }
 
 	const onFlip = async (e) => {
-
 		let item = pageFlip?.current?.pageFlip;
 		if (item && typeof item == "function") {
-
 			let totalPage = item().getPageCount();
 			if (e.data + 2 === totalPage - 3) {
 				let lastThirdPage = bookPageData[totalPage - 1].pageId + 1
-				// debugger
-				// let updated = [{
-				// 	"bookId": 48,
-				// 	"pageId": 1146,
-				// 	"pageNo": 10,
-				// 	"pageText": ""
-				// }]
-				// const updatedData = bookPageData.concat(updated);
 				dispatch(apiCall({
 					urls: ["GETBOOKPAGE"], method: "GET", data: { PageId: lastThirdPage, BookId: 48 }, onSuccess: (response) => {
 						// let updated = [...bookPageData, ...response];

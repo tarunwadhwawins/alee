@@ -464,8 +464,16 @@ function ResourcesPage() {
                   type="file"
                   label="Upload Pdf"
                   placeholder="Embed URL"
+                  value={resources.UploadPdf}
+                  data="UploadPdf"
+                  onChange={onHandleChange}
+                /> 
+                <Form.Input
+                  ref={fileInputRef}
+                  type="file"
+                  label="Upload Pdf"
+                  placeholder="Embed URL"
                   onChange={fileChange}
-                // value={resources.UploadPdf}
                 />
               </Grid.Column>
               <Grid.Column width="16" textAlign="right">

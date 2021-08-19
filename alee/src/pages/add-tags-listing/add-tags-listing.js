@@ -10,7 +10,7 @@ function AddTagsListingPage(props) {
 
 	const openModal = () => {
 		setTaglisting(!taglisting)
-	}
+	}	
 	const onHandleEdit = (data) => {
 		SetEditData(data)
 		openModal();
