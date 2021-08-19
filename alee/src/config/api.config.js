@@ -36,6 +36,7 @@ const API_ENDPOINTS = {
   DELETEBOOKS: "/Books/DeleteBook",
   GETGLOBALCODESLIST: "/GlobalCodes/GetGlobalCodesList",
   ADDTAG: "/Tags/AddTag",
+  
   LOGIN: "/Authentication/Login",
   GLOBALCODELIST: "/GlobalCodes/GetGlobalCodesList",
   TEACHERREGISTRATION: "/Authentication/TeacherRegistration",

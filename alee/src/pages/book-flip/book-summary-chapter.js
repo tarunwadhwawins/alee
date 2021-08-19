@@ -10,13 +10,16 @@ import AddChapter from "../../shared/components/organisms/modal/add-chapter/inde
 function BookSummaryChapter(props) {
 
     const [summary, setSummary] = useState(false)
+    const [chapter, setChapter] = useState(false)
     const [tag, setTags] = useState(false)
     const [invite, setInvite] = useState(false)
     const auth = useSelector(state => state.auth.userDetail.role)
 
-    const openModal = () => {
-        debugger
+    const openModalSummary = () => {
         setSummary(!summary)
+    }
+    const openModalChapter = () => {
+        setChapter(!chapter)
     }
     const openModal2 = () => {
         setTags(!tag)
@@ -31,18 +34,16 @@ function BookSummaryChapter(props) {
             <Grid.Column width={16} textAlign="right">
                 {auth === "Admin" &&
                     <>
-                        <Button className="secondaryBtn" onClick={openModal}>Add Book Summray</Button>
+                        <Button className="secondaryBtn" onClick={openModalSummary}>Add Book Summray</Button>
                         <Button className="primaryBtn" as={Link} to="chapter-empty">Add Chapter/Topic</Button>
                     </>
                 }
             </Grid.Column>
-            
-            {/* <AddPageSummary openModal={summary} closeModal={openModal} /> */}
+            <AddPageSummary openModal={summary} closeModal={openModalSummary} />
             {/* <AddTags openModal={tag} closeModal={openModal2} />
 			<InviteTeacher openModal={invite} closeModal={openModal3} /> */}
-
         </Grid>
-        <AddChapter openModal={summary} closeModal={openModal} />
+        <AddChapter openModal={chapter} closeModal={openModalChapter} />
         </>
     )
 }

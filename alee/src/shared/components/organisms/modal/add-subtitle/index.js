@@ -12,8 +12,6 @@ function AddSubtitle(props) {
 	const dispatch = useDispatch();
 	let history = useHistory();
 
-	const dispatch = useDispatch();
-
 	const onsubmit = () => {
 		debugger;
 		dispatch(apiCall({
