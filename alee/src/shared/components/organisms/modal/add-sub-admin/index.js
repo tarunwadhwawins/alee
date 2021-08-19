@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 
 function AddSubAdmin(props) {
+
   const auth = useSelector((state) => state.auth);
   const api = useSelector((state) => state.api);
   const initialAddValues = {
@@ -12,11 +13,12 @@ function AddSubAdmin(props) {
     confirmPassword: "",
     subAdminId: null,
     userName: "",
-    isActive:true,
+    isActive: true,
     userId: auth.userDetail.userId,
     actionPerformedBy: "string",
     actionPerformedDate: "2021-08-11T04:52:29.657Z",
   };
+
   const [subAdmin, setSubAdmin] = useState(initialAddValues);
   const dispatch = useDispatch();
   const onHandleChange = (e, { data, value, checked, type }) => {
@@ -27,13 +29,13 @@ function AddSubAdmin(props) {
   };
 
   useEffect(() => {
-    if (props.modalType === "EDIT"){
+    if (props.modalType === "EDIT") {
       editSubAdmin();
-    } 
+    }
   }, [props.openModal]);
 
   const editSubAdmin = () => {
-    
+    debugger
     if (props.editDetail) {
       const {
         userName,
@@ -63,8 +65,11 @@ function AddSubAdmin(props) {
           method: "POST",
           data: subAdmin,
           onSuccess: (response) => {
+            debugger;
             closeModal();
             props.GridReload();
+            setSubAdmin(initialAddValues);
+
           },
           showNotification: true,
         })
@@ -87,9 +92,8 @@ function AddSubAdmin(props) {
 
   const closeModal = () => {
     props.closeModal();
-    setSubAdmin({ initialAddValues });
+    setSubAdmin(initialAddValues);
   };
-
   return (
     <Modal
       open={props.openModal}
@@ -115,16 +119,17 @@ function AddSubAdmin(props) {
                   onChange={onHandleChange}
                 />
               </Grid.Column>
-              <Grid.Column>
-                <Form.Input
-                  label="Email"
-                  data="email"
-                  value={subAdmin.email}
-                  onChange={onHandleChange}
-                />
-              </Grid.Column>
               {props.modalType === "ADD" && (
                 <>
+                  <Grid.Column>
+                    <Form.Input
+                      label="Email"
+                      data="email"
+                      value={subAdmin.email}
+                      onChange={onHandleChange}
+                    />
+                  </Grid.Column>
+
                   <Grid.Column>
                     <Form.Input
                       label="Password"
@@ -153,7 +158,7 @@ function AddSubAdmin(props) {
                     className="commonToggle"
                     onChange={onHandleChange}
                     data="isActive"
-                    checked={subAdmin.isActive ? true : false}
+                    checked={subAdmin.isActive}
                   />
                 </div>
               </Grid.Column>

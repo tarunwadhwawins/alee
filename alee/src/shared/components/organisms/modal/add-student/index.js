@@ -10,23 +10,22 @@ function AddStudent(props) {
     teacherId: auth.userDetail.teacherId,
     studentId: null,
     firstName: "",
-    lastName: "",
-    email: "",
-    isActive: true,
+    lastName:"",
+    email:"",
+    isActive:true,
     gradeId: null,
     actionPerformedBy: "string",
   };
+
   const [addStudent, setAddStudent] = useState(initialValues);
   const api = useSelector((state) => state.api);
   const dispatch = useDispatch();
-
   const onHandleChange = (e, { data, value, checked, type }) => {
     setAddStudent({ ...addStudent, [data]: value });
     if (type === "checkbox") {
       setAddStudent({ ...addStudent, [data]: checked });
     }
   };
-  
   const onHandleSubmit = () => {
     dispatch(
       apiCall({
@@ -34,7 +33,6 @@ function AddStudent(props) {
         method: "Post",
         data: addStudent,
         onSuccess: (response) => {
-          
           closeModal();
           props.GridReload();
           setAddStudent(initialValues);
@@ -44,10 +42,12 @@ function AddStudent(props) {
     );
   };
   useEffect(() => {
+    debugger
     editStudentlist();
   }, [props.editData]);
 
   const editStudentlist = () => {
+    debugger
     if (props.editData !== undefined) {
       const {
         firstName,
@@ -133,7 +133,7 @@ function AddStudent(props) {
                     className="commonToggle"
                     onChange={onHandleChange}
                     data="isActive"
-                    checked={addStudent.isActive ? true : false}
+                    checked={addStudent.isActive}
                     value={addStudent.isActive}
                   />
                 </div>
