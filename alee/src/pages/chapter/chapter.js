@@ -4,6 +4,8 @@ import AddChapter from "../../shared/components/organisms/modal/add-chapter/inde
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 import AddChapterSummary from "../../shared/components/organisms/modal/add-chapter-summary/index";
 import { DataTable } from "../../../src/shared/components/organisms";
+import { useSelector } from 'react-redux';
+
 function ChapterPage() {
 	const [chapter, setChapter] = useState(false);
 	const [subtitle, setSubtitle] = useState(false);
@@ -11,6 +13,9 @@ function ChapterPage() {
 	const [reload, SetReload] = useState(false);
 	const [editData, SetEditData] = useState([]);
 	const [summaryData, setSummaryData] = useState([]);
+
+	const bookName = useSelector(state => state.global.myBookData.bookName)
+
 	const openModal = () => {
 		setChapter(!chapter)
 	}
@@ -35,7 +40,7 @@ function ChapterPage() {
 		<div className="chapterPage">
 			<Grid>
 				<Grid.Column width={8} verticalAlign="middle">
-					<Header className="commonHeading">Animal Farm</Header>
+					<Header className="commonHeading">{bookName}</Header>
 				</Grid.Column>
 				<Grid.Column width={8} textAlign="right">
 					<Button className="primaryBtn" onClick={openModal}> <Icon name="plus" /> Chapter </Button>
