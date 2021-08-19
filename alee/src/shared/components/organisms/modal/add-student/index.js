@@ -18,7 +18,6 @@ function AddStudent(props) {
   };
   const [addStudent, setAddStudent] = useState(initialValues);
   const api = useSelector((state) => state.api);
-
   const dispatch = useDispatch();
 
   const onHandleChange = (e, { data, value, checked, type }) => {
@@ -27,7 +26,7 @@ function AddStudent(props) {
       setAddStudent({ ...addStudent, [data]: checked });
     }
   };
-
+  
   const onHandleSubmit = () => {
     dispatch(
       apiCall({
