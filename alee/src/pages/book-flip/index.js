@@ -1,10 +1,11 @@
 import React from 'react';
-import  BookFlipPage  from './book-flip';
-
+import BookFlipPage from './book-flip';
+import BookSummaryChapter from "./book-summary-chapter";
 const BookFlip = () => {
     return (
-        <div className="common-shadow">
+        <div>
             <BookFlipPage/>
+            <BookSummaryChapter/>
         </div>
     );
 }

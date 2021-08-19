@@ -3,7 +3,7 @@ import { Icon, Grid, Dropdown, Image, Feed, Card } from "semantic-ui-react";
 import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
-import { storeUserDetail } from "../../../../store/actions/auth.actions";
+import { storeBookDetails } from "../../../../store/actions/global.actions";
 
 const trigger = (
   <span>
@@ -15,9 +15,9 @@ function Header(props) {
   const api = useSelector(state => state.auth.userDetail.role)
   const dispatch = useDispatch();
   
-  // const onHandleLogout = () => {
-  //   dispatch(storeUserDetail());
-  // }
+  const onHandleLogout = () => {
+    dispatch(storeBookDetails(""));
+  }
 
   return (
     <React.Fragment>
@@ -100,7 +100,7 @@ function Header(props) {
                   to={`${process.env.REACT_APP_PUBLIC_URL === "" ? "/" : process.env.REACT_APP_PUBLIC_URL}`}
                   icon="log out"
                   text="Logout"
-                  //onClick={onHandleLogout}
+                  onClick={onHandleLogout}
                 />
               </Dropdown.Menu>
 

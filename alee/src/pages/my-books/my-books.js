@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Item, Header, Dimmer, Loader, Input, Table,Icon } from "semantic-ui-react";
+import { Grid, Item, Header, Dimmer, Loader, Input, Table, Icon } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
 import ConfirmModal from "../../shared/components/organisms/modal/common-confirm-modal/index";
-import {commonFunctions } from "../../shared/functional/global-import";
+import { Link, commonFunctions } from "../../shared/functional/global-import";
+import { storeMyBookData } from "../../store/actions/global.actions";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
 	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
-	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "",type:""})
+	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
 	const dispatch = useDispatch();
 	const auth = useSelector(state => state.auth.userDetail.role)
 	//  call the api //
@@ -27,22 +28,26 @@ function MyBookPage(props) {
 		setValues({ ...values, searchValue: value })
 	}
 
-	const confirmModalOpen = (id,type) => {
-        setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id,type:type})
-    }
+	const confirmModalOpen = (id, type) => {
+		setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type })
+	}
 
-    const modalClose = () => {
-        setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
-    }
+	const modalClose = () => {
+		setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
+	}
 
 	const onHandleDelete = () => {
-        dispatch(apiCall({
-            urls: ["DELETEBOOKS"], method: "DELETE", data: { id: confirmModal.selectedId }, onSuccess: (response) => {
-                modalClose();
-            	getBookList();
-            }, showNotification: true
-        }))
-    }
+		dispatch(apiCall({
+			urls: ["DELETEBOOKS"], method: "DELETE", data: { id: confirmModal.selectedId }, onSuccess: (response) => {
+				modalClose();
+				getBookList();
+			}, showNotification: true
+		}))
+	}
+
+	const addBookData = (data) => {
+		dispatch(storeMyBookData(data));
+	}
 
 	const api = useSelector(state => state.api)
 	return (
@@ -72,18 +77,16 @@ function MyBookPage(props) {
 							debugger
 							return (
 								<Item.Group>
-									<Item>
-
-										{/* <Item as={Link} onClick={addChapter} to={`${localStorage.getItem("Usertype") === "admin"? "book-flip":"book-summary"}`}>  */}
-		     	<Item.Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+									<Item >
+										<Item.Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
 										/>
 										<Item.Content >
-											<Item.Header><span>{data.bookName}</span></Item.Header>
+											<Item.Header onClick={()=>addBookData(data)} as={Link} to={`${auth === "Admin" ? "book-flip" : "book-summary"}`}><span>{data.bookName}</span></Item.Header>
 											{/* <Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta> */}
 											<Item.Description>
 												{data.bookSummary} ?
 											</Item.Description>
-											<Item.Extra>Other Tags: 6.4, Empathy, Twist { auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId,"delete")} /></div> }</Item.Extra>
+											<Item.Extra>Other Tags: 6.4, Empathy, Twist {auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} /></div>}</Item.Extra>
 										</Item.Content>
 									</Item>
 								</Item.Group>
@@ -91,8 +94,6 @@ function MyBookPage(props) {
 						})}
 					</div>
 				</Grid.Column>
-				{/* <ConfirmModal open={confirmModal} onConfirm={onHandleDelete} close={modalClose} /> */}
-
 				<ConfirmModal open={confirmModal} onConfirm={onHandleDelete} close={modalClose} message={"Do you want to delete this book ?"} />
 			</Grid>
 		</>

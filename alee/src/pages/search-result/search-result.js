@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Grid, Form, Header, Accordion, Menu, Item, Icon } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import { Book } from "../../shared/functional/global-image-import"
+import { useSelector, useDispatch } from 'react-redux';
+import { storeBookDetails } from "../../store/actions/global.actions";
 
 const GradeLevel = (
 	<Form>
@@ -28,6 +30,9 @@ const SortBy = (
 
 function SearchResultPage() {
 	const [activeIndex, setActiveIndex] = React.useState(0)
+
+	const api = useSelector(state => state.auth.userDetail.role);
+	const dispatch = useDispatch();
 	//	state = { activeIndex: 0 }
 
 	const handleClick = (e, titleProps) => {
@@ -37,11 +42,12 @@ function SearchResultPage() {
 	}
 
 	const addChapter = () => {
-		if (localStorage.getItem("Usertype") === "teacher") {
-			localStorage.setItem("BookType", "With Topic Chapter");
-			setTimeout(() => {
-				window.location.reload();
-			}, 1000);
+		if (api === "Teacher") {
+			dispatch(storeBookDetails("With Topic Chapter"));
+			//localStorage.setItem("BookType", "With Topic Chapter");
+			// setTimeout(() => {
+			// 	window.location.reload();
+			// }, 1000);
 		}
 	};
 

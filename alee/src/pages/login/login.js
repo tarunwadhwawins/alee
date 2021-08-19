@@ -5,7 +5,7 @@ import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
 import { loginSuccess,storeUserDetail } from "../../../src/store/actions/auth.actions";
-import { storeGlobalCodes,storeSchoolDetails } from "../../../src/store/actions/global.actions";
+import { storeGlobalCodes } from "../../../src/store/actions/global.actions";
 import { useDispatch, useSelector } from 'react-redux';
 
 function LoginForm() {

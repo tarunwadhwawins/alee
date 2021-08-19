@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { Grid, Modal, Button, Form } from "semantic-ui-react";
 import {Link} from "../../../../functional/global-import"
-
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { storeBookDetails } from "../../../../../store/actions/global.actions";
 
 function AddSubtitle(props) {
+
+	const dispatch = useDispatch();
+
 	const  addSubTopic = () =>{
-		localStorage.setItem("BookType","With Topic Chapter" );
-		setTimeout(() => {
-		window.location.reload();
-		}, (1000));
+		dispatch(storeBookDetails("With Topic Chapter"));
+		//localStorage.setItem("BookType","With Topic Chapter" );
+		// setTimeout(() => {
+		// window.location.reload();
+		// }, (1000));
 	  }
 	
 

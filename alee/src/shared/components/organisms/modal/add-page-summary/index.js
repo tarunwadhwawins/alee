@@ -4,9 +4,8 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-
-
 function AddPageSummary(props) {
+	debugger
 	const [editorState, setEditorState] = React.useState(EditorState.createEmpty())
 
 	const onEditorStateChange = (editorState) => setEditorState(editorState);

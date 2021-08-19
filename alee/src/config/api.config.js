@@ -50,7 +50,10 @@ const API_ENDPOINTS = {
   ADDTEACHEREXCEL: "/Teacher/AddTeacherFromExcel",
   ADDTEACHERBASICINFO: "/Teacher/AddTeacherBasicInfo",
   ADDUPDATERESOURCES: "/Resource/AddUpdateResources",
-  GETEXCELTEMPLATE: "/Teacher/ExcelTemplate"
+  GETEXCELTEMPLATE: "/Teacher/ExcelTemplate",
+  GETBOOKPAGE: "/UploadPdf/GetPagesData",
+  GETTAGCUSTOMFIELDS: "/BookTag/GetCustomFieldList",
+  GETTAGCUSTOMFIELDSLIST: "/BookTag/GetCustomFieldDataList",
 };
 
 export const getApiUrl = (key) => {

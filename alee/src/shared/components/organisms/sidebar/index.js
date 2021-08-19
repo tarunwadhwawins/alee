@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite,MyBookWhite, MyBookBlue,AddTagListingBlue, AddTagListingWhite ,UserManagementBlue,UserManagementWhite} from "../../../functional/global-image-import";
-import { useSelector } from 'react-redux';
+import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, MyBookWhite, MyBookBlue, AddTagListingBlue, AddTagListingWhite, UserManagementBlue, UserManagementWhite } from "../../../functional/global-image-import";
+import { useSelector, useDispatch } from 'react-redux';
+import { storeBookDetails } from "../../../../store/actions/global.actions";
 
 function Sidebar(props) {
 	const [activeItem, setActiveItem] = useState("closest")
 	const [isActive, setIsActive] = useState("")
-	const api = useSelector(state => state.auth.userDetail.role)
 
-	const handleItemClick = (e, { name }) => setActiveItem(name);
+	const api = useSelector(state => state.auth.userDetail.role)
+	const bookDetail = useSelector(state => state.global.bookDetail)
+	const dispatch = useDispatch();
+
+	const handleItemClick = (e, { name }) => {
+		dispatch(storeBookDetails(""));
+		setActiveItem(name);
+	}
 	const handleClick = (chapterName) => setIsActive(chapterName);
 
 	return (
@@ -69,7 +76,8 @@ function Sidebar(props) {
 						</Menu.Item>
 					</Menu>
 				}
-				{api === "Admin" && <Menu text vertical>
+				{api === "Admin"  
+				&& <Menu text vertical>
 					<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
 						<Image src={DashboardWhite} className="white" />
 						<Image src={DashboardBlue} className="blue" />
@@ -159,7 +167,7 @@ function Sidebar(props) {
 				}
 
 				{/* No Chapter  */}
-				{localStorage.getItem("BookType") === "No Chapter" &&
+				{/* {bookDetail === "No Chapter" &&
 					<Menu text vertical>
 						<Menu.Item name='Page1' active={activeItem === 'Page1'} onClick={handleItemClick}>
 							<span>Page 1</span>
@@ -193,12 +201,12 @@ function Sidebar(props) {
 						</Menu.Item>
 
 					</Menu>
-				}
+				} */}
 
 
 				{/* With Chapter */}
 
-				{localStorage.getItem("BookType") === "With Chapter" &&
+				{/* {bookDetail === "With Chapter" &&
 
 					<Menu text vertical>
 						<Menu.Item className="lessonPlan" name='ChapterOne' active={activeItem === 'ChapterOne'} onClick={handleItemClick}>
@@ -245,11 +253,11 @@ function Sidebar(props) {
 						</div>
 
 					</Menu>
-				}
+				} */}
 
 				{/* Chapter with Topic */}
 
-				{localStorage.getItem("BookType") === "With Topic Chapter" &&
+				{/* {bookDetail === "With Topic Chapter" &&
 					<Menu text vertical>
 						<Menu.Item className="lessonPlan" name='Page Summary' active={activeItem === 'Page Summary'} onClick={handleItemClick}>
 							<span>Book Summary</span>
@@ -339,7 +347,7 @@ function Sidebar(props) {
 						</div>
 
 					</Menu>
-				}
+				} */}
 
 			</div>
 		</div>

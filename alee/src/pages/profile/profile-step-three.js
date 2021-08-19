@@ -31,7 +31,7 @@ function ProfileStepThree(props) {
 				</Grid.Column>
 
 				<Grid.Column width={12}>
-					<Button className="primaryBtn">  <Icon name='plus' /> Add </Button>
+					<Button className="primaryBtn" onClick={props.addWorkHistory} > <Icon name='plus'/> Add </Button>
 				</Grid.Column>
 
 			</Grid>

@@ -2,11 +2,12 @@ import SimpleReactValidator from "simple-react-validator";
 import { Label } from "semantic-ui-react";
 import { env } from "../functional/global-import";
 import moment from 'moment';
+
 // This function is used to handle common onchange in all the forms in the application.
 const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
   const path = data.split(".");
   const depth = path.length;
-  const state = {...obj};
+  const state = { ...obj };
   let ref = state;
   for (let i = 0; i < depth; i += 1) {
     if (i === depth - 1) {
@@ -136,12 +137,14 @@ const getSingleValue = (globalCodeData, categoryType, codeName) => {
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-  
+
   const singlevalue = globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });
   return singlevalue[0];
 }
+
+
 export const commonFunctions = {
   onHandleChange,
   onHandleFormSubmit,
@@ -151,5 +154,5 @@ export const commonFunctions = {
   formattedDate,
   saveFormattedDate,
   getSingleValue,
-  getGlobalCodeDetails
+  getGlobalCodeDetails,
 };

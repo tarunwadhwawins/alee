@@ -11,12 +11,15 @@ import ProfileStepFour from "./profile-step-four";
 const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, actionPerformedBy: "" }
 const initialStateStepSecond = { degree: "", college: "", inProgress: null, yearOfPassing: "", index: null }
 const initialStateStepThird = { school: "", position: "", grades: [], index: null }
+
 function MyProfile() {
   const [activeStep, setActiveStep] = useState(0)
   const [values, setValues] = useState(initialState)
   const [secondstepValues, setsecondstepValues] = useState(initialStateStepSecond)
   const [formSecondStep, setFormSecondStep] = useState([])
   const [thirdStepValues, setThirdStepValues] = useState(initialStateStepThird)
+  const [formThirdStep, setFormThirdStep] = useState([])
+
 
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId)
@@ -47,6 +50,7 @@ function MyProfile() {
     }))
   }
 
+  ///////////// -Second Step- /////////////
   const addMoreQualification = () => {
     setFormSecondStep(formSecondStep.concat({ degree: secondstepValues.degree, college: secondstepValues.college, inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing }))
     setsecondstepValues(initialStateStepSecond)
@@ -68,6 +72,16 @@ function MyProfile() {
     setFormSecondStep(items)
     setsecondstepValues(initialStateStepSecond)
   }
+
+///////////// -Third Step- /////////////
+const addWorkHistory = () => {
+
+  // school: "", position: "", grades: [], index: null
+   
+  // setFormThirdStep(formThirdStep.concat({ degree: thirdStepValues, college: secondstepValues.college, inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing }))
+  // setsecondstepValues(initialStateStepSecond)
+}
+
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
