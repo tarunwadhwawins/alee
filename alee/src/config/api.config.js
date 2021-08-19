@@ -121,7 +121,15 @@ const API_ENDPOINTS = {
   ADDUPDATERESOURCES: "/Resource/AddUpdateResources",
   GETEXCELTEMPLATE: "/Teacher/ExcelTemplate",
   GETADMINDASHBOARD:"/Dashboard/GetAdminDashboard",
-  GETADMINDASHBOARDPERFORMANCE:"/Dashboard/GetAdminDashboardPerformance"
+  GETADMINDASHBOARDPERFORMANCE:"/Dashboard/GetAdminDashboardPerformance",
+  ADDUPDATECHAPTER:"/Chapter/AddUpdateChapter",
+  GETCHAPTERLIST:"/Chapter/GetChaptersList",
+  ADDCHAPTERSUMMARY:"/Chapter/AddChapterSummary",
+  DELETECHAPTER:"/Chapter/DeleteChapter",
+  ADDGRADE:"/Grades/AddGrade",
+  GETGRADESLIST:"/Grades/GetGradesList",
+  DELETEGRADE:"/Grades/DeleteGrade",
+  GRADESTOGGLE:"/Grades/ToggleIsActive"
 };
 
 export const getApiUrl = (key) => {

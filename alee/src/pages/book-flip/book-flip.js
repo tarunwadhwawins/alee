@@ -110,12 +110,12 @@ function BookFlipPage() {
 				</HTMLFlipBook>
 				</Grid.Column>
 				<Grid.Column width={16} textAlign="right">
-				{ localStorage.getItem("Usertype") === "admin" &&
+				{/* { localStorage.getItem("Usertype") === "admin" &&
 					 <>
-						<Button className="secondaryBtn" onClick={openModal}>Add Book Summray</Button>
-						<Button className="primaryBtn"  onClick={addBook} as={Link} to="chapter-empty">Add Chapter/Topic</Button>
 					</>
-				}
+				} */}
+		     	<Button className="secondaryBtn" onClick={openModal}>Add Book Summray</Button>
+				<Button className="primaryBtn"  onClick={addBook} as={Link} to="chapter-empty">Add Chapter/Topic</Button>
 				</Grid.Column>
 			</Grid>
 		
