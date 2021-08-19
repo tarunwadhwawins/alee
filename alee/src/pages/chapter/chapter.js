@@ -1,78 +1,113 @@
-import React from "react";
-import { Table, Grid, Icon, Header, Button } from "semantic-ui-react";
-import { Link } from "../../shared/functional/global-import";
+import React, { useState } from "react";
+import { Grid, Icon, Header, Button, Form } from "semantic-ui-react";
 import AddChapter from "../../shared/components/organisms/modal/add-chapter/index";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 import AddChapterSummary from "../../shared/components/organisms/modal/add-chapter-summary/index";
-
-
+import { DataTable } from "../../../src/shared/components/organisms";
 function ChapterPage() {
-	const [chapter, setChapter] = React.useState(false)
-	const [subtitle, setSubtitle] = React.useState(false)
-	const [summary, setSummary] = React.useState(false)
-	
+	const [chapter, setChapter] = useState(false);
+	const [subtitle, setSubtitle] = useState(false);
+	const [summary, setSummary] = useState(false);
+	const [reload, SetReload] = useState(false);
+	const [editData, SetEditData] = useState([]);
+	const [summaryData, setSummaryData] = useState([]);
 	const openModal = () => {
 		setChapter(!chapter)
 	}
 	const openModal2 = () => {
 		setSubtitle(!subtitle)
 	}
-	const openModal3 = () => {
+	const openModal3 = (props) => {
+		console.log("props", props);
 		setSummary(!summary)
+		 const data = JSON.parse(props)
+		setSummaryData(data);
+	}
+	const GridReload = () => {
+		SetReload(!reload)
+	}
+	const onHandleEdit = (data) => {
+		SetEditData(data)
+		openModal();
 	}
 
-    return (
-        <div className="chapterPage">
+	return (
+		<div className="chapterPage">
 			<Grid>
-			<Grid.Column width={8} verticalAlign="middle">
-				<Header className="commonHeading">Animal Farm</Header>
-			</Grid.Column>
-			<Grid.Column width={8} textAlign="right">
-				<Button className="primaryBtn" onClick={openModal}> <Icon name="plus"/> Chapter </Button>
-			</Grid.Column>
+				<Grid.Column width={8} verticalAlign="middle">
+					<Header className="commonHeading">Animal Farm</Header>
+				</Grid.Column>
+				<Grid.Column width={8} textAlign="right">
+					<Button className="primaryBtn" onClick={openModal}> <Icon name="plus" /> Chapter </Button>
+				</Grid.Column>
 				<Grid.Column width={16}>
-				<Table>
-					<Table.Header>
-						<Table.Row>
-							<Table.HeaderCell  width={3}>Chapter</Table.HeaderCell>
-							<Table.HeaderCell  width={3}>Page No.</Table.HeaderCell>
-							<Table.HeaderCell  width={3}>Topics</Table.HeaderCell>
-							<Table.HeaderCell  width={5}>Summary</Table.HeaderCell>
-							<Table.HeaderCell  width={2} textAlign="right">Action</Table.HeaderCell>
-						</Table.Row>
-					</Table.Header>
-					<Table.Body>
-						<Table.Row>
-							<Table.Cell><Link to="subtitle"  className="primary-color">Chapter One</Link></Table.Cell>
-							<Table.Cell>1 - 15</Table.Cell>
-							<Table.Cell><Button className="primaryBtn" onClick={openModal2}> <Icon name="plus"/> Topic</Button></Table.Cell>
-							<Table.Cell><Button className="primaryBtn" onClick={openModal3}> <Icon name="plus"/> Chapter Summary</Button></Table.Cell>
-							<Table.Cell  textAlign="right"> 
-								<Icon name="pencil alternate" className="primary-color" link />
-								<Icon name="trash alternate" color='red' link/>
-							</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell><Link  to="subtitle"  className="primary-color">Chapter Two</Link></Table.Cell>
-							<Table.Cell>16 - 30</Table.Cell>
-							<Table.Cell><Button className="primaryBtn"  onClick={openModal2}> <Icon name="plus"/> Topic</Button></Table.Cell>
-							<Table.Cell><Button className="primaryBtn" onClick={openModal3}> <Icon name="plus"/> Chapter Summary</Button></Table.Cell>
+					<DataTable
+						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName:"DELETECHAPTER"}} reload={reload}
+						additionalParams={{ bookId: 43 }}
+						searchOption={{ show: true, placeHolder: "Search" }}
+						messageInModal="Chapter"
+						columns={[
+							{
+								headerName: "Chapter",
+								fieldName: "chapterName",
+								isSorting: true,
+							},
+							{
+								headerName: "Page No.",
+								fieldName: "pageNo",
+								isSorting: true
+							},
 
-							<Table.Cell  textAlign="right"> 
-								<Icon name="pencil alternate" className="primary-color" link />
-								<Icon name="trash alternate" color='red' link/>
-							</Table.Cell>
-						</Table.Row>
-					</Table.Body>
-				</Table>
+							{
+								headerName: "Topics",
+								fieldName: "gradeName",
+								isSorting: true,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<>
+											<Button className="primaryBtn" onClick={openModal2}> <Icon name="plus" /> Topic</Button>
+										</>
+									);
+								},
+							},
+							{
+								headerName: "Summary",
+								fieldName: "chapterSummary",
+								isSorting: true,
+								Cell: (props, confirmModalOpen) => {
+								  debugger;
+									return (
+										<>
+											<Button className="primaryBtn" onClick={() => openModal3(props.chapterSummary)}> <Icon name="plus" /> Chapter Summary</Button>
+										</>
+									);
+								},
+							},
+							{
+								headerName: "Action",
+								fieldName: "Action",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									
+									return (
+										<>
+											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId,"delete")}/>
+										</>
+									);
+								},
+							},
+						]}
+
+					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddChapter openModal={chapter} closeModal={openModal} />
-			<AddSubtitle openModal={subtitle} closeModal={openModal2} />
-			<AddChapterSummary openModal={summary} closeModal={openModal3} />
+			{chapter && <AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData} />}
+			{subtitle && <AddSubtitle openModal={subtitle} closeModal={openModal2} />}
+			{summary && <AddChapterSummary openModal={summary} closeModal={openModal3} summaryData={summaryData}/>}
 
 		</div>
-    );
+	);
 }
 
 export default ChapterPage;

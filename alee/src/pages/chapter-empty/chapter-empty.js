@@ -1,49 +1,82 @@
-import React, { useState } from "react";
+
+import React,{useState} from "react";
 import { Table, Grid, Icon, Header, Button, Image, Popup } from "semantic-ui-react";
 import AddChapter from "../../shared/components/organisms/modal/add-chapter/index";
 import { BookPage1, BookPage2, BookPage3, BookPage4, BookPage5, BookPage6 } from "../../shared/functional/global-image-import";
+import { DataTable } from "../../../src/shared/components/organisms";
 import BookFlipPage from "../book-flip/book-flip";
+import { useSelector } from 'react-redux';
 
 function ChapterEmptyPage() {
-	const [chapter, setChapter] = useState(false)
 
+	const [chapter, setChapter] = useState(false)
+	const [reload, SetReload] = useState(false);
+	const [editData, SetEditData] = useState([]);
+	const bookName = useSelector(state => state.global.myBookData.bookName)
 	const openModal = () => {
 		setChapter(!chapter)
 	}
-	
-	return (
-		<>
+	const GridReload = () => {
+		SetReload(!reload)
+	}
+	const onHandleEdit = (data) => {
+		SetEditData(data)
+		openModal();
+	}
+    return (
+        <div className="chapterPage">
 			<BookFlipPage />
-			<div className="chapterPage">
-				<Grid>
-					<Grid.Column width={8} verticalAlign="middle">
-						<Header className="commonHeading">Animal Farm</Header>
-					</Grid.Column>
-					<Grid.Column width={8} textAlign="right">
-						<Button className="primaryBtn" onClick={openModal}> <Icon name="plus" /> Chapter </Button>
-					</Grid.Column>
-					<Grid.Column width={16}>
-						<Table>
-							<Table.Header>
-								<Table.Row>
-									<Table.HeaderCell width={5}>Chapter</Table.HeaderCell>
-									<Table.HeaderCell width={5}>Page No.</Table.HeaderCell>
-									<Table.HeaderCell width={3}>Topics</Table.HeaderCell>
-									<Table.HeaderCell width={3} textAlign="right">Action</Table.HeaderCell>
-								</Table.Row>
-							</Table.Header>
-							<Table.Body>
-								<Table.Row>
-									<Table.Cell colSpan="4" textAlign="center">No Topics available</Table.Cell>
-								</Table.Row>
-							</Table.Body>
-						</Table>
-					</Grid.Column>
-				</Grid>
-				<AddChapter openModal={chapter} closeModal={openModal} />
-			</div>
-		</>
-	);
+			<Grid>
+			<Grid.Column width={8} verticalAlign="middle">
+				<Header className="commonHeading">{bookName}</Header>
+			</Grid.Column>
+			<Grid.Column width={8} textAlign="right">
+				<Button className="primaryBtn" onClick={openModal}> <Icon name="plus"/> Chapter </Button>
+			</Grid.Column>
+				<Grid.Column width={16}>
+				<DataTable
+						allApi={{ getApiName: "GETCHAPTERLIST" , deleteApiName:"DELETECHAPTER" }} reload={reload}
+						additionalParams={{ bookId: 43 }}
+						searchOption={{ show: true, placeHolder: "Search" }}
+						messageInModal="Chapter"
+						columns={[
+							{
+								headerName: "Chapter",
+								fieldName: "chapterName",
+								isSorting: true,
+							},
+							{
+								headerName: "Page No.",
+								fieldName: "pageNo",
+								isSorting: true
+							},
+
+							{
+								headerName: "Topics",
+								fieldName: "",
+								isSorting: true,
+							},
+							{
+								headerName: "Action",
+								fieldName: "Action",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<>
+											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId,"delete")}/>
+										</>
+									);
+								},
+							},
+						]}
+
+					></DataTable>
+				</Grid.Column>
+			</Grid>
+			<AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData}/>
+		</div>
+    );
 }
 
 export default ChapterEmptyPage;

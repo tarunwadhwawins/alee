@@ -144,6 +144,11 @@ function Sidebar(props) {
 						<Image src={AddTagListingBlue} className="blue" />
 						<span>Add Tags Listing</span>
 					</Menu.Item>
+					<Menu.Item as={Link} to="add-grade" name='add-grade' active={activeItem === 'add-grade'} onClick={handleItemClick}>
+						{/*<Image src={AddTagListingWhite} className="white" />
+						<Image src={AddTagListingBlue} className="blue" /> */}
+						<span>Add Grade</span>
+					</Menu.Item>
 
 					<Menu.Item as={Link} to="payment-management" name='payment-management' active={activeItem === 'payment-management'} onClick={handleItemClick}>
 						<Image src={PaymentManagementWhite} className="white" />

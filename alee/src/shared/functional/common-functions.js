@@ -1,5 +1,5 @@
 import SimpleReactValidator from "simple-react-validator";
-import { Label } from "semantic-ui-react";
+import { Label, Form } from "semantic-ui-react";
 import { env } from "../functional/global-import";
 import moment from 'moment';
 
@@ -39,16 +39,6 @@ const onHandleFormSubmit = (e, formObj) => {
     return true;
   }
 };
-
-// // This function is used for image URL concatnation 
-// const concatenateImageWithAPIUrl = (Image) => {
-//   if (Image === null) {
-//     return `${noImage}`;
-//   }
-//   else {
-//     return `${env.API_URL.replace("/api", "")}${Image}`;
-//   }
-// };
 const initializeSimpleValidator = () => {
   return new SimpleReactValidator({
     element: (message) => (
@@ -90,11 +80,16 @@ const initializeSimpleValidator = () => {
     },
   });
 };
+
+
+// This function is used for image URL concatnation 
 const concatenateImageWithAPIUrl = (Image) => {
   if (Image && Image !== "") {
     return `${env.API_URL.replace("/api", "")}${Image}`;
   }
 };
+
+
 const getFormData = (data) => {
   var formData = new FormData();
   Object.entries(data).map(function ([key, val]) {
@@ -133,7 +128,7 @@ const saveFormattedDate = (date) => {
   return moment(date).format("YYYY-MM-DD");
 }
 const getSingleValue = (globalCodeData, categoryType, codeName) => {
-  const singlevalue = globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName)
+  const singlevalue = globalCodeData && globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName)
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
