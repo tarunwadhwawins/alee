@@ -33,6 +33,7 @@ function ResourcesPage() {
   const fileInputRef = React.createRef();
   const [editData, SetEditData] = useState([]);
   const dispatch = useDispatch();
+  // const [grade,setGradeList]=useState(null);
   const initialValues = {
     ResourceId:"",
     GradeId:"",
@@ -78,6 +79,8 @@ function ResourcesPage() {
   useEffect(() => {
     editResouces();
     getBookList();
+    // getGradeList();
+   
   },[]);
 
   const editResouces = () => {
@@ -105,6 +108,22 @@ function ResourcesPage() {
       })
     );
   };
+  //  //  get api //
+  //  const getGradeList = () => {
+  //   dispatch(
+  //     apiCall({
+  //       urls: ["GETGRADESLIST"],
+  //       method: "GET",
+  //       data: grade,
+  //       onSuccess: (response) => {
+  //         const grade = response.map((singledata) => {
+  //           return { text: singledata.gradeName, value: singledata.gradeId };
+  //         });
+  //         setGradeList(grade);
+  //       },
+  //     })
+  //   );
+  // };
   /////////////
 
   // const getchapter = () => {
@@ -172,7 +191,6 @@ function ResourcesPage() {
                   fieldName: "link",
                   isSorting: true,
                   Cell: (props) => {
-                    debugger;
                     return  (
                       <a href={(props.link)}
                         target="_blank">
@@ -180,8 +198,6 @@ function ResourcesPage() {
                       </a>
                     ) 
                   },
-
-
                 },
                 {
                   headerName: "Action",
@@ -260,12 +276,6 @@ function ResourcesPage() {
                         "-"
                       );
                     },
-              
-
-
-
-
-
                 },
                 {
                   headerName: "Action",
@@ -337,7 +347,7 @@ function ResourcesPage() {
                     return props.link?.indexOf("pdf") < 0 ?(
                       <a href={(props.link)}
                         target="_blank">
-                        <Icon name="newspaper" className="primary-color" link/>
+                        <Icon name="file audio outline" className="primary-color" link/>
                       </a>
                     ) : (
                       "-"
@@ -427,6 +437,14 @@ function ResourcesPage() {
                   data="GradeId"
                   value={resources.GradeId}
                 />
+                {/* <Form.Select
+                  label="Grade"
+                  placeholder="Grades"
+                  options={grade}
+                  data="GradeId"
+                  value={resources.GradeId}
+                  onChange={onHandleChange}
+                /> */}
               </Grid.Column>
               <Grid.Column width="4">
                 <Form.Select

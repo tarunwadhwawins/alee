@@ -38,11 +38,11 @@ function AddChapter(props) {
     );
   };
   const closeModal =()=>{
-    props.closeModal();
+      props.closeModal();
     setChapter(initialValues);
   }
 const  addChapter = () =>{
-	localStorage.setItem("BookType","With Chapter" );
+	localStorage.setItem("BookType","With Chapter");
 	setTimeout(() => {
 		window.location.reload();
 		}, (1000));
@@ -69,7 +69,7 @@ const  addChapter = () =>{
     }
   };
     return (
-		<Modal open={props.openModal} onClose={closeModal} size="small">
+		<Modal open={props.openModal} onClose={props.closeModal} size="small">
 				{
 						api.isApiLoading && (
 							<Dimmer active inverted>
@@ -107,8 +107,8 @@ const  addChapter = () =>{
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn"  onClick={() => props.closeModal()}>Cancel</Button>
-                 <Button className="primaryBtn" onClick={() => { props.closeModal(); addChapter();}}
+				<Button className="secondaryBtn"  onClick={() => closeModal()}>Cancel</Button>
+                 <Button className="primaryBtn" onClick={() => {addChapter();}}
             onClick={onHandleSubmit} as={Link} to="chapter">{chapter.chapterId > 0 ? "Update":"Confirm"}</Button>
 			</Modal.Actions>
 		</Modal>

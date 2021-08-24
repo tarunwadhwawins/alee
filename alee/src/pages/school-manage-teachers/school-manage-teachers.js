@@ -2,9 +2,10 @@ import React from "react";
 import { Grid, Icon, Header, Form } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { useSelector } from 'react-redux';
+import { Link, env } from "../../shared/functional/global-import";
 
 function SchoolManageTeacherPage(props) {
-	
+
 	const schoolId = useSelector(state => state.auth.userDetail.schoolId)
 	return (
 		<div className="common-shadow">
@@ -25,14 +26,27 @@ function SchoolManageTeacherPage(props) {
 								isSorting: true,
 								Cell: (props) => {
 									return (
-										<span>{props.firstName} {props.lastName}</span> 
+										<>
+											<Link
+												to={`${env.PUBLIC_URL}/profile-preview/${props.teacherId}`}>
+												{props.firstName}{" "}{props.lastName}
+											</Link>
+
+										</>
 									);
 								},
 							},
 							{
 								headerName: "Email",
 								fieldName: "email",
-								isSorting: true
+								isSorting: true,
+								Cell: (props) => {
+									return (
+										<>
+											<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+										</>
+									);
+								},
 							},
 							{
 								headerName: "User Name",

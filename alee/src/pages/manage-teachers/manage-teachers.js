@@ -21,22 +21,30 @@ function ManageTeacherPage() {
 								fieldName: "firstName",
 								isSorting: true,
 								Cell: (props) => {
-									debugger;
 									return (
 										<>
 											<Link
-												to={`${env.PUBLIC_URL}/profile-preview/${props.teacherId}`}>
+											to={`${env.PUBLIC_URL}/profile-preview/${props.teacherId}`}>
 											{props.firstName}{" "}{props.lastName}
 											</Link>
 											
 										</>
 									);
 								},
+								
 							},
 							{
 								headerName: "Email",
 								fieldName: "email",
-								isSorting: true
+								isSorting: true,
+								Cell: (props) => {
+									return (
+										<>
+						<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+										</>
+									);
+								},
+
 							},
 
 							{

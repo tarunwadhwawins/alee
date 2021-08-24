@@ -143,12 +143,12 @@ function Sidebar(props) {
 					<Menu.Item as={Link} to={`${env.PUBLIC_URL}/add-tags-listing`}  name='add-tags-listing' active={activeItem === 'add-tags-listing'} onClick={handleItemClick}>
 						<Image src={AddTagListingWhite} className="white" />
 						<Image src={AddTagListingBlue} className="blue" />
-						<span>Add Tags Listing</span>
+						<span>Tags </span>
 					</Menu.Item>
 					<Menu.Item as={Link} to={`${env.PUBLIC_URL}/add-grade`}  name='add-grade' active={activeItem === 'add-grade'} onClick={handleItemClick}>
 						<Image src={AddGradeWhite} className="white"/>
 						<Image src={AddGradeBlue} className="blue"/> 
-						<span>Add Grade</span>
+						<span>Grades</span>
 					</Menu.Item>
 
 					<Menu.Item as={Link} to={`${env.PUBLIC_URL}/payment-management`}  name='payment-management' active={activeItem === 'payment-management'} onClick={handleItemClick}>

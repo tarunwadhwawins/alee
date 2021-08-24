@@ -28,14 +28,20 @@ function UserManagementPage(props) {
 				messageInModal="user"
 				columns={[
 					{
-						headerName: "User Name",
-						fieldName: "userName",
+						headerName: "Name",
+						fieldName: "name",
 						isSorting: true,
+						
 					},
 					{
 						headerName: "Email",
 						fieldName: "email",
-						isSorting: true
+						isSorting: true,
+						Cell: (props) => {
+							return  (
+								<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+							) 
+						  },
 					},
 
 					{
