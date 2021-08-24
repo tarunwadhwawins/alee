@@ -1,4 +1,4 @@
-import React,{useState,useEffect}  from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "semantic-ui-react";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState,convertToRaw,convertFromRaw } from 'draft-js';
@@ -63,11 +63,11 @@ useEffect(() => {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn"  onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onHandleSubmit }>Save</Button>
+				<Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
+				<Button className="primaryBtn" onClick={onHandleSubmit}>Save</Button>
 			</Modal.Actions>
 		</Modal>
-		);
-  }
-  
-  export default AddChapterSummary;
+	);
+}
+
+export default AddChapterSummary;
