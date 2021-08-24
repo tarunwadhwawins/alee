@@ -4,18 +4,16 @@ import { Link } from "../../shared/functional/global-import";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 
-
-
 function SubtitlePage() {
 	const [subtitle, setSubtitle] = React.useState(false)
 	const [editData, SetEditData] = useState([]);
 
 	const openModal = (props) => {
+		debugger
 		if (subtitle) {
 			SetEditData([])
 		}
 		setSubtitle(!subtitle)
-
 	}
 
 	const editForm = (data) => {

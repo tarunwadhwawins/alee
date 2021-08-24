@@ -11,7 +11,6 @@ function AddTagsListingPage(props) {
 	const openModal = () => {
 		debugger
 		setTaglisting(!taglisting)
-
 	}
 	const onHandleEdit = (data) => {
 		SetEditData(data)
