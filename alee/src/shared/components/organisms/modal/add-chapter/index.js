@@ -4,16 +4,17 @@ import {Link} from "../../../../functional/global-import";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 function AddChapter(props) {
-	debugger
+	const bookId = useSelector(state => state.global.myBookData.bookId)
 	  const initialValues ={
 		chapterId: null,
 		chapterName:"",
 		startPageNo:null,
 		endPageNo: null,
 		chapterSummary:"",
-		bookId: 43,
+		bookId:bookId,
 		actionPerformedBy:"string"
 	  }
+
  const [chapter, setChapter] = useState(initialValues);
   const api = useSelector((state) => state.api);
 
@@ -108,13 +109,7 @@ const  addChapter = () =>{
 			</Modal.Content>
 			<Modal.Actions>
 				<Button className="secondaryBtn"  onClick={() => props.closeModal()}>Cancel</Button>
-				{/* <Button className="primaryBtn"   loading={api.isApiLoading} 
-			     	onClick={() => {addChapter()}}
-				 onClick={onHandleSubmit}
-			    as={Link} to="chapter">{chapter.chapterId > 0 ? "Update":"Confirm"}</Button> */}
-
-
-          <Button className="primaryBtn" onClick={() => { props.closeModal(); addChapter();}}
+                 <Button className="primaryBtn" onClick={() => { props.closeModal(); addChapter();}}
             onClick={onHandleSubmit} as={Link} to="chapter">{chapter.chapterId > 0 ? "Update":"Confirm"}</Button>
 			</Modal.Actions>
 		</Modal>

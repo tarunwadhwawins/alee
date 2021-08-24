@@ -8,7 +8,6 @@ for (let i = years; i > lastYears; i--) {
 	passingYear.push({ key: i, text: i, value: i });
 }
 function ProfileStepTwo(props) {
-
 	return (
 		<Form>
 			<Grid>

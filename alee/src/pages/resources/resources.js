@@ -25,19 +25,19 @@ const Page = [
   { key: "Page 7", value: "Page 7", text: "Page 7" },
 ];
 function ResourcesPage() {
+
   const [booklist, setBooklist] = useState(null);
   const api = useSelector((state) => state.api);
   const [file, setFile] = useState(null);
   const [reload, SetReload] = useState(false);
   const fileInputRef = React.createRef();
   const [editData, SetEditData] = useState([]);
-
   const dispatch = useDispatch();
   const initialValues = {
-    ResourceId: "",
-    GradeId: "",
-    BookId: "",
-    ChapterId: "",
+    ResourceId:"",
+    GradeId:"",
+    BookId:"",
+    ChapterId:"",
     PageId: "",
     UploadPdf: "",
     AudioLink: "",
@@ -45,20 +45,19 @@ function ResourcesPage() {
     ArticleLink: "",
   };
   const [resources, setResources] = useState(initialValues);
+  const [chapterlist,setChapterlist] = useState(null);
+  // const bookId=useSelector(state => state.global.myBookData.bookId);
 
   const onHandleChange = (e, { data, value }) => {
     setResources({ ...resources, [data]: value });
   };
 
   const fileChange = (e) => {
-    cancelClear();
+    debugger
     setFile(e.target.files[0]);
   };
-
- 
   const onHandleEdit = (data) => {
-    debugger
-    const { resourceId, gradeId, bookId, chapterId, pageId, resourceTypeName, resourceTypeId, resourceLinkId, link } = data;
+    const { resourceId, gradeId, bookId, chapterId, pageId,link } = data;
 
     if (data.resourceTypeName === "Audio") {
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, AudioLink: link })
@@ -80,13 +79,13 @@ function ResourcesPage() {
   useEffect(() => {
     editResouces();
     getBookList();
-  }, []);
+    // getchapter();
+
+  },[]);
 
   const editResouces = () => {
-    debugger;
     // if (resources !== undefined||resources.length > 0) {
     const { ResourceId, GradeId, BookId, ChapterId, PageId, UploadPdf, AudioLink, VideoLink, ArticleLink, } = resources;
-    debugger;
     setResources({
       ...resources,
       ResourceId: ResourceId, GradeId: GradeId, BookId: BookId, ChapterId: ChapterId, PageId: PageId,
@@ -94,7 +93,7 @@ function ResourcesPage() {
     });
   };
 
-  //  get api //y
+  //  get api //
   const getBookList = () => {
     dispatch(
       apiCall({
@@ -110,6 +109,23 @@ function ResourcesPage() {
       })
     );
   };
+  /////////////
+
+  // const getchapter = () => {
+  //   dispatch(
+  //     apiCall({
+  //       urls: ["GETCHAPTERLIST"],
+  //       method:"GET",
+  //       data:{bookId:bookId},
+  //       onSuccess: (response) => {
+  //         const chapterlist = response.map((singledata) => {
+  //           return {text: singledata.chapterName, value: singledata.chapterId };
+  //         });
+  //         setChapterlist(chapterlist);
+  //       },
+  //     })
+  //   );
+  // };
 
   const GridReload = () => {
     SetReload(!reload);
@@ -159,13 +175,17 @@ function ResourcesPage() {
                   headerName: "Audio",
                   fieldName: "link",
                   isSorting: true,
-                  Cell: (props, confirmModalOpen) => {
-                    return (
-                      <a href={props.link} target="_blank">
-                        {props.link === "null" ? "-" : props.link}
+                  Cell: (props) => {
+                    debugger;
+                    return  (
+                      <a href={(props.link)}
+                        target="_blank">
+                        <Icon name="file audio outline" className="primary-color" link />
                       </a>
-                    );
+                    ) 
                   },
+
+
                 },
                 {
                   headerName: "Action",
@@ -234,13 +254,22 @@ function ResourcesPage() {
                   headerName: "Video",
                   fieldName: "link",
                   isSorting: true,
-                  Cell: (props, confirmModalOpen) => {
-                    return (
-                      <a href={props.link} target="_blank">
-                        {props.link === "null" ? "-" : props.link}
-                      </a>
-                    );
-                  },
+                    Cell: (props) => {
+                      return props.link ? (
+                        <a href={(props.link)}
+                          target="_blank">
+                          <Icon name="video" className="primary-color" link />
+                        </a>
+                      ) : (
+                        "-"
+                      );
+                    },
+              
+
+
+
+
+
                 },
                 {
                   headerName: "Action",
@@ -309,7 +338,14 @@ function ResourcesPage() {
                   fieldName: "link",
                   isSorting: true,
                   Cell: (props) => {
-                    return props.link?.indexOf("pdf") < 0 ? props.link : "-";
+                    return props.link?.indexOf("pdf") < 0 ?(
+                      <a href={(props.link)}
+                        target="_blank">
+                        <Icon name="newspaper" className="primary-color" link/>
+                      </a>
+                    ) : (
+                      "-"
+                    );
                   },
                 },
                 {
@@ -318,12 +354,8 @@ function ResourcesPage() {
                   isSorting: true,
                   Cell: (props) => {
                     return props.link?.indexOf("pdf") > 0 ? (
-                      <a
-                        href={commonFunctions.concatenateImageWithAPIUrl(
-                          props.link
-                        )}
-                        target="_blank"
-                      >
+                      <a href={commonFunctions.concatenateImageWithAPIUrl(props.link)}
+                        target="_blank">
                         <Icon name="file pdf" className="primary-color" link />
                       </a>
                     ) : (
@@ -338,7 +370,6 @@ function ResourcesPage() {
                   Cell: (props, confirmModalOpen) => {
                     return (
                       <>
-
                         <Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
                         <Icon
                           name="trash alternate"
@@ -459,15 +490,6 @@ function ResourcesPage() {
                 />
               </Grid.Column>
               <Grid.Column width="8">
-                <Form.Input
-                  ref={fileInputRef}
-                  type="file"
-                  label="Upload Pdf"
-                  placeholder="Embed URL"
-                  value={resources.UploadPdf}
-                  data="UploadPdf"
-                  onChange={onHandleChange}
-                /> 
                 <Form.Input
                   ref={fileInputRef}
                   type="file"

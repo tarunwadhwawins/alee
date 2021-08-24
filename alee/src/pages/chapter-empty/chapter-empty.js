@@ -13,6 +13,7 @@ function ChapterEmptyPage() {
 	const [reload, SetReload] = useState(false);
 	const [editData, SetEditData] = useState([]);
 	const bookName = useSelector(state => state.global.myBookData.bookName)
+	const bookId = useSelector(state => state.global.myBookData.bookId);
 	const openModal = () => {
 		setChapter(!chapter)
 	}
@@ -36,7 +37,7 @@ function ChapterEmptyPage() {
 				<Grid.Column width={16}>
 				<DataTable
 						allApi={{ getApiName: "GETCHAPTERLIST" , deleteApiName:"DELETECHAPTER" }} reload={reload}
-						additionalParams={{ bookId: 43 }}
+						additionalParams={{ bookId:bookId }}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="Chapter"
 						columns={[

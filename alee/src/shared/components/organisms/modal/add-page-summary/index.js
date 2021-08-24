@@ -17,13 +17,8 @@ function AddPageSummary(props) {
 		setEditorState(editorState)
 		setBookSummary(bookSummary)
 	}
-	// const onEditorStateChange = (editorState) => {
-	// 	debugger
-	// 	// console.log(editorState);
-	// 	bookSummary.bookSummary = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-	// 	setBookSummary({ bookSummary });
-	// };
-	const initialValues = { bookId: 46, bookSummary: "", pageNo: 1, pageSize: 100 }
+	const bookId = useSelector(state => state.global.myBookData.bookId);
+	const initialValues = { bookId:bookId, bookSummary: "", pageNo: 1, pageSize: 100 }
 	const [bookSummary, setBookSummary] = React.useState(initialValues)
 	const dispatch = useDispatch();
 
@@ -35,7 +30,7 @@ function AddPageSummary(props) {
 
 	const getBookSummary = () => {
 		dispatch(apiCall({
-			urls: ["GETBOOKSUMMARY"], method: "GET", data: { bookId: 46 }, onSuccess: (response) => {
+			urls: ["GETBOOKSUMMARY"], method: "GET", data:{ bookId: bookId}, onSuccess: (response) =>{
 				debugger
 				bookSummary.bookSummary = response[0].bookSummary
 				editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(response[0].bookSummary)))

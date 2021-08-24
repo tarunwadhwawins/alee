@@ -46,6 +46,7 @@ function MyBookPage(props) {
 	}
 
 	const addBookData = (data) => {
+		debugger
 		dispatch(storeMyBookData(data));
 	}
 
@@ -77,7 +78,7 @@ function MyBookPage(props) {
 							debugger
 							return (
 								<Item.Group>
-									<Item >
+									<Item>
 										<Item.Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
 										/>
 										<Item.Content >

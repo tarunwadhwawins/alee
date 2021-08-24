@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, } from "../../../functional/global-import";
 import { Image, Menu, Icon, } from "semantic-ui-react";
-import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, MyBookWhite, MyBookBlue, AddTagListingBlue, AddTagListingWhite, UserManagementBlue, UserManagementWhite } from "../../../functional/global-image-import";
+import { Logo2, ManageSchoolBlue, ManageSchoolWhite, ManageTeacherBlue, ManageTeacherWhite, AssignTemplateBlue, AssignTemplateWhite, CreateTemplateWhite, CreateTemplateBlue, PaymentManagementBlue, PaymentManagementWhite, StandardsWhite, StandardsBlue, DashboardWhite, DashboardBlue, LessonPlanWhite, LessonPlanBlue, StudentListWhite, StudentListBlue, LessonLibraryWhite, LessonLibraryBlue, LogOutWhite, LogOutBlue, ScanBookWhite, ScanBookBlue, PdfBookWhite, PdfBookBlue, ResourceWhite, ResourceBlue, SubAdminBlue, SubAdminWhite, SubscriptionBlue, SubscriptionWhite, MyBookWhite, MyBookBlue, AddTagListingBlue, AddTagListingWhite, UserManagementBlue, UserManagementWhite,AddGradeWhite,AddGradeBlue } from "../../../functional/global-image-import";
 import { useSelector, useDispatch } from 'react-redux';
 import { storeBookDetails } from "../../../../store/actions/global.actions";
 
@@ -145,8 +145,8 @@ function Sidebar(props) {
 						<span>Add Tags Listing</span>
 					</Menu.Item>
 					<Menu.Item as={Link} to="add-grade" name='add-grade' active={activeItem === 'add-grade'} onClick={handleItemClick}>
-						{/*<Image src={AddTagListingWhite} className="white" />
-						<Image src={AddTagListingBlue} className="blue" /> */}
+						<Image src={AddGradeWhite} className="white"/>
+						<Image src={AddGradeBlue} className="blue"/> 
 						<span>Add Grade</span>
 					</Menu.Item>
 

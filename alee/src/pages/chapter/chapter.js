@@ -14,20 +14,21 @@ function ChapterPage() {
 	const [editData, SetEditData] = useState([]);
 	const [summaryData, setSummaryData] = useState([]);
 
-	const bookName = useSelector(state => state.global.myBookData.bookName)
-
+	const bookName = useSelector(state => state.global.myBookData.bookName);
+	const bookId = useSelector(state => state.global.myBookData.bookId);
+	debugger;
 	const openModal = () => {
-		setChapter(!chapter)
-	}
+		setChapter(!chapter)}
+
 	const openModal2 = () => {
-		setSubtitle(!subtitle)
-	}
+		setSubtitle(!subtitle)}
+
 	const openModal3 = (props) => {
 		console.log("props", props);
 		setSummary(!summary)
 		 const data = JSON.parse(props)
-		setSummaryData(data);
-	}
+		setSummaryData(data)}
+
 	const GridReload = () => {
 		SetReload(!reload)
 	}
@@ -35,7 +36,6 @@ function ChapterPage() {
 		SetEditData(data)
 		openModal();
 	}
-
 	return (
 		<div className="chapterPage">
 			<Grid>
@@ -48,8 +48,8 @@ function ChapterPage() {
 				<Grid.Column width={16}>
 					<DataTable
 						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName:"DELETECHAPTER"}} reload={reload}
-						additionalParams={{ bookId: 43 }}
-						searchOption={{ show: true, placeHolder: "Search" }}
+						 additionalParams={{bookId:bookId}}
+						searchOption={{ show: true, placeHolder:"Search"}}
 						messageInModal="Chapter"
 						columns={[
 							{

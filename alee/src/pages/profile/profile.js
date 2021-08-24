@@ -39,6 +39,7 @@ function MyProfile() {
   }
 
   const onChangeThirdstep = (e, { data, value }) => {
+    debugger;
     setThirdStepValues({ ...thirdStepValues, [data]: value })
   }
 
