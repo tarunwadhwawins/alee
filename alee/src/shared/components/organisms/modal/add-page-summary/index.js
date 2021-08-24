@@ -29,7 +29,6 @@ function AddPageSummary(props) {
 
 	//  call the api //
 	useEffect(() => {
-
 		getBookSummary();
 	}, []);
 

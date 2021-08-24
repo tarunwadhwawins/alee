@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Grid, Icon, Button, Table } from "semantic-ui-react";
 
 const passingYear = [];
@@ -8,7 +8,6 @@ for (let i = years; i > lastYears; i--) {
 	passingYear.push({ key: i, text: i, value: i });
 }
 function ProfileStepTwo(props) {
-
 	return (
 		<Form>
 			<Grid>
@@ -49,7 +48,7 @@ function ProfileStepTwo(props) {
 									<Table.Cell>{singleData.college}</Table.Cell>
 									<Table.Cell>{singleData.yearOfPassing}</Table.Cell>
 									<Table.Cell textAlign="right">
-										<Icon name="pencil alternate" size="large" link onClick={() => props.editQualification(singleData,index)}/>
+										<Icon name="pencil alternate" size="large" link onClick={() => props.editQualification(singleData, index)} />
 										<Icon name="trash alternate" size="large" link onClick={() => props.removeQualification(index)} />
 									</Table.Cell>
 								</Table.Row>

@@ -60,16 +60,18 @@ const API_ENDPOINTS = {
   ADDBOOKSUMMARY: "/Books/AddBookSummary",
   ADDTOPIC: "/Topics/AddTopic",
   GETCHAPTERSTOPIC: "/Topics/GetChaptersTopic",
-  DELETETOPIC:"/Topics/DeleteTopic",
-  GETBOOKSUMMARY:"/Books/GetBookSummary",
-  ADDUPDATECHAPTER:"/Chapter/AddUpdateChapter",
-  GETCHAPTERLIST:"/Chapter/GetChaptersList",
-  ADDCHAPTERSUMMARY:"/Chapter/AddChapterSummary",
-  DELETECHAPTER:"/Chapter/DeleteChapter",
-  ADDGRADE:"/Grades/AddGrade",
-  GETGRADESLIST:"/Grades/GetGradesList",
-  DELETEGRADE:"/Grades/DeleteGrade",
-  GRADESTOGGLE:"/Grades/ToggleIsActive"
+  DELETETOPIC: "/Topics/DeleteTopic",
+  GETBOOKSUMMARY: "/Books/GetBookSummary",
+  ADDUPDATECHAPTER: "/Chapter/AddUpdateChapter",
+  GETCHAPTERLIST: "/Chapter/GetChaptersList",
+  ADDCHAPTERSUMMARY: "/Chapter/AddChapterSummary",
+  DELETECHAPTER: "/Chapter/DeleteChapter",
+  ADDGRADE: "/Grades/AddGrade",
+  GETGRADESLIST: "/Grades/GetGradesList",
+  DELETEGRADE: "/Grades/DeleteGrade",
+  GRADESTOGGLE: "/Grades/ToggleIsActive",
+  UPDATETAG: "/Tags/UpdateTag",
+  ADDTEACHERQUALIFICATION:"/Teacher/AddTeacherQualification"
 };
 
 export const getApiUrl = (key) => {
