@@ -70,7 +70,6 @@ function ResourcesPage() {
         ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, UploadPdf: link,
       })
     }
-
     else if (data.resourceTypeName === "Article" && data.link.indexOf("pdf") < 0) {
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
@@ -79,12 +78,9 @@ function ResourcesPage() {
   useEffect(() => {
     editResouces();
     getBookList();
-    // getchapter();
-
   },[]);
 
   const editResouces = () => {
-    // if (resources !== undefined||resources.length > 0) {
     const { ResourceId, GradeId, BookId, ChapterId, PageId, UploadPdf, AudioLink, VideoLink, ArticleLink, } = resources;
     setResources({
       ...resources,

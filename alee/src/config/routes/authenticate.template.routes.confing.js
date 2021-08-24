@@ -200,7 +200,7 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: false,
-    path: `${env.PUBLIC_URL}/profile-preview`,
+    path: `${env.PUBLIC_URL}/profile-preview/:teacherId`,
     component: lazy(() => import('../../pages/profile-preview'))
   },
   {
@@ -209,7 +209,6 @@ const AuthenticateTemplateRoutesConfing = [
     path: `${env.PUBLIC_URL}/add-grade`,
     component: lazy(() => import('../../pages/add-grade'))
   },
-  
 ];
 
 export default AuthenticateTemplateRoutesConfing;

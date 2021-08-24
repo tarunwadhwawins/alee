@@ -16,18 +16,16 @@ function ChapterPage() {
 
 	const bookName = useSelector(state => state.global.myBookData.bookName);
 	const bookId = useSelector(state => state.global.myBookData.bookId);
-	debugger;
+	
 	const openModal = () => {
 		setChapter(!chapter)}
 
 	const openModal2 = () => {
 		setSubtitle(!subtitle)}
 
-	const openModal3 = (props) => {
-		console.log("props", props);
+	const openModal3 = (chapterData) => {
 		setSummary(!summary)
-		 const data = JSON.parse(props)
-		setSummaryData(data)}
+		setSummaryData(chapterData)}
 
 	const GridReload = () => {
 		SetReload(!reload)
@@ -80,20 +78,20 @@ function ChapterPage() {
 								fieldName: "chapterSummary",
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
-								  debugger;
+								  
 									return (
 										<>
-											<Button className="primaryBtn" onClick={() => openModal3(props.chapterSummary)}> <Icon name="plus" /> Chapter Summary</Button>
+											<Button className="primaryBtn" onClick={() => openModal3(props)}> <Icon name="plus" /> Chapter Summary</Button>
 										</>
 									);
 								},
 							},
+
 							{
 								headerName: "Action",
 								fieldName: "Action",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
@@ -109,7 +107,7 @@ function ChapterPage() {
 			</Grid>
 			{chapter && <AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData} />}
 			{subtitle && <AddSubtitle openModal={subtitle} closeModal={openModal2} />}
-			{summary && <AddChapterSummary openModal={summary} closeModal={openModal3} summaryData={summaryData}/>}
+			{summary && <AddChapterSummary openModal={summary} closeModal={openModal3} summaryData={summaryData} GridReload={GridReload}  />}
 
 		</div>
 	);

@@ -83,7 +83,7 @@ function MyBookPage(props) {
 										/>
 										<Item.Content >
 											<Item.Header onClick={()=>addBookData(data)} as={Link} to={`${auth === "Admin" ? "book-flip" : "book-summary"}`}><span>{data.bookName}</span></Item.Header>
-											{/* <Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta> */}
+											<Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta>
 											<Item.Description>
 												{data.bookSummary} ?
 											</Item.Description>

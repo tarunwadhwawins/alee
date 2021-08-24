@@ -29,7 +29,7 @@ function AddChapter(props) {
         method: "Post",
         data: chapter,
         onSuccess: (response) => {
-		     props.closeModal();
+		    closeModal();
 		   props.GridReload();
           setChapter(initialValues);
         },
@@ -42,7 +42,6 @@ function AddChapter(props) {
     setChapter(initialValues);
   }
 const  addChapter = () =>{
-	debugger
 	localStorage.setItem("BookType","With Chapter" );
 	setTimeout(() => {
 		window.location.reload();

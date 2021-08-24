@@ -1,15 +1,14 @@
 import React,{useState,useEffect}  from "react";
 import { Modal, Button } from "semantic-ui-react";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState,convertToRaw } from 'draft-js';
+import { EditorState,convertToRaw,convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 
-
 function AddChapterSummary(props) {
 	const initialValues ={
-		chapterId: props.summaryData ? props.summaryData.chapterId : "",
+		chapterId: props.summaryData.chapterId ,
 		chapterSummary:"",
 			actionPerformedBy:"admin"
 	  }
@@ -25,23 +24,11 @@ function AddChapterSummary(props) {
 
 useEffect(() => {
 	debugger;
-	if(props.summaryData){
-	editChapterSummary();
+	if(props.openModal && props.summaryData.chapterSummary ){
+		setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(props.summaryData.chapterSummary))));
 	}
-},[props.summaryData]);
+},[props.openModal]);
 
-const editChapterSummary = () => {
-
-	  debugger
-  const{
-	  chapterId ,
-	  chapterSummary,
-  } = props.summaryData;
-  setChapterSummary({
-	  ...chapterSummary,chapterId:chapterId,chapterSummary:chapterSummary
-	});
-  
-};
   const onHandleSubmit = () => {
     dispatch(
       apiCall({
@@ -51,8 +38,8 @@ const editChapterSummary = () => {
         onSuccess: (response) => {
 			debugger
 			props.closeModal();
-			setChapterSummary(initialValues);
 			props.GridReload();
+			setChapterSummary(initialValues);
         },
         showNotification: true,
       })
@@ -60,7 +47,6 @@ const editChapterSummary = () => {
   };
   
 	const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
-	// const onEditorStateChange = (editorState) => setEditorState(editorState);
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="small" closeOnDimmerClick={false}>
 			<Modal.Header>Add Chapter Summary</Modal.Header>
@@ -78,7 +64,7 @@ const editChapterSummary = () => {
 			</Modal.Content>
 			<Modal.Actions>
 				<Button className="secondaryBtn"  onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onHandleSubmit}>Save</Button>
+				<Button className="primaryBtn" onClick={onHandleSubmit }>Save</Button>
 			</Modal.Actions>
 		</Modal>
 		);

@@ -1,7 +1,7 @@
 import React from "react";
-import { Grid, Header, Form,Icon} from "semantic-ui-react";
+import { Grid, Header, Form, Icon } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
-
+import { Link, env } from "../../shared/functional/global-import";
 function ManageTeacherPage() {
 	return (
 		<Form>
@@ -13,7 +13,7 @@ function ManageTeacherPage() {
 					<DataTable
 						allApi={{ getApiName: "GETTEACHERSLIST", toggleApiName: "TEACHERTOGGLE", deleteApiName: "DELETETEACHER" }}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal= "teacher"
+						messageInModal="teacher"
 						additionalParams={{ schoolId: -1 }}
 						columns={[
 							{
@@ -21,9 +21,14 @@ function ManageTeacherPage() {
 								fieldName: "firstName",
 								isSorting: true,
 								Cell: (props) => {
+									debugger;
 									return (
 										<>
+											<Link
+												to={`${env.PUBLIC_URL}/profile-preview/${props.teacherId}`}>
 											{props.firstName}{" "}{props.lastName}
+											</Link>
+											
 										</>
 									);
 								},
@@ -45,7 +50,7 @@ function ManageTeacherPage() {
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update",props.isActive)} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update", props.isActive)} />
 									);
 								}
 							},
