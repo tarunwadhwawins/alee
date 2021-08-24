@@ -4,7 +4,6 @@ import { profile, Grade, Curriculum, Class, LessonPlan, } from "../../shared/fun
 
 
 function ProfileViewPage() {
-
 	return (
 		<div className="common-shadow profileView">
 			<div className="profileViewHeader" >
