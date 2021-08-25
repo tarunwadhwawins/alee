@@ -27,17 +27,17 @@ function Sidebar(props) {
 			<div className="mainMenu">
 				{api === "School" &&
 					<Menu text vertical>
-						<Menu.Item as={Link} to="upload-excel" name='UploadExcel' active={activeItem === 'UploadExcel'} onClick={handleItemClick}>
+						<Menu.Item as={Link} to="/upload-excel" name='UploadExcel' active={activeItem === 'UploadExcel'} onClick={handleItemClick}>
 							<Image src={DashboardWhite} className="white" />
 							<Image src={DashboardBlue} className="blue" />
 							<span>Upload Excel</span>
 						</Menu.Item>
-						<Menu.Item as={Link} to="school-manage-teachers" name='school-manage-teacher' active={activeItem === 'school-manage-teacher'} onClick={handleItemClick}>
+						<Menu.Item as={Link} to="/school-manage-teachers" name='school-manage-teacher' active={activeItem === 'school-manage-teacher'} onClick={handleItemClick}>
 							<Image src={ManageSchoolWhite} className="white" />
 							<Image src={ManageSchoolBlue} className="blue" />
 							<span>Manage Teachers</span>
 						</Menu.Item>
-						<Menu.Item as={Link} to="subscription-plan" name='subscription-plan' active={activeItem === 'subscription-plan'} onClick={handleItemClick}>
+						<Menu.Item as={Link} to="/subscription-plan" name='subscription-plan' active={activeItem === 'subscription-plan'} onClick={handleItemClick}>
 							<Image src={SubscriptionWhite} className="white" />
 							<Image src={SubscriptionBlue} className="blue" />
 							<span>Subscription</span>
@@ -47,23 +47,23 @@ function Sidebar(props) {
 				{api === "Teacher" &&
 					<Menu text vertical>
 
-						<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
+						<Menu.Item as={Link} to="/dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
 							<Image src={DashboardWhite} className="white" />
 							<Image src={DashboardBlue} className="blue" />
 							<span>Dashboard</span>
 						</Menu.Item>
 
-						<Menu.Item as={Link} to="student-list" name='StudentList' active={activeItem === 'StudentList'} onClick={handleItemClick}>
+						<Menu.Item as={Link} to="/student-list" name='StudentList' active={activeItem === 'StudentList'} onClick={handleItemClick}>
 							<Image src={StudentListWhite} className="white" />
 							<Image src={StudentListBlue} className="blue" />
 							<span>Student List</span>
 						</Menu.Item>
-						<Menu.Item as={Link} to="lesson-plan" name='Lesson Plan' active={activeItem === 'LessonPlan'} onClick={handleItemClick} >
+						<Menu.Item as={Link} to="/lesson-plan" name='Lesson Plan' active={activeItem === 'LessonPlan'} onClick={handleItemClick} >
 							<Image src={LessonPlanWhite} className="white" />
 							<Image src={LessonPlanBlue} className="blue" />
 							<span>Lesson Plan</span>
 						</Menu.Item>
-						<Menu.Item as={Link} to="lesson-library" name='LessonLibrary' active={activeItem === 'LessonLibrary'} onClick={handleItemClick}>
+						<Menu.Item as={Link} to="/lesson-library" name='LessonLibrary' active={activeItem === 'LessonLibrary'} onClick={handleItemClick}>
 							<Image src={LessonLibraryWhite} className="white" />
 							<Image src={LessonLibraryBlue} className="blue" />
 							<span>Lesson Library</span>
@@ -76,99 +76,99 @@ function Sidebar(props) {
 						</Menu.Item>
 					</Menu>
 				}
-				{api === "Admin"  
-				&& <Menu text vertical>
-					<Menu.Item as={Link} to="dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
-						<Image src={DashboardWhite} className="white" />
-						<Image src={DashboardBlue} className="blue" />
-						<span>Dashboard</span>
-					</Menu.Item>
-					<Menu.Item className="lessonPlan" as={Link} to="user-management" name='user-management' active={activeItem === 'user-management'} onClick={handleItemClick}>
-						<Image src={UserManagementWhite} className="white" />
-						<Image src={UserManagementBlue} className="blue" />
-						<span>User Management</span>
-						<Icon name="caret down" onClick={() => handleClick('UserManagement')} />
-					</Menu.Item>
-					<div className={`lessonPlanMenu  ${isActive === 'UserManagement' ? "show" : ""}`}>
-						<Menu.Item as={Link} to="manage-teachers" name='manage-teacher' active={activeItem === 'manage-teacher'} onClick={handleItemClick}>
-							<Image src={ManageTeacherWhite} className="white" />
-							<Image src={ManageTeacherBlue} className="blue" />
-							<span>Manage Teachers</span>
+				{api === "Admin"
+					&& <Menu text vertical>
+						<Menu.Item as={Link} to="/dashboard" name='Dashboard' active={activeItem === 'Dashboard'} onClick={handleItemClick}>
+							<Image src={DashboardWhite} className="white" />
+							<Image src={DashboardBlue} className="blue" />
+							<span>Dashboard</span>
 						</Menu.Item>
-						<Menu.Item as={Link} to="manage-schools" name='manage-schools' active={activeItem === 'manage-schools'} onClick={handleItemClick}>
-							<Image src={ManageSchoolWhite} className="white" />
-							<Image src={ManageSchoolBlue} className="blue" />
-							<span>Manage Schools</span>
+						<Menu.Item className="lessonPlan" as={Link} to="/user-management" name='user-management' active={activeItem === 'user-management'} onClick={handleItemClick}>
+							<Image src={UserManagementWhite} className="white" />
+							<Image src={UserManagementBlue} className="blue" />
+							<span>User Management</span>
+							<Icon name="caret down" onClick={() => handleClick('UserManagement')} />
 						</Menu.Item>
-					</div>
-					<Menu.Item as={Link} to="scan-book" name='ScanBook' active={activeItem === 'ScanBook'} onClick={handleItemClick}>
-						<Image src={ScanBookWhite} className="white" />
-						<Image src={ScanBookBlue} className="blue" />
-						<span>Scan Book</span>
-					</Menu.Item>
-					<Menu.Item as={Link} to="upload-pdf" name='uploadpdf' active={activeItem === 'uploadpdf'} onClick={handleItemClick}>
-						<Image src={PdfBookWhite} className="white" />
-						<Image src={PdfBookBlue} className="blue" />
-						<span>Upload PDF</span>
-					</Menu.Item>
-					<Menu.Item as={Link} to="my-books" name='mybooks' active={activeItem === 'mybooks'} onClick={handleItemClick}>
-						<Image src={MyBookWhite} className="white" />
-						<Image src={MyBookBlue} className="blue" />
-						<span>My Books (3/4)</span>
-					</Menu.Item>
-					<Menu.Item as={Link} to="resources" name='resources' active={activeItem === 'resources'} onClick={handleItemClick}>
-						<Image src={ResourceWhite} className="white" />
-						<Image src={ResourceBlue} className="blue" />
-						<span>Resources</span>
-					</Menu.Item>
-					<Menu.Item as={Link} to="sub-admin" name='sub-admin' active={activeItem === 'sub-admin'} onClick={handleItemClick}>
-						<Image src={SubAdminWhite} className="white" />
-						<Image src={SubAdminBlue} className="blue" />
-						<span>Sub-admin</span>
-					</Menu.Item>
-					<Menu.Item className="lessonPlan" as={Link} to="subscription" name='subscription' active={activeItem === 'subscription'} onClick={handleItemClick}>
-						<Image src={SubscriptionWhite} className="white" />
-						<Image src={SubscriptionBlue} className="blue" />
-						<span>Subscription</span>
-						<Icon name="caret down" onClick={() => handleClick('Subscription')} />
-					</Menu.Item>
-					<div className={`lessonPlanMenu  ${isActive === 'Subscription' ? "show" : ""}`}>
-						<Menu.Item as={Link} to="subscription-manage" name='subscription-manage' active={activeItem === 'subscription-manage'} onClick={handleItemClick}>
-							<Image src={StandardsWhite} className="white" />
-							<Image src={StandardsBlue} className="blue" />
-							<span>Subscription Manage</span>
+						<div className={`lessonPlanMenu  ${isActive === 'UserManagement' ? "show" : ""}`}>
+							<Menu.Item as={Link} to="/manage-teachers" name='manage-teacher' active={activeItem === 'manage-teacher'} onClick={handleItemClick}>
+								<Image src={ManageTeacherWhite} className="white" />
+								<Image src={ManageTeacherBlue} className="blue" />
+								<span>Manage Teachers</span>
+							</Menu.Item>
+							<Menu.Item as={Link} to="/manage-schools" name='manage-schools' active={activeItem === 'manage-schools'} onClick={handleItemClick}>
+								<Image src={ManageSchoolWhite} className="white" />
+								<Image src={ManageSchoolBlue} className="blue" />
+								<span>Manage Schools</span>
+							</Menu.Item>
+						</div>
+						<Menu.Item as={Link} to="/scan-book" name='ScanBook' active={activeItem === 'ScanBook'} onClick={handleItemClick}>
+							<Image src={ScanBookWhite} className="white" />
+							<Image src={ScanBookBlue} className="blue" />
+							<span>Scan Book</span>
 						</Menu.Item>
-					</div>
-					<Menu.Item as={Link} to="add-tags-listing" name='add-tags-listing' active={activeItem === 'add-tags-listing'} onClick={handleItemClick}>
-						<Image src={AddTagListingWhite} className="white" />
-						<Image src={AddTagListingBlue} className="blue" />
-						<span>Add Tags Listing</span>
-					</Menu.Item>
-					<Menu.Item as={Link} to="add-grade" name='add-grade' active={activeItem === 'add-grade'} onClick={handleItemClick}>
-						{/*<Image src={AddTagListingWhite} className="white" />
+						<Menu.Item as={Link} to="/upload-pdf" name='uploadpdf' active={activeItem === 'uploadpdf'} onClick={handleItemClick}>
+							<Image src={PdfBookWhite} className="white" />
+							<Image src={PdfBookBlue} className="blue" />
+							<span>Upload PDF</span>
+						</Menu.Item>
+						<Menu.Item as={Link} to="/my-books" name='mybooks' active={activeItem === 'mybooks'} onClick={handleItemClick}>
+							<Image src={MyBookWhite} className="white" />
+							<Image src={MyBookBlue} className="blue" />
+							<span>My Books (3/4)</span>
+						</Menu.Item>
+						<Menu.Item as={Link} to="resources" name='resources' active={activeItem === 'resources'} onClick={handleItemClick}>
+							<Image src={ResourceWhite} className="white" />
+							<Image src={ResourceBlue} className="blue" />
+							<span>Resources</span>
+						</Menu.Item>
+						<Menu.Item as={Link} to="/sub-admin" name='sub-admin' active={activeItem === 'sub-admin'} onClick={handleItemClick}>
+							<Image src={SubAdminWhite} className="white" />
+							<Image src={SubAdminBlue} className="blue" />
+							<span>Sub-admin</span>
+						</Menu.Item>
+						<Menu.Item className="lessonPlan" as={Link} to="/subscription" name='subscription' active={activeItem === 'subscription'} onClick={handleItemClick}>
+							<Image src={SubscriptionWhite} className="white" />
+							<Image src={SubscriptionBlue} className="blue" />
+							<span>Subscription</span>
+							<Icon name="caret down" onClick={() => handleClick('Subscription')} />
+						</Menu.Item>
+						<div className={`lessonPlanMenu  ${isActive === 'Subscription' ? "show" : ""}`}>
+							<Menu.Item as={Link} to="subscription-manage" name='subscription-manage' active={activeItem === 'subscription-manage'} onClick={handleItemClick}>
+								<Image src={StandardsWhite} className="white" />
+								<Image src={StandardsBlue} className="blue" />
+								<span>Subscription Manage</span>
+							</Menu.Item>
+						</div>
+						<Menu.Item as={Link} to="add-tags-listing" name='add-tags-listing' active={activeItem === 'add-tags-listing'} onClick={handleItemClick}>
+							<Image src={AddTagListingWhite} className="white" />
+							<Image src={AddTagListingBlue} className="blue" />
+							<span>Add Tags Listing</span>
+						</Menu.Item>
+						<Menu.Item as={Link} to="add-grade" name='add-grade' active={activeItem === 'add-grade'} onClick={handleItemClick}>
+							{/*<Image src={AddTagListingWhite} className="white" />
 						<Image src={AddTagListingBlue} className="blue" /> */}
-						<span>Add Grade</span>
-					</Menu.Item>
-
-					<Menu.Item as={Link} to="payment-management" name='payment-management' active={activeItem === 'payment-management'} onClick={handleItemClick}>
-						<Image src={PaymentManagementWhite} className="white" />
-						<Image src={PaymentManagementBlue} className="blue" />
-						<span>Payment Manangement</span>
-					</Menu.Item>
-					<Menu.Item className="lessonPlan" as={Link} to="create-template" name='create-template' active={activeItem === 'create-template'} onClick={handleItemClick}>
-						<Image src={CreateTemplateWhite} className="white" />
-						<Image src={CreateTemplateBlue} className="blue" />
-						<span>Create Template</span>
-						<Icon name="caret down" onClick={() => handleClick('Template')} />
-					</Menu.Item>
-					<div className={`lessonPlanMenu  ${isActive === 'Template' ? "show" : ""}`}>
-						<Menu.Item as={Link} to="assign-template" name='assign-template' active={activeItem === 'assign-template'} onClick={handleItemClick}>
-							<Image src={AssignTemplateWhite} className="white" />
-							<Image src={AssignTemplateBlue} className="blue" />
-							<span>Assign Template</span>
+							<span>Add Grade</span>
 						</Menu.Item>
-					</div>
-				</Menu>
+
+						<Menu.Item as={Link} to="payment-management" name='payment-management' active={activeItem === 'payment-management'} onClick={handleItemClick}>
+							<Image src={PaymentManagementWhite} className="white" />
+							<Image src={PaymentManagementBlue} className="blue" />
+							<span>Payment Manangement</span>
+						</Menu.Item>
+						<Menu.Item className="lessonPlan" as={Link} to="create-template" name='create-template' active={activeItem === 'create-template'} onClick={handleItemClick}>
+							<Image src={CreateTemplateWhite} className="white" />
+							<Image src={CreateTemplateBlue} className="blue" />
+							<span>Create Template</span>
+							<Icon name="caret down" onClick={() => handleClick('Template')} />
+						</Menu.Item>
+						<div className={`lessonPlanMenu  ${isActive === 'Template' ? "show" : ""}`}>
+							<Menu.Item as={Link} to="assign-template" name='assign-template' active={activeItem === 'assign-template'} onClick={handleItemClick}>
+								<Image src={AssignTemplateWhite} className="white" />
+								<Image src={AssignTemplateBlue} className="blue" />
+								<span>Assign Template</span>
+							</Menu.Item>
+						</div>
+					</Menu>
 				}
 
 				{/* No Chapter  */}

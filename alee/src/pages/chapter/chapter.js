@@ -13,21 +13,30 @@ function ChapterPage() {
 	const [reload, SetReload] = useState(false);
 	const [editData, SetEditData] = useState([]);
 	const [summaryData, setSummaryData] = useState([]);
+	const [topicData, setTopicData] = useState();
 
-	const bookName = useSelector(state => state.global.myBookData.bookName)
-
+	const bookName = useSelector(state => state.global.myBookData.bookName);
+	const bookId = useSelector(state => state.global.myBookData.bookId);
 	const openModal = () => {
 		setChapter(!chapter)
 	}
-	const openModal2 = () => {
-		setSubtitle(!subtitle)
+
+	const openModal2 = (props) => {
+		debugger
+		setSubtitle(!subtitle);
+		setTopicData(props);
 	}
+
 	const openModal3 = (props) => {
 		console.log("props", props);
 		setSummary(!summary)
-		 const data = JSON.parse(props)
-		setSummaryData(data);
+		const data = JSON.parse(props)
+		setSummaryData(data)
 	}
+	const closeModal = () => {
+		setSubtitle(!subtitle);
+	}
+
 	const GridReload = () => {
 		SetReload(!reload)
 	}
@@ -35,7 +44,6 @@ function ChapterPage() {
 		SetEditData(data)
 		openModal();
 	}
-
 	return (
 		<div className="chapterPage">
 			<Grid>
@@ -47,8 +55,8 @@ function ChapterPage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName:"DELETECHAPTER"}} reload={reload}
-						additionalParams={{ bookId: 43 }}
+						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName: "DELETECHAPTER" }} reload={reload}
+						additionalParams={{ bookId: bookId }}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="Chapter"
 						columns={[
@@ -70,7 +78,7 @@ function ChapterPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Button className="primaryBtn" onClick={openModal2}> <Icon name="plus" /> Topic</Button>
+											<Button className="primaryBtn" onClick={() => openModal2(props)}> <Icon name="plus" /> Topic</Button>
 										</>
 									);
 								},
@@ -80,7 +88,6 @@ function ChapterPage() {
 								fieldName: "chapterSummary",
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
-								  debugger;
 									return (
 										<>
 											<Button className="primaryBtn" onClick={() => openModal3(props.chapterSummary)}> <Icon name="plus" /> Chapter Summary</Button>
@@ -93,11 +100,11 @@ function ChapterPage() {
 								fieldName: "Action",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									
+
 									return (
 										<>
 											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId,"delete")}/>
+											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId, "delete")} />
 										</>
 									);
 								},
@@ -108,8 +115,8 @@ function ChapterPage() {
 				</Grid.Column>
 			</Grid>
 			{chapter && <AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData} />}
-			{subtitle && <AddSubtitle openModal={subtitle} closeModal={openModal2} />}
-			{summary && <AddChapterSummary openModal={summary} closeModal={openModal3} summaryData={summaryData}/>}
+			{subtitle && <AddSubtitle openModal={subtitle} closeModal={closeModal} topicData={topicData} />}
+			{summary && <AddChapterSummary openModal={summary} closeModal={openModal3} summaryData={summaryData} />}
 
 		</div>
 	);
