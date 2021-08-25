@@ -34,7 +34,7 @@ function BookSummaryChapter(props) {
                 <Grid.Column width={16} textAlign="right">
                     {auth === "Admin" &&
                         <>
-                            <Button className="secondaryBtn" onClick={openModalSummary}>Add Book Summray</Button>
+                            <Button className="secondaryBtn" onClick={openModalSummary}>Add Book Summary</Button>
                             <Button className="primaryBtn" as={Link} to="chapter-empty">Add Chapter/Topic</Button>
                         </>
                     }

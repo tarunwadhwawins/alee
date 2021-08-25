@@ -8,8 +8,10 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 
 function AddPageSummary(props) {
 	debugger
-	// const initialValues = { bookId: 1, bookSummary: "", pageNo: 1, pageSize: 100 }
-	// const [bookSummary, setBookSummary] = React.useState(initialValues)
+	const bookId = useSelector(state => state.global.myBookData.bookId)
+
+	const initialValues = { bookId: bookId, bookSummary: "", pageNo: 1, pageSize: 100 }
+	const [bookSummary, setBookSummary] = React.useState(initialValues)
 	const [editorState, setEditorState] = React.useState(EditorState.createEmpty())
 	const onEditorStateChange = (editorState) => {
 		debugger
@@ -19,9 +21,6 @@ function AddPageSummary(props) {
 		setEditorState(editorState)
 		setBookSummary(bookSummary)
 	}
-	const bookId = useSelector(state => state.global.myBookData.bookId);
-	const initialValues = { bookId: bookId, bookSummary: "", pageNo: 1, pageSize: 100 }
-	const [bookSummary, setBookSummary] = React.useState(initialValues)
 	const dispatch = useDispatch();
 
 	//  call the api //
@@ -46,7 +45,7 @@ function AddPageSummary(props) {
 				debugger
 				// bookSummary.bookSummary = response[0].bookSummary
 				// editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(response[0].bookSummary)))
-				setEditorState(EditorState.createWithContent(convertFromRaw(response[0].bookSummary)));
+				setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(response[0].bookSummary))));
 				// setEditorState(EditorState.createWithContent(response[0].bookSummary));
 				console.log("setEditorState", editorState)
 			}
