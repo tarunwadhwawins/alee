@@ -25,6 +25,7 @@ function AddSubtitle(props) {
 		dispatch(apiCall({
 			urls: ["ADDTOPIC"], method: "Post", data: topic, onSuccess: (response) => {
 				closeModal();
+				props.GridReload();
 				setTopic(initialValues);
 				history.push(`${env.PUBLIC_URL}/subtitle/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
 			}, showNotification: true

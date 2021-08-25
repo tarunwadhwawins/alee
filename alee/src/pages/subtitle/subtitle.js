@@ -14,6 +14,7 @@ function SubtitlePage() {
 	const [editData, SetEditData] = useState([]);
 	const initialState = { chapterId: id.id }
 	const [chapter, SetChapter] = useState(initialState);
+	const [reload, SetReload] = useState(false)
 
 	const openModal = (props) => {
 		debugger
@@ -31,6 +32,10 @@ function SubtitlePage() {
 		// const { chapterId, chapterName, endPageNo, pageNo, startPageNo, topicId, topicsName } = props;
 		// setSubtitle({ ...subtitle, tagId: tagId, tagName: tagName, tagTypeId: tagTypeId, isActive: isActive })
 	}
+	const GridReload = () => {
+		SetReload(!reload)
+	}
+
 
 	return (
 		<div className="chapterPage">
@@ -47,8 +52,8 @@ function SubtitlePage() {
 							getApiName: "GETCHAPTERSTOPIC",
 							deleteApiName: "DELETETOPIC",
 							// toggleApiName: "USERSUBSCRIPTIONTOGGLE",
-						}}
-						searchOption={{ show: true, placeHolder: "Search" }}
+						}} 
+						searchOption={{ show: true, placeHolder: "Search" }} reload={reload}
 						additionalParams={{ chapterId: chapter.chapterId }}
 						messageInModal="topic"
 						columns={[
@@ -83,7 +88,7 @@ function SubtitlePage() {
 					<Button className="primaryBtn" as={Link} to="add-tags">Add Tag</Button>
 				</Grid.Column>
 			</Grid>
-			<AddSubtitle openModal={subtitle} closeModal={openModal} editData={editData} chapterId={chapter.chapterId} />
+			<AddSubtitle openModal={subtitle} closeModal={openModal} editData={editData} chapterId={chapter.chapterId} GridReload={GridReload} />
 		</div>
 	);
 }
