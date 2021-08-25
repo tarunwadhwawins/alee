@@ -1,11 +1,46 @@
-import React from "react";
-import { Grid, Header, Image, List, Divider, Icon } from "semantic-ui-react";
+import React, {useState, useEffect} from "react";
+import { Grid, Header, Image, List,Divider,Icon,Dimmer,Loader } from "semantic-ui-react";
 import { profile, Grade, Curriculum, Class, LessonPlan, } from "../../shared/functional/global-image-import"
-
+import { useDispatch, useSelector } from "react-redux";
+import { apiCall } from "../../store/actions/api.actions";
+import { propTypes } from "react-notification-system";
 
 function ProfileViewPage() {
+	const api = useSelector((state) => state.api);
+	const dispatch = useDispatch();
+     const initialValues = {
+    teacherDetail:[] ,
+	profileDetail:{
+    TeacherId:26
+	}
+	 }
+	const [teacherProfile,setTeacherProfile] = useState(initialValues);
+	useEffect(() => {
+		getTeacherProfile();
+	  },[]);
+	  
+	 const  getTeacherProfile = () => {
+		dispatch(
+		  apiCall({
+			urls: ["GETTEACHERPROFILEDATA"],
+			method: "GET",
+			data:{
+				TeacherId:26
+			},
+			onSuccess: (response) => {
+			  setTeacherProfile(initialValues);
+			},
+		  })
+		);
+	  };
 	return (
 		<div className="common-shadow profileView">
+				{api.isApiLoading && (
+				<Dimmer active inverted>
+					<Loader />
+				</Dimmer>
+
+			)}
 			<div className="profileViewHeader" >
 				<div className="profileImgOuter">
 					<div className="profileImg">
@@ -17,7 +52,8 @@ function ProfileViewPage() {
 
 				<div className="profileViewHeaderDesc">
 					<Header as='h3' className="commonHeading">
-						Charlotte Jefferson
+						{/* {teacherProfile.teacherName} */}
+						Cefferson
 					</Header>
 					<List horizontal className="basicInfo">
 						<List.Item>

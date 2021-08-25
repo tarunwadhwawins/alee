@@ -7,6 +7,7 @@ import { GlobalCodeSelect } from "../../../../components";
 
 function AddStudent(props) {
   const auth = useSelector((state) => state.auth);
+  const [grade,setGradeList]=useState(null);
   const initialValues = {
     teacherId: auth.userDetail.teacherId,
     studentId: null,
@@ -17,7 +18,6 @@ function AddStudent(props) {
     gradeId: null,
     actionPerformedBy: "string",
   };
-
   const [addStudent, setAddStudent] = useState(initialValues);
   const api = useSelector((state) => state.api);
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ function AddStudent(props) {
   useEffect(() => {
     debugger
     editStudentlist();
+    getGradeList();
   }, [props.editData]);
 
   const editStudentlist = () => {
@@ -68,6 +69,22 @@ function AddStudent(props) {
         gradeId: gradeId,
       });
     }
+  };
+   //  //  get api //
+   const getGradeList = () => {
+    dispatch(
+      apiCall({
+        urls: ["GETGRADESLIST"],
+        method: "GET",
+        data: grade,
+        onSuccess: (response) => {
+          const grade = response.map((singledata) => {
+            return { text: singledata.gradeName, value: singledata.gradeId };
+          });
+          setGradeList(grade);
+        },
+      })
+    );
   };
   const closeModal = () => {
     props.closeModal();
@@ -115,13 +132,13 @@ function AddStudent(props) {
                 />
               </Grid.Column>
               <Grid.Column>
-                <GlobalCodeSelect
+                 <Form.Select
                   label="Grade"
                   placeholder="Grades"
-                  categoryType="Grades"
-                  onChange={onHandleChange}
+                  options={grade}
                   data="gradeId"
                   value={addStudent.gradeId}
+                  onChange={onHandleChange}
                 />
               </Grid.Column>
               <Grid.Column className="status">

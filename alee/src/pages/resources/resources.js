@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Header, Button, Form, Tab, Icon, GridColumn } from "semantic-ui-react";
+import { Grid, Header, Button, Form, Tab, Icon,Dimmer,Loader } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { GlobalCodeSelect } from "../../shared/components";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,15 +25,12 @@ const Page = [
   { key: "Page 7", value: "Page 7", text: "Page 7" },
 ];
 function ResourcesPage() {
-
   const [booklist, setBooklist] = useState(null);
   const api = useSelector((state) => state.api);
-  const [file, setFile] = useState(null);
   const [reload, SetReload] = useState(false);
-  const fileInputRef = React.createRef();
   const [editData, SetEditData] = useState([]);
   const dispatch = useDispatch();
-  // const [grade,setGradeList]=useState(null);
+  const [grade,setGradeList]=useState(null);
   const initialValues = {
     ResourceId:"",
     GradeId:"",
@@ -55,7 +52,8 @@ function ResourcesPage() {
 
   const fileChange = (e) => {
     debugger
-    setFile(e.target.files[0]);
+    setResources({ ...resources, UploadPdf: e.target.files[0] });
+    
   };
   const onHandleEdit = (data) => {
     const { resourceId, gradeId, bookId, chapterId, pageId,link } = data;
@@ -75,11 +73,12 @@ function ResourcesPage() {
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
   }
+  
 
   useEffect(() => {
     editResouces();
     getBookList();
-    // getGradeList();
+    getGradeList();
    
   },[]);
 
@@ -109,21 +108,21 @@ function ResourcesPage() {
     );
   };
   //  //  get api //
-  //  const getGradeList = () => {
-  //   dispatch(
-  //     apiCall({
-  //       urls: ["GETGRADESLIST"],
-  //       method: "GET",
-  //       data: grade,
-  //       onSuccess: (response) => {
-  //         const grade = response.map((singledata) => {
-  //           return { text: singledata.gradeName, value: singledata.gradeId };
-  //         });
-  //         setGradeList(grade);
-  //       },
-  //     })
-  //   );
-  // };
+   const getGradeList = () => {
+    dispatch(
+      apiCall({
+        urls: ["GETGRADESLIST"],
+        method: "GET",
+        data: grade,
+        onSuccess: (response) => {
+          const grade = response.map((singledata) => {
+            return { text: singledata.gradeName, value: singledata.gradeId };
+          });
+          setGradeList(grade);
+        },
+      })
+    );
+  };
   /////////////
 
   // const getchapter = () => {
@@ -148,6 +147,20 @@ function ResourcesPage() {
   const cancelClear = () => {
     setResources(initialValues);
   };
+
+
+  const checkDisplayIcon = (link) =>{
+    debugger;
+      if(link?.indexOf("www.youtube.com") > -1)
+      {
+        return "video";
+      }
+      else if(link?.indexOf("www.youtube.com") < 0)
+      {
+        return "file audio outline";
+      }
+    }
+  
   const panes = [
     {
       menuItem: "Audio",
@@ -194,7 +207,7 @@ function ResourcesPage() {
                     return  (
                       <a href={(props.link)}
                         target="_blank">
-                        <Icon name="file audio outline" className="primary-color" link />
+                        <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
                       </a>
                     ) 
                   },
@@ -270,7 +283,7 @@ function ResourcesPage() {
                       return props.link ? (
                         <a href={(props.link)}
                           target="_blank">
-                          <Icon name="video" className="primary-color" link />
+                          <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
                         </a>
                       ) : (
                         "-"
@@ -347,7 +360,7 @@ function ResourcesPage() {
                     return props.link?.indexOf("pdf") < 0 ?(
                       <a href={(props.link)}
                         target="_blank">
-                        <Icon name="file audio outline" className="primary-color" link/>
+                        <Icon name={checkDisplayIcon(props.link)} className="primary-color" link/>
                       </a>
                     ) : (
                       "-"
@@ -396,8 +409,6 @@ function ResourcesPage() {
       },
     },
   ];
-
-
   const onHandleSubmit = () => {
     const data = { ...resources, };
     data.ChapterId = 1;
@@ -409,6 +420,7 @@ function ResourcesPage() {
         method: "Post",
         data: formData,
         onSuccess: (response) => {
+        
           GridReload();
           cancelClear();
           setResources(initialValues);
@@ -419,6 +431,12 @@ function ResourcesPage() {
   };
   return (
     <div className="common-shadow resources">
+      	{api.isApiLoading && (
+				<Dimmer active inverted>
+					<Loader />
+				</Dimmer>
+
+			)}
       <Grid>
         <Grid.Column width={16}>
           <Header as="h3" className="commonHeading">
@@ -429,22 +447,22 @@ function ResourcesPage() {
           <Form>
             <Grid>
               <Grid.Column width="4">
-                <GlobalCodeSelect
+                {/* <GlobalCodeSelect
                   label="Grade"
                   placeholder="Grades"
                   categoryType="Grades"
                   onChange={onHandleChange}
                   data="GradeId"
                   value={resources.GradeId}
-                />
-                {/* <Form.Select
+                /> */}
+                <Form.Select
                   label="Grade"
                   placeholder="Grades"
                   options={grade}
                   data="GradeId"
                   value={resources.GradeId}
                   onChange={onHandleChange}
-                /> */}
+                />
               </Grid.Column>
               <Grid.Column width="4">
                 <Form.Select
@@ -505,7 +523,8 @@ function ResourcesPage() {
               </Grid.Column>
               <Grid.Column width="8">
                 <Form.Input
-                  ref={fileInputRef}
+                  // value={resources.UploadPdf}
+                  // data="UploadPdf"
                   type="file"
                   label="Upload Pdf"
                   placeholder="Embed URL"
