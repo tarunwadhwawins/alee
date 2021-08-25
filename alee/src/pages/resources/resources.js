@@ -283,7 +283,7 @@ function ResourcesPage() {
                       return props.link ? (
                         <a href={(props.link)}
                           target="_blank">
-                          <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                          <Icon name="video" className="primary-color" link />
                         </a>
                       ) : (
                         "-"
