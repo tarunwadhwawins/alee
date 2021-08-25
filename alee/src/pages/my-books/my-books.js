@@ -20,7 +20,6 @@ function MyBookPage(props) {
 	const getBookList = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKSLIST"], method: "GET", data: values, onSuccess: (response) => {
-				debugger
 				setBookList(response)
 			}
 		}));
@@ -76,7 +75,6 @@ function MyBookPage(props) {
 				<Grid.Column width={16}>
 					<div className="booksResult myBooks">
 						{bookList && bookList.map((data, index) => {
-							debugger
 							return (
 								<Item.Group>
 									<Item>

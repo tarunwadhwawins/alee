@@ -7,21 +7,30 @@ import { useHistory } from "react-router-dom";
 
 function AddSubtitle(props) {
 	debugger
-	const initialValues = { topicId: null, chapterId: 1, topicName: "", startPageNo: null, endPageNo: null }
+	const initialValues = { topicId: null, chapterId: null, topicName: "", startPageNo: null, endPageNo: null }
 	const [topic, setTopic] = React.useState(initialValues)
 	const dispatch = useDispatch();
 	let history = useHistory();
-
+	const auth = useSelector(state => state.global.myChapterData)
+	console.log("auth", auth)
 	const onsubmit = () => {
 		debugger;
+		// const data = props.chapterId ? { ...topic, chapterId: props.chapterId } : chapterId = 1
+		if (props.chapterId) {
+			setTopic(topic.chapterId = props.chapterId)
+		}
+		else if (props.topicData) {
+			setTopic(topic.chapterId = props.topicData.chapterId)
+		}
 		dispatch(apiCall({
 			urls: ["ADDTOPIC"], method: "Post", data: topic, onSuccess: (response) => {
 				closeModal();
 				setTopic(initialValues);
-				history.push(`${env.PUBLIC_URL}/subtitle`);
+				history.push(`${env.PUBLIC_URL}/subtitle/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
 			}, showNotification: true
 		}));
 	}
+
 	const onHandleChange = (e, { value, data, checked, type }) => {
 		debugger
 		setTopic({ ...topic, [data]: value })
