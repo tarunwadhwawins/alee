@@ -30,7 +30,6 @@ function AddSubtitle(props) {
 			}, showNotification: true
 		}));
 	}
-
 	const onHandleChange = (e, { value, data, checked, type }) => {
 		debugger
 		setTopic({ ...topic, [data]: value })
@@ -42,11 +41,9 @@ function AddSubtitle(props) {
 		// 	setTopic(topic.topicId = props.editData.topicId ? props.editData.topicId : null)
 		// }
 		editTopiclist();
-		return () => console.log("testttttt")
 	}, [props.editData]);
 
 	const editTopiclist = () => {
-		debugger;
 		if (props.editData !== undefined) {
 			const { topicId, chapterId, topicName, startPageNo, endPageNo } = props.editData;
 			setTopic({
@@ -59,13 +56,6 @@ function AddSubtitle(props) {
 			});
 		}
 	};
-
-	const addSubTopic = () => {
-		localStorage.setItem("BookType", "With Topic Chapter");
-		setTimeout(() => {
-			window.location.reload();
-		}, (1000));
-	}
 	const closeModal = () => {
 		props.closeModal();
 		setTopic(initialValues);
@@ -73,7 +63,7 @@ function AddSubtitle(props) {
 
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="small">
-			<Modal.Header>Add Topic</Modal.Header>
+			<Modal.Header>{topic.topicId > 0 ? "Edit Topic" : "Add Topic"}</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>
