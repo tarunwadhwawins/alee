@@ -73,9 +73,6 @@ function AddTagsListing(props) {
 		}
 	}, [props.editData]);
 
-
-
-
 	useEffect(() => {
 		debugger
 		const globalCodes = globalCode.filter(code => code.categoryName === "TagType").map((filtercode) => {

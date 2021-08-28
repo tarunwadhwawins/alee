@@ -215,6 +215,12 @@ const AuthenticateTemplateRoutesConfing = [
     path: `${env.PUBLIC_URL}/add-grade`,
     component: lazy(() => import('../../pages/add-grade'))
   },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/drag`,
+    component: lazy(() => import('../../pages/drag-and-drop'))
+  },
 ];
 
 export default AuthenticateTemplateRoutesConfing;

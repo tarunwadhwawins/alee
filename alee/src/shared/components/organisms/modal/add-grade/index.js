@@ -68,7 +68,7 @@ function AddGrade(props) {
 					</Dimmer>
 				)
 			}
-			<Modal.Header>Add Grade</Modal.Header>
+			<Modal.Header>{grade.gradeId > 0 ? "Edit Grade" : "Add Grade"}</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>
