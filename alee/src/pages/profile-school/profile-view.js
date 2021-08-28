@@ -1,69 +1,33 @@
-import React, {useState, useEffect} from "react";
-import { Grid, Header, Image, List,Divider,Icon,Dimmer,Loader } from "semantic-ui-react";
-import { profile, Grade, Curriculum, Class, LessonPlan, } from "../../shared/functional/global-image-import"
-import { useDispatch, useSelector } from "react-redux";
-import { apiCall } from "../../store/actions/api.actions";
-import { propTypes } from "react-notification-system";
+import React from "react";
+import { Grid, Header, Image, List, Divider, Icon } from "semantic-ui-react";
+import { profile, Logo, Grade, Curriculum, Class, LessonPlan, } from "../../shared/functional/global-image-import"
 
-function ProfileViewPage() {
-	const api = useSelector((state) => state.api);
-	const dispatch = useDispatch();
-     const initialValues = {
-    teacherDetail:[] ,
-	profileDetail:{
-    TeacherId:26
-	}
-	 }
-	const [teacherProfile,setTeacherProfile] = useState(initialValues);
-	useEffect(() => {
-		getTeacherProfile();
-	  },[]);
-	  
-	 const  getTeacherProfile = () => {
-		dispatch(
-		  apiCall({
-			urls: ["GETTEACHERPROFILEDATA"],
-			method: "GET",
-			data:{
-				TeacherId:26
-			},
-			onSuccess: (response) => {
-			  setTeacherProfile(initialValues);
-			},
-		  })
-		);
-	  };
+
+function ProfileView() {
 	return (
 		<div className="common-shadow profileView">
-				{api.isApiLoading && (
-				<Dimmer active inverted>
-					<Loader />
-				</Dimmer>
-
-			)}
 			<div className="profileViewHeader" >
 				<div className="profileImgOuter">
 					<div className="profileImg">
-						<Image src={profile} />
+						<Image src={Logo} />
 					</div>
-					<Icon name='edit outline' title="Edit" />
-					<Icon name='trash alternate outline' title="Delete" />
+					{/* <Icon name='edit outline' title="Edit" />
+					<Icon name='trash alternate outline' title="Delete" /> */}
 				</div>
 
 				<div className="profileViewHeaderDesc">
 					<Header as='h3' className="commonHeading">
-						{/* {teacherProfile.teacherName} */}
-						Cefferson
+					HOLY NAME HIGH SCHOOL
 					</Header>
 					<List horizontal className="basicInfo">
-						<List.Item>
+						{/* <List.Item>
 							<List.Icon name='mail' />
-							<List.Content>cefferson@gmail.com</List.Content>
+							<List.Content>Mark@gmail.com</List.Content>
 						</List.Item>
 						<List.Item>
 							<List.Icon name='mobile alternate' />
 							<List.Content>(555) 564-5666</List.Content>
-						</List.Item>
+						</List.Item> */}
 					</List>
 					<p><span>School Name :</span> 	Thomas Jefferson High School for Science and Technology</p>
 					<List horizontal className="gradePlan">
@@ -118,4 +82,4 @@ function ProfileViewPage() {
 	);
 }
 
-export default ProfileViewPage;
+export default ProfileView;

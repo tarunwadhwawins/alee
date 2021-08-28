@@ -9,8 +9,9 @@ function AddTagsListingPage(props) {
 	const [reload, SetReload] = useState(false)
 
 	const openModal = () => {
+		debugger
 		setTaglisting(!taglisting)
-	}	
+	}
 	const onHandleEdit = (data) => {
 		SetEditData(data)
 		openModal();
@@ -42,7 +43,7 @@ function AddTagsListingPage(props) {
 							},
 							{
 								headerName: "Type",
-								fieldName: "tagType",
+								fieldName: "tagTypeName",
 								isSorting: true
 							},
 							{

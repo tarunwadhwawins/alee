@@ -53,6 +53,7 @@ function MyBookPage(props) {
 	}
 
 	const addBookData = (data) => {
+		debugger
 		dispatch(storeMyBookData(data));
 	}
 
@@ -122,14 +123,14 @@ function MyBookPage(props) {
 						{bookList && bookList.map((data, index) => {
 							return (
 								<Item.Group>
-									<Item >
+									<Item>
 										<Item.Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
 										/>
 										<Item.Content >
 											<Item.Header onClick={() => addBookData(data)} as={Link} to={`${auth === "Admin" ? "book-flip" : "book-summary"}`}><span>{data.bookName}</span></Item.Header>
 											{/* <Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta> */}
 											<Item.Description>
-												{data.bookSummary} ?
+												{JSON.parse(data.bookSummary).blocks[0].text}
 											</Item.Description>
 											<Item.Extra>Other Tags: 6.4, Empathy, Twist {auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} /></div>}</Item.Extra>
 										</Item.Content>

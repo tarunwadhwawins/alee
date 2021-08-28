@@ -1,38 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Header, Button, Form, Tab, Icon, GridColumn } from "semantic-ui-react";
+import { Grid, Header, Button, Form, Tab, Icon, Dimmer, Loader } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { GlobalCodeSelect } from "../../shared/components";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../store/actions/api.actions";
 import { commonFunctions } from "../../shared/functional/global-import";
-
-const Chapter = [
-  { key: "Chapter 1", value: "Chapter 1", text: "Chapter 1" },
-  { key: "Chapter 2", value: "Chapter 2", text: "Chapter 2" },
-  { key: "Chapter 3", value: "Chapter 3", text: "Chapter 3" },
-  { key: "Chapter 4", value: "Chapter 4", text: "Chapter 4" },
-  { key: "Chapter 5", value: "Chapter 5", text: "Chapter 5" },
-  { key: "Chapter 6", value: "Chapter 6", text: "Chapter 6" },
-  { key: "Chapter 7", value: "Chapter 7", text: "Chapter 7" },
-];
-const Page = [
-  { key: "Page 1", value: "Page 1", text: "Page 1" },
-  { key: "Page 2", value: "Page 2", text: "Page 2" },
-  { key: "Page 3", value: "Page 3", text: "Page 3" },
-  { key: "Page 4", value: "Page 4", text: "Page 4" },
-  { key: "Page 5", value: "Page 5", text: "Page 5" },
-  { key: "Page 6", value: "Page 6", text: "Page 6" },
-  { key: "Page 7", value: "Page 7", text: "Page 7" },
-];
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 function ResourcesPage() {
   const [booklist, setBooklist] = useState(null);
   const api = useSelector((state) => state.api);
-  const [file, setFile] = useState(null);
   const [reload, SetReload] = useState(false);
-  const fileInputRef = React.createRef();
   const [editData, SetEditData] = useState([]);
-
   const dispatch = useDispatch();
+  const [grade, setGradeList] = useState(null);
+  const [chapter, setChapter] = useState({ bookId: 1 });
+  const [chapterList, setChapterList] = useState([]);
+  const [page, setPage] = useState({ bookId: 1, chapterId: 46 });
+  const [pageList, setPageList] = useState([]);
   const initialValues = {
     ResourceId: "",
     GradeId: "",
@@ -46,19 +30,20 @@ function ResourcesPage() {
   };
   const [resources, setResources] = useState(initialValues);
 
+  // const bookId=useSelector(state => state.global.myBookData.bookId);
+
   const onHandleChange = (e, { data, value }) => {
+
     setResources({ ...resources, [data]: value });
   };
 
   const fileChange = (e) => {
-    cancelClear();
-    setFile(e.target.files[0]);
-  };
 
- 
+    setResources({ ...resources, UploadPdf: e.target.files[0] });
+
+  };
   const onHandleEdit = (data) => {
-    debugger
-    const { resourceId, gradeId, bookId, chapterId, pageId, resourceTypeName, resourceTypeId, resourceLinkId, link } = data;
+    const { resourceId, gradeId, bookId, chapterId, pageId, link } = data;
 
     if (data.resourceTypeName === "Audio") {
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, AudioLink: link })
@@ -71,22 +56,23 @@ function ResourcesPage() {
         ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, UploadPdf: link,
       })
     }
-
     else if (data.resourceTypeName === "Article" && data.link.indexOf("pdf") < 0) {
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
   }
 
+
   useEffect(() => {
     editResouces();
     getBookList();
+    getGradeList();
+    getChapterList();
+    getPageList();
+
   }, []);
 
   const editResouces = () => {
-    debugger;
-    // if (resources !== undefined||resources.length > 0) {
     const { ResourceId, GradeId, BookId, ChapterId, PageId, UploadPdf, AudioLink, VideoLink, ArticleLink, } = resources;
-    debugger;
     setResources({
       ...resources,
       ResourceId: ResourceId, GradeId: GradeId, BookId: BookId, ChapterId: ChapterId, PageId: PageId,
@@ -94,7 +80,7 @@ function ResourcesPage() {
     });
   };
 
-  //  get api //y
+  //  get api //
   const getBookList = () => {
     dispatch(
       apiCall({
@@ -110,6 +96,70 @@ function ResourcesPage() {
       })
     );
   };
+  //  //  get api //
+  const getGradeList = () => {
+    dispatch(
+      apiCall({
+        urls: ["GETGRADESLIST"],
+        method: "GET",
+        data: grade,
+        onSuccess: (response) => {
+          const grade = response.map((singledata) => {
+            return { text: singledata.gradeName, value: singledata.gradeId };
+          });
+          setGradeList(grade);
+        },
+      })
+    );
+  };
+  const getChapterList = () => {
+    dispatch(
+      apiCall({
+        urls: ["GETCHAPTERLIST"],
+        method: "GET",
+        data: chapter,
+        onSuccess: (response) => {
+          const chapters = response.map((singledata) => {
+            return { text: singledata.chapterName, value: singledata.chapterId };
+          });
+          setChapterList(chapters);
+        },
+      })
+    );
+  };
+  const getPageList = () => {
+    dispatch(
+      apiCall({
+        urls: ["GETCHAPTERPAGES"],
+        method: "GET",
+        data: page,
+        onSuccess: (response) => {
+          debugger
+          const pages = response.map((singledata) => {
+            return { text: singledata.pageNo, value: singledata.pageId };
+          });
+          setPageList(pages);
+        },
+      })
+    );
+  };
+  /////////////
+
+  // const getchapter = () => {
+  //   dispatch(
+  //     apiCall({
+  //       urls: ["GETCHAPTERLIST"],
+  //       method:"GET",
+  //       data:{bookId:bookId},
+  //       onSuccess: (response) => {
+  //         const chapterlist = response.map((singledata) => {
+  //           return {text: singledata.chapterName, value: singledata.chapterId };
+  //         });
+  //         setChapterlist(chapterlist);
+  //       },
+  //     })
+  //   );
+  // };
 
   const GridReload = () => {
     SetReload(!reload);
@@ -117,6 +167,17 @@ function ResourcesPage() {
   const cancelClear = () => {
     setResources(initialValues);
   };
+
+
+  const checkDisplayIcon = (link) => {
+    if (link?.indexOf("www.youtube.com") > -1) {
+      return "video";
+    }
+    else if (link?.indexOf("www.youtube.com") < 0) {
+      return "file audio outline";
+    }
+  }
+
   const panes = [
     {
       menuItem: "Audio",
@@ -159,12 +220,13 @@ function ResourcesPage() {
                   headerName: "Audio",
                   fieldName: "link",
                   isSorting: true,
-                  Cell: (props, confirmModalOpen) => {
+                  Cell: (props) => {
                     return (
-                      <a href={props.link} target="_blank">
-                        {props.link === "null" ? "-" : props.link}
+                      <a href={(props.link)}
+                        target="_blank">
+                        <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
                       </a>
-                    );
+                    )
                   },
                 },
                 {
@@ -234,13 +296,16 @@ function ResourcesPage() {
                   headerName: "Video",
                   fieldName: "link",
                   isSorting: true,
-                  Cell: (props, confirmModalOpen) => {
-                    return (
-                      <a href={props.link} target="_blank">
-                        {props.link === "null" ? "-" : props.link}
-                      </a>
-                    );
-                  },
+                    Cell: (props) => {
+                      return props.link ? (
+                        <a href={(props.link)}
+                          target="_blank">
+                          <Icon name="video" className="primary-color" link />
+                        </a>
+                      ) : (
+                        "-"
+                      );
+                    },
                 },
                 {
                   headerName: "Action",
@@ -309,7 +374,14 @@ function ResourcesPage() {
                   fieldName: "link",
                   isSorting: true,
                   Cell: (props) => {
-                    return props.link?.indexOf("pdf") < 0 ? props.link : "-";
+                    return props.link?.indexOf("pdf") < 0 ? (
+                      <a href={(props.link)}
+                        target="_blank">
+                        <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                      </a>
+                    ) : (
+                      "-"
+                    );
                   },
                 },
                 {
@@ -318,12 +390,8 @@ function ResourcesPage() {
                   isSorting: true,
                   Cell: (props) => {
                     return props.link?.indexOf("pdf") > 0 ? (
-                      <a
-                        href={commonFunctions.concatenateImageWithAPIUrl(
-                          props.link
-                        )}
-                        target="_blank"
-                      >
+                      <a href={commonFunctions.concatenateImageWithAPIUrl(props.link)}
+                        target="_blank">
                         <Icon name="file pdf" className="primary-color" link />
                       </a>
                     ) : (
@@ -338,7 +406,6 @@ function ResourcesPage() {
                   Cell: (props, confirmModalOpen) => {
                     return (
                       <>
-
                         <Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
                         <Icon
                           name="trash alternate"
@@ -359,8 +426,6 @@ function ResourcesPage() {
       },
     },
   ];
-
-
   const onHandleSubmit = () => {
     const data = { ...resources, };
     data.ChapterId = 1;
@@ -372,6 +437,7 @@ function ResourcesPage() {
         method: "Post",
         data: formData,
         onSuccess: (response) => {
+
           GridReload();
           cancelClear();
           setResources(initialValues);
@@ -382,6 +448,12 @@ function ResourcesPage() {
   };
   return (
     <div className="common-shadow resources">
+      {api.isApiLoading && (
+        <Dimmer active inverted>
+          <Loader />
+        </Dimmer>
+
+      )}
       <Grid>
         <Grid.Column width={16}>
           <Header as="h3" className="commonHeading">
@@ -392,13 +464,21 @@ function ResourcesPage() {
           <Form>
             <Grid>
               <Grid.Column width="4">
-                <GlobalCodeSelect
+                {/* <GlobalCodeSelect
                   label="Grade"
                   placeholder="Grades"
                   categoryType="Grades"
                   onChange={onHandleChange}
                   data="GradeId"
                   value={resources.GradeId}
+                /> */}
+                <Form.Select
+                  label="Grade"
+                  placeholder="Grades"
+                  options={grade}
+                  data="GradeId"
+                  value={resources.GradeId}
+                  onChange={onHandleChange}
                 />
               </Grid.Column>
               <Grid.Column width="4">
@@ -415,7 +495,7 @@ function ResourcesPage() {
                 <Form.Select
                   label="Chapter"
                   placeholder="Select Chapter"
-                  options={Chapter}
+                  options={chapterList}
                   data="ChapterId"
                   value={resources.ChapterId}
                   onChange={onHandleChange}
@@ -425,7 +505,7 @@ function ResourcesPage() {
                 <Form.Select
                   label="Page"
                   placeholder="Select Page"
-                  options={Page}
+                  options={pageList}
                   data="PageId"
                   value={resources.PageId}
                   onChange={onHandleChange}
@@ -460,16 +540,8 @@ function ResourcesPage() {
               </Grid.Column>
               <Grid.Column width="8">
                 <Form.Input
-                  ref={fileInputRef}
-                  type="file"
-                  label="Upload Pdf"
-                  placeholder="Embed URL"
-                  value={resources.UploadPdf}
-                  data="UploadPdf"
-                  onChange={onHandleChange}
-                /> 
-                <Form.Input
-                  ref={fileInputRef}
+                  // value={resources.UploadPdf}
+                  // data="UploadPdf"
                   type="file"
                   label="Upload Pdf"
                   placeholder="Embed URL"
@@ -484,7 +556,6 @@ function ResourcesPage() {
                   loading={api.isApiLoading} >{resources.ResourceId > 0 ? "Update" : "Save"}
                 </Button>
               </Grid.Column>
-
               <Grid.Column width={16}>
                 <Tab menu={{ text: true }} panes={panes} onTabChange={cancelClear} />
               </Grid.Column>

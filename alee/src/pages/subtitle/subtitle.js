@@ -3,12 +3,21 @@ import { Table, Grid, Icon, Header, Button } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 import { DataTable } from "../../../src/shared/components/organisms";
+import { useParams, useLocation } from "react-router-dom";
 
 function SubtitlePage() {
+	debugger
+	let search = useLocation().search
+	const chapterName = new URLSearchParams(search).get('chapter')
+	const id = useParams();
 	const [subtitle, setSubtitle] = React.useState(false)
 	const [editData, SetEditData] = useState([]);
+	const initialState = { chapterId: id.id }
+	const [chapter, SetChapter] = useState(initialState);
+	const [reload, SetReload] = useState(false)
 
 	const openModal = (props) => {
+		debugger
 		if (subtitle) {
 			SetEditData([])
 		}
@@ -21,12 +30,16 @@ function SubtitlePage() {
 		// const { chapterId, chapterName, endPageNo, pageNo, startPageNo, topicId, topicsName } = props;
 		// setSubtitle({ ...subtitle, tagId: tagId, tagName: tagName, tagTypeId: tagTypeId, isActive: isActive })
 	}
+	const GridReload = () => {
+		SetReload(!reload)
+	}
+
 
 	return (
 		<div className="chapterPage">
 			<Grid>
 				<Grid.Column width={8} verticalAlign="middle">
-					<Header className="commonHeading">Chapter One</Header>
+					<Header className="commonHeading">{chapterName}</Header>
 				</Grid.Column>
 				<Grid.Column width={8} textAlign="right">
 					<Button className="primaryBtn" onClick={openModal}> <Icon name="plus" /> Topic </Button>
@@ -37,9 +50,9 @@ function SubtitlePage() {
 							getApiName: "GETCHAPTERSTOPIC",
 							deleteApiName: "DELETETOPIC",
 							// toggleApiName: "USERSUBSCRIPTIONTOGGLE",
-						}}
-						searchOption={{ show: true, placeHolder: "Search" }}
-						additionalParams={{ chapterId: 1 }}
+						}} 
+						searchOption={{ show: true, placeHolder: "Search" }} reload={reload}
+						additionalParams={{ chapterId: chapter.chapterId }}
 						messageInModal="topic"
 						columns={[
 							{
@@ -73,7 +86,7 @@ function SubtitlePage() {
 					<Button className="primaryBtn" as={Link} to="add-tags">Add Tag</Button>
 				</Grid.Column>
 			</Grid>
-			<AddSubtitle openModal={subtitle} closeModal={openModal} editData={editData} />
+			<AddSubtitle openModal={subtitle} closeModal={openModal} editData={editData} chapterId={chapter.chapterId} GridReload={GridReload} />
 		</div>
 	);
 }

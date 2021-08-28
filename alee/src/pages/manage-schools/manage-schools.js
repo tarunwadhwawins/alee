@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Icon, Header, Form } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
+import { Link, env } from "../../shared/functional/global-import";
 
 function ManageSchoolPage() {
 	return (
@@ -18,11 +19,29 @@ function ManageSchoolPage() {
 							headerName: "School Name",
 							fieldName: "schoolName",
 							isSorting: true,
+							Cell: (props) => {
+								return (
+									<>
+										<Link
+										to={`${env.PUBLIC_URL}/profile-school/${props.schoolId}`}>
+										{props.schoolName}{" "}
+										</Link>
+										
+									</>
+								);
+							},
 						},
 						{
 							headerName: "Email",
 							fieldName: "email",
-							isSorting: true
+							isSorting: true,
+							Cell: (props) => {
+								debugger;
+								return  (
+							<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+								) 
+							  },
+					
 						},
 
 						{

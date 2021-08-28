@@ -9,7 +9,7 @@ import ProfileStepThree from "./profile-step-three";
 import ProfileStepFour from "./profile-step-four";
 
 const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, actionPerformedBy: "" }
-const initialStateStepSecond = { degree: "", college: "", inProgress: null, yearOfPassing: "", index: null }
+const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "", index: null }
 const initialStateStepThird = { school: "", position: "", grades: [], index: null }
 
 function MyProfile() {
@@ -39,6 +39,7 @@ function MyProfile() {
   }
 
   const onChangeThirdstep = (e, { data, value }) => {
+    debugger;
     setThirdStepValues({ ...thirdStepValues, [data]: value })
   }
 
@@ -49,6 +50,7 @@ function MyProfile() {
       }, showNotification: true
     }))
   }
+
 
   ///////////// -Second Step- /////////////
   const addMoreQualification = () => {
@@ -63,6 +65,7 @@ function MyProfile() {
   }
 
   const editQualification = (data, index) => {
+    debugger
     setsecondstepValues({ ...secondstepValues, degree: data.degree, college: data.college, inProgress: data.inProgress, yearOfPassing: data.yearOfPassing, index: index })
   }
 
@@ -72,15 +75,23 @@ function MyProfile() {
     setFormSecondStep(items)
     setsecondstepValues(initialStateStepSecond)
   }
+  const onStepSecond = () => {
+    debugger
+    dispatch(apiCall({
+      urls: ["ADDTEACHERQUALIFICATION"], method: "POST", data: secondstepValues, onSuccess: (response) => {
+        changeStep(2);
+      }, showNotification: true
+    }))
+  }
 
-///////////// -Third Step- /////////////
-const addWorkHistory = () => {
+  ///////////// -Third Step- /////////////
+  const addWorkHistory = () => {
 
-  // school: "", position: "", grades: [], index: null
-   
-  // setFormThirdStep(formThirdStep.concat({ degree: thirdStepValues, college: secondstepValues.college, inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing }))
-  // setsecondstepValues(initialStateStepSecond)
-}
+    // school: "", position: "", grades: [], index: null
+
+    // setFormThirdStep(formThirdStep.concat({ degree: thirdStepValues, college: secondstepValues.college, inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing }))
+    // setsecondstepValues(initialStateStepSecond)
+  }
 
 
   const getStepContent = (stepIndex) => {
@@ -116,7 +127,7 @@ const addWorkHistory = () => {
                 <Button className="alternateBtn" onClick={() => changeStep(2)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={() => changeStep(2)}>
+                <Button className="primaryBtn" onClick={onStepSecond}>
                   Continue
                 </Button>
               </Grid.Column>

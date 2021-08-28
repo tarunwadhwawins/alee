@@ -8,7 +8,7 @@ function BookSummaryPage() {
         <div className="bookSummary">
 			<Grid>
 				<Grid.Column width={16}>
-					<Header as="h3" className="commonHeading">Book Summary</Header>
+			<Header as="h3" className="commonHeading">Book Summary</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<div className="bookSummaryInner">

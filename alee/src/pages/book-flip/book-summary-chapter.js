@@ -30,20 +30,20 @@ function BookSummaryChapter(props) {
 
     return (
         <>
-        <Grid>
-            <Grid.Column width={16} textAlign="right">
-                {auth === "Admin" &&
-                    <>
-                        <Button className="secondaryBtn" onClick={openModalSummary}>Add Book Summray</Button>
-                        <Button className="primaryBtn" as={Link} to="chapter-empty">Add Chapter/Topic</Button>
-                    </>
-                }
-            </Grid.Column>
-            <AddPageSummary openModal={summary} closeModal={openModalSummary} />
-            {/* <AddTags openModal={tag} closeModal={openModal2} />
+            <Grid>
+                <Grid.Column width={16} textAlign="right">
+                    {auth === "Admin" &&
+                        <>
+                            <Button className="secondaryBtn" onClick={openModalSummary}>Add Book Summary</Button>
+                            <Button className="primaryBtn" as={Link} to="chapter-empty">Add Chapter/Topic</Button>
+                        </>
+                    }
+                </Grid.Column>
+                {summary && <AddPageSummary openModal={summary} closeModal={openModalSummary} />}
+                {/* <AddTags openModal={tag} closeModal={openModal2} />
 			<InviteTeacher openModal={invite} closeModal={openModal3} /> */}
-        </Grid>
-        <AddChapter openModal={chapter} closeModal={openModalChapter} />
+            </Grid>
+            <AddChapter openModal={chapter} closeModal={openModalChapter} />
         </>
     )
 }

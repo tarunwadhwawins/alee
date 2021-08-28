@@ -60,18 +60,21 @@ const API_ENDPOINTS = {
   ADDBOOKSUMMARY: "/Books/AddBookSummary",
   ADDTOPIC: "/Topics/AddTopic",
   GETCHAPTERSTOPIC: "/Topics/GetChaptersTopic",
-  DELETETOPIC:"/Topics/DeleteTopic",
-  GETBOOKSUMMARY:"/Books/GetBookSummary",
-  ADDUPDATECHAPTER:"/Chapter/AddUpdateChapter",
-  GETCHAPTERLIST:"/Chapter/GetChaptersList",
-  ADDCHAPTERSUMMARY:"/Chapter/AddChapterSummary",
-  DELETECHAPTER:"/Chapter/DeleteChapter",
-  ADDGRADE:"/Grades/AddGrade",
-  GETGRADESLIST:"/Grades/GetGradesList",
-  DELETEGRADE:"/Grades/DeleteGrade",
-  GRADESTOGGLE:"/Grades/ToggleIsActive"
+  DELETETOPIC: "/Topics/DeleteTopic",
+  GETBOOKSUMMARY: "/Books/GetBookSummary",
+  ADDUPDATECHAPTER: "/Chapter/AddUpdateChapter",
+  GETCHAPTERLIST: "/Chapter/GetChaptersList",
+  ADDCHAPTERSUMMARY: "/Chapter/AddChapterSummary",
+  DELETECHAPTER: "/Chapter/DeleteChapter",
+  ADDGRADE: "/Grades/AddGrade",
+  GETGRADESLIST: "/Grades/GetGradesList",
+  DELETEGRADE: "/Grades/DeleteGrade",
+  GRADESTOGGLE: "/Grades/ToggleIsActive",
+  UPDATETAG: "/Tags/UpdateTag",
+  ADDTEACHERQUALIFICATION: "/Teacher/AddTeacherQualification",
+  GETTEACHERPROFILEDATA: "/Teacher/GetTeacherProfileData",
+  GETCHAPTERPAGES: "/Chapter/GetChapterPages"
 };
-
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];
 };

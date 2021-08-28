@@ -74,7 +74,7 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: false,
-    path: `${env.PUBLIC_URL}/subtitle`,
+    path: `${env.PUBLIC_URL}/subtitle/:id`,
     component: lazy(() => import('../../pages/subtitle'))
   },
   {
@@ -200,8 +200,14 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: false,
-    path: `${env.PUBLIC_URL}/profile-preview`,
+    path: `${env.PUBLIC_URL}/profile-preview/:teacherId`,
     component: lazy(() => import('../../pages/profile-preview'))
+  },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/profile-school/:schoolId`,
+    component: lazy(() => import('../../pages/profile-school'))
   },
   {
     exact: true,
@@ -209,7 +215,12 @@ const AuthenticateTemplateRoutesConfing = [
     path: `${env.PUBLIC_URL}/add-grade`,
     component: lazy(() => import('../../pages/add-grade'))
   },
-  
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/drag`,
+    component: lazy(() => import('../../pages/drag-and-drop'))
+  },
 ];
 
 export default AuthenticateTemplateRoutesConfing;
