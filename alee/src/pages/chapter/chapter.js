@@ -14,11 +14,14 @@ function ChapterPage() {
 	const [editData, SetEditData] = useState([]);
 	const [summaryData, setSummaryData] = useState([]);
 	const [topicData, setTopicData] = useState();
+	const [chapterText, setChapterText] = useState();
 
 	const bookName = useSelector(state => state.global.myBookData.bookName);
 	const bookId = useSelector(state => state.global.myBookData.bookId);
-	const openModal = () => {
+	const openModal = (text) => {
+		debugger
 		setChapter(!chapter)
+		setChapterText(text)
 	}
 
 	const openModal2 = (props) => {
@@ -35,6 +38,7 @@ function ChapterPage() {
 	}
 	const closeModal = () => {
 		setSubtitle(!subtitle);
+		SetEditData([])
 	}
 
 	const GridReload = () => {
@@ -51,7 +55,7 @@ function ChapterPage() {
 					<Header className="commonHeading">{bookName}</Header>
 				</Grid.Column>
 				<Grid.Column width={8} textAlign="right">
-					<Button className="primaryBtn" onClick={openModal}> <Icon name="plus" /> Chapter </Button>
+					<Button className="primaryBtn" onClick={() => openModal("chapter")}> <Icon name="plus" /> Chapter </Button>
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
@@ -74,7 +78,7 @@ function ChapterPage() {
 							{
 								headerName: "Topics",
 								fieldName: "gradeName",
-								isSorting: true,
+								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
@@ -86,7 +90,7 @@ function ChapterPage() {
 							{
 								headerName: "Summary",
 								fieldName: "chapterSummary",
-								isSorting: true,
+								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
@@ -114,7 +118,7 @@ function ChapterPage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			{chapter && <AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData} />}
+			{chapter && <AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData} chapterText={chapterText} />}
 			{subtitle && <AddSubtitle openModal={subtitle} closeModal={closeModal} topicData={topicData} />}
 			{summary && <AddChapterSummary openModal={summary} closeModal={openModal3} summaryData={summaryData} GridReload={GridReload} />}
 
