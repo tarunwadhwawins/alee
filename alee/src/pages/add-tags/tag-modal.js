@@ -1,7 +1,12 @@
 import React from "react";
 import { Grid, Modal, Button, Form, Header } from "semantic-ui-react";
+import { useDispatch, useSelector } from 'react-redux';
+import { apiCall } from "../../store/actions";
+
 
 function AddTagModal(props) {
+
+    const tags = useSelector(state => state.global.tags)
 
     return (
         <Modal open={props.openModal} onClose={props.closeModal} size="tiny">
@@ -11,29 +16,26 @@ function AddTagModal(props) {
                     <Grid>
                         <Grid.Column width={16} >
 
-                            <Grid>
-                                
-                                {props.tagFields && props.tagFields.length > 0 && props.tagFields.map((singleField, index) => {
-                                    return (
-                                        <Form>
-                                            {singleField.dataTypeName === "Int" ?
-                                                // <>
-                                                //     {props.tagFields && props.tagFields.length>0 && props.tagFields.map((singleField, index) => {
-                                                //         debugger
-                                                //         return (
-                                                <Form.Field>
-                                                    <Form.Select placeholder={'Select' + singleField.fieldName} label={singleField.fieldName}  />
-                                                </Form.Field>
-                                                //)
-                                                //     })}
-                                                // </>
 
-                                                : <Form.Field> <Form.TextArea placeholder={singleField.fieldName} rows="2" label={singleField.fieldName} /></Form.Field>}
-                                        </Form>
-                                    )
-                                })}
+                            {props.tagFields && props.tagFields.length > 0 && props.tagFields.map((singleField, index) => {
 
-                            </Grid>
+                                const ss = tags.filter(code => code[singleField.fieldName])
+                                const aa = singleField.dataTypeName === "Int" && ss[0][singleField.fieldName]
+
+                                return (
+                                    <Form>
+                                        {singleField.dataTypeName === "Int" ?
+
+                                            <Form.Field>
+                                                <Form.Select placeholder={'Select ' + singleField.fieldName} label={singleField.fieldName} options={aa} onChange={props.onHandleTag} index={singleField.customFieldId} />
+                                            </Form.Field>
+
+                                            : <Form.Field> <Form.TextArea placeholder={singleField.fieldName} rows="2" label={singleField.fieldName} onChange={props.onHandleTag} index={singleField.customFieldId} /></Form.Field>}
+                                    </Form>
+                                )
+                            })}
+
+
 
                         </Grid.Column>
                     </Grid>

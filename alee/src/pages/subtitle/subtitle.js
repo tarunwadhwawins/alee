@@ -4,8 +4,6 @@ import { Link } from "../../shared/functional/global-import";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 
-
-
 function SubtitlePage() {
 	const [subtitle, setSubtitle] = React.useState(false)
 	const [editData, SetEditData] = useState([]);
@@ -15,14 +13,11 @@ function SubtitlePage() {
 			SetEditData([])
 		}
 		setSubtitle(!subtitle)
-
 	}
 
 	const editForm = (data) => {
-		debugger;
 		SetEditData(data)
 		openModal()
-
 		// const { chapterId, chapterName, endPageNo, pageNo, startPageNo, topicId, topicsName } = props;
 		// setSubtitle({ ...subtitle, tagId: tagId, tagName: tagName, tagTypeId: tagTypeId, isActive: isActive })
 	}

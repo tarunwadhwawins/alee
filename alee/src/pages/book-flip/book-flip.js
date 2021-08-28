@@ -113,20 +113,19 @@ function BookFlipPage(props) {
 							useMouseEvents={false} onFlip={onFlip} ref={pageFlip}
 						>
 							{
-							(bookPageData && bookPageData.length > 0) ?
-							 bookPageData.map((singleData, index) => {
-								return (
-									<div className="demoPage" key={index}>
-										<Header as="h3">Page {singleData.pageNo}</Header>
-										<br />
-										<p>
-											{singleData.pageText}
-										</p>
-
-									</div>
-								)
-							}) : null
-						}
+								(bookPageData && bookPageData.length > 0) ?
+									bookPageData.map((singleData, index) => {
+										return (
+											<div className="demoPage" key={index}>
+												<Header as="h3">Page {singleData.pageNo}</Header>
+												<br />
+												<p onClick={()=>props.onHandleTagSelected(singleData)}>
+													{singleData.pageText}
+												</p>
+											</div>
+										)
+									}) : null
+							}
 
 						</HTMLFlipBook>
 					</Grid.Column>
@@ -145,7 +144,6 @@ function BookFlipPage(props) {
 					</Grid.Column>
 				</Grid>
 			</div>
-			
 		</>
 	);
 }

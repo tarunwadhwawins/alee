@@ -12,4 +12,9 @@ export const storeMyBookData = (data) => {
     return { type: types.STORE_MY_BOOK_DATA, payload: data }
 }
 
+export const storeTags = (data) => {
+    return { type: types.STORE_TAGS, payload: data }
+}
+
+
 

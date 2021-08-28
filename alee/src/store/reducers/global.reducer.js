@@ -1,6 +1,6 @@
 import * as types from "../types"
 const initialState = {
-    codes: {}, bookDetail: {}, myBookData: {}
+    codes: {}, bookDetail: {}, myBookData: {}, tags: {}
 };
 
 const globalReducer = (state = initialState, actions) => {
@@ -11,6 +11,8 @@ const globalReducer = (state = initialState, actions) => {
             return { ...state, bookDetail: actions.payload }
         case types.STORE_MY_BOOK_DATA:
             return { ...state, myBookData: actions.payload }
+        case types.STORE_TAGS:
+            return { ...state, tags: actions.payload }
         default:
             return state;
     }
