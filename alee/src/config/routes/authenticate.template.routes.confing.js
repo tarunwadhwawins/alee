@@ -74,7 +74,7 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: false,
-    path: `${env.PUBLIC_URL}/subtitle/:id`,
+    path: `${env.PUBLIC_URL}/specific-Chapter/:id`,
     component: lazy(() => import('../../pages/subtitle'))
   },
   {
@@ -86,7 +86,7 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: false,
-    path: `${env.PUBLIC_URL}/add-tags`,
+    path: `${env.PUBLIC_URL}/add-tags/:id`,
     component: lazy(() => import('../../pages/add-tags'))
   },
   {

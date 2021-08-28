@@ -6,16 +6,15 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 import { useHistory } from "react-router-dom";
 
 function AddSubtitle(props) {
-	debugger
+	
 	const initialValues = { topicId: null, chapterId: null, topicName: "", startPageNo: null, endPageNo: null }
 	const [topic, setTopic] = React.useState(initialValues)
 	const dispatch = useDispatch();
 	let history = useHistory();
 	const auth = useSelector(state => state.global.myChapterData)
 	console.log("auth", auth)
+
 	const onsubmit = () => {
-		debugger;
-		// const data = props.chapterId ? { ...topic, chapterId: props.chapterId } : chapterId = 1
 		if (props.chapterId) {
 			setTopic(topic.chapterId = props.chapterId)
 		}
@@ -25,22 +24,16 @@ function AddSubtitle(props) {
 		dispatch(apiCall({
 			urls: ["ADDTOPIC"], method: "Post", data: topic, onSuccess: (response) => {
 				closeModal();
-				props.GridReload();
 				setTopic(initialValues);
-				history.push(`${env.PUBLIC_URL}/subtitle/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
+				history.push(`${env.PUBLIC_URL}/specific-Chapter/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
 			}, showNotification: true
 		}));
 	}
 	const onHandleChange = (e, { value, data, checked, type }) => {
-		debugger
 		setTopic({ ...topic, [data]: value })
 	}
 
 	useEffect(() => {
-		debugger
-		// if (props.editData) {
-		// 	setTopic(topic.topicId = props.editData.topicId ? props.editData.topicId : null)
-		// }
 		editTopiclist();
 	}, [props.editData]);
 
@@ -84,7 +77,7 @@ function AddSubtitle(props) {
 			</Modal.Content>
 			<Modal.Actions>
 				<Button className="secondaryBtn" onClick={() => closeModal()}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onsubmit} to="subtitle">{topic.topicId > 0 ? "Update" : "Confirm"}</Button>
+				<Button className="primaryBtn" onClick={onsubmit} to="/subtitle">{topic.topicId > 0 ? "Update" : "Confirm"}</Button>
 			</Modal.Actions>
 		</Modal>
 	);

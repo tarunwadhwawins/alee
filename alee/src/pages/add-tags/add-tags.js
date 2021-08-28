@@ -8,9 +8,11 @@ import { storeBookDetails, storeTags } from "../../store/actions/global.actions"
 import BookFlipPage from '../../../src/pages/book-flip/book-flip';
 import AddTagModal from "./tag-modal";
 import { apiCall } from "../../store/actions/api.actions";
+import { useParams } from "react-router-dom";
 
-const tagInitialState = { bookId: 0, chapterId: 0, pageId: 0, tagText: "", bookTagList: [], actionPerformedBy: "" }
 function AddTagPage() {
+	const chapterId = useParams();
+	const tagInitialState = { bookId: 0, chapterId: chapterId.id, pageId: 0, tagText: "", bookTagList: [], actionPerformedBy: "" }
 	const [tagStatus, setTagStatus] = useState(false);
 	const [tagFields, setTagFields] = useState([]);
 	const [fieldData, setFieldData] = useState([]);
