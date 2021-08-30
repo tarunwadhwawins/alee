@@ -101,9 +101,9 @@ function AddTagsListing(props) {
 		setGlobalTag(glbTag => [{ text: value, value }, ...glbTag,])
 		// setGlobalTag((...globalTag) => [...globalTag, globalTag = value]);
 	}
-	return (
 
-		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
+	return (
+		<Modal open={props.openModal} onClose={closeModal} size="tiny">
 			<Modal.Header>Add New Tag</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>

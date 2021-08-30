@@ -4,6 +4,7 @@ import AddTagsListing from "../../shared/components/organisms/modal/add-tags-lis
 import { DataTable } from "../../../src/shared/components/organisms";
 
 function AddTagsListingPage(props) {
+	debugger
 	const [taglisting, setTaglisting] = React.useState(false)
 	const [editData, SetEditData] = useState()
 	const [reload, SetReload] = useState(false)
