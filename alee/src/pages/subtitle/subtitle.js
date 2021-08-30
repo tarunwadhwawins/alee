@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Table, Grid, Icon, Header, Button } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Grid, Icon, Header, Button } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 import { DataTable } from "../../../src/shared/components/organisms";
@@ -28,14 +28,10 @@ function SubtitlePage() {
 		debugger;
 		SetEditData(data)
 		openModal()
-
-		// const { chapterId, chapterName, endPageNo, pageNo, startPageNo, topicId, topicsName } = props;
-		// setSubtitle({ ...subtitle, tagId: tagId, tagName: tagName, tagTypeId: tagTypeId, isActive: isActive })
 	}
 	const GridReload = () => {
 		SetReload(!reload)
 	}
-
 
 	return (
 		<div className="chapterPage">
@@ -48,13 +44,14 @@ function SubtitlePage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
+						debugger
 						allApi={{
 							getApiName: "GETCHAPTERSTOPIC",
 							deleteApiName: "DELETETOPIC",
-							// toggleApiName: "USERSUBSCRIPTIONTOGGLE",
-						}} 
-						searchOption={{ show: true, placeHolder: "Search" }} reload={reload}
+						}}
+						reload={reload}
 						additionalParams={{ chapterId: chapter.chapterId }}
+						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="topic"
 						columns={[
 							{

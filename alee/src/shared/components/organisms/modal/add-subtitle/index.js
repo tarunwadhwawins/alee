@@ -24,10 +24,16 @@ function AddSubtitle(props) {
 		}
 		dispatch(apiCall({
 			urls: ["ADDTOPIC"], method: "Post", data: topic, onSuccess: (response) => {
-				closeModal();
-				props.GridReload();
+				debugger
 				setTopic(initialValues);
+
+				if (props.chapterId) {
+					props.GridReload();
+					closeModal();
+				}
 				history.push(`${env.PUBLIC_URL}/subtitle/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
+				props.GridReload();
+				closeModal();
 			}, showNotification: true
 		}));
 	}
@@ -84,7 +90,8 @@ function AddSubtitle(props) {
 			</Modal.Content>
 			<Modal.Actions>
 				<Button className="secondaryBtn" onClick={() => closeModal()}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onsubmit} to="subtitle">{topic.topicId > 0 ? "Update" : "Confirm"}</Button>
+				{topic.topicId > 0 ? <Button className="primaryBtn" onClick={onsubmit} to="subtitle">{"Update"}</Button> :
+					<Button className="primaryBtn" onClick={onsubmit} to="subtitle"> {"Confirm"}</Button>}
 			</Modal.Actions>
 		</Modal>
 	);

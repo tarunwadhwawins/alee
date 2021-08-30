@@ -5,7 +5,7 @@ import Test from "./test"
 const MyBook = () => {
     return (
         <div className="common-shadow">
-            <Drag />
+            <Test />
         </div>
     );
 }

@@ -1,17 +1,15 @@
-import React from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { GridColumn, Grid } from 'semantic-ui-react';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // fake data generator
 const getItems = (count, offset = 0) =>
     Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `item-${k + offset}`,
+        id: `item-${k + offset}-${new Date().getTime()}`,
         content: `item ${k + offset}`
     }));
 
-// a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-    debugger
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -20,10 +18,9 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 /**
-* Moves an item from one list to another list.
-*/
+ * Moves an item from one list to another list.
+ */
 const move = (source, destination, droppableSource, droppableDestination) => {
-    debugger
     const sourceClone = Array.from(source);
     const destClone = Array.from(destination);
     const [removed] = sourceClone.splice(droppableSource.index, 1);
@@ -36,137 +33,131 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
     return result;
 };
-
 const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
-    userSelect: 'none',
+    userSelect: "none",
     padding: grid * 2,
     margin: `0 0 ${grid}px 0`,
 
     // change background colour if dragging
-    background: isDragging ? 'lightgreen' : 'grey',
+    background: isDragging ? "lightgreen" : "grey",
 
     // styles we need to apply on draggables
     ...draggableStyle
 });
-
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    background: isDraggingOver ? "lightblue" : "lightgrey",
     padding: grid,
     width: 250
 });
-const Test = () => {
 
-    const [items, setItems] = React.useState(getItems(10))
-    const [selected, setSelected] = React.useState(getItems(5, 10))
-    const [id2List, setId2List] = React.useState({ droppable: 'items', droppable2: 'selected' })
-    const [state, setState] = React.useState()
+function Test() {
+    debugger
+    const [state, setState] = useState([getItems(10), getItems(5, 10)]);
 
-    const getList = id => setId2List([id2List[id]]);
-
-    const onDragEnd = result => {
-        debugger
+    function onDragEnd(result) {
         const { source, destination } = result;
 
         // dropped outside the list
         if (!destination) {
             return;
         }
+        const sInd = +source.droppableId;
+        const dInd = +destination.droppableId;
 
-        if (source.droppableId === destination.droppableId) {
-            const items = reorder(
-                getList(source.droppableId),
-                source.index,
-                destination.index
-            );
-
-            let state = { items };
-
-            if (source.droppableId === 'droppable2') {
-                state = { selected: items };
-            }
-            setState(state);
+        if (sInd === dInd) {
+            const items = reorder(state[sInd], source.index, destination.index);
+            const newState = [...state];
+            newState[sInd] = items;
+            setState(newState);
         } else {
-            const result = move(
-                getList(source.droppableId),
-                getList(destination.droppableId),
-                source,
-                destination
-            );
+            const result = move(state[sInd], state[dInd], source, destination);
+            const newState = [...state];
+            newState[sInd] = result[sInd];
+            newState[dInd] = result[dInd];
 
-            // this.setState({
-            //     items: result.droppable,
-            //     selected: result.droppable2
-            // });
-            setItems(result.droppable);
-            setSelected(result.droppable2)
+            setState(newState.filter(group => group.length));
         }
-    };
+    }
 
     return (
-        <div style={{ display: "flex", flexDirection: "row" }}>
-            <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable">
-                    {(provided, snapshot) => (
-                        <div
-                            ref={provided.innerRef}
-                            style={getListStyle(snapshot.isDraggingOver)}>
-                            {items.map((item, index) => (
-                                <Draggable
-                                    key={item.id}
-                                    draggableId={item.id}
-                                    index={index}>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={getItemStyle(
-                                                snapshot.isDragging,
-                                                provided.draggableProps.style
-                                            )}
+        <div>
+            <button
+                type="button"
+                onClick={() => {
+                    setState([...state, []]);
+                }}
+            >
+                Add new group
+            </button>
+            <button
+                type="button"
+                onClick={() => {
+                    setState([...state, getItems(1)]);
+                }}
+            >
+                Add new item
+            </button>
+            <div style={{ display: "flex" }}>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    {state.map((el, ind) => (
+                        <Droppable key={ind} droppableId={`${ind}`}>
+                            {(provided, snapshot) => (
+                                <div
+                                    ref={provided.innerRef}
+                                    style={getListStyle(snapshot.isDraggingOver)}
+                                    {...provided.droppableProps}
+                                >
+                                    {el.map((item, index) => (
+                                        <Draggable
+                                            key={item.id}
+                                            draggableId={item.id}
+                                            index={index}
                                         >
-                                            {item.content}
-                                        </div>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-                <Droppable droppableId="droppable2">
-                    {(provided, snapshot) => (
-                        <div
-                            ref={provided.innerRef}
-                            style={getListStyle(snapshot.isDraggingOver)}>
-                            {selected.map((item, index) => (
-                                <Draggable
-                                    key={item.id}
-                                    draggableId={item.id}
-                                    index={index}>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={getItemStyle(
-                                                snapshot.isDragging,
-                                                provided.draggableProps.style
-                                            )}>
-                                            {item.content}
-                                        </div>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+                                            {(provided, snapshot) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                    style={getItemStyle(
+                                                        snapshot.isDragging,
+                                                        provided.draggableProps.style
+                                                    )}
+                                                >
+                                                    <div
+                                                        style={{
+                                                            display: "flex",
+                                                            justifyContent: "space-around"
+                                                        }}
+                                                    >
+                                                        {item.content}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                const newState = [...state];
+                                                                newState[ind].splice(index, 1);
+                                                                setState(
+                                                                    newState.filter(group => group.length)
+                                                                );
+                                                            }}
+                                                        >
+                                                            delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    ))}
+                </DragDropContext>
+            </div>
         </div>
-    )
+    );
 }
-export default Test;
+export default Test
