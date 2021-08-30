@@ -4,20 +4,21 @@ import { Link } from "../../shared/functional/global-import";
 import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { useParams, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { env } from "../../shared/functional/global-import";
 
 function SubtitlePage() {
-	debugger
 	let search = useLocation().search
 	const chapterName = new URLSearchParams(search).get('chapter')
-	const id = useParams();
+	const chapterId = useParams();
 	const [subtitle, setSubtitle] = React.useState(false)
 	const [editData, SetEditData] = useState([]);
-	const initialState = { chapterId: id.id }
+	const initialState = { chapterId: chapterId.id }
 	const [chapter, SetChapter] = useState(initialState);
 	const [reload, SetReload] = useState(false)
+	let history = useHistory();
 
 	const openModal = (props) => {
-		debugger
 		if (subtitle) {
 			SetEditData([])
 		}
@@ -25,12 +26,15 @@ function SubtitlePage() {
 	}
 
 	const editForm = (data) => {
-		debugger;
 		SetEditData(data)
 		openModal()
 	}
 	const GridReload = () => {
 		SetReload(!reload)
+	}
+
+	const aa = () => {
+		history.push(`${env.PUBLIC_URL}/add-tags/${chapter.chapterId}`);
 	}
 
 	return (
@@ -82,7 +86,8 @@ function SubtitlePage() {
 					></DataTable>
 				</Grid.Column>
 				<Grid.Column width={16} textAlign="right">
-					<Button className="primaryBtn" as={Link} to="add-tags">Add Tag</Button>
+					{/* <Button className="primaryBtn" as={Link} to="/add-tags">Add Tag</Button> */}
+					<Button className="primaryBtn" onClick={aa}>Add Tag</Button>
 				</Grid.Column>
 			</Grid>
 			<AddSubtitle openModal={subtitle} closeModal={openModal} editData={editData} chapterId={chapter.chapterId} GridReload={GridReload} />

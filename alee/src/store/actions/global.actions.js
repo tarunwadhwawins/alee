@@ -11,8 +11,9 @@ export const storeBookDetails = (data) => {
 export const storeMyBookData = (data) => {
     return { type: types.STORE_MY_BOOK_DATA, payload: data }
 }
-export const storeMyChapterData = (data) => {
-    return { type: types.STORE_MY_CHAPTER_DATA, payload: data }
+export const storeTags = (data) => {
+    return { type: types.STORE_TAGS, payload: data }
 }
+
 
 

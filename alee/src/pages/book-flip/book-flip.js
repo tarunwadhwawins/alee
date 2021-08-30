@@ -119,10 +119,9 @@ function BookFlipPage(props) {
 											<div className="demoPage" key={index}>
 												<Header as="h3">Page {singleData.pageNo}</Header>
 												<br />
-												<p>
+												<p onClick={()=>props.onHandleTagSelected(singleData)}>
 													{singleData.pageText}
 												</p>
-
 											</div>
 										)
 									}) : null
@@ -145,7 +144,6 @@ function BookFlipPage(props) {
 					</Grid.Column>
 				</Grid>
 			</div>
-
 		</>
 	);
 }

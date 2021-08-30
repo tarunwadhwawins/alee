@@ -6,16 +6,15 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 import { useHistory } from "react-router-dom";
 
 function AddSubtitle(props) {
-	debugger
+	
 	const initialValues = { topicId: null, chapterId: null, topicName: "", startPageNo: null, endPageNo: null }
 	const [topic, setTopic] = React.useState(initialValues)
 	const dispatch = useDispatch();
 	let history = useHistory();
 	const auth = useSelector(state => state.global.myChapterData)
 	console.log("auth", auth)
+
 	const onsubmit = () => {
-		debugger;
-		// const data = props.chapterId ? { ...topic, chapterId: props.chapterId } : chapterId = 1
 		if (props.chapterId) {
 			setTopic(topic.chapterId = props.chapterId)
 		}
@@ -38,15 +37,10 @@ function AddSubtitle(props) {
 		}));
 	}
 	const onHandleChange = (e, { value, data, checked, type }) => {
-		debugger
 		setTopic({ ...topic, [data]: value })
 	}
 
 	useEffect(() => {
-		debugger
-		// if (props.editData) {
-		// 	setTopic(topic.topicId = props.editData.topicId ? props.editData.topicId : null)
-		// }
 		editTopiclist();
 	}, [props.editData]);
 
