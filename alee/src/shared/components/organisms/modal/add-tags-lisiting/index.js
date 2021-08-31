@@ -104,7 +104,7 @@ function AddTagsListing(props) {
 
 	return (
 		<Modal open={props.openModal} onClose={closeModal} size="tiny">
-			<Modal.Header>Add New Tag</Modal.Header>
+			<Modal.Header>{taglisting.tagId > 0 ? "Edit Tag" : "Add Tag"}</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>
