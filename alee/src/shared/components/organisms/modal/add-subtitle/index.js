@@ -6,7 +6,7 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 import { useHistory } from "react-router-dom";
 
 function AddSubtitle(props) {
-	
+	debugger
 	const initialValues = { topicId: null, chapterId: null, topicName: "", startPageNo: null, endPageNo: null }
 	const [topic, setTopic] = React.useState(initialValues)
 	const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function AddSubtitle(props) {
 					props.GridReload();
 					closeModal();
 				}
-				history.push(`${env.PUBLIC_URL}/subtitle/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
+				history.push(`${env.PUBLIC_URL}/specific-Chapter/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
 				props.GridReload();
 				closeModal();
 			}, showNotification: true
