@@ -20,7 +20,7 @@ function LessonPlanPage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-						allApi={{ getApiName: "GETLESSONPLANLIST", deleteApiName: "DELETELESSONPLAN", toggleApiName: "LESSONTOGGLEISACTIVE" }} messageInModal= "lesson Plan"
+						allApi={{ getApiName: "GETLESSONPLANLIST", deleteApiName: "DELETELESSONPLAN", toggleApiName: "LESSONTOGGLEISACTIVE" }} messageInModal="lesson Plan"
 						searchOption={{ show: true, placeHolder: "Search" }}
 						columns={[
 							{
@@ -45,8 +45,8 @@ function LessonPlanPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.lessonPlanId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.lessonPlanId, "delete")} />
 										</>
 									);
 								},

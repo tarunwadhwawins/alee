@@ -1,5 +1,5 @@
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Table, Grid, Icon, Header, Button, Image, Popup } from "semantic-ui-react";
 import AddChapter from "../../shared/components/organisms/modal/add-chapter/index";
 import { BookPage1, BookPage2, BookPage3, BookPage4, BookPage5, BookPage6 } from "../../shared/functional/global-image-import";
@@ -24,20 +24,20 @@ function ChapterEmptyPage() {
 		SetEditData(data)
 		openModal();
 	}
-    return (
-        <div className="chapterPage">
+	return (
+		<div className="chapterPage">
 			<BookFlipPage />
 			<Grid>
-			<Grid.Column width={8} verticalAlign="middle">
-				<Header className="commonHeading">{bookName}</Header>
-			</Grid.Column>
-			<Grid.Column width={8} textAlign="right">
-				<Button className="primaryBtn" onClick={openModal}> <Icon name="plus"/> Chapter </Button>
-			</Grid.Column>
+				<Grid.Column width={8} verticalAlign="middle">
+					<Header className="commonHeading">{bookName}</Header>
+				</Grid.Column>
+				<Grid.Column width={8} textAlign="right">
+					<Button className="primaryBtn" onClick={openModal}> <Icon name="plus" /> Chapter </Button>
+				</Grid.Column>
 				<Grid.Column width={16}>
-				<DataTable
-						allApi={{ getApiName: "GETCHAPTERLIST" , deleteApiName:"DELETECHAPTER" }} reload={reload}
-						additionalParams={{ bookId:bookId }}
+					<DataTable
+						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName: "DELETECHAPTER" }} reload={reload}
+						additionalParams={{ bookId: bookId }}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="Chapter"
 						columns={[
@@ -64,8 +64,8 @@ function ChapterEmptyPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId,"delete")}/>
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId, "delete")} />
 										</>
 									);
 								},
@@ -75,9 +75,9 @@ function ChapterEmptyPage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData}/>
+			<AddChapter openModal={chapter} closeModal={openModal} GridReload={GridReload} editData={editData} />
 		</div>
-    );
+	);
 }
 
 export default ChapterEmptyPage;

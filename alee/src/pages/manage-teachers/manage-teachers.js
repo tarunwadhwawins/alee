@@ -24,14 +24,14 @@ function ManageTeacherPage() {
 									return (
 										<>
 											<Link
-											to={`${env.PUBLIC_URL}/profile-preview/${props.teacherId}`}>
-											{props.firstName}{" "}{props.lastName}
+												to={`${env.PUBLIC_URL}/profile-preview/${props.teacherId}`}>
+												{props.firstName}{" "}{props.lastName}
 											</Link>
-											
+
 										</>
 									);
 								},
-								
+
 							},
 							{
 								headerName: "Email",
@@ -40,7 +40,7 @@ function ManageTeacherPage() {
 								Cell: (props) => {
 									return (
 										<>
-						<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+											<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
 										</>
 									);
 								},
@@ -69,8 +69,8 @@ function ManageTeacherPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
 										</>
 									);
 								},

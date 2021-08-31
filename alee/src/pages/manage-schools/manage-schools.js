@@ -13,7 +13,7 @@ function ManageSchoolPage() {
 				<DataTable
 					allApi={{ getApiName: "GETSCHOOLSLIST", deleteApiName: "DELETESCHOOL", toggleApiName: "SCHOOLTOGGLE" }}
 					searchOption={{ show: true, placeHolder: "Search" }}
-					messageInModal= "school"
+					messageInModal="school"
 					columns={[
 						{
 							headerName: "School Name",
@@ -23,10 +23,10 @@ function ManageSchoolPage() {
 								return (
 									<>
 										<Link
-										to={`${env.PUBLIC_URL}/profile-school/${props.schoolId}`}>
-										{props.schoolName}{" "}
+											to={`${env.PUBLIC_URL}/profile-school/${props.schoolId}`}>
+											{props.schoolName}{" "}
 										</Link>
-										
+
 									</>
 								);
 							},
@@ -37,11 +37,11 @@ function ManageSchoolPage() {
 							isSorting: true,
 							Cell: (props) => {
 								debugger;
-								return  (
-							<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-								) 
-							  },
-					
+								return (
+									<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+								)
+							},
+
 						},
 
 						{
@@ -50,7 +50,7 @@ function ManageSchoolPage() {
 							isSorting: true,
 							Cell: (props, confirmModalOpen) => {
 								return (
-									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "update",props.isActive)} />
+									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "update", props.isActive)} />
 								);
 							},
 						},
@@ -61,8 +61,8 @@ function ManageSchoolPage() {
 							Cell: (props, confirmModalOpen) => {
 								return (
 									<>
-										<Icon name="edit" className="primary-color" link />
-										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.schoolId, "delete")} />
+										<Icon title="Edit" name="edit" className="primary-color" link />
+										<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.schoolId, "delete")} />
 									</>
 								);
 							},

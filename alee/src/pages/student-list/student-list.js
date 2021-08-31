@@ -164,8 +164,8 @@ function StudentListPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "student")} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "student")} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
 										</>
 									);
 								},

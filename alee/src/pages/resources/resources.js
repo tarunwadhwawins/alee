@@ -237,8 +237,9 @@ function ResourcesPage() {
                     ;
                     return (
                       <>
-                        <Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                        <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
                         <Icon
+                          title="Delete"
                           name="trash alternate"
                           color="red"
                           link
@@ -296,16 +297,16 @@ function ResourcesPage() {
                   headerName: "Video",
                   fieldName: "link",
                   isSorting: true,
-                    Cell: (props) => {
-                      return props.link ? (
-                        <a href={(props.link)}
-                          target="_blank">
-                          <Icon name="video" className="primary-color" link />
-                        </a>
-                      ) : (
-                        "-"
-                      );
-                    },
+                  Cell: (props) => {
+                    return props.link ? (
+                      <a href={(props.link)}
+                        target="_blank">
+                        <Icon name="video" className="primary-color" link />
+                      </a>
+                    ) : (
+                      "-"
+                    );
+                  },
                 },
                 {
                   headerName: "Action",
@@ -314,8 +315,9 @@ function ResourcesPage() {
                   Cell: (props, confirmModalOpen) => {
                     return (
                       <>
-                        <Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                        <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
                         <Icon
+                          title="Delete"
                           name="trash alternate"
                           color="red"
                           link
@@ -406,8 +408,9 @@ function ResourcesPage() {
                   Cell: (props, confirmModalOpen) => {
                     return (
                       <>
-                        <Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                        <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
                         <Icon
+                          title="Delete"
                           name="trash alternate"
                           color="red"
                           link

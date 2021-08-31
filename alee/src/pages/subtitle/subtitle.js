@@ -76,8 +76,8 @@ function SubtitlePage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="pencil alternate" className="primary-color" onClick={() => editForm(props)} />
-											<Icon name="trash alternate" color='red' onClick={() => confirmModalOpen(props.topicId, "delete")} />
+											<Icon title="Edit" name="pencil alternate" className="primary-color" onClick={() => editForm(props)} />
+											<Icon title="Delete" name="trash alternate" color='red' onClick={() => confirmModalOpen(props.topicId, "delete")} />
 										</>
 									);
 								},
