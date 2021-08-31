@@ -24,7 +24,7 @@ function AddTagsListingPage(props) {
 		<div className="bookSummary">
 			<Grid>
 				<Grid.Column width={8}>
-					<Header as="h3" className="commonHeading">Add Tags Listing</Header>
+					<Header as="h3" className="commonHeading">Tags</Header>
 				</Grid.Column>
 
 				<Grid.Column width={8} textAlign="right">
