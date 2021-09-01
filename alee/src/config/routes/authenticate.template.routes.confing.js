@@ -221,6 +221,12 @@ const AuthenticateTemplateRoutesConfing = [
     path: `${env.PUBLIC_URL}/drag`,
     component: lazy(() => import('../../pages/drag-and-drop'))
   },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/forgot-password`,
+    component: lazy(() => import('../../shared/components/organisms/modal/forgot-password'))
+  },
 ];
 
 export default AuthenticateTemplateRoutesConfing;

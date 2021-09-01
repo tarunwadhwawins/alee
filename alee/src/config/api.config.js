@@ -73,7 +73,8 @@ const API_ENDPOINTS = {
   UPDATETAG: "/Tags/UpdateTag",
   ADDTEACHERQUALIFICATION: "/Teacher/AddTeacherQualification",
   GETTEACHERPROFILEDATA: "/Teacher/GetTeacherProfileData",
-  GETCHAPTERPAGES: "/Chapter/GetChapterPages"
+  GETCHAPTERPAGES: "/Chapter/GetChapterPages",
+  FORGOTPASSWORD:"/Authentication/ForgotPassword"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

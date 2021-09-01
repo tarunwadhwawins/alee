@@ -21,6 +21,12 @@ const NoTemplateRoutesConfing = [
     path: `${env.PUBLIC_URL}/profile-setup`,
     component: lazy(() => import('../../pages/profile-setup'))
   },
+  {
+    exact: true,
+    private: false,
+    path: `${env.PUBLIC_URL}/reset-password`,
+    component: lazy(() => import('../../pages/reset-password/reset-password'))
+  },
 ];
 
 
