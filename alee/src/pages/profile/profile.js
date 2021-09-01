@@ -65,7 +65,6 @@ function MyProfile() {
   }
 
   const editQualification = (data, index) => {
-    debugger
     setsecondstepValues({ ...secondstepValues, degree: data.degree, college: data.college, inProgress: data.inProgress, yearOfPassing: data.yearOfPassing, index: index })
   }
 

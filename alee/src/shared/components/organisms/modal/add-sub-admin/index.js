@@ -35,7 +35,7 @@ function AddSubAdmin(props) {
   }, [props.openModal]);
 
   const editSubAdmin = () => {
-    debugger
+    
     if (props.editDetail) {
       const {
         userName,
@@ -65,7 +65,7 @@ function AddSubAdmin(props) {
           method: "POST",
           data: subAdmin,
           onSuccess: (response) => {
-            debugger;
+           
             closeModal();
             props.GridReload();
             setSubAdmin(initialAddValues);

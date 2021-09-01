@@ -27,6 +27,7 @@ function MyBookPage(props) {
 	const getBookList = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKSLIST"], method: "GET", data: values, onSuccess: (response) => {
+				debugger
 				setBookList(response)
 			}
 		}));
@@ -53,7 +54,6 @@ function MyBookPage(props) {
 	}
 
 	const addBookData = (data) => {
-		debugger
 		dispatch(storeMyBookData(data));
 	}
 
@@ -67,7 +67,6 @@ function MyBookPage(props) {
 
 		dispatch(apiCall({
 			urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { "PageNo ": 1, "PageSize ": 100 }, onSuccess: (response) => {
-				debugger
 				setTagFields(response)
 				let fieldName = [];
 				response.filter(code => code.dataTypeName === "Int").map((filtercode) => {
@@ -77,7 +76,6 @@ function MyBookPage(props) {
 
 					dispatch(apiCall({
 						urls: ["GETTAGCUSTOMFIELDSLIST"], method: "GET", data: { fieldName: filtercode.fieldName }, onSuccess: (response) => {
-							debugger
 							const res = response.map((single) => {
 								return { value: single.id, text: single.codeName }
 							});
@@ -128,11 +126,11 @@ function MyBookPage(props) {
 										/>
 										<Item.Content >
 											<Item.Header onClick={() => addBookData(data)} as={Link} to={`${auth === "Admin" ? "book-flip" : "book-summary"}`}><span>{data.bookName}</span></Item.Header>
-											{/* <Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta> */}
+											<Item.Meta><span>{data.author}</span></Item.Meta>
 											<Item.Description>
-												{JSON.parse(data.bookSummary).blocks[0].text}
+												{data.bookSummary !== null && JSON.parse(data.bookSummary).blocks[0].text}
 											</Item.Description>
-											<Item.Extra>Other Tags: 6.4, Empathy, Twist {auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} /></div>}</Item.Extra>
+											<Item.Extra> {auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} /></div>}</Item.Extra>
 										</Item.Content>
 									</Item>
 								</Item.Group>

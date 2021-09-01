@@ -287,10 +287,7 @@ h4.ui.header.bookName {
 .scanBook {
 	.scanBookInner {
 		border: 1px dashed $gray-color;
-		height: 200px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		padding: 15px;
 	}
 	.scanBookList {
 		background-color: $secondary-color;
@@ -308,6 +305,36 @@ h4.ui.header.bookName {
 			position: absolute;
 			right: 2px;
 			top: 10px;
+		}
+	}
+	.coverImg {
+		display: flex;
+		align-items: flex-start;
+		div {
+			position: relative;
+			margin: 0 0 0 10px;
+			box-shadow: 0 0 10px rgba(0,0,0,.1);
+			border-radius: 5px;
+			img {
+				max-width: 100px!important;
+				height: 100px;
+				object-fit: cover;
+				min-width: 100px;
+			}
+			i.icon {
+				position: absolute;
+				top: -10px;
+				right: -10px;
+				background-color: #000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #fff;
+				height: 20px;
+				width: 20px;
+				border-radius: 30px;
+			}
+			
 		}
 	}
 }
@@ -401,6 +428,7 @@ h4.ui.header.bookName {
 		// overflow: hidden;
 		.demoPage {
 			height: 500px!important;
+			overflow: auto;
 		} 
 	}
 	img.ui.image {
