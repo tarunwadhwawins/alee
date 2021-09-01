@@ -46,7 +46,7 @@ function MyBookPage(props) {
 	}
 
 	const addBookData = (data) => {
-		debugger
+		 
 		dispatch(storeMyBookData(data));
 	}
 

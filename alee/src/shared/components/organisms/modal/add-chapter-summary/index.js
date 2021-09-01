@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React,{useState,useEffect}  from "react";
 import { Modal, Button } from "semantic-ui-react";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState,convertToRaw,convertFromRaw } from 'draft-js';
@@ -17,13 +17,14 @@ function AddChapterSummary(props) {
   const dispatch = useDispatch();
   const onEditorStateChange = (editorState) => {
 	chapterSummary.chapterSummary = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-	setEditorState(editorState, chapterSummary)
+	setEditorState(editorState,chapterSummary)
+	// setChapterSummary(chapterSummary)
 	const x = JSON.parse(chapterSummary.chapterSummary)
 	console.log("onEditorStateChange", x)
 }
 
 useEffect(() => {
-	debugger;
+	
 	if(props.openModal && props.summaryData.chapterSummary ){
 		setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(props.summaryData.chapterSummary))));
 	}
@@ -36,8 +37,8 @@ useEffect(() => {
         method: "POST",
         data: chapterSummary,
         onSuccess: (response) => {
-			debugger
-			props.closeModal();
+			 
+			closeModal();
 			props.GridReload();
 			setChapterSummary(initialValues);
         },
@@ -45,10 +46,14 @@ useEffect(() => {
       })
     );
   };
-  
+  const closeModal = () => {
+	props.closeModal();
+	setChapterSummary(initialValues);
+};
+
 	const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
 	return (
-		<Modal open={props.openModal} onClose={props.closeModal} size="small" closeOnDimmerClick={false}>
+		<Modal open={props.openModal} onClose={closeModal} size="small" closeOnDimmerClick={false}>
 			<Modal.Header>Add Chapter Summary</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
@@ -63,11 +68,11 @@ useEffect(() => {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onHandleSubmit}>Save</Button>
+				<Button className="secondaryBtn"  onClick={()=>closeModal()}>Cancel</Button>
+				<Button className="primaryBtn" onClick={onHandleSubmit }>Save</Button>
 			</Modal.Actions>
 		</Modal>
-	);
-}
-
-export default AddChapterSummary;
+		);
+  }
+  
+  export default AddChapterSummary;

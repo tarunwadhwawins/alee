@@ -84,7 +84,7 @@ const initializeSimpleValidator = () => {
 
 // This function is used for image URL concatnation 
 const concatenateImageWithAPIUrl = (Image) => {
-  debugger;
+  
   if (Image && Image !== "") {
     return `${env.API_URL.replace("/api", "")}${Image}`;
   }

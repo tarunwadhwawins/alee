@@ -54,7 +54,7 @@ function LessonLibrary() {
 	const getComprehensionStrategiesTags = () => {
 		dispatch(apiCall({
 			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "ComprehensionStrategies")).globalCodeId }, onSuccess: (response) => {
-				debugger
+				 
 				const tagList = response.map((singleTag) => {
 					return { value: singleTag.tagId, text: singleTag.tagTypeName }
 				});

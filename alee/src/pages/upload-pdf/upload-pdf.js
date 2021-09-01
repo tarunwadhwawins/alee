@@ -10,7 +10,7 @@ function UploadPdfPage() {
 	const fileInputRef = React.createRef();
 
 	const onFileChange = (event) => {
-		debugger
+		 
 		const files = event.target.files;
 		if (event.target.files.length > 0) {
 			SetFileName(event.target.files[0].name)

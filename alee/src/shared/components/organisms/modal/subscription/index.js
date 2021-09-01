@@ -32,7 +32,7 @@ const AddSubscription = (props) => {
 	}
 
 	useEffect(() => {
-		debugger
+		 
 		editForm();
 	}, [props.editData]);
 

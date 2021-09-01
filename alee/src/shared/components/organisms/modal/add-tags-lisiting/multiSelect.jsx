@@ -1,7 +1,7 @@
 import { Form } from "semantic-ui-react";
 
 const GlobalCodeSelect = ({ placeholder, name, onChange, value, categoryType, data, global, error, disabled, isRounded, defaultValue }) => {
-    debugger
+     
     let filteredGlobalCodes = []
 
     let globalCodes = global.codes.filter(code => code.categoryName === categoryType).map((filtercode) => {

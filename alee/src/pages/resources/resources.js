@@ -51,7 +51,7 @@ function ResourcesPage() {
   };
 
   const fileChange = (e) => {
-    debugger
+     
     setResources({ ...resources, UploadPdf: e.target.files[0] });
     
   };
@@ -150,7 +150,7 @@ function ResourcesPage() {
 
 
   const checkDisplayIcon = (link) =>{
-    debugger;
+    
       if(link?.indexOf("www.youtube.com") > -1)
       {
         return "video";

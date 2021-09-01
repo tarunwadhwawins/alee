@@ -11,11 +11,9 @@ const GlobalCodeSelect = ({ placeholder, name, onChange, value, categoryType, da
 
     });
     filteredGlobalCodes.push({ filtercode: -1, value: -1, text: placeholder, disabled: true })
-    filteredGlobalCodes = filteredGlobalCodes.concat(globalCodes)
-    debugger
+    filteredGlobalCodes = filteredGlobalCodes.concat(globalCodes);
     return (<Form.Select placeholder={placeholder} search type="select-int" options={filteredGlobalCodes} className="custom-select bordered-input" data={data} name={name} value={value} fluid onChange={onChange} error={error} disabled={disabled} label={label} />);
 };
-
 GlobalCodeSelect.propTypes = {
     placeholder: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

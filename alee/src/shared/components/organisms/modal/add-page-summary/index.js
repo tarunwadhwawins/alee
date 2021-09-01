@@ -7,14 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../store/actions/api.actions";
 
 function AddPageSummary(props) {
-	debugger
+	 
 	const bookId = useSelector(state => state.global.myBookData.bookId)
 
 	const initialValues = { bookId: bookId, bookSummary: "", pageNo: 1, pageSize: 100 }
 	const [bookSummary, setBookSummary] = React.useState(initialValues)
 	const [editorState, setEditorState] = React.useState(EditorState.createEmpty())
 	const onEditorStateChange = (editorState) => {
-		debugger
+		 
 		// const bookSummaryText = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
 		// bookSummary.bookSummary = JSON.parse(bookSummaryText).blocks[0].text
 		bookSummary.bookSummary = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
@@ -29,7 +29,7 @@ function AddPageSummary(props) {
 	}, []);
 
 	// const editChapterSummary = () => {
-	// 	debugger
+	// 	 
 	// 	const {
 	// 		chapterId,
 	// 		chapterSummary,
@@ -42,7 +42,7 @@ function AddPageSummary(props) {
 	const getBookSummary = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKSUMMARY"], method: "GET", data: { bookId: bookId }, onSuccess: (response) => {
-				debugger
+				 
 				// bookSummary.bookSummary = response[0].bookSummary
 				// editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(response[0].bookSummary)))
 				setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(response[0].bookSummary))));
@@ -53,7 +53,7 @@ function AddPageSummary(props) {
 	}
 
 	const onsubmit = () => {
-		debugger
+		 
 		dispatch(apiCall({
 			urls: ["ADDBOOKSUMMARY"], method: "Post", data: bookSummary, onSuccess: (response) => {
 				// history.push(`${env.PUBLIC_URL}`);

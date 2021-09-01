@@ -43,13 +43,13 @@ function AddStudent(props) {
     );
   };
   useEffect(() => {
-    debugger
+     
     editStudentlist();
     getGradeList();
   }, [props.editData]);
 
   const editStudentlist = () => {
-    debugger
+     
     if (props.editData !== undefined) {
       const {
         firstName,

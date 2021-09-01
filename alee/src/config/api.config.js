@@ -72,8 +72,10 @@ const API_ENDPOINTS = {
   GRADESTOGGLE: "/Grades/ToggleIsActive",
   UPDATETAG: "/Tags/UpdateTag",
   ADDTEACHERQUALIFICATION:"/Teacher/AddTeacherQualification",
-  GETTEACHERPROFILEDATA:"/Teacher/GetTeacherProfileData"
-};
+  GETTEACHERPROFILEDATA:"/Teacher/GetTeacherProfileData",
+  ADDTEACHERWORKEXPERIENCE:"/Teacher/AddTeacherWorkExperience",
+  ADDTEACHERSKILLS:"/Teacher/AddTeacherSkills",
+  };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];
 };

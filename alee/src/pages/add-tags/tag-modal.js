@@ -19,7 +19,7 @@ function AddTagModal(props) {
                                             {singleField.dataTypeName === "Int" ?
                                                 // <>
                                                 //     {props.tagFields && props.tagFields.length>0 && props.tagFields.map((singleField, index) => {
-                                                //         debugger
+                                                //          
                                                 //         return (
                                                 <Form.Field>
                                                     <Form.Select placeholder={'Select' + singleField.fieldName} label={singleField.fieldName}  />

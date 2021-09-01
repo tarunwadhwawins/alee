@@ -22,7 +22,6 @@ function ProfileStepOne(props) {
 			}
 		}))
 	}
-
 	const { onHandleChange } = props;
 	return (
 		<Form>

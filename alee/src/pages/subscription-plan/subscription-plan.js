@@ -63,7 +63,7 @@ function SubscriptionPlanPage(props) {
               fieldName: "isActive",
               isSorting: true,
               Cell: (props) => {
-                debugger 
+                  
                 return <Label className={props.isActive ? "green" : "red"}>{props.isActive ? "Active" : "Inactive"}</Label>;
               },
             },

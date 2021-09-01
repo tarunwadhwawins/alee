@@ -4,7 +4,7 @@ import { Link } from "../../../../functional/global-import";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 function AddChapter(props) {
-	debugger
+	 
 	const bookId = useSelector(state => state.global.myBookData.bookId)
 
 	const initialValues = {
@@ -43,20 +43,20 @@ function AddChapter(props) {
 		setChapter(initialValues);
 	}
 	const addChapter = () => {
-		debugger
+		 
 		localStorage.setItem("BookType", "With Chapter");
 		setTimeout(() => {
 			window.location.reload();
 		}, (1000));
 	}
 	useEffect(() => {
-		debugger;
+		
 		editChapterlist();
 	}, [props.editData]);
 
 	const editChapterlist = () => {
 		if (props.editData !== undefined) {
-			debugger
+			 
 			const {
 				chapterId,
 				chapterName,

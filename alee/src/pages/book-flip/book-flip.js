@@ -17,7 +17,7 @@ function BookFlipPage(props) {
 	const auth = useSelector(state => state.auth.userDetail.role)
 
 	// const openModal = () => {
-	// 	debugger
+	// 	 
 	// 	setSummary(true)
 	// }
 	// const openModal2 = () => {
@@ -55,7 +55,7 @@ function BookFlipPage(props) {
 	// });
 
 	// const aa = (e) => {
-	// 	debugger
+	// 	 
 	// 	// const lastThirdPage = bookPageData[bookPageData.length - 4].pageId
 	// 	// if (lastThirdPage === e.pageId) {
 
@@ -79,7 +79,7 @@ function BookFlipPage(props) {
 				dispatch(apiCall({
 					urls: ["GETBOOKPAGE"], method: "GET", data: { PageId: lastThirdPage, BookId: 48 }, onSuccess: (response) => {
 						// let updated = [...bookPageData, ...response];
-						//  debugger
+						//   
 						//setBookPageData(updated)
 					}
 				}))

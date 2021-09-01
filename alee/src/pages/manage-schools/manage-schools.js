@@ -36,7 +36,7 @@ function ManageSchoolPage() {
 							fieldName: "email",
 							isSorting: true,
 							Cell: (props) => {
-								debugger;
+								
 								return  (
 							<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
 								) 

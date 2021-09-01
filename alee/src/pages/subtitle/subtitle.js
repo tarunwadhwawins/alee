@@ -6,7 +6,7 @@ import { DataTable } from "../../../src/shared/components/organisms";
 import { useParams, useLocation } from "react-router-dom";
 
 function SubtitlePage() {
-	debugger
+	 
 	let search = useLocation().search
 	const chapterName = new URLSearchParams(search).get('chapter')
 	const id = useParams();
@@ -17,7 +17,7 @@ function SubtitlePage() {
 	const [reload, SetReload] = useState(false)
 
 	const openModal = (props) => {
-		debugger
+		 
 		if (subtitle) {
 			SetEditData([])
 		}
@@ -25,7 +25,7 @@ function SubtitlePage() {
 	}
 
 	const editForm = (data) => {
-		debugger;
+		
 		SetEditData(data)
 		openModal()
 

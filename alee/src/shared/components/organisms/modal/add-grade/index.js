@@ -27,7 +27,7 @@ function AddGrade(props) {
 				method:"Post",
 				data: grade,
 				onSuccess: (response) => {
-					debugger;
+					
 					closeModal();
 					props.GridReload();
 					setGrade(initialValues);
