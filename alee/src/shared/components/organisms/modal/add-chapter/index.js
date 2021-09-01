@@ -4,7 +4,6 @@ import { Link } from "../../../../functional/global-import";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 function AddChapter(props) {
-	 
 	const bookId = useSelector(state => state.global.myBookData.bookId)
 
 	const initialValues = {
@@ -39,24 +38,23 @@ function AddChapter(props) {
 		);
 	};
 	const closeModal = () => {
-		props.closeModal();
+		debugger
 		setChapter(initialValues);
+		props.closeModal();
 	}
 	const addChapter = () => {
-		 
 		localStorage.setItem("BookType", "With Chapter");
 		setTimeout(() => {
 			window.location.reload();
 		}, (1000));
 	}
 	useEffect(() => {
-		
 		editChapterlist();
 	}, [props.editData]);
 
 	const editChapterlist = () => {
-		if (props.editData !== undefined) {
-			 
+		debugger
+		if (props.editData !== undefined && props.chapterText === undefined) {
 			const {
 				chapterId,
 				chapterName,
@@ -79,7 +77,7 @@ function AddChapter(props) {
 					</Dimmer>
 				)
 			}
-			<Modal.Header>Add Chapter</Modal.Header>
+			<Modal.Header>{chapter.chapterId > 0 ? "Edit Chapter" : "Add Chapter"}</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>
@@ -109,8 +107,8 @@ function AddChapter(props) {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn" onClick={() => props.closeModal()}>Cancel</Button>
-				<Button className="primaryBtn" onClick={() => { props.closeModal(); addChapter(); }}
+				<Button className="secondaryBtn" onClick={closeModal}>Cancel</Button>
+				<Button className="primaryBtn" onClick={() => { closeModal(); addChapter(); }}
 					onClick={onHandleSubmit} as={Link} to="chapter">{chapter.chapterId > 0 ? "Update" : "Confirm"}</Button>
 			</Modal.Actions>
 		</Modal>

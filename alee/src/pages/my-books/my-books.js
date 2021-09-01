@@ -5,11 +5,18 @@ import { apiCall } from "../../../src/store/actions/api.actions";
 import ConfirmModal from "../../shared/components/organisms/modal/common-confirm-modal/index";
 import { Link, commonFunctions } from "../../shared/functional/global-import";
 import { storeMyBookData } from "../../store/actions/global.actions";
+import { storeBookDetails, storeTags } from "../../store/actions/global.actions";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
 	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
+
+	const [tagFields, setTagFields] = useState([]);
+	const [fieldData, setFieldData] = useState([]);
+	const [fieldOptions, setFieldOptions] = useState([]);
+
+
 	const dispatch = useDispatch();
 	const auth = useSelector(state => state.auth.userDetail.role)
 	//  call the api //
@@ -49,6 +56,45 @@ function MyBookPage(props) {
 		 
 		dispatch(storeMyBookData(data));
 	}
+
+	useEffect(() => {
+		getTagField();
+	}, []);
+
+	const getTagField = () => {
+ 
+		let aa = [];
+
+		dispatch(apiCall({
+			urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { "PageNo ": 1, "PageSize ": 100 }, onSuccess: (response) => {
+				debugger
+				setTagFields(response)
+				let fieldName = [];
+				response.filter(code => code.dataTypeName === "Int").map((filtercode) => {
+
+					fieldName.push(filtercode.fieldName)
+					setFieldData(fieldData.concat(fieldName))
+
+					dispatch(apiCall({
+						urls: ["GETTAGCUSTOMFIELDSLIST"], method: "GET", data: { fieldName: filtercode.fieldName }, onSuccess: (response) => {
+							debugger
+							const res = response.map((single) => {
+								return { value: single.id, text: single.codeName }
+							});
+
+							// if (res.length > 0) {
+								setFieldOptions(fieldOptions => [...fieldOptions, { [filtercode.fieldName]: res }])
+								aa.push({ [filtercode.fieldName]: res })
+							// }
+						}
+					}))
+					dispatch(storeTags(aa))
+				});
+				setFieldData(fieldData.concat(fieldName))
+			}
+		}))
+	}
+
 
 	const api = useSelector(state => state.api)
 	return (

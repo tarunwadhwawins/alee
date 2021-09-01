@@ -75,6 +75,7 @@ const API_ENDPOINTS = {
   GETTEACHERPROFILEDATA:"/Teacher/GetTeacherProfileData",
   ADDTEACHERWORKEXPERIENCE:"/Teacher/AddTeacherWorkExperience",
   ADDTEACHERSKILLS:"/Teacher/AddTeacherSkills",
+  GETCHAPTERPAGES:"/Chapter/GetChapterPages"
   };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

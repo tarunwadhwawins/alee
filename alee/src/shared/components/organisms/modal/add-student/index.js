@@ -7,14 +7,14 @@ import { GlobalCodeSelect } from "../../../../components";
 
 function AddStudent(props) {
   const auth = useSelector((state) => state.auth);
-  const [grade,setGradeList]=useState(null);
+  const [grade, setGradeList] = useState(null);
   const initialValues = {
     teacherId: auth.userDetail.teacherId,
     studentId: null,
     firstName: "",
-    lastName:"",
-    email:"",
-    isActive:true,
+    lastName: "",
+    email: "",
+    isActive: true,
     gradeId: null,
     actionPerformedBy: "string",
   };
@@ -43,13 +43,13 @@ function AddStudent(props) {
     );
   };
   useEffect(() => {
-     
-    editStudentlist();
+    if (props.editStudent === "student") {
+      editStudentlist();
+    }
     getGradeList();
   }, [props.editData]);
 
   const editStudentlist = () => {
-     
     if (props.editData !== undefined) {
       const {
         firstName,
@@ -70,8 +70,8 @@ function AddStudent(props) {
       });
     }
   };
-   //  //  get api //
-   const getGradeList = () => {
+  //  //  get api //
+  const getGradeList = () => {
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],
@@ -132,7 +132,7 @@ function AddStudent(props) {
                 />
               </Grid.Column>
               <Grid.Column>
-                 <Form.Select
+                <Form.Select
                   label="Grade"
                   placeholder="Grades"
                   options={grade}
@@ -169,7 +169,7 @@ function AddStudent(props) {
           className="primaryBtn"
           onClick={onHandleSubmit}
           loading={api.isApiLoading}>
-          {addStudent.studentId > 0 ? "Update":"Save"}
+          {addStudent.studentId > 0 ? "Update" : "Save"}
         </Button>
       </Modal.Actions>
     </Modal>

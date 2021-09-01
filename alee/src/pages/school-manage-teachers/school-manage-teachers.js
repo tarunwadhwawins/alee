@@ -70,8 +70,8 @@ function SchoolManageTeacherPage(props) {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
 										</>
 									);
 								},

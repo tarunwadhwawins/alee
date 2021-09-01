@@ -18,6 +18,7 @@ function StudentListPage() {
 	const [modalStatus, setModalStatus] = useState(false);
 	const [selectedTeachers, setSelectedTeachers] = useState([]);
 	const [template, setTemplate] = useState("");
+	const [editStudent, setEditStudent] = useState();
 
 	const auth = useSelector((state) => state.auth);
 	const openModal = () => {
@@ -28,8 +29,9 @@ function StudentListPage() {
 	const api = useSelector(state => state.api)
 	const teacherId = useSelector(state => state.auth.userDetail.teacherId)
 
-	const onHandleEdit = (data) => {
+	const onHandleEdit = (data, text) => {
 		SetEditData(data)
+		setEditStudent(text)
 		openModal();
 	}
 	const GridReload = () => {
@@ -108,17 +110,16 @@ function StudentListPage() {
 				<Grid.Column width={4} verticalAlign="middle">
 					<Header as="h3" className="commonHeading">Student list</Header>
 				</Grid.Column>
-				<Grid.Column width={8} verticalAlign="middle" textAlign="right">
+				<Grid.Column width={6} verticalAlign="middle" textAlign="right">
 					<Icon name="file excel" className="primary-color" link /> Excel Template <a href={commonFunctions.concatenateImageWithAPIUrl(template)}>Download</a>
 				</Grid.Column>
 
-				<Grid.Column width={4} textAlign="right">
-					<Button className="primaryBtn" onClick={openModal}><Icon name="plus"/> Add Student</Button>
+				<Grid.Column width={6} textAlign="right">
+					<Button className="primaryBtn" onClick={openModal}><Icon name="plus" /> Add Student</Button>
 					<Button className="alternateBtn" onClick={() => fileInputRef.current.click()} ><Icon name="upload" /> Upload Excel</Button>
 					<input ref={fileInputRef} type="file" hidden onChange={onFileChange} />
 				</Grid.Column>
 				<Grid.Column width={16}>
-
 					<DataTable
 						allApi={{ getApiName: "GETSTUDENTSLIST", deleteApiName: "DELETESTUDENT", toggleApiName: "STUDENTTOGGLE" }} reload={reload}
 						additionalParams={{ teacherId: teacherId }}
@@ -135,12 +136,10 @@ function StudentListPage() {
 								fieldName: "email",
 								isSorting: true,
 								Cell: (props) => {
-									
-									return  (
+									return (
 										<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-									) 
-								  },
-								
+									)
+								},
 							},
 
 							{
@@ -165,8 +164,8 @@ function StudentListPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "student")} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
 										</>
 									);
 								},
@@ -238,7 +237,7 @@ function StudentListPage() {
 						</Grid.Column> </>}
 				</Grid>
 			}
-			<AddStudent openModal={student} closeModal={openModal} editData={editData} GridReload={GridReload} />
+			<AddStudent openModal={student} closeModal={openModal} editData={editData} GridReload={GridReload} editStudent={editStudent} />
 			<ConfirmModal open={modalStatus} close={modalOpen} selectedRecords={selectedTeachers.length} onSaveExcel={onSaveExcel} useOfModal={useOfModal} onRemoveExcel={onRemoveExcel} />
 		</div>
 	);

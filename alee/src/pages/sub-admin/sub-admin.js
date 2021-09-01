@@ -1,5 +1,5 @@
-import React,{useState}from "react";
-import { Grid, Header,Button, Icon,Form} from "semantic-ui-react";
+import React, { useState } from "react";
+import { Grid, Header, Button, Icon, Form } from "semantic-ui-react";
 import AddSubAdmin from "../../shared/components/organisms/modal/add-sub-admin/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 function SubAdminPage() {
@@ -19,81 +19,81 @@ function SubAdminPage() {
 		SeteditDetail(data)
 		openModal("EDIT");
 	}
-    return (
+	return (
 		<div className="common-shadow">
-		<Grid>
-			<Grid.Column width={8} verticalAlign="middle">
-				<Header as="h3" className="commonHeading">Sub-Admin</Header>
-			</Grid.Column>
-			<Grid.Column width={8} textAlign="right">
-				<Button className="primaryBtn"  onClick={()=>openModal("ADD")}><Icon name="plus"/> Add Sub-Admin</Button>
-			</Grid.Column>
-			<Grid.Column width={16}>
-			<DataTable
-					allApi={{ getApiName: "GETSUBADMINLIST", deleteApiName:"DELETESUBADMIN",toggleApiName:"SUBADMINTOGGLE"}} reload={reload}
-					searchOption={{ show: true, placeHolder: "Search" }}
-					messageInModal= "subAdmin"
-					columns={[
-						{
-							headerName: "Name",
-							fieldName: "userName",
-							isSorting: true,
-						},
-						{
-							headerName: "Username",
-							fieldName: "email",
-							isSorting: true,
-							Cell: (props) => {
-								
-								return  (
-									<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-								) 
-							  },
-						},
-						{
-							headerName: "Email",
-							fieldName: "email",
-							isSorting: true,
-							Cell: (props) => {
-								
-								return  (
-									<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-								) 
-							  },
-						},
-						,
-						{
-							headerName: "Status",
-							fieldName: "isActive",
-							isSorting: false,
-							Cell: (props, confirmModalOpen) => {
-								return (
-									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subAdminId,"update",props.isActive)} />
-								);
+			<Grid>
+				<Grid.Column width={8} verticalAlign="middle">
+					<Header as="h3" className="commonHeading">Sub-Admin</Header>
+				</Grid.Column>
+				<Grid.Column width={8} textAlign="right">
+					<Button className="primaryBtn" onClick={() => openModal("ADD")}><Icon name="plus" /> Add Sub-Admin</Button>
+				</Grid.Column>
+				<Grid.Column width={16}>
+					<DataTable
+						allApi={{ getApiName: "GETSUBADMINLIST", deleteApiName: "DELETESUBADMIN", toggleApiName: "SUBADMINTOGGLE" }} reload={reload}
+						searchOption={{ show: true, placeHolder: "Search" }}
+						messageInModal="subAdmin"
+						columns={[
+							{
+								headerName: "Name",
+								fieldName: "userName",
+								isSorting: true,
 							},
-						},
-						{
-							headerName: "Action",
-							fieldName: "Action",
-							isSorting: false,
-							Cell: (props, confirmModalOpen) => {
-								return (
-									<>
-										<Icon name="edit" className="primary-color" link 
-									     onClick={()=>onHandleEdit(props)}/>
-										<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subAdminId,"delete")}/>
-									</>
-								);
+							{
+								headerName: "Username",
+								fieldName: "email",
+								isSorting: true,
+								Cell: (props) => {
+									debugger;
+									return (
+										<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+									)
+								},
 							},
-						},
-					]}
+							{
+								headerName: "Email",
+								fieldName: "email",
+								isSorting: true,
+								Cell: (props) => {
+									debugger;
+									return (
+										<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+									)
+								},
+							},
+							,
+							{
+								headerName: "Status",
+								fieldName: "isActive",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subAdminId, "update", props.isActive)} />
+									);
+								},
+							},
+							{
+								headerName: "Action",
+								fieldName: "Action",
+								isSorting: false,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<>
+											<Icon title="Edit" name="edit" className="primary-color" link
+												onClick={() => onHandleEdit(props)} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subAdminId, "delete")} />
+										</>
+									);
+								},
+							},
+						]}
 
-				></DataTable>
-			</Grid.Column>
-		</Grid>
-		<AddSubAdmin openModal={subadmin} modalType={modalType} closeModal={openModal} editDetail={editDetail} GridReload={GridReload} />
+					></DataTable>
+				</Grid.Column>
+			</Grid>
+			<AddSubAdmin openModal={subadmin} modalType={modalType} closeModal={openModal} editDetail={editDetail} GridReload={GridReload} />
 		</div>
-		);
-  }
-  
-  export default SubAdminPage;
+	);
+}
+
+export default SubAdminPage;

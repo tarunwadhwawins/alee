@@ -13,9 +13,8 @@ function AddSubtitle(props) {
 	let history = useHistory();
 	const auth = useSelector(state => state.global.myChapterData)
 	console.log("auth", auth)
+
 	const onsubmit = () => {
-		
-		// const data = props.chapterId ? { ...topic, chapterId: props.chapterId } : chapterId = 1
 		if (props.chapterId) {
 			setTopic(topic.chapterId = props.chapterId)
 		}
@@ -24,29 +23,28 @@ function AddSubtitle(props) {
 		}
 		dispatch(apiCall({
 			urls: ["ADDTOPIC"], method: "Post", data: topic, onSuccess: (response) => {
-				closeModal();
+				debugger
 				setTopic(initialValues);
-				history.push(`${env.PUBLIC_URL}/subtitle/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
+
+				if (props.chapterId) {
+					props.GridReload();
+					closeModal();
+				}
+				history.push(`${env.PUBLIC_URL}/specific-Chapter/${topic.chapterId}?chapter=${props.topicData.chapterName}`);
+				props.GridReload();
+				closeModal();
 			}, showNotification: true
 		}));
 	}
-
 	const onHandleChange = (e, { value, data, checked, type }) => {
-		 
 		setTopic({ ...topic, [data]: value })
 	}
 
 	useEffect(() => {
-		 
-		// if (props.editData) {
-		// 	setTopic(topic.topicId = props.editData.topicId ? props.editData.topicId : null)
-		// }
 		editTopiclist();
-		return () => console.log("testttttt")
 	}, [props.editData]);
 
 	const editTopiclist = () => {
-		
 		if (props.editData !== undefined) {
 			const { topicId, chapterId, topicName, startPageNo, endPageNo } = props.editData;
 			setTopic({
@@ -59,13 +57,6 @@ function AddSubtitle(props) {
 			});
 		}
 	};
-
-	const addSubTopic = () => {
-		localStorage.setItem("BookType", "With Topic Chapter");
-		setTimeout(() => {
-			window.location.reload();
-		}, (1000));
-	}
 	const closeModal = () => {
 		props.closeModal();
 		setTopic(initialValues);
@@ -73,7 +64,7 @@ function AddSubtitle(props) {
 
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="small">
-			<Modal.Header>Add Topic</Modal.Header>
+			<Modal.Header>{topic.topicId > 0 ? "Edit Topic" : "Add Topic"}</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>
@@ -93,7 +84,8 @@ function AddSubtitle(props) {
 			</Modal.Content>
 			<Modal.Actions>
 				<Button className="secondaryBtn" onClick={() => closeModal()}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onsubmit} to="subtitle">{topic.topicId > 0 ? "Update" : "Confirm"}</Button>
+				{topic.topicId > 0 ? <Button className="primaryBtn" onClick={onsubmit} to="subtitle">{"Update"}</Button> :
+					<Button className="primaryBtn" onClick={onsubmit} to="subtitle"> {"Confirm"}</Button>}
 			</Modal.Actions>
 		</Modal>
 	);

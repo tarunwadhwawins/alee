@@ -4,6 +4,7 @@ import AddTagsListing from "../../shared/components/organisms/modal/add-tags-lis
 import { DataTable } from "../../../src/shared/components/organisms";
 
 function AddTagsListingPage(props) {
+	debugger
 	const [taglisting, setTaglisting] = React.useState(false)
 	const [editData, SetEditData] = useState()
 	const [reload, SetReload] = useState(false)
@@ -23,7 +24,7 @@ function AddTagsListingPage(props) {
 		<div className="bookSummary">
 			<Grid>
 				<Grid.Column width={8}>
-					<Header as="h3" className="commonHeading">Add Tags Listing</Header>
+					<Header as="h3" className="commonHeading">Tags</Header>
 				</Grid.Column>
 
 				<Grid.Column width={8} textAlign="right">
@@ -63,8 +64,8 @@ function AddTagsListingPage(props) {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.tagId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.tagId, "delete")} />
 										</>
 									);
 								},
