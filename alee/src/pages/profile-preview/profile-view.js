@@ -19,7 +19,7 @@ function ProfileViewPage() {
 				method: "GET",
 				data: teacherId,
 				onSuccess: (response) => {
-
+                  debugger;
 					setTeacherData(response);
 					//   setTeacherProfile(initialValues);
 				},
