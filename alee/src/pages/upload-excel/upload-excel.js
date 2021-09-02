@@ -44,6 +44,7 @@ function UploadExcelPage() {
 	}
 
 	const onHandleSubmit = () => {
+		debugger
 		let formdata = commonFunctions.getFormData({ file: uploadExcel });
 		dispatch(apiCall({
 			urls: ["UPLOADEXCEL"], method: "POST", data: formdata, onSuccess: (response) => {

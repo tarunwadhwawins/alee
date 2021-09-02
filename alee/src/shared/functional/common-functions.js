@@ -84,7 +84,6 @@ const initializeSimpleValidator = () => {
 
 // This function is used for image URL concatnation 
 const concatenateImageWithAPIUrl = (Image) => {
-  
   if (Image && Image !== "") {
     return `${env.API_URL.replace("/api", "")}${Image}`;
   }
@@ -98,17 +97,17 @@ const getFormData = (data) => {
       // if (key === "image" && val !== null) {
       //   formData.append(key, val[0].file);
       // }
-      if (key === "file" && val !== null && data.file.length > 0) {
+      if ((key === "file" || key === "pdfFile") && val !== null && (data[key].length > 0)) {
         let file = val[0].file === undefined ? val[0] : val[0].file;
         formData.append(key, file);
       }
-      else if (key === "ids") {
+      else if (key === "ids", key === "grades") {
         var array = val;
         for (var i = 0; i < array.length; i++) {
           formData.append(key, array[i]);
         }
       }
-      else if (key === "images") {
+      else if (key === "images", key === "bookCoverImage") {
         var arr = val;
         for (var i = 0; i < arr.length; i++) {
           let file = val[i].file === undefined ? val[i] : val[i].file;

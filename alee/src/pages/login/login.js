@@ -8,17 +8,20 @@ import { loginSuccess, storeUserDetail } from "../../../src/store/actions/auth.a
 import { storeGlobalCodes } from "../../../src/store/actions/global.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import * as yup from "yup";
+import ForgotPasswordModal from "../../shared/components/organisms/modal/forgot-password/forgot-password";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
-// const schema = yup.object().shape({
-//   email: yup.string().email("Email must be valid email").required("Email is required"),
-//   password: yup.string().required("Password is required"),
-// });
+const schema = yup.object().shape({
+  email: yup.string().email("Email must be valid email").required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
 
 function LoginForm() {
+  const [forgotPasswordStatus, setForgotPasswordStatus] = React.useState(false)
+
   const { register, handleSubmit, formState: { errors } } = useForm({
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
     mode: 'onChange'
   });
 
@@ -61,7 +64,10 @@ function LoginForm() {
       }, showNotification: false
     }))
   }
-
+  const forgetPassword = () => {
+    debugger
+    setForgotPasswordStatus(!forgotPasswordStatus);
+  };
   return (
     <div className="signIn">
       <div className="signInner">
@@ -93,14 +99,17 @@ function LoginForm() {
                   <Button className="primaryBtn" type="submit" loading={api.isApiLoading}>Sign In</Button>
                 </Grid.Column>
                 <Grid.Column width={9} textAlign="right" verticalAlign="middle">
-                  <Link to="" className="primary-color">Forgot Password</Link>
+                  <Link onClick={forgetPassword} className="primary-color">Forgot Password</Link>
                 </Grid.Column>
               </Grid>
             </Grid.Column>
           </Grid>
         </Form>
+        <ForgotPasswordModal openModal={forgotPasswordStatus} closeModal={forgetPassword} />
       </div>
+
     </div>
+
   );
 }
 export default LoginForm;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Grid, Button, Header, Image, Popup, Form } from "semantic-ui-react";
+import { Grid, Button, Header, Image, Dimmer, Loader } from "semantic-ui-react";
 import { BookPage1, BookPage2, BookPage3, BookPage4, BookPage5, BookPage6 } from "../../shared/functional/global-image-import";
 import HTMLFlipBook from 'react-pageflip';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,22 +15,7 @@ function BookFlipPage(props) {
 	const dispatch = useDispatch();
 	const bookData = useSelector(state => state.global.myBookData)
 	const auth = useSelector(state => state.auth.userDetail.role)
-
-	// const openModal = () => {
-	// 	 
-	// 	setSummary(true)
-	// }
-	// const openModal2 = () => {
-	// 	setTags(!tag)
-	// }
-	// const openModal3 = () => {
-	// 	setInvite(!invite)
-	// }
-
-	// const addBook = () => {
-	// 	dispatch(storeBookDetails("No Chapter"));
-	// }
-
+	const api = useSelector(state => state.api)
 	let pageFlip = useRef(null);
 	useEffect(() => {
 		getBookPageData();
@@ -77,10 +62,11 @@ function BookFlipPage(props) {
 			if (e.data + 2 === totalPage - 3) {
 				let lastThirdPage = bookPageData[totalPage - 1].pageId + 1
 				dispatch(apiCall({
-					urls: ["GETBOOKPAGE"], method: "GET", data: { PageId: lastThirdPage, BookId: 48 }, onSuccess: (response) => {
-						// let updated = [...bookPageData, ...response];
-						//   
-						//setBookPageData(updated)
+					urls: ["GETBOOKPAGE"], method: "GET", data: { PageId: lastThirdPage, BookId: bookData.bookId }, onSuccess: (response) => {
+						debugger
+						let updated = [...bookPageData, ...response];
+
+						setBookPageData(updated)
 					}
 				}))
 			}
@@ -106,6 +92,12 @@ function BookFlipPage(props) {
 
 	return (
 		<>
+			{api.isApiLoading && (
+				<Dimmer active inverted>
+					<Loader />
+				</Dimmer>
+			)}
+
 			<div className="bookFlip">
 				<Grid>
 					<Grid.Column width={16} className="bookFlipOuter">
@@ -119,7 +111,7 @@ function BookFlipPage(props) {
 											<div className="demoPage" key={index}>
 												<Header as="h3">Page {singleData.pageNo}</Header>
 												<br />
-												<p onClick={()=>props.onHandleTagSelected(singleData)}>
+												<p onClick={props.onHandleTagSelected ? () => props.onHandleTagSelected(singleData) : null}>
 													{singleData.pageText}
 												</p>
 											</div>
@@ -133,10 +125,10 @@ function BookFlipPage(props) {
 					<Grid.Column width={8} textAlign="left">
 						<div >
 							<div>
-								<Button type="button" onClick={() => prev()}>
+								<Button type="button" className="alternateBtn" onClick={() => prev()}>
 									Previous page
 								</Button>
-								<Button type="button" onClick={() => next()}>
+								<Button className="primaryBtn" type="button" onClick={() => next()}>
 									Next page
 								</Button>
 							</div>

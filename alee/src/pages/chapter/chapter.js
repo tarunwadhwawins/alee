@@ -7,7 +7,7 @@ import { DataTable } from "../../../src/shared/components/organisms";
 import { useSelector } from 'react-redux';
 import BookFlipPage from "../book-flip/book-flip";
 
-function ChapterPage() {
+function ChapterPage(props) {
 	const [chapter, setChapter] = useState(false);
 	const [subtitle, setSubtitle] = useState(false);
 	const [summary, setSummary] = useState(false);

@@ -18,6 +18,7 @@ function Sidebar(props) {
 	const dispatch = useDispatch();
 
 	const handleItemClick = (e, { name }) => {
+		debugger
 		dispatch(storeBookDetails(""));
 		setActiveItem(name);
 	}
@@ -39,8 +40,8 @@ function Sidebar(props) {
 	}
 	return (
 		<div className="Sidebar">
-			<div className="logo" >
-				<Link to={`${env.PUBLIC_URL}/dashboard`} ><Image src={Logo2} /></Link>
+			<div className="logo" active={activeItem === 'Dashboard'} onClick={handleItemClick}>
+				<Link to={`${env.PUBLIC_URL}/dashboard`} active={activeItem === 'Dashboard'} onClick={handleItemClick} ><Image src={Logo2} /></Link>
 			</div>
 			<div className="mainMenu">
 				{api === "School" &&

@@ -87,6 +87,10 @@ function LessonLibrary() {
 		}));
 	}
 
+	const onHandleFilter = (e, { value, data }) => {
+		debugger
+	}
+
 	return (
 		<div className="searchHeader">
 			{api.isApiLoading && (
@@ -94,7 +98,7 @@ function LessonLibrary() {
 					<Loader />
 				</Dimmer>
 			)}
-			
+
 			<Grid>
 				<Grid.Column computer={16}>
 					<Header as="h3" className="commonHeading">Lesson Library</Header>
@@ -110,7 +114,7 @@ function LessonLibrary() {
 							{standards.map((singleTag, index) => {
 								return (
 									<Dropdown.Item>
-										<Checkbox radio name='StandardsRadioGroup' label={singleTag.text} />
+										<Checkbox radio name='StandardsRadioGroup' label={singleTag.text} onChange={onHandleFilter} />
 									</Dropdown.Item>
 								)
 							})}
@@ -162,9 +166,9 @@ function LessonLibrary() {
 					return (
 						<Grid.Column width={3}>
 							<div className="bookDetail">
-							
+
 								<Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
-										/>
+								/>
 								<Header as="h5">{data.bookName}</Header>
 
 								<p>{data.tagName}</p>
