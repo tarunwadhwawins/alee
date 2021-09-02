@@ -33,6 +33,7 @@ function UploadPdfPage() {
 		setBookTitle("");
 		setAuthor("");
 		setGrades([]);
+		setBookCoverImage([]);
 	}
 
 	const onHandleSubmit = () => {
@@ -40,7 +41,6 @@ function UploadPdfPage() {
 		dispatch(apiCall({
 			urls: ["UPLOADPDF"], method: "POST", data: formdata, onSuccess: (response) => {
 				removeBook();
-				setBookCoverImage([]);
 			}, showNotification: true
 		}))
 	}
@@ -93,28 +93,30 @@ function UploadPdfPage() {
 									)}
 								</ImageUploading>
 							</Grid.Column>
-							<Grid.Column width={8}>
+							<Grid.Column width={4}>
 								<Form>
 									<Form.Field>
 										<Button content="Choose Pdf" disabled={api.isApiLoading} className="primaryBtn" onClick={() => fileInputRef.current.click()} />
-										<input ref={fileInputRef} type="file" hidden onChange={onFileChange} />
+										<input ref={fileInputRef} accept="application/pdf" type="file" hidden onChange={onFileChange} />
 									</Form.Field>
 								</Form>
 							</Grid.Column>
+							{fileName !== "" && <> <Grid.Column width={4}>
+								<div className="scanBookList">
+									<Icon name='book' className="bookIcon" />
+									<span>{fileName}</span>
+									{/* <Icon name='close' className="closeIcon" color='red' link /> */}
+								</div>
+							</Grid.Column></>}
 						</Grid>
 					</div>
 				</Grid.Column>
-				{fileName !== "" && <> <Grid.Column width={16}>
-					<div className="scanBookList">
-						<Icon name='book' className="bookIcon" />
-						<span>{fileName}</span>
-						<Icon name='close' className="closeIcon" color='red' link onClick={removeBook} />
-					</div>
+
+				<Grid.Column width={16} textAlign="right">
+					<Button className="secondaryBtn" onClick={removeBook} >Cancel</Button>
+					<Button className="primaryBtn" onClick={onHandleSubmit} loading={api.isApiLoading}>Upload</Button>
+					{/* <Button className="primaryBtn" as={Link} to="book-flip" onClick={onHandleSubmit}>Next</Button> */}
 				</Grid.Column>
-					<Grid.Column width={16} textAlign="right">
-						<Button className="primaryBtn" onClick={onHandleSubmit} loading={api.isApiLoading}>Upload</Button>
-						{/* <Button className="primaryBtn" as={Link} to="book-flip" onClick={onHandleSubmit}>Next</Button> */}
-					</Grid.Column> </>}
 			</Grid>
 		</div>
 	);

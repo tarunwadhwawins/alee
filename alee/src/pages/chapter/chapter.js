@@ -20,13 +20,14 @@ function ChapterPage(props) {
 	const bookName = useSelector(state => state.global.myBookData.bookName);
 	const bookId = useSelector(state => state.global.myBookData.bookId);
 	const openModal = (text) => {
-		     
 		setChapter(!chapter)
 		setChapterText(text)
 	}
 
-	const openModal2 = () => {
-		setSubtitle(!subtitle)}
+	const openModal2 = (props) => {
+		setSubtitle(!subtitle)
+		setTopicData(props);
+	}
 
 	const openModal3 = (chapter) => {
 		setSummary(!summary)
@@ -47,7 +48,7 @@ function ChapterPage(props) {
 	}
 	return (
 		<div className="chapterPage">
-				<BookFlipPage />
+			<BookFlipPage />
 			<Grid>
 				<Grid.Column width={8} verticalAlign="middle">
 					<Header className="commonHeading">{bookName}</Header>
@@ -57,9 +58,9 @@ function ChapterPage(props) {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName:"DELETECHAPTER"}} reload={reload}
-						 additionalParams={{bookId:bookId}}
-						searchOption={{ show: true, placeHolder:"Search"}}
+						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName: "DELETECHAPTER" }} reload={reload}
+						additionalParams={{ bookId: bookId }}
+						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="Chapter"
 						columns={[
 							{
@@ -80,7 +81,7 @@ function ChapterPage(props) {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Button className="primaryBtn" onClick={openModal2}> <Icon name="plus" /> Topic</Button>
+											<Button className="primaryBtn" onClick={() => openModal2(props)}> <Icon name="plus" /> Topic</Button>
 										</>
 									);
 								},
@@ -90,7 +91,6 @@ function ChapterPage(props) {
 								fieldName: "chapterSummary",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-								  
 									return (
 										<>
 											<Button className="primaryBtn" onClick={() => openModal3(props)}> <Icon name="plus" /> Chapter Summary</Button>

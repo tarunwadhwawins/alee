@@ -6,7 +6,6 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 import { useHistory } from "react-router-dom";
 
 function AddSubtitle(props) {
-	 
 	const initialValues = { topicId: null, chapterId: null, topicName: "", startPageNo: null, endPageNo: null }
 	const [topic, setTopic] = React.useState(initialValues)
 	const dispatch = useDispatch();
@@ -23,7 +22,6 @@ function AddSubtitle(props) {
 		}
 		dispatch(apiCall({
 			urls: ["ADDTOPIC"], method: "Post", data: topic, onSuccess: (response) => {
-				     
 				setTopic(initialValues);
 
 				if (props.chapterId) {

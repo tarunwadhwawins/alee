@@ -25,7 +25,6 @@ function LoginForm() {
     mode: 'onChange'
   });
 
-  // const onSubmit = data => console.log(data);
   const [logInForm, setLogInForm] = useState({ email: "", password: "" })
   let history = useHistory();
   const dispatch = useDispatch();
@@ -34,7 +33,6 @@ function LoginForm() {
     setLogInForm({ ...logInForm, [data]: value })
   }
   const onSubmit = (values) => {
-    console.log(values)
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: values, onSuccess: (response) => {
         if (response.isSuccess) {
