@@ -25,23 +25,23 @@ function UserManagementPage(props) {
 			<DataTable
 				allApi={{ getApiName: "GETUSERMANAGEMENTLIST", toggleApiName: "APPROVEUSERMANAGEMENT", deleteApiName: "DELETESTUDENT" }}
 				searchOption={{ show: true, placeHolder: "Search" }}
-				messageInModal="user"
+				messageInModal="school"
 				columns={[
 					{
 						headerName: "Name",
 						fieldName: "name",
 						isSorting: true,
-						
+
 					},
 					{
 						headerName: "Email",
 						fieldName: "email",
 						isSorting: true,
 						Cell: (props) => {
-							return  (
+							return (
 								<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-							) 
-						  },
+							)
+						},
 					},
 
 					{
@@ -65,7 +65,7 @@ function UserManagementPage(props) {
 						isSorting: false,
 						Cell: (props, confirmModalOpen) => {
 							return (
-								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.userId, "approve",props.isActive)} />
+								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.userId, "approve", props.isActive)} />
 							);
 						},
 					},
