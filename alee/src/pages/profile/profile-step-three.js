@@ -44,7 +44,7 @@ function ProfileStepThree(props) {
 						</Table.Header>
 						<Table.Body>
 							{props.thirdSecondStep && props.thirdSecondStep.map((singleData, index) => {
-							   ;
+							debugger;
 								return (
 								<>
 									 <Table.Row key={index}>

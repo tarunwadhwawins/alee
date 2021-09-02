@@ -51,6 +51,7 @@ function MyProfile() {
   const onChangeFourstep = (e, { value }) => {
     setSkilled(value);
   }
+
   const onStepFirst = () => {
     dispatch(apiCall({
       urls: ["ADDTEACHERBASICINFO"], method: "POST", data: values, onSuccess: (response) => {
@@ -87,10 +88,7 @@ function MyProfile() {
   /////////// -THREE STEP- /////////
   const onThreeStepEducation = () => {
     dispatch(apiCall({
-      urls: ["ADDTEACHERWORKEXPERIENCE"], method: "POST", data: ({
-        teacherWorkExperienceData: thirdSecondStep,
-        teacherWorkExperienceId: null, teacherId: teacherId, actionPerformedBy: ""
-      }),
+      urls: ["ADDTEACHERWORKEXPERIENCE"], method: "POST", data: ({ teacherWorkExperienceData: thirdSecondStep, teacherWorkExperienceId: null, teacherId: teacherId, actionPerformedBy: "" }),
       onSuccess: (response) => {
 
 
@@ -119,11 +117,10 @@ function MyProfile() {
     setcurrentSchool({ ...currentSchool, institute: data.curInstitute, position: data.curPosition, grades: data.curGrades, index: index });
   }
   const updateEducation = () => {
-    ;
+       ;
     const items = [...thirdSecondStep];
-    items[previousSchool.index, currentSchool.index] = {
-      "preInstitute": previousSchool.institute, "prePosition": previousSchool.position, "preGrades": previousSchool.grades,
-      "preIsCurrent": previousSchool.isCurrent, "curInstitute": currentSchool.institute,
+    items[previousSchool.index, currentSchool.index] ={
+      "preInstitute": previousSchool.institute, "prePosition": previousSchool.position, "preGrades": previousSchool.grades, "preIsCurrent": previousSchool.isCurrent, "curInstitute": currentSchool.institute,
       "curPosition": currentSchool.position, "curGrades": currentSchool.grades, "curIsCurrent": currentSchool.isCurrent
     }
     setThirdSecondStep(items)
@@ -148,6 +145,7 @@ function MyProfile() {
     setSelectedIndex(index);
   }
   const updateSkill = () => {
+
     const items = [...skills];
     items[skilled] = { skilled }
     setSkills(items);

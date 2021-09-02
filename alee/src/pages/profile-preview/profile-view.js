@@ -19,7 +19,7 @@ function ProfileViewPage() {
 				method: "GET",
 				data: teacherId,
 				onSuccess: (response) => {
-					   ;
+					debugger;
 					setTeacherData(response);
 					//   setTeacherProfile(initialValues);
 				},
@@ -28,15 +28,19 @@ function ProfileViewPage() {
 	};
 	return (
 		<>
+			{api.isApiLoading && (
+							<Dimmer active inverted>
+								<Loader />
+							</Dimmer>
+						)}
 			{teacherData.map((teacherProfile, index) => {
-				
 				const education = teacherProfile.educationQualifications ? JSON.parse(teacherProfile.educationQualifications) : [];
 				const Employe = teacherProfile.employmentHistory ? JSON.parse(teacherProfile.employmentHistory) : [];
 				const skill = teacherProfile.keySkillSet ? JSON.parse(teacherProfile.keySkillSet) : [];
 				const grade = teacherProfile.grades ? JSON.parse(teacherProfile.grades)[0] : [];
-				   
 				return (
 					<div className="common-shadow profileView">
+					
 						{api.isApiLoading && (<Dimmer active inverted><Loader /></Dimmer>)}
 						<div className="profileViewHeader" >
 							<div className="profileImgOuter">
@@ -83,7 +87,6 @@ function ProfileViewPage() {
 								<p><span>Subject : </span>{teacherProfile.subject}</p>
 								<Header as="h4">Education Qualification</Header>
 								{education && education.length > 0 && education.map((Qualification, index) => {
-
 									return (
 										<>
 											<p><span>Degree : </span> {Qualification.Degree}</p>
@@ -94,13 +97,12 @@ function ProfileViewPage() {
 									);
 								})}
 							</Grid.Column>
-
-
 							<Grid.Column width={8}>
 							</Grid.Column>
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
+									debugger;
 
 									return (
 										<>
