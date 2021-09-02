@@ -15,7 +15,7 @@ function PerformanceMatrix() {
 	const getAdmindashboardPerformance = () => {
 		dispatch(apiCall({
 			urls: ["GETADMINDASHBOARDPERFORMANCE"], method: "GET", data: performance, onSuccess: (response) => {
-				debugger
+				 
 				setPerformance(response)
 			}
 		}));

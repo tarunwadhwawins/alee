@@ -5,6 +5,7 @@ import AddSubtitle from "../../shared/components/organisms/modal/add-subtitle/in
 import AddChapterSummary from "../../shared/components/organisms/modal/add-chapter-summary/index";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { useSelector } from 'react-redux';
+import BookFlipPage from "../book-flip/book-flip";
 
 function ChapterPage() {
 	const [chapter, setChapter] = useState(false);
@@ -24,14 +25,10 @@ function ChapterPage() {
 		setChapterText(text)
 	}
 
-	const openModal2 = (props) => {
-		debugger
-		setSubtitle(!subtitle);
-		setTopicData(props);
-	}
+	const openModal2 = () => {
+		setSubtitle(!subtitle)}
 
-	const openModal3 = (props) => {
-		console.log("props", props);
+	const openModal3 = (chapterData) => {
 		setSummary(!summary)
 		const data = JSON.parse(props)
 		setSummaryData(data)
@@ -50,6 +47,7 @@ function ChapterPage() {
 	}
 	return (
 		<div className="chapterPage">
+				<BookFlipPage />
 			<Grid>
 				<Grid.Column width={8} verticalAlign="middle">
 					<Header className="commonHeading">{bookName}</Header>
@@ -59,9 +57,9 @@ function ChapterPage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName: "DELETECHAPTER" }} reload={reload}
-						additionalParams={{ bookId: bookId }}
-						searchOption={{ show: true, placeHolder: "Search" }}
+						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName:"DELETECHAPTER"}} reload={reload}
+						 additionalParams={{bookId:bookId}}
+						searchOption={{ show: true, placeHolder:"Search"}}
 						messageInModal="Chapter"
 						columns={[
 							{
@@ -82,7 +80,7 @@ function ChapterPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Button className="primaryBtn" onClick={() => openModal2(props)}> <Icon name="plus" /> Topic</Button>
+											<Button className="primaryBtn" onClick={openModal2}> <Icon name="plus" /> Topic</Button>
 										</>
 									);
 								},
@@ -92,6 +90,7 @@ function ChapterPage() {
 								fieldName: "chapterSummary",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
+								  
 									return (
 										<>
 											<Button className="primaryBtn" onClick={() => openModal3(props)}> <Icon name="plus" /> Chapter Summary</Button>
@@ -107,8 +106,8 @@ function ChapterPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.chapterId, "delete")} />
 										</>
 									);
 								},

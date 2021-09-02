@@ -76,6 +76,10 @@ const API_ENDPOINTS = {
   GETCHAPTERPAGES: "/Chapter/GetChapterPages",
   ADDBOOKTAG: "/BookTag/AddBookTags",
   UPLOADPDF: "/UploadPdf/UploadBookPdf",
+  ADDTEACHERWORKEXPERIENCE: "/Teacher/AddTeacherWorkExperience",
+  ADDTEACHERSKILLS: "/Teacher/AddTeacherSkills",
+  //GETCHAPTERPAGES: "/Chapter/GetChapterPages",
+  FORGOTPASSWORD: "/Authentication/ForgotPassword"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

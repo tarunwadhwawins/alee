@@ -80,9 +80,10 @@ function SubscriptionManagePage() {
                 Cell: (props, confirmModalOpen) => {
                   return (
                     <>
-                      <Icon name="repeat" className="primary-color" link />
-                      <Icon name="plus" color="green" link />
+                      <Icon title="Repeat" name="repeat" className="primary-color" link />
+                      <Icon title="Add" name="plus" color="green" link />
                       <Icon
+                      title="Delete"
                         name="trash alternate"
                         color="red"
                         link

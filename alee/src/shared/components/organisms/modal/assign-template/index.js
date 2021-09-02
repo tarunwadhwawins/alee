@@ -30,7 +30,7 @@ const Template = [
 ]
 
 function AddAssignTemplate(props) {
-	debugger
+	 
     return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
 			<Modal.Header>Assign Template</Modal.Header>

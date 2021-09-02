@@ -15,7 +15,7 @@ const type = [
 	{ key: 'Literary Elements', value: 'Literary Elements', text: 'Literary Elements' },
 ]
 function AddTagsListing(props) {
-	debugger
+	 
 	const initialValues = { tagId: null, tagTypeName: "", tagName: "", isActive: true, actionPerformedBy: "Admin" }
 	const [taglisting, setTaglisting] = React.useState(initialValues)
 	const [globalTag, setGlobalTag] = React.useState([])
@@ -25,7 +25,7 @@ function AddTagsListing(props) {
 	const dispatch = useDispatch();
 
 	const onHandleChange = (e, { value, data, checked, type }) => {
-		debugger
+		 
 		setTaglisting({ ...taglisting, [data]: value })
 		if (type === "checkbox") {
 			setTaglisting({ ...taglisting, [data]: checked })
@@ -66,7 +66,7 @@ function AddTagsListing(props) {
 	}
 
 	useEffect(() => {
-		debugger
+		 
 		const { editData } = props
 		if (editData !== undefined && Object.keys(editData).length > 0) {
 			editForm();
@@ -74,37 +74,37 @@ function AddTagsListing(props) {
 	}, [props.editData]);
 
 	useEffect(() => {
-		debugger
+		 
 		const globalCodes = globalCode.filter(code => code.categoryName === "TagType").map((filtercode) => {
 			return { filtercode: filtercode.codeName, value: filtercode.globalCodeId, text: filtercode.codeName }
 		})
-		debugger
+		 
 		setGlobalTag(globalCodes)
 	}, [])
 	const editForm = () => {
-		debugger
+		 
 		const { modifiedDate, tagId, tagName, tagTypeName, tagTypeId, isActive } = props.editData;
 		setTaglisting({ ...taglisting, tagId: tagId, tagName: tagName, tagTypeName: tagTypeName, isActive: isActive, tagTypeId: tagTypeId })
 	}
 
 	const closeModal = () => {
-		debugger
+		 
 		props.closeModal();
 		setTaglisting(initialValues);
 	}
 
 	const onHandleAddition = (e, { value }) => {
-		debugger
+		 
 		// setGlobalTag((prevState) => ({
 		// 	globalTag: [{ text: value, value }, ...prevState.globalTag],
 		// }))
 		setGlobalTag(glbTag => [{ text: value, value }, ...glbTag,])
 		// setGlobalTag((...globalTag) => [...globalTag, globalTag = value]);
 	}
-	return (
 
-		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
-			<Modal.Header>Add New Tag</Modal.Header>
+	return (
+		<Modal open={props.openModal} onClose={closeModal} size="tiny">
+			<Modal.Header>{taglisting.tagId > 0 ? "Edit Tag" : "Add Tag"}</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>

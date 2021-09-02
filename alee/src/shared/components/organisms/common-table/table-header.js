@@ -24,7 +24,6 @@ function TableHeader(props) {
             </Table.Row>
         </Table.Header>
     );
-
 };
 
 export default TableHeader;

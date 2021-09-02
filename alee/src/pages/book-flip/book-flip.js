@@ -40,7 +40,7 @@ function BookFlipPage(props) {
 	// });
 
 	// const aa = (e) => {
-	// 	debugger
+	// 	 
 	// 	// const lastThirdPage = bookPageData[bookPageData.length - 4].pageId
 	// 	// if (lastThirdPage === e.pageId) {
 

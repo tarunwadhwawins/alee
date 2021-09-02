@@ -110,11 +110,11 @@ function StudentListPage() {
 				<Grid.Column width={4} verticalAlign="middle">
 					<Header as="h3" className="commonHeading">Student list</Header>
 				</Grid.Column>
-				<Grid.Column width={8} verticalAlign="middle" textAlign="right">
+				<Grid.Column width={6} verticalAlign="middle" textAlign="right">
 					<Icon name="file excel" className="primary-color" link /> Excel Template <a href={commonFunctions.concatenateImageWithAPIUrl(template)}>Download</a>
 				</Grid.Column>
 
-				<Grid.Column width={4} textAlign="right">
+				<Grid.Column width={6} textAlign="right">
 					<Button className="primaryBtn" onClick={openModal}><Icon name="plus" /> Add Student</Button>
 					<Button className="alternateBtn" onClick={() => fileInputRef.current.click()} ><Icon name="upload" /> Upload Excel</Button>
 					<input ref={fileInputRef} type="file" hidden onChange={onFileChange} />
@@ -164,8 +164,8 @@ function StudentListPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "student")} />
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "student")} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.studentId, "delete")} />
 										</>
 									);
 								},

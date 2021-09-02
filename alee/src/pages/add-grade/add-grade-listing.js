@@ -59,10 +59,10 @@ function AddGradePage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon name="edit" className="primary-color" link
+											<Icon title="Edit" name="edit" className="primary-color" link
 												onClick={() => { onHandleEdit(props, "grade") }}
 											/>
-											<Icon name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.gradeId, "delete")} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.gradeId, "delete")} />
 										</>
 									);
 								},

@@ -14,7 +14,7 @@ const trigger = (
 function Header(props) {
   const api = useSelector(state => state.auth.userDetail.role)
   const dispatch = useDispatch();
-  
+
   const onHandleLogout = () => {
     dispatch(storeBookDetails(""));
   }
@@ -25,12 +25,12 @@ function Header(props) {
         <Grid>
           <Grid.Column width={8} verticalAlign="middle">
             <div className="menuBar">
-              <Icon name="long arrow alternate left" link onClick={props.onMenuClick}
+              <Icon name="bars" link onClick={props.onMenuClick}
               />
             </div>
           </Grid.Column>
           <Grid.Column width={8} className="profile">
-            <Dropdown text='5' multiple icon='bell' className="notificationDropdown">
+            <Dropdown text='5' multiple icon='bell' title="Notifications" className="notificationDropdown">
               <Dropdown.Menu>
                 <Card>
                   <Card.Content>

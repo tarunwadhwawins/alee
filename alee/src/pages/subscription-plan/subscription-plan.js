@@ -63,7 +63,7 @@ function SubscriptionPlanPage(props) {
               fieldName: "isActive",
               isSorting: true,
               Cell: (props) => {
-                debugger 
+                  
                 return <Label className={props.isActive ? "green" : "red"}>{props.isActive ? "Active" : "Inactive"}</Label>;
               },
             },
@@ -74,8 +74,8 @@ function SubscriptionPlanPage(props) {
               Cell: (props, confirmModalOpen) => {
                 return (
                   <>
-                    <Icon name="repeat" className="primary-color" link />
-                    <Icon name="plus" color="green" link onClick={openModal} />
+                    <Icon title="Repeat" name="repeat" className="primary-color" link />
+                    <Icon title="Add" name="plus" color="green" link onClick={openModal} />
                   </>
                 );
               },

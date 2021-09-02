@@ -29,13 +29,12 @@ function AddSubAdmin(props) {
   };
 
   useEffect(() => {
-    if (props.modalType === "EDIT") {
+    if (props.modalType === "EDIT"){
       editSubAdmin();
     }
   }, [props.openModal]);
 
   const editSubAdmin = () => {
-    
     if (props.editDetail) {
       const {
         userName,
@@ -65,7 +64,7 @@ function AddSubAdmin(props) {
           method: "POST",
           data: subAdmin,
           onSuccess: (response) => {
-           
+            
             closeModal();
             props.GridReload();
             setSubAdmin(initialAddValues);

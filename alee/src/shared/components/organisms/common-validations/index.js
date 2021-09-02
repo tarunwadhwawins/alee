@@ -7,7 +7,7 @@ const checkValidation = () => {
 }
 
 const ValidateInfo = (fieldName, value, validation) => {
-    debugger
+     
 
     // var aa = validation.length;
     // for (let i = aa; i <= aa; i++) {
@@ -19,7 +19,7 @@ const ValidateInfo = (fieldName, value, validation) => {
     //     const min = fieldName + " length should be atleast "+ b[1];
 
     //     if (((value === "") || (value === null)) && validation[i] === "required") {
-    //         debugger
+    //          
     //         //isValid= false;
     //         errors = ({ [fieldName]: required });
     //         console.log(errors)
@@ -27,7 +27,7 @@ const ValidateInfo = (fieldName, value, validation) => {
     //     }
 
     //     if (validation[i] === "min" && value.length < b[1]) {
-    //         debugger
+    //          
     //         //isValid= false;
     //         errors = ({ [fieldName]: min });
     //         console.log(errors)

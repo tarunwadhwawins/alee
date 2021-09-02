@@ -8,6 +8,7 @@ import { apiCall } from "../../../../../../src/store/actions/api.actions";
 const initialValues = { subscriptionPlanId: null, subscriptionPlanName: "", durationTypeId: null, noOfStudents: null, price: null, description: "", isActive: true, actionPerformedBy: "string" }
 
 const AddSubscription = (props) => {
+	debugger
 	const [values, setValues] = useState(initialValues)
 	// const [errors, setErrors] = useState(false)
 
@@ -32,7 +33,7 @@ const AddSubscription = (props) => {
 	}
 
 	useEffect(() => {
-		debugger
+		 
 		editForm();
 	}, [props.editData]);
 
@@ -49,7 +50,7 @@ const AddSubscription = (props) => {
 
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="small" closeOnDimmerClick={false}>
-			<Modal.Header>Add Subscription</Modal.Header>
+			<Modal.Header>{values.subscriptionPlanId > 0 ? "Edit Subscription" : "Add Subscription"}</Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>

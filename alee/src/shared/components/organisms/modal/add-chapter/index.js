@@ -43,7 +43,6 @@ function AddChapter(props) {
 		props.closeModal();
 	}
 	const addChapter = () => {
-
 		localStorage.setItem("BookType", "With Chapter");
 		setTimeout(() => {
 			window.location.reload();
