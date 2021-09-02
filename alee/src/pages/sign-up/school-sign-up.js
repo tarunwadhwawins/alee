@@ -33,7 +33,8 @@ function SchoolSignup(props) {
 
   const onSubmit = (values) => {
     values.schoolId = null
-    values.userId = "test"
+    values.userId = ""
+    values.actionPerformedBy = ""
     dispatch(apiCall({
       urls: ["SCHOOLREGISTRATION"], method: "Post", data: values, onSuccess: (response) => {
         history.push(`${env.PUBLIC_URL}`);

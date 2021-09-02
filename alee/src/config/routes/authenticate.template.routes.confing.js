@@ -219,7 +219,7 @@ const AuthenticateTemplateRoutesConfing = [
     exact: true,
     private: false,
     path: `${env.PUBLIC_URL}/drag`,
-    component: lazy(() => import('../../pages/drag-and-drop'))
+    component: lazy(() => import('../../pages/drag-and-drop/index'))
   },
   {
     exact: true,

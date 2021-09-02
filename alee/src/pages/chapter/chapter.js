@@ -79,7 +79,7 @@ function ChapterPage(props) {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Button className="primaryBtn" onClick={openModal2}> <Icon name="plus" /> Topic</Button>
+											<Button className="primaryBtn" onClick={() => openModal2(props)}> <Icon name="plus" /> Topic</Button>
 										</>
 									);
 								},
@@ -89,7 +89,6 @@ function ChapterPage(props) {
 								fieldName: "chapterSummary",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-								  
 									return (
 										<>
 											<Button className="primaryBtn" onClick={() => openModal3(props)}> <Icon name="plus" /> Chapter Summary</Button>
