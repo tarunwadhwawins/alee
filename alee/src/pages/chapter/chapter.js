@@ -28,7 +28,7 @@ function ChapterPage(props) {
 	const openModal2 = () => {
 		setSubtitle(!subtitle)}
 
-	const openModal3 = (props) => {
+	const openModal3 = (chapter) => {
 		setSummary(!summary)
 		const data = JSON.parse(props)
 		setSummaryData(data)

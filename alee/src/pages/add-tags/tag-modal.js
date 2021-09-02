@@ -1,12 +1,9 @@
 import React from "react";
 import { Grid, Button, Form, Header } from "semantic-ui-react";
 import { useSelector } from 'react-redux';
-import ReactModal from 'react-modal-resizable-draggable';
-
+import { ReactModal } from 'react-modal-resizable-draggable';
 function AddTagModal(props) {
-
     const tags = useSelector(state => state.global.tags)
-
     return (
         <ReactModal
             minWidth={500}
@@ -15,14 +12,11 @@ function AddTagModal(props) {
             onRequestClose={props.closeModal}
             isOpen={props.openModal} disableResize={true} >
             <Header as='h3'>Add Tag</Header>
-
             <Form>
                 <Grid>
                     {props.tagFields && props.tagFields.length > 0 && props.tagFields.map((singleField, index) => {
-
                         const ss = tags.filter(code => code[singleField.fieldName])
                         const aa = singleField.dataTypeName === "Int" && ss[0][singleField.fieldName]
-
                         return (
                             <Grid.Column width={8}>
                                 {singleField.dataTypeName === "Int" ?

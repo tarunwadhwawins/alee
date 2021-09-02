@@ -55,12 +55,11 @@ function ResourcesPage() {
         ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, UploadPdf: link,
       })
     }
-    else if (data.resourceTypeName === "Article" && data.link.indexOf("pdf") < 0) {
+    else if (data.resourceTypeName === "UploadPdf" && data.link.indexOf("pdf") < 0) {
+      debugger;
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
   }
-
-
   useEffect(() => {
     editResouces();
     getBookList();
@@ -439,7 +438,6 @@ function ResourcesPage() {
         method: "Post",
         data: formData,
         onSuccess: (response) => {
-
           GridReload();
           cancelClear();
           setResources(initialValues);
