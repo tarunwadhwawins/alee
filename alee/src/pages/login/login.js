@@ -9,19 +9,19 @@ import { storeGlobalCodes } from "../../../src/store/actions/global.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import ForgotPasswordModal from "../../shared/components/organisms/modal/forgot-password/forgot-password";
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
-// const schema = yup.object().shape({
-//   email: yup.string().email("Email must be valid email").required("Email is required"),
-//   password: yup.string().required("Password is required"),
-// });
+const schema = yup.object().shape({
+  email: yup.string().email("Email must be valid email").required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
 
 function LoginForm() {
   const [forgotPasswordStatus, setForgotPasswordStatus] = React.useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm({
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
     mode: 'onChange'
   });
 
