@@ -102,7 +102,7 @@ function MyProfile() {
       setThirdSecondStep(rows)
     }
     const editEducation = (data, index) => {
-      debugger;
+           
       setSchool({ ...school, institute:data.institute,position: data.position, grades:data.grades, isCurrent:data.isCurrent,index: index  })
     }
     const updateEducation = () => {

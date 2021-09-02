@@ -10,7 +10,7 @@ const getItems = (count, offset = 0) =>
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-    debugger
+         
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -22,7 +22,7 @@ const reorder = (list, startIndex, endIndex) => {
  * Moves an item from one list to another list.
  */
 const move = (source, destination, droppableSource, droppableDestination) => {
-    debugger
+         
     const sourceClone = Array.from(source);
     const destClone = Array.from(destination);
     const [removed] = sourceClone.splice(droppableSource.index, 1);
@@ -58,7 +58,7 @@ const getListStyle = isDraggingOver => ({
 });
 
 class Drag extends Component {
-    debugger
+         
     state = {
         items: getItems(10),
         selected: getItems(5, 10)
@@ -77,7 +77,7 @@ class Drag extends Component {
     getList = id => this.state[this.id2List[id]];
 
     onDragEnd = result => {
-        debugger
+             
         const { source, destination } = result;
 
         // dropped outside the list
@@ -100,7 +100,7 @@ class Drag extends Component {
 
             this.setState(state);
         } else {
-            debugger
+                 
             const result = move(
                 this.getList(source.droppableId),
                 this.getList(destination.droppableId),

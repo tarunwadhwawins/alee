@@ -18,7 +18,7 @@ const TaskList = theme => ({
 });
 
 function Column(props) {
-    debugger
+         
     return (
         <Container>
             <Title>{props.column.title}</Title>

@@ -38,7 +38,7 @@ function AddChapter(props) {
 		);
 	};
 	const closeModal = () => {
-		debugger
+		     
 		setChapter(initialValues);
 		props.closeModal();
 	}
@@ -53,7 +53,7 @@ function AddChapter(props) {
 	}, [props.editData]);
 
 	const editChapterlist = () => {
-		debugger
+		     
 		if (props.editData !== undefined && props.chapterText === undefined) {
 			const {
 				chapterId,

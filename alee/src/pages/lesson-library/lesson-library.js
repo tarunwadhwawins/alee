@@ -88,7 +88,7 @@ function LessonLibrary() {
 	}
 
 	const onHandleFilter = (e, { value, data }) => {
-		debugger
+		     
 	}
 
 	return (

@@ -16,7 +16,7 @@ function AddGradePage() {
 		setReload(!reload)
 	}
 	const onHandleEdit = (data, text) => {
-		debugger
+		     
 		setEditGrade(data)
 		setEditGradeText(text)
 		openModal();

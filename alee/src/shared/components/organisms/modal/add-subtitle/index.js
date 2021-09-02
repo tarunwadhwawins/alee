@@ -23,7 +23,7 @@ function AddSubtitle(props) {
 		}
 		dispatch(apiCall({
 			urls: ["ADDTOPIC"], method: "Post", data: topic, onSuccess: (response) => {
-				debugger
+				     
 				setTopic(initialValues);
 
 				if (props.chapterId) {

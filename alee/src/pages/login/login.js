@@ -65,7 +65,7 @@ function LoginForm() {
     }))
   }
   const forgetPassword = () => {
-    debugger
+         
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
   return (

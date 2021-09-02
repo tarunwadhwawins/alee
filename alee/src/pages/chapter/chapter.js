@@ -20,7 +20,7 @@ function ChapterPage(props) {
 	const bookName = useSelector(state => state.global.myBookData.bookName);
 	const bookId = useSelector(state => state.global.myBookData.bookId);
 	const openModal = (text) => {
-		debugger
+		     
 		setChapter(!chapter)
 		setChapterText(text)
 	}

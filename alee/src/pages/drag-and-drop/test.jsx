@@ -54,7 +54,7 @@ const getListStyle = isDraggingOver => ({
 });
 
 function Test() {
-    debugger
+         
     const [state, setState] = useState([getItems(10), getItems(5, 10)]);
 
     function onDragEnd(result) {

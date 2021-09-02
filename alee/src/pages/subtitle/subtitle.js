@@ -48,7 +48,7 @@ function SubtitlePage() {
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<DataTable
-						debugger
+						     
 						allApi={{
 							getApiName: "GETCHAPTERSTOPIC",
 							deleteApiName: "DELETETOPIC",

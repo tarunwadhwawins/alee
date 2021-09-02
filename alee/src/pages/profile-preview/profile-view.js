@@ -34,7 +34,7 @@ function ProfileViewPage() {
 				</Dimmer>
 			)}
 			{teacherData.map((teacherProfile, index) => {
-				debugger
+				     
 				const education = teacherProfile.educationQualifications ? JSON.parse(teacherProfile.educationQualifications) : [];
 				const Employe = teacherProfile.employmentHistory ? JSON.parse(teacherProfile.employmentHistory) : [];
 				const skill = teacherProfile.keySkillSet ? JSON.parse(teacherProfile.keySkillSet) : [];
@@ -103,7 +103,7 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-									debugger;
+									     
 									const currentCompany = Employe.find(x => x.IsCurrent === true)
 									const previousCompany = Employe.find(x => x.IsCurrent === false)
 									const employHistory =  JSON.parse(currentCompany.ClassesTaught)[0] ;

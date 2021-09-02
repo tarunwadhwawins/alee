@@ -25,7 +25,7 @@ function AddTagPage() {
 	}
 
 	const openModal = () => {
-		debugger
+		     
 		setTagStatus(!tagStatus);
 	}
 

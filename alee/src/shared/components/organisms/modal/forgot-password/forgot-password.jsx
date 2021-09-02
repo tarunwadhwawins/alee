@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 import { apiCall } from "../../../../../store/actions/api.actions";
 
 const ForgotPasswordModal = (props) => {
-    debugger
+         
     const initialStateOfForgotPassword = { email: "" }
     const [password, setPassword] = React.useState(initialStateOfForgotPassword)
     const [resetPasswordEmail, setResetPasswordEmail] = React.useState(false)
     const [resetPasswordContent, setResetPasswordContent] = React.useState(false)
 
     const onHandleChange = (e, { value, data, checked, type }) => {
-        debugger
+             
         setPassword({ ...password, [data]: value })
     }
     const dispatch = useDispatch();

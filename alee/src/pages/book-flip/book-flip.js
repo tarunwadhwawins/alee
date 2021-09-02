@@ -63,7 +63,7 @@ function BookFlipPage(props) {
 				let lastThirdPage = bookPageData[totalPage - 1].pageId + 1
 				dispatch(apiCall({
 					urls: ["GETBOOKPAGE"], method: "GET", data: { PageId: lastThirdPage, BookId: bookData.bookId }, onSuccess: (response) => {
-						debugger
+						     
 						let updated = [...bookPageData, ...response];
 
 						setBookPageData(updated)
