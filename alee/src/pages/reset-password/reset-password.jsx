@@ -11,22 +11,29 @@ function ResetPassword(props) {
     }
 
     return (
-        <Grid textAlign="center" verticalAlign="middle" className="common-form">
-            <Grid.Column className="cmn-shad">
-                <Header as="h3">Reset Password</Header>
-                <Form size="large">
-                    <Form.Input type="password" fluid textAlign="left" placeholder="Enter Your New Password" label="New Password"
-                        name="txtPassword" data="password" onChange={onHandleChange} value={password.password} />
-                    <Form.Input type="password" fluid textAlign="left" placeholder="Confirm New Password" label="Confirm New Password" name="txtConfirmPassword" data="confirmPassword" onChange={onHandleChange} value={password.confirmPassword} />
-
+        <div className="signIn">
+            <div className="signInner resetPassword">
+                <Form>
                     <Grid>
-                        <Grid.Column width={"16"} textAlign="center">
-                            {/* <Button loading={api.isApiLoading} as={Link} className="orange-btn" to={`${process.env.REACT_APP_PUBLIC_URL}/passcode`} onClick={onHandleSubmit}>Reset Password</Button> */}
+                        <Grid.Column width={16}>
+                            <Header as="h3">Reset Password</Header>
+                        </Grid.Column>
+                        <Grid.Column width={16}>
+
+                            <Form.Input type="password" fluid textAlign="left" placeholder="Enter Your New Password" label="New Password"
+                                name="txtPassword" data="password" onChange={onHandleChange} value={password.password} />
+                            <Form.Input type="password" fluid textAlign="left" placeholder="Confirm New Password" label="Confirm New Password" name="txtConfirmPassword" data="confirmPassword" onChange={onHandleChange} value={password.confirmPassword} />
+                        </Grid.Column>
+                        <Grid.Column width={16} textAlign="right">
+                            <Button className="primaryBtn">Save</Button>
                         </Grid.Column>
                     </Grid>
                 </Form>
-            </Grid.Column>
-        </Grid>
+
+            </div>
+        </div>
+
+
     );
 }
 

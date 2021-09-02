@@ -8,13 +8,20 @@ function AddTagsListingPage(props) {
 	const [taglisting, setTaglisting] = React.useState(false)
 	const [editData, SetEditData] = useState()
 	const [reload, SetReload] = useState(false)
+	const [editForm, SetEditForm] = useState(false)
 
 	const openModal = () => {
-		 
+		debugger
 		setTaglisting(!taglisting)
+		if (editForm) {
+			SetEditForm(!editForm)
+		}
+
 	}
 	const onHandleEdit = (data) => {
+		debugger
 		SetEditData(data)
+		SetEditForm(!editForm)
 		openModal();
 	}
 	const GridReload = () => {
@@ -74,7 +81,7 @@ function AddTagsListingPage(props) {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddTagsListing openModal={taglisting} closeModal={openModal} GridReload={GridReload} editData={editData} />
+			<AddTagsListing openModal={taglisting} closeModal={openModal} GridReload={GridReload} editData={editData} editForm={editForm} />
 		</div>
 	);
 }
