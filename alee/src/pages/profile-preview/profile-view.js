@@ -103,7 +103,7 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-									     
+									     debugger;
 									const currentCompany = Employe.find(x => x.IsCurrent === true)
 									const previousCompany = Employe.find(x => x.IsCurrent === false)
 									const employHistory =  JSON.parse(currentCompany.ClassesTaught)[0] ;
@@ -120,10 +120,10 @@ function ProfileViewPage() {
 							</Grid.Column>
 							<Grid.Column>
 								<Header as="h4">Key Skillset</Header>
-								{skill && skill.length > 0 && skill.map((skills, index) => {
+								{skill && skill.length > 0 && skill.map((skills,index) => {
 									return (
 										<>
-											<p><span>Skills : </span>{skills}</p>
+											<p><span>Skills:</span>{skills}</p>
 										</>
 									);
 								})}

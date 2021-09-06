@@ -11,8 +11,8 @@ import { apiCall } from "../../store/actions/api.actions";
 import { useParams } from "react-router-dom";
 
 function AddTagPage() {
-	const chapterId = useParams();
-	const tagInitialState = { bookId: 0, chapterId: chapterId.id, pageId: 0, tagText: "", bookTagList: [], actionPerformedBy: "string" }
+const chapterId = useParams();
+	const tagInitialState = { bookId: null, chapterId: chapterId.id, pageId: null, tagText: "", bookTagList: [], actionPerformedBy: "string" }
 	const [tagStatus, setTagStatus] = useState(false);
 	const [tagFields, setTagFields] = useState([]);
 	const [fieldData, setFieldData] = useState([]);
@@ -25,7 +25,6 @@ function AddTagPage() {
 	}
 
 	const openModal = () => {
-		     
 		setTagStatus(!tagStatus);
 	}
 
@@ -89,7 +88,7 @@ function AddTagPage() {
 				</Grid.Column>
 			</Grid>
 
-			<AddTagModal openModal={tagStatus} tagFields={tagFields} closeModal={openModal} fieldData={fieldData} onHandleTag={onHandleTag} tagOnContent={tagOnContent} />
+			{tagStatus && <AddTagModal openModal={tagStatus} tagFields={tagFields} closeModal={openModal} fieldData={fieldData} onHandleTag={onHandleTag} tagOnContent={tagOnContent} />}
 		</div>
 	);
 }
