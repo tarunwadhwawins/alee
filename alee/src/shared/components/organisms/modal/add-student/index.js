@@ -102,7 +102,7 @@ function AddStudent(props) {
           <Loader />
         </Dimmer>
       )}
-      <Modal.Header>Add Student</Modal.Header>
+      <Modal.Header> {addStudent.studentId > 0 ?  "Edit Student":"Add Student" }</Modal.Header>
       <Modal.Content scrolling>
         <Modal.Description>
           <Form>

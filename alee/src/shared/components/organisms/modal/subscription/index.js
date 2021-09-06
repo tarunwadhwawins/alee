@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Modal, Button, Form } from "semantic-ui-react";
+import { Grid, Modal, Button, Form ,Input } from "semantic-ui-react";
 import { GlobalCodeSelect } from "../../../../components";
 import { useDispatch } from 'react-redux';
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
@@ -8,7 +8,7 @@ import { apiCall } from "../../../../../../src/store/actions/api.actions";
 const initialValues = { subscriptionPlanId: null, subscriptionPlanName: "", durationTypeId: null, noOfStudents: null, price: null, description: "", isActive: true, actionPerformedBy: "string" }
 
 const AddSubscription = (props) => {
-	     
+
 	const [values, setValues] = useState(initialValues)
 	// const [errors, setErrors] = useState(false)
 
@@ -33,7 +33,7 @@ const AddSubscription = (props) => {
 	}
 
 	useEffect(() => {
-		 
+
 		editForm();
 	}, [props.editData]);
 
@@ -66,7 +66,7 @@ const AddSubscription = (props) => {
 								<Form.Input label="No. of Students" onChange={onHandleChange} data="noOfStudents" value={values.noOfStudents} />
 							</Grid.Column>
 							<Grid.Column>
-								<Form.Input label="Price" onChange={onHandleChange} data="price" value={values.price} />
+								<Input label="Price" label={{ basic: true, content: '$' }} labelPosition='left'  placeholder="price" onChange={onHandleChange} data="price" value={values.price} />
 							</Grid.Column>
 							<Grid.Column className='status'>
 								<p>Status</p>

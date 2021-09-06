@@ -103,7 +103,7 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-									     debugger;
+								 debugger;
 									const currentCompany = Employe.find(x => x.IsCurrent === true)
 									const previousCompany = Employe.find(x => x.IsCurrent === false)
 									const employHistory =  JSON.parse(currentCompany.ClassesTaught)[0] ;

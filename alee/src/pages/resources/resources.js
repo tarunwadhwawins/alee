@@ -12,7 +12,7 @@ function ResourcesPage() {
   const [reload, SetReload] = useState(false);
   const [editData, SetEditData] = useState([]);
   const dispatch = useDispatch();
-  const [grade, setGradeList] = useState(null);
+  
   const [chapter, setChapter] = useState({ bookId: 1 });
   const [chapterList, setChapterList] = useState([]);
   const [page, setPage] = useState({ bookId: 1, chapterId: 46 });
@@ -28,6 +28,7 @@ function ResourcesPage() {
     VideoLink: "",
     ArticleLink: "",
   };
+  const [grade, setGradeList] = useState(null);
   const [resources, setResources] = useState(initialValues);
 
   // const bookId=useSelector(state => state.global.myBookData.bookId);
@@ -100,8 +101,9 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETGRADESLIST"],
         method: "GET",
-        data: grade,
+        data:({ActiveGrades:true,OrderBy:"GradeName",OrderByDescending:false}),
         onSuccess: (response) => {
+
           const grade = response.map((singledata) => {
             return { text: singledata.gradeName, value: singledata.gradeId };
           });

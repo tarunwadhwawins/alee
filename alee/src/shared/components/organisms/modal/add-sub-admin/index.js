@@ -105,7 +105,7 @@ function AddSubAdmin(props) {
           <Loader />
         </Dimmer>
       )}
-      <Modal.Header>Add Sub-Admin</Modal.Header>
+      <Modal.Header>{subAdmin.subAdminId > 0 ? "Edit Sub-Admin":"Add Sub-Admin"}</Modal.Header>
       <Modal.Content scrolling>
         <Modal.Description>
           <Form>

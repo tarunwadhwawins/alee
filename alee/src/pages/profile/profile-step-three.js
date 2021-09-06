@@ -18,17 +18,19 @@ function ProfileStepThree(props) {
 					<GlobalCodeMultiSelect placeholder='Grade(s) taught' value={school.grades} categoryType="Grades" onChange={onHandleChange} data="grades" />
 				</Grid.Column>
 				<Grid.Column width={4} > <div className="statusToggle">
-					<Form.Checkbox label="isCurrent " toggle
+					<Form.Checkbox label="CurrentPosition " toggle
 						className="commonToggle"
 						onChange={onHandleChange}
 						value={school.isCurrent}
-						// checked={school.isCurrent ? true : false}
+						checked={school.isCurrent ? true :false }
 						data="isCurrent" />
 				</div>
 				</Grid.Column>
 				<Grid.Column width={12}>
-					<Button className="primaryBtn" onClick={props.addEducation}><Icon name='plus' />Add</Button>
-					<Button className="primaryBtn" onClick={props.updateEducation}><Icon name="plus circle" />Update</Button>
+					{!school.updateButtonSchool ? <Button className="primaryBtn" onClick={props.addEducation}>
+						<Icon name='plus' />Add</Button> : <>
+						<Button className="primaryBtn" onClick={props.updateEducation}>Update</Button>
+						<Button className="primaryBtn" onClick={props.ClearEducation}>Cancel</Button></>}
 				</Grid.Column>
 				<React.Fragment>
 					{thirdSecondStep && thirdSecondStep.length > 0 && <Table fixed>
@@ -37,9 +39,9 @@ function ProfileStepThree(props) {
 								<Table.HeaderCell>School</Table.HeaderCell>
 								<Table.HeaderCell>Position</Table.HeaderCell>
 								<Table.HeaderCell>Grade</Table.HeaderCell>
-								<Table.HeaderCell textAlign="right">IsCurrent</Table.HeaderCell>
+								<Table.HeaderCell textAlign="right">CurrentPositiont</Table.HeaderCell>
 								<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
-								
+
 							</Table.Row>
 						</Table.Header>
 						<Table.Body>

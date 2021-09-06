@@ -17,10 +17,9 @@ function Sidebar(props) {
 	const bookDetail = useSelector(state => state.global.bookDetail)
 	const dispatch = useDispatch();
 
-	const handleItemClick = (e, { name }) => {
-		     
+	const handleItemClick = (e) => {
 		dispatch(storeBookDetails(""));
-		setActiveItem(name);
+		// setActiveItem(name);
 	}
 	const handleClick = (chapterName) => {
 		     
@@ -40,7 +39,7 @@ function Sidebar(props) {
 	}
 	return (
 		<div className="Sidebar">
-			<div className="logo" active={activeItem === 'Dashboard'} onClick={handleItemClick}>
+			<div className="logo" active={activeItem === 'Dashboard'}>
 				<Link to={`${env.PUBLIC_URL}/dashboard`} active={activeItem === 'Dashboard'} onClick={handleItemClick} ><Image src={Logo2} /></Link>
 			</div>
 			<div className="mainMenu">
@@ -102,7 +101,9 @@ function Sidebar(props) {
 							<Image src={DashboardBlue} className="blue" />
 							<span>Dashboard</span>
 						</Menu.Item>
-						<Menu.Item title="User Management" className="lessonPlan" as={Link} to={`${env.PUBLIC_URL}/user-management`} name='user-management' active={activeItem === 'user-management'} onClick={handleItemClick}>
+						<Menu.Item title="User Management" className="lessonPlan" as={Link} to={`${env.PUBLIC_URL}/user-management`} name='user-management' 
+						active={activeItem === 'user-management'}
+						 onClick={handleItemClick}>
 							<Image src={UserManagementWhite} className="white" />
 							<Image src={UserManagementBlue} className="blue" />
 							<span>User Management</span>
@@ -133,7 +134,7 @@ function Sidebar(props) {
 						<Menu.Item title="My Books" as={Link} to={`${env.PUBLIC_URL}/my-books`} name='mybooks' active={activeItem === 'mybooks'} onClick={handleItemClick}>
 							<Image src={MyBookWhite} className="white" />
 							<Image src={MyBookBlue} className="blue" />
-							<span>My Books (3/4)</span>
+							<span>My Books</span>
 						</Menu.Item>
 						<Menu.Item title="Resources" as={Link} to={`${env.PUBLIC_URL}/resources`} name='resources' active={activeItem === 'resources'} onClick={handleItemClick}>
 							<Image src={ResourceWhite} className="white" />
