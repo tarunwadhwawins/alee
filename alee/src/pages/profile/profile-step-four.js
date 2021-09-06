@@ -1,5 +1,5 @@
 import React  from "react";
-import { Form, Grid,Button,Icon,Table} from "semantic-ui-react";
+import { Form, Grid,Button,Icon,Table, GridColumn} from "semantic-ui-react";
 function ProfileStepFour(props) {
 		return (
 				<Form>
@@ -11,11 +11,12 @@ function ProfileStepFour(props) {
 					<Button className="primaryBtn" onClick={props.addMoreSkill}> <Icon name="plus circle" /> Add </Button>
 					<Button className="primaryBtn" onClick={props.updateSkill}> <Icon name="plus circle" /> update </Button>
 				</Grid.Column>
-				<React.Fragment>
+				<GridColumn width={8}>
 				{props.skills && props.skills.length > 0 && <Table fixed>
 					<Table.Header>
 						<Table.Row>
 							<Table.HeaderCell>Skill</Table.HeaderCell>
+							<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
@@ -32,7 +33,7 @@ function ProfileStepFour(props) {
 						})}
 					</Table.Body>
 				</Table>}
-			</React.Fragment>
+				</GridColumn>
 					</Grid>   
 				</Form> 
 		);

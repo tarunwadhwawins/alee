@@ -19,7 +19,7 @@ function ProfileViewPage() {
 				method: "GET",
 				data: teacherId,
 				onSuccess: (response) => {
-					debugger;
+                  debugger;
 					setTeacherData(response);
 					//   setTeacherProfile(initialValues);
 				},
@@ -29,18 +29,19 @@ function ProfileViewPage() {
 	return (
 		<>
 			{api.isApiLoading && (
-							<Dimmer active inverted>
-								<Loader />
-							</Dimmer>
-						)}
+				<Dimmer active inverted>
+					<Loader />
+				</Dimmer>
+			)}
 			{teacherData.map((teacherProfile, index) => {
+				     
 				const education = teacherProfile.educationQualifications ? JSON.parse(teacherProfile.educationQualifications) : [];
 				const Employe = teacherProfile.employmentHistory ? JSON.parse(teacherProfile.employmentHistory) : [];
 				const skill = teacherProfile.keySkillSet ? JSON.parse(teacherProfile.keySkillSet) : [];
 				const grade = teacherProfile.grades ? JSON.parse(teacherProfile.grades)[0] : [];
 				return (
 					<div className="common-shadow profileView">
-					
+
 						{api.isApiLoading && (<Dimmer active inverted><Loader /></Dimmer>)}
 						<div className="profileViewHeader" >
 							<div className="profileImgOuter">
@@ -102,25 +103,27 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-									debugger;
-
+									     debugger;
+									const currentCompany = Employe.find(x => x.IsCurrent === true)
+									const previousCompany = Employe.find(x => x.IsCurrent === false)
+									const employHistory =  JSON.parse(currentCompany.ClassesTaught)[0] ;
 									return (
 										<>
-											<p><span>Current Company : </span>{ }</p>
-											<p><span>Position : </span>{employmentHistory.Position}</p>
-											<p><span>Grade Taught : </span>{employmentHistory.ClassesTaught}</p>
-											<p><span>Previous Company : </span>{employmentHistory.Institute}</p>
-											<p><span>Position : </span>Teacher</p>
+											<p><span>Current Company : </span>{currentCompany?.Institute}</p>
+											<p><span>Position : </span>{currentCompany?.Position}</p>
+											<p><span>Grade Taught : </span>{employHistory}</p>
+											<p><span>Previous Company : </span>{previousCompany?.Institute}</p>
+											<p><span>Position : </span>{previousCompany?.Position}</p>
 										</>
 									);
 								})}
 							</Grid.Column>
 							<Grid.Column>
 								<Header as="h4">Key Skillset</Header>
-								{skill && skill.length > 0 && skill.map((skills, index) => {
+								{skill && skill.length > 0 && skill.map((skills,index) => {
 									return (
 										<>
-											<p><span>Skills : </span>{skills}</p>
+											<p><span>Skills:</span>{skills}</p>
 										</>
 									);
 								})}

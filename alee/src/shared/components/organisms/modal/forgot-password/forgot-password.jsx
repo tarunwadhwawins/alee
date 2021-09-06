@@ -5,14 +5,12 @@ import { Link } from "../../../../functional/global-import";
 import { apiCall } from "../../../../../store/actions/api.actions";
 
 const ForgotPasswordModal = (props) => {
-
     const initialStateOfForgotPassword = { email: "" }
     const [password, setPassword] = React.useState(initialStateOfForgotPassword)
     const [resetPasswordEmail, setResetPasswordEmail] = React.useState(false)
     const [resetPasswordContent, setResetPasswordContent] = React.useState(false)
 
     const onHandleChange = (e, { value, data, checked, type }) => {
-
         setPassword({ ...password, [data]: value })
     }
     const dispatch = useDispatch();

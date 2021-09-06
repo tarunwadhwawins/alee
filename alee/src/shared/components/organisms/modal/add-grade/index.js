@@ -47,7 +47,7 @@ function AddGrade(props) {
 	}, [props.editGrade]);
 
 	const editGradelist = () => {
-		debugger
+		     
 		if (props.editGrade !== undefined || props.editGrade.length > 0) {
 			const {
 				gradeId,

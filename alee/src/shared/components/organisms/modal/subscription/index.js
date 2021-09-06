@@ -8,7 +8,7 @@ import { apiCall } from "../../../../../../src/store/actions/api.actions";
 const initialValues = { subscriptionPlanId: null, subscriptionPlanName: "", durationTypeId: null, noOfStudents: null, price: null, description: "", isActive: true, actionPerformedBy: "string" }
 
 const AddSubscription = (props) => {
-	debugger
+	     
 	const [values, setValues] = useState(initialValues)
 	// const [errors, setErrors] = useState(false)
 

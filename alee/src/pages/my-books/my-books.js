@@ -27,7 +27,7 @@ function MyBookPage(props) {
 	const getBookList = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKSLIST"], method: "GET", data: values, onSuccess: (response) => {
-				debugger
+				     
 				setBookList(response)
 			}
 		}));

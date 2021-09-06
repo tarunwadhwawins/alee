@@ -53,8 +53,8 @@ function LessonLibrary() {
 	}
 	const getComprehensionStrategiesTags = () => {
 		dispatch(apiCall({
-			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "ComprehensionStrategies")).globalCodeId }, onSuccess: (response) => {
-				 
+			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Comprehension Strategies")).globalCodeId }, onSuccess: (response) => {
+
 				const tagList = response.map((singleTag) => {
 					return { value: singleTag.tagId, text: singleTag.tagTypeName }
 				});
@@ -77,7 +77,7 @@ function LessonLibrary() {
 	}
 	const getLiteraryElementsTags = () => {
 		dispatch(apiCall({
-			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "LiteraryElements")).globalCodeId }, onSuccess: (response) => {
+			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Literary Elements")).globalCodeId }, onSuccess: (response) => {
 
 				const tagList = response.map((singleTag) => {
 					return { value: singleTag.tagId, text: singleTag.tagTypeName }
@@ -88,7 +88,7 @@ function LessonLibrary() {
 	}
 
 	const onHandleFilter = (e, { value, data }) => {
-		debugger
+
 	}
 
 	return (

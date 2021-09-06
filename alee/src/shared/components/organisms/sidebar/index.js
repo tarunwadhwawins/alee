@@ -18,24 +18,24 @@ function Sidebar(props) {
 	const dispatch = useDispatch();
 
 	const handleItemClick = (e, { name }) => {
-		debugger
+		     
 		dispatch(storeBookDetails(""));
 		setActiveItem(name);
 	}
 	const handleClick = (chapterName) => {
-		debugger
+		     
 		setIsActive(!isActive);
 	}
 	const handleClickUser = () => {
-		debugger
+		     
 		setUser(!user);
 	}
 	const handleClickSubscriptionToggle = () => {
-		debugger
+		     
 		setSubscriptionToggle(!subscriptionToggle);
 	}
 	const handleClickTemplateToggle = () => {
-		debugger
+		     
 		setTemplateToggle(!templateToggle);
 	}
 	return (
