@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Form, Grid, Dropdown, GridColumn } from "semantic-ui-react";
 import { useDispatch } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
-import {GlobalCodeSelect } from "../../shared/components";
+import {GlobalCodeSelect,GlobalCodeMultiSelect } from "../../shared/components";
+
 function ProfileStepOne(props) {
 	const [school, setSchool] = useState([]);
 	const dispatch = useDispatch();
@@ -29,7 +30,8 @@ function ProfileStepOne(props) {
 					<Form.Dropdown placeholder='School Name' fluid selection search options={school} data="schoolId" onChange={onHandleChange} />
 				</Grid.Column>
 				<Grid.Column width={8} >
-					<Dropdown placeholder='Grade' fluid multiple selection options={props.grade} data="grades"/>
+					{/* <Dropdown placeholder='Grade' fluid multiple selection options={props.grade} data="grades"/> */}
+					<GlobalCodeMultiSelect placeholder='Grade(s) taught' value={school.grades} categoryType="Grades" onChange={onHandleChange} data="grades" />
 				</Grid.Column>
 				<Grid.Column width={8} >
 					<GlobalCodeSelect
