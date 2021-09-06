@@ -82,7 +82,8 @@ const API_ENDPOINTS = {
   FORGOTPASSWORD: "/Authentication/ForgotPassword",
   GETTEMPLATELIST:"/Template/GetTemplateList",
   DELETETEMPLATE:"/Template/DeleteTemplate",
-  TOGGLEISACTIVE:"/Template/ToggleIsActive"
+  TOGGLEISACTIVE:"/Template/ToggleIsActive",
+  RESETPASSWORD:"/Authentication/ResetPassword"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

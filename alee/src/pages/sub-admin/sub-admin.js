@@ -44,7 +44,6 @@ function SubAdminPage() {
 								fieldName: "email",
 								isSorting: true,
 								Cell: (props) => {
-									     
 									return (
 										<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
 									)
@@ -55,13 +54,12 @@ function SubAdminPage() {
 								fieldName: "email",
 								isSorting: true,
 								Cell: (props) => {
-									     
 									return (
 										<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
 									)
+
 								},
 							},
-							,
 							{
 								headerName: "Status",
 								fieldName: "isActive",

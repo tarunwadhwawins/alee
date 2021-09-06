@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 
 function AddSubAdmin(props) {
-
+  debugger
   const auth = useSelector((state) => state.auth);
   const api = useSelector((state) => state.api);
   const initialAddValues = {
@@ -29,7 +29,7 @@ function AddSubAdmin(props) {
   };
 
   useEffect(() => {
-    if (props.modalType === "EDIT"){
+    if (props.modalType === "EDIT") {
       editSubAdmin();
     }
   }, [props.openModal]);
@@ -64,7 +64,7 @@ function AddSubAdmin(props) {
           method: "POST",
           data: subAdmin,
           onSuccess: (response) => {
-            
+
             closeModal();
             props.GridReload();
             setSubAdmin(initialAddValues);

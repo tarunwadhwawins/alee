@@ -29,59 +29,6 @@ function CreateTemplatePage() {
 					<Button className="primaryBtn" onClick={openModal2}><Icon name="plus" />Create new template</Button>
 				</Grid.Column>
 				<Grid.Column width={16}>
-					{/* <Table>
-					<Table.Header>
-						<Table.Row>
-							<Table.HeaderCell>Template</Table.HeaderCell>
-							<Table.HeaderCell>Status</Table.HeaderCell>
-							<Table.HeaderCell textAlign="right">Action</Table.HeaderCell>
-						</Table.Row>
-					</Table.Header>
-
-					<Table.Body>
-						<Table.Row>
-							<Table.Cell><Link className="primary-color" onClick={openModal}>Shared text</Link></Table.Cell>
-							<Table.Cell>
-								<Label className="green">Active</Label>
-							</Table.Cell>
-							<Table.Cell textAlign="right">
-								<Icon name="edit" className="primary-color" link/>
-								<Icon name="trash alternate" color="red" link/>
-							</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell><Link className="primary-color" onClick={openModal}>Interactive Read aloud</Link></Table.Cell>
-							<Table.Cell>
-								<Label className="green">Active</Label>
-							</Table.Cell>
-							<Table.Cell textAlign="right">
-								<Icon name="edit" className="primary-color" link/>
-								<Icon name="trash alternate" color="red" link/>
-							</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell><Link className="primary-color" onClick={openModal}>Writers workshop</Link></Table.Cell>
-							<Table.Cell>
-								<Label className="green">Active</Label>
-							</Table.Cell>
-							<Table.Cell textAlign="right">
-								<Icon name="edit" className="primary-color" link/>
-								<Icon name="trash alternate" color="red" link/>
-							</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell><Link className="primary-color" onClick={openModal}>Readers workshop</Link></Table.Cell>
-							<Table.Cell>
-								<Label className="green">Active</Label>
-							</Table.Cell>
-							<Table.Cell textAlign="right">
-								<Icon name="edit" className="primary-color" link/>
-								<Icon name="trash alternate" color="red" link/>
-							</Table.Cell>
-						</Table.Row>
-					</Table.Body>
-				</Table> */}
-
 					<DataTable
 						allApi={{ getApiName: "GETTEMPLATELIST", deleteApiName: "DELETETEMPLATE", toggleApiName: "TOGGLEISACTIVE" }}
 						searchOption={{ show: true, placeHolder: "Search" }} reload={reload}
