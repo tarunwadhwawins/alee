@@ -19,7 +19,6 @@ const schema = yup.object().shape({
 
 function LoginForm() {
   const [forgotPasswordStatus, setForgotPasswordStatus] = React.useState(false)
-
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange'
@@ -63,7 +62,6 @@ function LoginForm() {
     }))
   }
   const forgetPassword = () => {
-    debugger
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
   return (
@@ -103,7 +101,7 @@ function LoginForm() {
             </Grid.Column>
           </Grid>
         </Form>
-        <ForgotPasswordModal openModal={forgotPasswordStatus} closeModal={forgetPassword} />
+        {forgotPasswordStatus && <ForgotPasswordModal openModal={forgotPasswordStatus} closeModal={forgetPassword} />}
       </div>
 
     </div>

@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Modal, Button, Form } from "semantic-ui-react";
+import { Grid, Modal, Button, Form, } from "semantic-ui-react";
 import { useDispatch } from 'react-redux';
+import { Link } from "../../../../functional/global-import";
 import { apiCall } from "../../../../../store/actions/api.actions";
 
 const ForgotPasswordModal = (props) => {
-    debugger
+
     const initialStateOfForgotPassword = { email: "" }
     const [password, setPassword] = React.useState(initialStateOfForgotPassword)
     const [resetPasswordEmail, setResetPasswordEmail] = React.useState(false)
     const [resetPasswordContent, setResetPasswordContent] = React.useState(false)
 
     const onHandleChange = (e, { value, data, checked, type }) => {
-        debugger
+
         setPassword({ ...password, [data]: value })
     }
     const dispatch = useDispatch();
     useEffect(() => {
         resetPasswordEmailToggle();
-        return () => {
-
+        debugger
+        if (resetPasswordContent) {
+            setResetPasswordEmail(true);
+            setResetPasswordContent(false);
         }
-    }, [])
+    }, [props.openModal])
     const resetPasswordEmailToggle = () => {
         setResetPasswordEmail(true);
         setResetPasswordContent(false);
     }
+    useEffect(() => {
+
+    }, [])
     const onSubmit = () => {
         dispatch(apiCall({
             urls: ["FORGOTPASSWORD"], method: "POST", data: password, onSuccess: (response) => {
                 // props.closeModal();
                 setResetPasswordEmail(false)
+                setResetPasswordContent(!resetPasswordContent);
                 setPassword(initialStateOfForgotPassword);
             }, showNotification: true
         }));
@@ -64,7 +71,7 @@ const ForgotPasswordModal = (props) => {
                                 </p>
                                 <p className="mbt">Not received the email yet?</p>
                                 <p>Please check your spam folder, or
-                                    {/* <Link className="orange-color" onClick={this.showmain}> try again.</Link> */}
+                                    <Link className="orange-color" onClick={resetPasswordEmailToggle}> try again.</Link>
                                 </p>
                             </Grid.Column>
                         </>

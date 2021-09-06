@@ -32,12 +32,11 @@ function TeacherSignup(props) {
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     const onsubmit = (values) => {
-         
+
         values.schoolId = 0
         values.teacherId = null
         values.excelReferenceId = null
-        values.userId = ""
-        values.actionPerformedBy = ""
+        values.userId = "test"
         dispatch(apiCall({
             urls: ["TEACHERREGISTRATION"], method: "Post", data: values, onSuccess: (response) => {
                 history.push(`${env.PUBLIC_URL}`);

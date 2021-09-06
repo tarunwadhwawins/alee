@@ -50,7 +50,7 @@ function UserManagementPage(props) {
 						isSorting: true,
 					},
 					{
-						headerName: "Created At",
+						headerName: "Created On",
 						fieldName: "createdAt",
 						isSorting: false,
 						Cell: (props) => {

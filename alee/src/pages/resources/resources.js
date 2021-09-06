@@ -170,7 +170,7 @@ function ResourcesPage() {
 
   const checkDisplayIcon = (link) => {
     if (link?.indexOf("www.youtube.com") > -1) {
-      return "video";
+      return "youtube";
     }
     else if (link?.indexOf("www.youtube.com") < 0) {
       return "file audio outline";
@@ -218,7 +218,7 @@ function ResourcesPage() {
                 {
                   headerName: "Audio",
                   fieldName: "link",
-                  isSorting: true,
+                  isSorting: false,
                   Cell: (props) => {
                     return (
                       <a href={(props.link)}
@@ -295,12 +295,12 @@ function ResourcesPage() {
                 {
                   headerName: "Video",
                   fieldName: "link",
-                  isSorting: true,
+                  isSorting: false,
                   Cell: (props) => {
                     return props.link ? (
                       <a href={(props.link)}
                         target="_blank">
-                        <Icon name="video" className="primary-color" link />
+                        <Icon name="youtube" className="primary-color" link />
                       </a>
                     ) : (
                       "-"
@@ -373,7 +373,7 @@ function ResourcesPage() {
                 {
                   headerName: "Article",
                   fieldName: "link",
-                  isSorting: true,
+                  isSorting: false,
                   Cell: (props) => {
                     return props.link?.indexOf("pdf") < 0 ? (
                       <a href={(props.link)}
@@ -388,7 +388,7 @@ function ResourcesPage() {
                 {
                   headerName: "Pdf",
                   fieldName: "link",
-                  isSorting: true,
+                  isSorting: false,
                   Cell: (props) => {
                     return props.link?.indexOf("pdf") > 0 ? (
                       <a href={commonFunctions.concatenateImageWithAPIUrl(props.link)}
@@ -429,9 +429,10 @@ function ResourcesPage() {
     },
   ];
   const onHandleSubmit = () => {
+    debugger
     const data = { ...resources, };
-    data.ChapterId = 1;
-    data.PageId = 2;
+    // data.ChapterId = 1;
+    // data.PageId = 2;
     var formData = commonFunctions.getFormData(data);
     dispatch(
       apiCall({
@@ -439,7 +440,6 @@ function ResourcesPage() {
         method: "Post",
         data: formData,
         onSuccess: (response) => {
-
           GridReload();
           cancelClear();
           setResources(initialValues);
