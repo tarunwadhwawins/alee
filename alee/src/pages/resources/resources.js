@@ -57,7 +57,7 @@ function ResourcesPage() {
       })
     }
     else if (data.resourceTypeName === "UploadPdf" && data.link.indexOf("pdf") < 0) {
-           
+
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
   }
@@ -97,6 +97,8 @@ function ResourcesPage() {
   };
   //  //  get api //
   const getGradeList = () => {
+    const ActiveGrades = true
+
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],
@@ -134,7 +136,7 @@ function ResourcesPage() {
         method: "GET",
         data: page,
         onSuccess: (response) => {
-               
+
           const pages = response.map((singledata) => {
             return { text: singledata.pageNo, value: singledata.pageId };
           });

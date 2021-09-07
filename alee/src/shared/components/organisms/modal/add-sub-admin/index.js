@@ -133,6 +133,7 @@ function AddSubAdmin(props) {
                     <Form.Input
                       label="Password"
                       data="password"
+                      type="password"
                       value={subAdmin.password}
                       onChange={onHandleChange}
                     />
@@ -142,6 +143,7 @@ function AddSubAdmin(props) {
                       label="Confirm Password"
                       value={subAdmin.confirmPassword}
                       data="confirmPassword"
+                      type="password"
                       onChange={onHandleChange}
                     />
                   </Grid.Column>
