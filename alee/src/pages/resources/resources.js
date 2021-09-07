@@ -12,7 +12,7 @@ function ResourcesPage() {
   const [reload, SetReload] = useState(false);
   const [editData, SetEditData] = useState([]);
   const dispatch = useDispatch();
-  const [grade, setGradeList] = useState(null);
+  const [grade, setGradeList] = useState();
   const [chapter, setChapter] = useState({ bookId: 1 });
   const [chapterList, setChapterList] = useState([]);
   const [page, setPage] = useState({ bookId: 1, chapterId: 46 });
@@ -56,7 +56,7 @@ function ResourcesPage() {
       })
     }
     else if (data.resourceTypeName === "UploadPdf" && data.link.indexOf("pdf") < 0) {
-           
+
       setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
   }
@@ -96,11 +96,13 @@ function ResourcesPage() {
   };
   //  //  get api //
   const getGradeList = () => {
+    const ActiveGrades = true
+
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],
         method: "GET",
-        data: grade,
+        data: { ActiveGrades: ActiveGrades },
         onSuccess: (response) => {
           const grade = response.map((singledata) => {
             return { text: singledata.gradeName, value: singledata.gradeId };
@@ -132,7 +134,7 @@ function ResourcesPage() {
         method: "GET",
         data: page,
         onSuccess: (response) => {
-               
+
           const pages = response.map((singledata) => {
             return { text: singledata.pageNo, value: singledata.pageId };
           });

@@ -251,3 +251,12 @@ h5.ui.header.forCommonTable {
   text-align: center;
   padding: 50px 0 !important ;
 }
+.loginPassword {
+  position: relative;
+  .passwordIcon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+}
