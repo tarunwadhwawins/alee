@@ -170,7 +170,6 @@ function ResourcesPage() {
     setResources(initialValues);
   };
 
-
   const checkDisplayIcon = (link) => {
     if (link?.indexOf("www.youtube.com") > -1) {
       return "youtube";

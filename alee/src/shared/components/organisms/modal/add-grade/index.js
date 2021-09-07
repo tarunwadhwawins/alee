@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 
 function AddGrade(props) {
+	debugger
 	const initialValues = {
 		gradeName: "",
 		isActive: true,
@@ -27,7 +28,6 @@ function AddGrade(props) {
 				method: "Post",
 				data: grade,
 				onSuccess: (response) => {
-					
 					closeModal();
 					props.GridReload();
 					setGrade(initialValues);
@@ -37,27 +37,20 @@ function AddGrade(props) {
 		);
 	};
 	const closeModal = () => {
-		props.closeModal();
 		setGrade(initialValues);
+		props.closeModal();
 	}
 	useEffect(() => {
-		if (props.editGradeText === "grade") {
+		debugger
+		if (props.editGradeToggle) {
 			editGradelist();
 		}
-	}, [props.editGrade]);
+	}, [props.editGradeToggle]);
 
 	const editGradelist = () => {
-		     
-		if (props.editGrade !== undefined || props.editGrade.length > 0) {
-			const {
-				gradeId,
-				gradeName,
-				isActive,
-			} = props.editGrade;
-			setGrade({
-				...grade, gradeId: gradeId, gradeName: gradeName, isActive: isActive,
-			});
-		}
+		debugger
+		const { gradeId, gradeName, isActive, } = props.editGrade;
+		setGrade({ ...grade, gradeId: gradeId, gradeName: gradeName, isActive: isActive, });
 	};
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="tiny" closeOnDimmerClick={false}>
