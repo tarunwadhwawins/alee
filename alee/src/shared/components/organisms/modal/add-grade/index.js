@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Modal, Button, Form, Grid, Dimmer, Loader, Label } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
+import SimpleReactValidator from 'simple-react-validator';
 
 function AddGrade(props) {
 	debugger
@@ -14,6 +15,8 @@ function AddGrade(props) {
 	const [grade, setGrade] = useState(initialValues);
 	const api = useSelector((state) => state.api);
 
+	const [, forceUpdate] = useState()
+	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const dispatch = useDispatch();
 	const onHandleChange = (e, { data, value, checked, type }) => {
 		setGrade({ ...grade, [data]: value });
@@ -22,22 +25,31 @@ function AddGrade(props) {
 		}
 	};
 	const onHandleSubmit = () => {
-		dispatch(
-			apiCall({
-				urls: ["ADDGRADE"],
-				method: "Post",
-				data: grade,
-				onSuccess: (response) => {
-					closeModal();
-					props.GridReload();
-					setGrade(initialValues);
-				},
-				showNotification: true,
-			})
-		);
+		debugger
+		const formValid = simpleValidator.current.allValid()
+		if (!formValid) {
+			simpleValidator.current.showMessages();
+			forceUpdate(true);
+		} else {
+			dispatch(
+				apiCall({
+					urls: ["ADDGRADE"],
+					method: "Post",
+					data: grade,
+					onSuccess: (response) => {
+						closeModal();
+						props.GridReload();
+						setGrade(initialValues);
+					},
+					showNotification: true,
+				})
+			);
+		}
 	};
 	const closeModal = () => {
+		debugger
 		setGrade(initialValues);
+		simpleValidator.current.hideMessages();
 		props.closeModal();
 	}
 	useEffect(() => {
@@ -67,8 +79,12 @@ function AddGrade(props) {
 					<Form>
 						<Grid>
 							<Grid.Column width={8}>
-								<Form.Input label="Grade" data="gradeName" value={grade.gradeName}
-									onChange={onHandleChange} />
+								<div className="addGradeInput">
+									<Form.Input label="Grade" data="gradeName" value={grade.gradeName}
+										onChange={onHandleChange}
+										error={simpleValidator.current.message('gradeName', grade.gradeName, 'required')}
+									/>
+								</div>
 							</Grid.Column>
 							<Grid.Column className="status">
 								<p>Status</p>

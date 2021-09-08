@@ -25,13 +25,14 @@
       .field {
         label {
           font-weight: 400;
+          color: rgba(0, 0, 0, 0.87) !important;
         }
         .ui.input {
           input {
             border: none;
             border-bottom: 1.5px solid $secondary-color;
             border-radius: 0;
-            padding: 5px 0;
+            padding: 5px;
           }
         }
       }
@@ -76,10 +77,7 @@
       padding: 30px 15px !important;
 
       .error {
-        position: absolute;
-        bottom: 10px;
-        font-size: 12px;
-        color: #f00;
+        position: relative;
       }
       .ui.grid {
         background-color: $white-color;
@@ -89,9 +87,6 @@
           color: $primary-color;
           font-size: 25px;
         }
-      }
-      .loginPassword {
-        position: relative;
       }
       .passwordIcon {
         position: absolute;
