@@ -355,7 +355,7 @@ function ResourcesPage() {
                   isSorting: false,
                   Cell: (props) => {
                           ;
-                    return props.link?.indexOf("pdf") > 0 ? (
+                    return props.link?.indexOf("pdf") < 0 ? (
                       <a href={(props.link)}
                         target="_blank">
                         <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
