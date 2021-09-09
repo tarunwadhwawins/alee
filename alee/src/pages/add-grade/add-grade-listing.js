@@ -8,17 +8,20 @@ function AddGradePage() {
 	const [addgrade, setAddgrade] = React.useState(false);
 	const [reload, setReload] = useState(false);
 	const [editGrade, setEditGrade] = useState([]);
-	const [editGradeText, setEditGradeText] = useState();
+	const [editGradeToggle, setEditGradeToggle] = useState(false);
 	const openModal = () => {
+		debugger
 		setAddgrade(!addgrade)
+		if (editGradeToggle) {
+			setEditGradeToggle(!editGradeToggle);
+		}
 	}
 	const GridReload = () => {
 		setReload(!reload)
 	}
-	const onHandleEdit = (data, text) => {
-		     
+	const onHandleEdit = (data) => {
 		setEditGrade(data)
-		setEditGradeText(text)
+		setEditGradeToggle(!editGradeToggle)
 		openModal();
 	}
 	return (
@@ -36,7 +39,7 @@ function AddGradePage() {
 						allApi={{ getApiName: "GETGRADESLIST", deleteApiName: "DELETEGRADE", toggleApiName: "GRADESTOGGLE" }} reload={reload}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="grade"
-						additionalParams={{ActiveGrades:false}}
+						additionalParams={{ ActiveGrades: false }}
 						columns={[
 							{
 								headerName: "Grade",
@@ -61,7 +64,7 @@ function AddGradePage() {
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color" link
-												onClick={() => { onHandleEdit(props, "grade") }}
+												onClick={() => { onHandleEdit(props) }}
 											/>
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.gradeId, "delete")} />
 										</>
@@ -73,7 +76,7 @@ function AddGradePage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<AddGrade openModal={addgrade} editGrade={editGrade} closeModal={openModal} GridReload={GridReload} editGradeText={editGradeText} />
+			<AddGrade openModal={addgrade} editGrade={editGrade} closeModal={openModal} GridReload={GridReload} editGradeToggle={editGradeToggle} />
 		</div>
 	);
 }

@@ -74,6 +74,7 @@
     }
     .signInnerRight {
       padding: 30px 15px !important;
+
       .error {
         position: absolute;
         bottom: 10px;
@@ -87,6 +88,24 @@
         h2.ui.header {
           color: $primary-color;
           font-size: 25px;
+        }
+      }
+      .loginPassword {
+        position: relative;
+      }
+      .passwordIcon {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+      }
+      .loginPassword {
+        position: relative;
+        .passwordIcon {
+          position: absolute;
+          top: 50%;
+          right: 20px;
+          transform: translateY(-50%);
         }
       }
       .ui.buttons {

@@ -45,9 +45,9 @@ function ResourcesPage() {
         ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId,ArticleLink: link
       })
     }
-    else if (data.resourceTypeName === "UploadPdf"){
-  
-      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId,UploadPdf: link,})
+    else if (data.resourceTypeName === "UploadPdf" && data.link.indexOf("pdf") < 0) {
+
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link })
     }
   }
   useEffect(() => {
@@ -81,6 +81,8 @@ function ResourcesPage() {
   };
 //  get api //
   const getGradeList = () => {
+    const ActiveGrades = true
+
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],

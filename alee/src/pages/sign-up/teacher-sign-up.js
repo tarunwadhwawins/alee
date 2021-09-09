@@ -36,6 +36,7 @@ function TeacherSignup(props) {
         values.teacherId = null
         values.excelReferenceId = null
         values.userId = "test"
+        values.actionPerformedBy = ""
         dispatch(apiCall({
             urls: ["TEACHERREGISTRATION"], method: "Post", data: values, onSuccess: (response) => {
                 history.push(`${env.PUBLIC_URL}`);
