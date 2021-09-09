@@ -132,7 +132,7 @@ const getSingleValue = (globalCodeData, categoryType, codeName) => {
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-debugger
+      
   const singlevalue = globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Header, Image, List, Divider, Icon, Dimmer, Loader } from "semantic-ui-react";
 import { profile } from "../../shared/functional/global-image-import"
+import { commonFunctions } from "../../shared/functional/global-import";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../store/actions/api.actions";
 import { useParams } from 'react-router-dom';
@@ -19,9 +20,7 @@ function ProfileViewPage() {
 				method: "GET",
 				data: teacherId,
 				onSuccess: (response) => {
-
 					setTeacherData(response);
-					//   setTeacherProfile(initialValues);
 				},
 			})
 		);
@@ -32,24 +31,17 @@ function ProfileViewPage() {
 				<Dimmer active inverted><Loader />
 				</Dimmer>
 			)}
-
-
 			<div className="common-shadow profileView">
-
 				{api.isApiLoading && (<Dimmer active inverted><Loader /></Dimmer>)}
 				<div className="profileViewHeader" >
-
-					<div className="profileImgOuter">
-						<div className="profileImg">
-					       <Image src={profile} />
-						</div>
-						<Icon name='edit outline' title="Edit"/>
-						<Icon name='trash alternate outline' title="Delete"/>
-					</div>
 					{teacherData.map((teacherProfile, index) => {
-						const grade = teacherProfile.grades ? JSON.parse(teacherProfile.grades)[0]:[];
 						return (
 							<>
+								<div className="profileImgOuter">
+									<div className="profileImg">
+										<Image src={commonFunctions.concatenateImageWithAPIUrl(teacherProfile.image)} />
+									</div>
+								</div>
 								<div className="profileViewHeaderDesc">
 									<Header as='h3' className="commonHeading">
 										{teacherProfile.teacherName}
@@ -66,12 +58,12 @@ function ProfileViewPage() {
 									</List>
 									<p><span>{teacherProfile.schoolName}:</span>{teacherProfile.address}</p>
 									<List horizontal className="gradePlan">
-										<List.Item>
+										{/* <List.Item>
 											<List.Content>
 												<span>{grade}</span>
 												<List.Header>Grade</List.Header>
 											</List.Content>
-										</List.Item>
+										</List.Item> */}
 										<List.Item>
 											<List.Content>
 												<span>{teacherProfile.lessonPlans}</span>
@@ -85,11 +77,9 @@ function ProfileViewPage() {
 					})}
 				</div>
 				{teacherData.map((teacherdata, index) => {
-
 					const education = teacherdata.educationQualifications ? JSON.parse(teacherdata.educationQualifications) : [];
 					const Employe = teacherdata.employmentHistory ? JSON.parse(teacherdata.employmentHistory) : [];
 					const skill = teacherdata.keySkillSet ? JSON.parse(teacherdata.keySkillSet) : [];
-
 					return (
 						<Grid className="profileViewBody" columns="1">
 

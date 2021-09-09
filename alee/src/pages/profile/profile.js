@@ -7,8 +7,9 @@ import ProfileStepOne from "./profile-step-one";
 import ProfileStepTwo from "./profile-step-two";
 import ProfileStepThree from "./profile-step-three";
 import ProfileStepFour from "./profile-step-four";
+import { commonFunctions } from "../../shared/functional/global-import";
 
-const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, actionPerformedBy: "" }
+const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "", actionPerformedBy: "", imageurl:null }
 const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "", index: null, updateButtonEducation: false, }
 const initialSchool = { institute: "", position: "", grades: [], isCurrent: true, index: null, updateButtonSchool: false, }
 function MyProfile() {
@@ -24,52 +25,67 @@ function MyProfile() {
   const [skill, setSkill] = useState({ updatedSkill: false });
   const [skills, setSkills] = useState([]);
   const [grade, setGradeList] = useState([]);
-  
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
+
 
   const dispatch = useDispatch();
   useEffect(() => {
     setValues({ ...values, teacherId: teacherId })
   }, [values.teacherId]);
-	useEffect(() => {
-		getGradeList();
-	}, []);
+  useEffect(() => {
+    getGradeList();
+  }, []);
 
-	const getGradeList = () => {
-		dispatch(
-			apiCall({
-				urls: ["GETGRADESLIST"],
-				method: "GET",
-				data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
-				onSuccess: (response) => {
-          debugger
-					const grade = response.map((singledata) => {
-						return { text: singledata.gradeName, value: singledata.gradeId };
-					});
-					setGradeList(grade);
-				},
-			})
-		);
-	};
+  const getGradeList = () => {
+    dispatch(
+      apiCall({
+        urls: ["GETGRADESLIST"],
+        method: "GET",
+        data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
+        onSuccess: (response) => {
+          const grade = response.map((singledata) => {
+            return { text: singledata.gradeName, value: singledata.gradeId };
+          });
+          setGradeList(grade);
+        },
+      })
+    );
+  };
+
   const onChangeFirststep = (e, { data, value }) => {
     setValues({ ...values, [data]: value });
   }
+
   const onChangeSecondStep = (e, { data, value, checked, type }) => {
     const qualificationValue = type === "checkbox" ? checked : value;
     setsecondstepValues({ ...secondstepValues, [data]: qualificationValue })
   }
+
   const onChangeFourstep = (e, { value }) => {
     setSkilled(value);
   }
+
   const onStepFirst = () => {
+    var formData = commonFunctions.getFormData(values);
     dispatch(apiCall({
-      urls: ["ADDTEACHERBASICINFO"], method: "POST", data: (values),
-       onSuccess: (response) => {
-         debugger;
+      urls: ["ADDTEACHERBASICINFO"], method: "POST", data: formData,
+      onSuccess: (response) => {
         changeStep(1);
       }, showNotification: true
     }))
   }
+
+  const imageChange = (e) => {
+    if (e.target.files) {
+      setValues({ ...values,
+         imageurl:window.URL.createObjectURL(e.target.files[0]),
+         image: e.target.files[0] });
+    }
+  };
+  const removeSelectedImage = () => {
+            
+    setValues();
+  };
   /////////////-Second Step-/////////////
   const addMoreQualification = () => {
     setFormSecondStep(formSecondStep.concat({ degree: secondstepValues.degree, college: secondstepValues.college, inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing }))
@@ -189,7 +205,9 @@ function MyProfile() {
       case 0:
         return (
           <>
-            <ProfileStepOne onHandleChange={onChangeFirststep}  grade={grade}/>
+            <ProfileStepOne onHandleChange={onChangeFirststep} grade={grade}
+              imageChange={imageChange} values={values}
+              removeSelectedImage={removeSelectedImage} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">

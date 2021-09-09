@@ -78,12 +78,12 @@ const API_ENDPOINTS = {
   UPLOADPDF: "/UploadPdf/UploadBookPdf",
   ADDTEACHERWORKEXPERIENCE: "/Teacher/AddTeacherWorkExperience",
   ADDTEACHERSKILLS: "/Teacher/AddTeacherSkills",
-  //GETCHAPTERPAGES: "/Chapter/GetChapterPages",
   FORGOTPASSWORD: "/Authentication/ForgotPassword",
   GETTEMPLATELIST:"/Template/GetTemplateList",
   DELETETEMPLATE:"/Template/DeleteTemplate",
   TOGGLEISACTIVE:"/Template/ToggleIsActive",
-  RESETPASSWORD:"/Authentication/ResetPassword"
+  RESETPASSWORD:"/Authentication/ResetPassword",
+  GETBOOKSLISTBYGRADEID:"/Books/GetBooksListByGradeId"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

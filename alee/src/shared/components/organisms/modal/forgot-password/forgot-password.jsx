@@ -16,7 +16,7 @@ const ForgotPasswordModal = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
         resetPasswordEmailToggle();
-        debugger
+              
         if (resetPasswordContent) {
             setResetPasswordEmail(true);
             setResetPasswordContent(false);

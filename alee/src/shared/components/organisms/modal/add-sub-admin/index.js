@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 
 function AddSubAdmin(props) {
-  debugger
+        
   const auth = useSelector((state) => state.auth);
   const api = useSelector((state) => state.api);
   const initialAddValues = {
@@ -133,6 +133,7 @@ function AddSubAdmin(props) {
                     <Form.Input
                       label="Password"
                       data="password"
+                      placeholder="********"
                       value={subAdmin.password}
                       onChange={onHandleChange}
                     />
@@ -142,6 +143,7 @@ function AddSubAdmin(props) {
                       label="Confirm Password"
                       value={subAdmin.confirmPassword}
                       data="confirmPassword"
+                      placeholder="********"
                       onChange={onHandleChange}
                     />
                   </Grid.Column>

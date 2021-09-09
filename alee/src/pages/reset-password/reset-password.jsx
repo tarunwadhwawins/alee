@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import { env } from "../../shared/functional/global-import";
 
 function ResetPassword(props) {
-    debugger
+          
     const search = useLocation().search;
     const token = new URLSearchParams(search).get('token');
     const email = new URLSearchParams(search).get('emailId');

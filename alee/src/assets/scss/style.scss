@@ -486,6 +486,12 @@ h4.ui.header.bookName {
 				// 	color: $primary-color;
 				// }
 			}
+			input[type="file"] {
+				display: none;
+			}
+			.custom-file-upload {
+				cursor: pointer;
+			}
 		}
 		.profileImg {
 			position: relative;
@@ -610,5 +616,43 @@ h4.ui.header.bookName {
 	.primaryBtn.ui.button {
 		width: 100%;
 		margin-top: 60px;
+	}
+}
+
+.setImg {
+	text-align: center;
+	.setImgInner {
+		height: 120px;
+		width: 120px;
+		margin:0 auto 10px;
+		border: 1px solid #e3e3e3;
+		padding: 5px;
+		border-radius: 5px;
+		position: relative;
+		i.close.icon {
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			background-color: #253b49;
+			color: #fff;
+			border-radius: 50%;
+			height: 20px;
+			width: 20px;
+			font-size: 12px;
+			line-height: 20px;
+		}
+		img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+		}
+	}
+	.ui.button {
+		position: relative;
+		input {
+			position: absolute;
+			inset: 0;
+			opacity: 0;
+		}
 	}
 }

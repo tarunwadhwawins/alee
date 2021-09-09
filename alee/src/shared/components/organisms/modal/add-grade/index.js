@@ -27,7 +27,7 @@ function AddGrade(props) {
 				method: "Post",
 				data: grade,
 				onSuccess: (response) => {
-					
+
 					closeModal();
 					props.GridReload();
 					setGrade(initialValues);
@@ -47,7 +47,7 @@ function AddGrade(props) {
 	}, [props.editGrade]);
 
 	const editGradelist = () => {
-		     
+
 		if (props.editGrade !== undefined || props.editGrade.length > 0) {
 			const {
 				gradeId,
