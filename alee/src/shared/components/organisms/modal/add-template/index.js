@@ -15,8 +15,7 @@ function AddTemplateModal(props) {
 					<Form>
 						<Grid>
 							<Grid.Column width={16}>
-								<Form.Input label="Template Name" placeholder="Template Name"/>
-								
+								<Form.Input label="Template Name" placeholder="Template Name" onChange={props.onChangeTemplate}/>	
 							</Grid.Column>
 						</Grid>
 
@@ -25,7 +24,7 @@ function AddTemplateModal(props) {
 			</Modal.Content>
 			<Modal.Actions>
 				<Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={props.closeModal}>Confirm</Button>
+				<Button className="primaryBtn" onClick={props.onSubmitTemplate}>Confirm</Button>
 			</Modal.Actions>
 		</Modal>
 	);

@@ -29,7 +29,7 @@ function UploadExcelPage() {
 
 	const getExcelTemplate = () => {
 		dispatch(apiCall({
-			urls: ["GETEXCELTEMPLATE"], method: "GET", onSuccess: (response) => {
+			urls: ["GETEXCELTEMPLATETEACHER"], method: "GET", onSuccess: (response) => {
 				setTemplate(response.responseMessage)
 			}, showNotification: false
 		}))

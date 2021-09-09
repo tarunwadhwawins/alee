@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Form, Dropdown, Checkbox, Header, Image, Button, Input, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Form, Dropdown, Header, Image, Button, Input, Dimmer, Loader, Item } from "semantic-ui-react";
 import { Link, commonFunctions } from "../../shared/functional/global-import";
 import { Book } from "../../shared/functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
+import { storeMyBookData } from "../../store/actions/global.actions";
 
 function LessonLibrary() {
-	const [standards, setStandards] = useState([])
-	const [comprehensionStrategies, setComprehensionStrategies] = useState([])
+
 	const [valuesTag, setValuesTag] = useState([])
-	const [literaryElements, setLiteraryElements] = useState([])
+	const [tagFields, setTagFields] = useState([]);
 
 	const api = useSelector(state => state.api)
-	///////////////
+	const tags = useSelector(state => state.global.tags)
 	const dispatch = useDispatch();
-	const [bookList, setBookList] = useState(null)
-	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 
-	const globalCode = useSelector(state => state.global.codes)
+	const [bookList, setBookList] = useState([])
+	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 
 	const onHandleChangeSearch = (e, { value }) => {
 		setValues({ ...values, searchValue: value })
 	}
-	//  call the api //
+
 	useEffect(() => {
-		getStandardsTags();
-		getComprehensionStrategiesTags();
-		getValuesTags();
-		getLiteraryElementsTags();
+		getTagField();
 	}, []);
 
 	useEffect(() => {
@@ -41,54 +37,43 @@ function LessonLibrary() {
 			}
 		}));
 	}
-	const getStandardsTags = () => {
+
+
+	const getTagField = () => {
 		dispatch(apiCall({
-			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Standards")).globalCodeId }, onSuccess: (response) => {
-				const tagList = response.map((singleTag) => {
-					return { value: singleTag.tagId, text: singleTag.tagTypeName }
-				});
-				setStandards(tagList)
+			urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { PageNo: 1, PageSize: 100 }, onSuccess: (response) => {
+				setTagFields(response)
 			}
-		}));
+		}))
 	}
-	const getComprehensionStrategiesTags = () => {
+
+	const onFilter = () => {
 		dispatch(apiCall({
-			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Comprehension Strategies")).globalCodeId }, onSuccess: (response) => {
-
-				const tagList = response.map((singleTag) => {
-					return { value: singleTag.tagId, text: singleTag.tagTypeName }
-				});
-				setComprehensionStrategies(tagList)
-
-			}
-		}));
-	}
-	const getValuesTags = () => {
-		dispatch(apiCall({
-			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Values")).globalCodeId }, onSuccess: (response) => {
-
-				const tagList = response.map((singleTag) => {
-					return { value: singleTag.tagId, text: singleTag.tagTypeName }
-				});
-				setValuesTag(tagList)
-
-			}
-		}));
-	}
-	const getLiteraryElementsTags = () => {
-		dispatch(apiCall({
-			urls: ["GETTAGLISTBYID"], method: "GET", data: { tagTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "TagType", "Literary Elements")).globalCodeId }, onSuccess: (response) => {
-
-				const tagList = response.map((singleTag) => {
-					return { value: singleTag.tagId, text: singleTag.tagTypeName }
-				});
-				setLiteraryElements(tagList)
+			urls: ["BOOKSEARCHBYTAG"], method: "POST", data: { tagIds: valuesTag }, onSuccess: (response) => {
+				setBookList(response)
 			}
 		}));
 	}
 
-	const onHandleFilter = (e, { value, data }) => {
+	const onReset = () => {
+		getBookList();
+		setValuesTag([]);
+	}
 
+	const onValue = (e, { value }) => {
+		const matchValue = valuesTag.indexOf(value)
+		if (matchValue === -1) {
+			setValuesTag(valuesTag.concat(value))
+		}
+		else {
+			const removeId = [...valuesTag]
+			removeId.splice(matchValue, 1)
+			setValuesTag(removeId)
+		}
+	}
+
+	const addBookData = (data) => {
+		dispatch(storeMyBookData(data));
 	}
 
 	return (
@@ -108,55 +93,39 @@ function LessonLibrary() {
 					<Input fluid icon="search" name="searchValue" data="searchValue" iconPosition="left" placeholder="Search by Book Title" className="common-search-bar" onChange={onHandleChangeSearch} />
 				</Grid.Column>
 
+
 				<Grid.Column width={16} className="filterDropdwon">
-					<Dropdown text='Standards' pointing item simple className='link item'>
-						<Dropdown.Menu>
-							{standards.map((singleTag, index) => {
-								return (
-									<Dropdown.Item>
-										<Checkbox radio name='StandardsRadioGroup' label={singleTag.text} onChange={onHandleFilter} />
-									</Dropdown.Item>
-								)
-							})}
-						</Dropdown.Menu>
-					</Dropdown>
-					<Dropdown text='Comprehension Strategies' pointing item simple className='link item'>
-						<Dropdown.Menu>
-							{comprehensionStrategies.map((singleTag, index) => {
-								return (
-									<Dropdown.Item>
-										<Checkbox radio label={singleTag.text} name='StandardsRadioGroup' />
-									</Dropdown.Item>
-								)
-							})}
-						</Dropdown.Menu>
-					</Dropdown>
-					<Dropdown text='Values' pointing item simple className='link item'>
-						<Dropdown.Menu>
-							{valuesTag.map((singleTag, index) => {
-								return (
-									<Dropdown.Item>
-										<Checkbox radio label={singleTag.text} name='StandardsRadioGroup' />
-									</Dropdown.Item>
-								)
-							})}
-						</Dropdown.Menu>
-					</Dropdown>
-					<Dropdown text='Literary Elements' pointing item simple className='link item'>
-						<Dropdown.Menu>
-							{literaryElements.map((singleTag, index) => {
-								return (
-									<Dropdown.Item>
-										<Checkbox radio label={singleTag.text} name='StandardsRadioGroup' />
-									</Dropdown.Item>
-								)
-							})}
-						</Dropdown.Menu>
-					</Dropdown>
+					{tagFields && tagFields.length > 0 && tagFields.map((singleField, index) => {
 
-					<Button>Filter</Button>
+						const ss = tags.length > 0 && tags.filter(code => code[singleField.fieldName])
+						const aa = singleField.dataTypeName === "Dropdown" && ss[0][singleField.fieldName]
 
+						return (
+							<>
+								{singleField.dataTypeName === "Dropdown" ?
+
+									<Dropdown text={singleField.fieldName} pointing item simple className='link item'>
+										<Dropdown.Menu>
+											{aa.map((singleTag, index) => {
+												return (
+													<Dropdown.Item>
+														<Form.Checkbox checked={valuesTag.includes(singleTag.value)} label={singleTag.text} onChange={onValue} value={singleTag.value} />
+													</Dropdown.Item>
+												)
+											})}
+										</Dropdown.Menu>
+									</Dropdown>
+									: null}
+							</>
+						)
+					})}
 				</Grid.Column>
+
+				<Grid.Column width={16} className="filterDropdwon">
+					<Button className="primaryBtn" disabled={valuesTag.length <= 0} onClick={onFilter} >Filter</Button>
+					<Button className="primaryBtn" onClick={onReset} >Reset</Button>
+				</Grid.Column>
+
 
 				<Grid.Column computer={16}>
 					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
@@ -164,14 +133,25 @@ function LessonLibrary() {
 
 				{bookList && bookList.map((data, index) => {
 					return (
-						<Grid.Column width={3}>
+						<Grid.Column width={4}>
 							<div className="bookDetail">
 
-								<Image size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
-								/>
-								<Header as="h5">{data.bookName}</Header>
+								<Item.Group>
+									<Item as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} onClick={() => addBookData(data)}>
+										<Image as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+										/>
+										<Item.Content>
+											<Item.Header>{data.bookName}</Item.Header>
+											<Item.Meta>{data.author}</Item.Meta>
+										</Item.Content>
+									</Item>
+								</Item.Group>
 
-								<p>{data.tagName}</p>
+								{/* <Image as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+								/>
+								<Header as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} as="h5">{data.bookName}</Header>
+
+								<p>{data.author}</p> */}
 							</div>
 						</Grid.Column>
 					)

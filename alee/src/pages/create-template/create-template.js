@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { Grid, Icon, Header, Button, Table, Label, Form } from "semantic-ui-react";
 import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
 import AddTemplateModal from "../../shared/components/organisms/modal/add-template/index"
-import { Link } from "../../shared/functional/global-import";
+import { Link, env } from "../../shared/functional/global-import";
 import { DataTable } from "../../../src/shared/components/organisms";
+import { apiCall } from "../../store/actions/api.actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 function CreateTemplatePage() {
-	const [lesson, setLesson] = React.useState(false)
-	const [template, setTemplate] = React.useState(false)
-	const [reload, SetReload] = useState(false)
+	const [lesson, setLesson] = useState(false)
+	const [template, setTemplate] = useState(false)
+	const [reload, setReload] = useState(false)
+	const [templateName, setTemplateName] = useState("")
+
+	const dispatch = useDispatch();
+	let history = useHistory();
 
 	const openModal = () => {
 		setLesson(!lesson)
@@ -16,9 +23,27 @@ function CreateTemplatePage() {
 	const openModal2 = () => {
 		setTemplate(!template)
 	}
-	const GridReload = () => {
-		SetReload(!reload)
+	const gridReload = () => {
+		setReload(!reload)
 	}
+
+	const onSubmitTemplate = () => {
+		dispatch(apiCall({
+			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: {
+				"templateId": null, "templateName": templateName, "isActive": true,
+				"actionPerformedBy": ""
+			}, onSuccess: (response) => {
+				openModal2();
+				gridReload();
+				history.push(`${env.PUBLIC_URL}/drag/${response.id}`);
+			}, showNotification: true
+		}))
+	}
+
+	const onChangeTemplate = (e, { value }) => {
+		setTemplateName(value)
+	}
+
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -38,6 +63,11 @@ function CreateTemplatePage() {
 								headerName: "Template",
 								fieldName: "template",
 								isSorting: true,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<Link className="primary-color" onClick={openModal}>{props.template}</Link>
+									);
+								},
 							},
 							{
 								headerName: "Status",
@@ -67,7 +97,7 @@ function CreateTemplatePage() {
 				</Grid.Column>
 			</Grid>
 			<LessonPlanCustomModal openModal={lesson} closeModal={openModal} />
-			<AddTemplateModal openModal={template} closeModal={openModal2} />
+			<AddTemplateModal openModal={template} closeModal={openModal2} onChangeTemplate={onChangeTemplate} onSubmitTemplate={onSubmitTemplate} />
 		</div>
 	);
 }

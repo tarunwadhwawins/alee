@@ -90,9 +90,12 @@ function SearchResultPage() {
 				<Grid.Column width={12}>
 					<div className="booksResult">
 						<Item.Group>
-							<Item as={Link}
-								onClick={addChapter}
-								to="book-flip">
+							{/* <Item as={Link}
+								onClick={addChapter} to={{
+									pathname: '/book-flip',
+									state: "lessonPlan"
+								}}> */}
+							<Item>
 								<Item.Image size='tiny' src={Book} />
 								<Item.Content>
 									<Item.Header><span>Animal Farm</span> <Icon name="heart outline" link /></Item.Header>
@@ -104,17 +107,6 @@ function SearchResultPage() {
 								</Item.Content>
 							</Item>
 
-							<Item as={Link} to="book-flip">
-								<Item.Image size='tiny' src={Book} />
-								<Item.Content>
-									<Item.Header><span>America Dreams</span> <Icon name="heart outline" link /></Item.Header>
-									<Item.Meta><span>J.K. Rownling</span><span>125 pages</span></Item.Meta>
-									<Item.Description>
-										Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis, esse recusandae nam ratione aperiam quo culpa vero illum iusto nemo consequatur impedit in quis sed velit odit cum ipsam ?
-									</Item.Description>
-									<Item.Extra>Other Tags: 7.4, Empathy</Item.Extra>
-								</Item.Content>
-							</Item>
 						</Item.Group>
 					</div>
 				</Grid.Column>

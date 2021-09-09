@@ -1,12 +1,14 @@
 @import "variables.scss";
 .filterDropdwon {
 	display: flex!important;
+	flex-wrap: wrap;
 	.ui.dropdown {
 		border: 1px solid $primary-color;
 		padding: 10px;
 		border-radius: 3px;
 		margin-right: 20px;
-		flex: 1;
+		margin: 0 20px 20px 0;
+		width: 18%;
 		&:last-child {
 			margin-right: 0;
 		}
@@ -129,6 +131,8 @@ h4.ui.header.bookName {
 	border: 1px solid $gray-color;
 	padding: 15px;
 	border-radius: 5px;
+	height: 100%;
+    overflow: auto;
 	h4.ui.header {
 		color: $primary-color;
 	}

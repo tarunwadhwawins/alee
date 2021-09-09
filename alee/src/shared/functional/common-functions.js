@@ -102,13 +102,14 @@ const getFormData = (data) => {
         let file = val[0].file === undefined ? val[0] : val[0].file;
         formData.append(key, file);
       }
-      else if (key === "ids"|| key === "grades") {
+      else if (key === "ids" || key === "grades" || key === "standards" || key === "comprehensionStrategies" || key === "valuesTag" || key === "literaryElements") {
+        debugger
         var array = val;
         for (var i = 0; i < array.length; i++) {
           formData.append(key, array[i]);
         }
       }
-      else if (key === "images"|| key === "bookCoverImage") {
+      else if (key === "images" || key === "bookCoverImage") {
         var arr = val;
         for (var i = 0; i < arr.length; i++) {
           let file = val[i].file === undefined ? val[i] : val[i].file;
@@ -133,7 +134,6 @@ const getSingleValue = (globalCodeData, categoryType, codeName) => {
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
-      
   const singlevalue = globalCodeData.filter((code) => {
     return code.categoryName === categoryType && code.codeName === codeName
   });
