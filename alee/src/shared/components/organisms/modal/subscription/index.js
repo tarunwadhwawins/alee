@@ -66,7 +66,10 @@ const AddSubscription = (props) => {
 								<Form.Input label="No. of Students" onChange={onHandleChange} data="noOfStudents" value={values.noOfStudents} />
 							</Grid.Column>
 							<Grid.Column>
+								<div class="field">
+							    <label>Price</label>
 								<Input label="Price" label={{ basic: true, content: '$' }} labelPosition='left'  placeholder="price" onChange={onHandleChange} data="price" value={values.price} />
+								</div>
 							</Grid.Column>
 							<Grid.Column className='status'>
 								<p>Status</p>

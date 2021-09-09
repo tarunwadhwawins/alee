@@ -19,7 +19,7 @@ const schema = yup.object().shape({
 });
 
 function TeacherSignup(props) {
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register,handleSubmit, formState:{ errors }} = useForm({
         resolver: yupResolver(schema),
         mode: 'onChange'
     });
@@ -31,14 +31,13 @@ function TeacherSignup(props) {
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     const onsubmit = (values) => {
-
         values.schoolId = 0
         values.teacherId = null
         values.excelReferenceId = null
         values.userId = "test"
         values.actionPerformedBy = ""
         dispatch(apiCall({
-            urls: ["TEACHERREGISTRATION"], method: "Post", data: values, onSuccess: (response) => {
+            urls: ["TEACHERREGISTRATION"], method: "Post", data: values, onSuccess: (response) =>{
                 history.push(`${env.PUBLIC_URL}`);
             }, showNotification: true
         }))

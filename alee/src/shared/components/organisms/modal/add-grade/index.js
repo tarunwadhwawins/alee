@@ -14,7 +14,6 @@ function AddGrade(props) {
 	}
 	const [grade, setGrade] = useState(initialValues);
 	const api = useSelector((state) => state.api);
-
 	const [, forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const dispatch = useDispatch();
@@ -25,7 +24,6 @@ function AddGrade(props) {
 		}
 	};
 	const onHandleSubmit = () => {
-		debugger
 		const formValid = simpleValidator.current.allValid()
 		if (!formValid) {
 			simpleValidator.current.showMessages();
@@ -78,8 +76,8 @@ function AddGrade(props) {
 						<Grid>
 							<Grid.Column width={8}>
 								<Form.Input label="Grade" data="gradeName" value={grade.gradeName}
-									onChange={onHandleChange}
-									error={simpleValidator.current.message('gradeName', grade.gradeName, 'required')}
+						       	onChange={onHandleChange}
+                               error={simpleValidator.current.message('gradeName', grade.gradeName, 'required')}
 								/>
 
 							</Grid.Column>

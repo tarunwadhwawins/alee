@@ -202,7 +202,7 @@ function ResourcesPage() {
                     return (
                       <a href={(props.link)}
                         target="_blank">
-                        <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                        <Icon name={checkDisplayIcon(props.link)} className="primary-color"link/>
                       </a>
                     )
                   },
@@ -212,7 +212,6 @@ function ResourcesPage() {
                   fieldName: "Action",
                   isSorting: false,
                   Cell: (props, confirmModalOpen) => {
-                    ;
                     return (
                       <>
                         <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
@@ -293,7 +292,8 @@ function ResourcesPage() {
                   Cell: (props, confirmModalOpen) => {
                     return (
                       <>
-                        <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                        <Icon title="Edit" name="edit" className="primary-color" link
+                         onClick={() => onHandleEdit(props)} />
                         <Icon
                           title="Delete"
                           name="trash alternate"
@@ -370,7 +370,6 @@ function ResourcesPage() {
                   fieldName: "link",
                   isSorting: false,
                   Cell: (props) => {
-                          ;
                     return props.link?.indexOf("pdf") > 0 ? (
                       <a href={commonFunctions.concatenateImageWithAPIUrl(props.link)}
                         target="_blank">
