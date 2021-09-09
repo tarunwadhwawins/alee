@@ -6,7 +6,7 @@ import { env, commonFunctions } from "../../../../functional/global-import";
 import { useHistory } from "react-router-dom";
 import { GlobalCodeSelect } from "../../../../components";
 import { isInteger } from "formik";
-import { storeGlobalCodes } from "../../../../../store/actions/global.actions";
+import { storeGlobalCodes,storeTags } from "../../../../../store/actions/global.actions";
 
 const type = [
 	{ key: 'Standards', value: 'Standards', text: 'Standards' },
@@ -15,7 +15,7 @@ const type = [
 	{ key: 'Literary Elements', value: 'Literary Elements', text: 'Literary Elements' },
 ]
 function AddTagsListing(props) {
-	debugger
+
 	const initialValues = { tagId: null, tagTypeName: "", tagName: "", isActive: true, actionPerformedBy: "Admin" }
 	const [taglisting, setTaglisting] = React.useState(initialValues)
 	const [globalTag, setGlobalTag] = React.useState([])
@@ -23,6 +23,12 @@ function AddTagsListing(props) {
 
 	// let history = useHistory();
 	const dispatch = useDispatch();
+
+	//////// for tag store //////
+	const [tagFields, setTagFields] = useState([]);
+	const [fieldData, setFieldData] = useState([]);
+	const [fieldOptions, setFieldOptions] = useState([]);
+
 
 	const onHandleChange = (e, { value, data, checked, type }) => {
 
@@ -44,9 +50,45 @@ function AddTagsListing(props) {
 				props.GridReload();
 				getGlobalCode();
 				setTaglisting(initialValues);
+				tagStore();
 			}, showNotification: true
 		}));
 	}
+
+	const tagStore = () => {
+
+		let aa = [];
+		dispatch(apiCall({
+			urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { PageNo: 1, PageSize: 100 }, onSuccess: (response) => {
+				setTagFields(response)
+				let fieldName = [];
+				response.filter(code => code.dataTypeName === "Dropdown").map((filtercode) => {
+
+					fieldName.push(filtercode.fieldName)
+					setFieldData(fieldData.concat(fieldName))
+
+					dispatch(apiCall({
+						urls: ["GETTAGCUSTOMFIELDSLIST"], method: "GET", data: { fieldName: filtercode.fieldName }, onSuccess: (response) => {
+							const res = response.map((single) => {
+								return { value: single.tagId, text: single.tagTypeName }
+							});
+
+							// if (res.length > 0) {
+							setFieldOptions(fieldOptions => [...fieldOptions, { [filtercode.fieldName]: res }])
+							aa.push({ [filtercode.fieldName]: res })
+							// }
+						}
+					}))
+					
+					dispatch(storeTags(aa))
+				});
+				setFieldData(fieldData.concat(fieldName))
+			}
+		}))
+
+	}
+
+
 	const getGlobalCode = () => {
 		dispatch(apiCall({
 			urls: ["GLOBALCODELIST"], method: "GET", data: { "categoryId": -1 }, onSuccess: (response) => {
@@ -66,7 +108,7 @@ function AddTagsListing(props) {
 	}
 
 	useEffect(() => {
-		debugger
+
 		if (props.editForm) {
 
 			const { editData } = props

@@ -88,11 +88,6 @@ function Sidebar(props) {
 							<span>Lesson Library</span>
 						</Menu.Item>
 
-						<Menu.Item as={Link} to={`${env.PUBLIC_URL}/`} name='LogOut' active={activeItem === 'LogOut'} onClick={handleItemClick}>
-							<Image src={LogOutWhite} className="white" />
-							<Image src={LogOutBlue} className="blue" />
-							<span>Log Out</span>
-						</Menu.Item>
 					</Menu>
 				}
 				{api === "Admin"
@@ -187,11 +182,11 @@ function Sidebar(props) {
 								<span>Assign Template</span>
 							</Menu.Item>
 						</div>
-						<Menu.Item as={Link} to={`${env.PUBLIC_URL}/drag`} name='drag' active={activeItem === 'drag'} onClick={handleItemClick}>
+						{/* <Menu.Item as={Link} to={`${env.PUBLIC_URL}/drag`} name='drag' active={activeItem === 'drag'} onClick={handleItemClick}>
 							<Image src={PaymentManagementWhite} className="white" />
 							<Image src={PaymentManagementBlue} className="blue" />
 							<span>Drag And Drop</span>
-						</Menu.Item>
+						</Menu.Item> */}
 					</Menu>
 				}
 

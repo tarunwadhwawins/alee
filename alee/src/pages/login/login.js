@@ -5,7 +5,7 @@ import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
 import { loginSuccess, storeUserDetail } from "../../../src/store/actions/auth.actions";
-import { storeGlobalCodes } from "../../../src/store/actions/global.actions";
+import { storeGlobalCodes, storeTags } from "../../../src/store/actions/global.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import ForgotPasswordModal from "../../shared/components/organisms/modal/forgot-password/forgot-password";
@@ -19,6 +19,11 @@ const schema = yup.object().shape({
 
 function LoginForm() {
   const [forgotPasswordStatus, setForgotPasswordStatus] = React.useState(false)
+
+  //////// for tag store //////
+  const [tagFields, setTagFields] = useState([]);
+  const [fieldData, setFieldData] = useState([]);
+  const [fieldOptions, setFieldOptions] = useState([]);
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
@@ -35,6 +40,7 @@ function LoginForm() {
   const onSubmit = (values) => {
     dispatch(apiCall({
       urls: ["LOGIN"], method: "Post", data: values, onSuccess: (response) => {
+        tagStore();
         if (response.isSuccess) {
           //dispatch(loginSuccess(response.role));
           dispatch(storeUserDetail(response));
@@ -55,6 +61,39 @@ function LoginForm() {
     //(Notifications.success({ title: "warning", message: "a", position: 'br', autoDismiss: 5 }));
   }
 
+  const tagStore = () => {
+
+    let aa = [];
+    dispatch(apiCall({
+      urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { pageNo: 1, pageSize: 100 }, onSuccess: (response) => {
+
+        setTagFields(response)
+        let fieldName = [];
+        response.filter(code => code.dataTypeName === "Dropdown").map((filtercode) => {
+
+          fieldName.push(filtercode.fieldName)
+          setFieldData(fieldData.concat(fieldName))
+
+          dispatch(apiCall({
+            urls: ["GETTAGCUSTOMFIELDSLIST"], method: "GET", data: { fieldName: filtercode.fieldName }, onSuccess: (response) => {
+              const res = response.map((single) => {
+                return { value: single.tagId, text: single.tagTypeName }
+              });
+
+              // if (res.length > 0) {
+              setFieldOptions(fieldOptions => [...fieldOptions, { [filtercode.fieldName]: res }])
+              aa.push({ [filtercode.fieldName]: res })
+              // }
+            }
+          }))
+          dispatch(storeTags(aa))
+        });
+        setFieldData(fieldData.concat(fieldName))
+      }
+    }))
+
+  }
+
   const getGlobalCode = () => {
     dispatch(apiCall({
       urls: ["GLOBALCODELIST"], method: "GET", data: { "categoryId": -1 }, onSuccess: (response) => {
@@ -63,7 +102,7 @@ function LoginForm() {
     }))
   }
   const forgetPassword = () => {
-         
+
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
   return (
