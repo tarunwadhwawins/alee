@@ -5,10 +5,11 @@ const passingYear = [];
 let years = new Date().getFullYear();
 let lastYears = years - 40;
 for (let i = years; i > lastYears; i--) {
-passingYear.push({ key: i, text: i, value: i.toString()});
+	passingYear.push({ key: i, text: i, value: i.toString() });
 }
 
 function ProfileStepTwo(props) {
+
 	return (
 		<Form>
 			<Grid>
@@ -25,9 +26,10 @@ function ProfileStepTwo(props) {
 			</Grid>
 			<Grid>
 				<Grid.Column width={16}>
-					
-					<Button className="primaryBtn" onClick={props.addMoreQualification}> <Icon name="plus circle" /> Add </Button>
-					<Button className="primaryBtn" onClick={props.updateQualification}> <Icon name="plus circle" /> update </Button>
+
+					{!props.secondstepValues.updateButtonEducation ? <Button className="primaryBtn" onClick={props.addMoreQualification}> <Icon name="plus circle" /> Add </Button> : <>
+						<Button className="primaryBtn" onClick={props.updateQualification}>  Update </Button>
+						<Button className="primaryBtn" onClick={props.ClearQualification}> Cancel </Button></>}
 				</Grid.Column>
 			</Grid>
 
@@ -43,15 +45,15 @@ function ProfileStepTwo(props) {
 					</Table.Header>
 					<Table.Body>
 						{props.formSecondStep && props.formSecondStep.map((singleData, index) => {
-							 
+
 							return (
 								<Table.Row key={index}>
 									<Table.Cell>{singleData.degree}</Table.Cell>
 									<Table.Cell>{singleData.college}</Table.Cell>
 									<Table.Cell>{singleData.yearOfPassing}</Table.Cell>
 									<Table.Cell textAlign="right">
-						<Icon name="pencil alternate" size="large" link onClick={() => props.editQualification(singleData, index)}/>
-						<Icon name="trash alternate" size="large" link onClick={() => props.removeQualification(index)}/>
+										<Icon name="pencil alternate" size="large" link onClick={() => props.editQualification(singleData, index)} />
+										<Icon name="trash alternate" size="large" link onClick={() => props.removeQualification(index)} />
 									</Table.Cell>
 								</Table.Row>
 							)

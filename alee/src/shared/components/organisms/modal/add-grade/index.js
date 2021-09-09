@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Modal, Button, Form, Grid, Dimmer, Loader, Label } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
+import SimpleReactValidator from 'simple-react-validator';
 
 function AddGrade(props) {
+	debugger
 	const initialValues = {
 		gradeName: "",
 		isActive: true,
@@ -13,6 +15,8 @@ function AddGrade(props) {
 	const [grade, setGrade] = useState(initialValues);
 	const api = useSelector((state) => state.api);
 
+	const [, forceUpdate] = useState()
+	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const dispatch = useDispatch();
 	const onHandleChange = (e, { data, value, checked, type }) => {
 		setGrade({ ...grade, [data]: value });
@@ -21,43 +25,42 @@ function AddGrade(props) {
 		}
 	};
 	const onHandleSubmit = () => {
-		dispatch(
-			apiCall({
-				urls: ["ADDGRADE"],
-				method: "Post",
-				data: grade,
-				onSuccess: (response) => {
-					
-					closeModal();
-					props.GridReload();
-					setGrade(initialValues);
-				},
-				showNotification: true,
-			})
-		);
+		debugger
+		const formValid = simpleValidator.current.allValid()
+		if (!formValid) {
+			simpleValidator.current.showMessages();
+			forceUpdate(true);
+		} else {
+			dispatch(
+				apiCall({
+					urls: ["ADDGRADE"],
+					method: "Post",
+					data: grade,
+					onSuccess: (response) => {
+						closeModal();
+						props.GridReload();
+						setGrade(initialValues);
+					},
+					showNotification: true,
+				})
+			);
+		}
 	};
 	const closeModal = () => {
-		props.closeModal();
 		setGrade(initialValues);
+		props.closeModal();
 	}
 	useEffect(() => {
-		if (props.editGradeText === "grade") {
+		debugger
+		if (props.editGradeToggle) {
 			editGradelist();
 		}
-	}, [props.editGrade]);
+	}, [props.editGradeToggle]);
 
 	const editGradelist = () => {
-		     
-		if (props.editGrade !== undefined || props.editGrade.length > 0) {
-			const {
-				gradeId,
-				gradeName,
-				isActive,
-			} = props.editGrade;
-			setGrade({
-				...grade, gradeId: gradeId, gradeName: gradeName, isActive: isActive,
-			});
-		}
+		debugger
+		const { gradeId, gradeName, isActive, } = props.editGrade;
+		setGrade({ ...grade, gradeId: gradeId, gradeName: gradeName, isActive: isActive, });
 	};
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="tiny" closeOnDimmerClick={false}>
@@ -75,7 +78,10 @@ function AddGrade(props) {
 						<Grid>
 							<Grid.Column width={8}>
 								<Form.Input label="Grade" data="gradeName" value={grade.gradeName}
-									onChange={onHandleChange} />
+									onChange={onHandleChange}
+									error={simpleValidator.current.message('gradeName', grade.gradeName, 'required')}
+								/>
+
 							</Grid.Column>
 							<Grid.Column className="status">
 								<p>Status</p>

@@ -44,7 +44,7 @@ function UploadExcelPage() {
 	}
 
 	const onHandleSubmit = () => {
-		     
+
 		let formdata = commonFunctions.getFormData({ file: uploadExcel });
 		dispatch(apiCall({
 			urls: ["UPLOADEXCEL"], method: "POST", data: formdata, onSuccess: (response) => {
@@ -81,9 +81,11 @@ function UploadExcelPage() {
 	}
 
 	const onSaveExcel = () => {
+		debugger
 		let formdata = commonFunctions.getFormData({ ids: selectedTeachers, schoolId: schoolId });
 		dispatch(apiCall({
 			urls: ["ADDTEACHEREXCEL"], method: "POST", data: formdata, onSuccess: (response) => {
+				debugger
 				modalOpen();
 				history.push(`${env.PUBLIC_URL}/school-manage-teachers`);
 			}, showNotification: true

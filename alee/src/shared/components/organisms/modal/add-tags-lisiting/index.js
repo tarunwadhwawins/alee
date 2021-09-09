@@ -15,7 +15,7 @@ const type = [
 	{ key: 'Literary Elements', value: 'Literary Elements', text: 'Literary Elements' },
 ]
 function AddTagsListing(props) {
-
+	      
 	const initialValues = { tagId: null, tagTypeName: "", tagName: "", isActive: true, actionPerformedBy: "Admin" }
 	const [taglisting, setTaglisting] = React.useState(initialValues)
 	const [globalTag, setGlobalTag] = React.useState([])
@@ -108,7 +108,6 @@ function AddTagsListing(props) {
 	}
 
 	useEffect(() => {
-
 		if (props.editForm) {
 
 			const { editData } = props

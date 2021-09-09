@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Header, Button, Form, Image } from "semantic-ui-react";
+import { Grid, Header, Button, Form, Image, Icon } from "semantic-ui-react";
 import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
@@ -25,6 +25,7 @@ function LoginForm() {
   const [fieldData, setFieldData] = useState([]);
   const [fieldOptions, setFieldOptions] = useState([]);
 
+  const [iconToggle, setIconToggle] = React.useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange'
@@ -102,9 +103,11 @@ function LoginForm() {
     }))
   }
   const forgetPassword = () => {
-
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
+  const passwordToggle = () => {
+    setIconToggle(!iconToggle)
+  }
   return (
     <div className="signIn">
       <div className="signInner">
@@ -126,7 +129,9 @@ function LoginForm() {
                   <p className="error">{errors.email?.message}</p>
                 </Grid.Column>
                 <Grid.Column width={16} >
-                  <Form.Input label="Password" type="password" placeholder="******" data="password" onChange={onHandleChange}  {...register("password")} />
+                  <Form.Input className="loginPassword" label="Password" type={iconToggle ? "" : "password"} placeholder="******" data="password" onChange={onHandleChange}  {...register("password")} />
+                  {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
+                  {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
                   <p className="error">{errors.password?.message}</p>
                 </Grid.Column>
                 <Grid.Column width={10} verticalAlign="middle">
@@ -142,9 +147,8 @@ function LoginForm() {
             </Grid.Column>
           </Grid>
         </Form>
-        <ForgotPasswordModal openModal={forgotPasswordStatus} closeModal={forgetPassword} />
+        {forgotPasswordStatus && <ForgotPasswordModal openModal={forgotPasswordStatus} closeModal={forgetPassword} />}
       </div>
-
     </div>
 
   );

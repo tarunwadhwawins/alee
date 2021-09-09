@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 
 function AddSubAdmin(props) {
-
+        
   const auth = useSelector((state) => state.auth);
   const api = useSelector((state) => state.api);
   const initialAddValues = {
@@ -29,7 +29,7 @@ function AddSubAdmin(props) {
   };
 
   useEffect(() => {
-    if (props.modalType === "EDIT"){
+    if (props.modalType === "EDIT") {
       editSubAdmin();
     }
   }, [props.openModal]);
@@ -64,7 +64,7 @@ function AddSubAdmin(props) {
           method: "POST",
           data: subAdmin,
           onSuccess: (response) => {
-            
+
             closeModal();
             props.GridReload();
             setSubAdmin(initialAddValues);
@@ -105,7 +105,7 @@ function AddSubAdmin(props) {
           <Loader />
         </Dimmer>
       )}
-      <Modal.Header>Add Sub-Admin</Modal.Header>
+      <Modal.Header>{subAdmin.subAdminId > 0 ? "Edit Sub-Admin":"Add Sub-Admin"}</Modal.Header>
       <Modal.Content scrolling>
         <Modal.Description>
           <Form>
@@ -133,6 +133,7 @@ function AddSubAdmin(props) {
                     <Form.Input
                       label="Password"
                       data="password"
+                      placeholder="********"
                       value={subAdmin.password}
                       onChange={onHandleChange}
                     />
@@ -142,6 +143,7 @@ function AddSubAdmin(props) {
                       label="Confirm Password"
                       value={subAdmin.confirmPassword}
                       data="confirmPassword"
+                      placeholder="********"
                       onChange={onHandleChange}
                     />
                   </Grid.Column>

@@ -4,8 +4,8 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalCodeSelect } from "../../../../components";
 
-
 function AddStudent(props) {
+  debugger
   const auth = useSelector((state) => state.auth);
   const [grade, setGradeList] = useState(null);
   const initialValues = {
@@ -43,14 +43,15 @@ function AddStudent(props) {
     );
   };
   useEffect(() => {
-    if (props.editStudent === "student") {
+    debugger
+    if (props.editStudent) {
       editStudentlist();
     }
     getGradeList();
-  }, [props.editData]);
+  }, [props.editStudent]);
 
   const editStudentlist = () => {
-    if (props.editData !== undefined) {
+    if (props.editStudent) {
       const {
         firstName,
         lastName,
@@ -87,8 +88,8 @@ function AddStudent(props) {
     );
   };
   const closeModal = () => {
-    props.closeModal();
     setAddStudent(initialValues);
+    props.closeModal();
   };
   return (
     <Modal
@@ -102,7 +103,7 @@ function AddStudent(props) {
           <Loader />
         </Dimmer>
       )}
-      <Modal.Header>Add Student</Modal.Header>
+      <Modal.Header> {addStudent.studentId > 0 ?  "Edit Student":"Add Student" }</Modal.Header>
       <Modal.Content scrolling>
         <Modal.Description>
           <Form>

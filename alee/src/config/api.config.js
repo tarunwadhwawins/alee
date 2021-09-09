@@ -94,6 +94,11 @@ const API_ENDPOINTS = {
   DELETEASSIGNEDTEMPLATE: "/Template/DeleteAssignedTemplate",
   POSTTEMPLATEASSIGNED: "/Template/Assigntemplates",
   GETASSIGNEDTEMPLATETEACHER: "/Template/GetAssignedTemplatesToTeacher",
+  // GETTEMPLATELIST:"/Template/GetTemplateList",
+  // DELETETEMPLATE:"/Template/DeleteTemplate",
+  // TOGGLEISACTIVE:"/Template/ToggleIsActive",
+  RESETPASSWORD:"/Authentication/ResetPassword",
+  GETBOOKSLISTBYGRADEID:"/Books/GetBooksListByGradeId"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

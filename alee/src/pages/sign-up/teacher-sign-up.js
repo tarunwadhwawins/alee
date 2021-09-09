@@ -8,7 +8,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-
 const schema = yup.object().shape({
     email: yup.string().email("Email must be valid email").required("Email is required"),
     password: yup.string().required("Password is required"),
@@ -32,11 +31,11 @@ function TeacherSignup(props) {
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     const onsubmit = (values) => {
-         
+
         values.schoolId = 0
         values.teacherId = null
         values.excelReferenceId = null
-        values.userId = ""
+        values.userId = "test"
         values.actionPerformedBy = ""
         dispatch(apiCall({
             urls: ["TEACHERREGISTRATION"], method: "Post", data: values, onSuccess: (response) => {

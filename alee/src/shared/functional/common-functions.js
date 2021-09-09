@@ -91,6 +91,7 @@ const concatenateImageWithAPIUrl = (Image) => {
 
 
 const getFormData = (data) => {
+  debugger
   var formData = new FormData();
   Object.entries(data).map(function ([key, val]) {
     if (typeof val !== "undefined") {

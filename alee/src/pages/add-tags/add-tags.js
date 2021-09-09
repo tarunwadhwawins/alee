@@ -40,6 +40,7 @@ function AddTagPage() {
 	}
 
 	const onHandleTagSelected = (data) => {
+		      ;
 		const textSelected = window.getSelection().toString();
 		if (textSelected !== "") {
 			setTagData({ ...tagData, tagText: textSelected, bookId: data.bookId, pageId: data.pageId })
@@ -48,6 +49,7 @@ function AddTagPage() {
 	}
 
 	const onHandleTag = (e, { value, index }) => {
+		      ;
 		const matchValue = tagData.bookTagList.findIndex((a) => a.customFieldId === index);
 		if (matchValue !== -1) {
 			tagData.bookTagList.splice(matchValue, 1);
@@ -55,7 +57,6 @@ function AddTagPage() {
 		const aa = tagData.bookTagList.concat({ customFieldId: index, response: JSON.stringify(value) })
 		setTagData({ ...tagData, bookTagList: aa })
 	}
-
 	const tagOnContent = () => {
 		dispatch(apiCall({
 			urls: ["ADDBOOKTAG"], method: "POST", data: tagData, onSuccess: (response) => {

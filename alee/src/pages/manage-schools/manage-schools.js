@@ -61,7 +61,7 @@ function ManageSchoolPage() {
 							Cell: (props, confirmModalOpen) => {
 								return (
 									<>
-										<Icon title="Edit" name="edit" className="primary-color" link />
+										{/* <Icon title="Edit" name="edit" className="primary-color" link /> */}
 										<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.schoolId, "delete")} />
 									</>
 								);

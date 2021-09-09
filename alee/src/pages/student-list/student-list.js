@@ -18,22 +18,27 @@ function StudentListPage() {
 	const [modalStatus, setModalStatus] = useState(false);
 	const [selectedTeachers, setSelectedTeachers] = useState([]);
 	const [template, setTemplate] = useState("");
-	const [editStudent, setEditStudent] = useState();
+	const [editStudent, setEditStudent] = useState(false);
 
 	const auth = useSelector((state) => state.auth);
 	const openModal = () => {
 		setStudent(!student)
-	}
+		if (editStudent) {
+			setEditStudent(!editStudent)
+		}
+	}	
 	const fileInputRef = React.createRef();
 	const dispatch = useDispatch();
 	const api = useSelector(state => state.api)
 	const teacherId = useSelector(state => state.auth.userDetail.teacherId)
 
-	const onHandleEdit = (data, text) => {
+	const onHandleEdit = (data) => {
+		debugger
 		SetEditData(data)
-		setEditStudent(text)
+		setEditStudent(!editStudent)
 		openModal();
 	}
+
 	const GridReload = () => {
 		SetReload(!reload)
 	}
@@ -61,7 +66,6 @@ function StudentListPage() {
 				setExcelData(JSON.parse(response.responseMessage))
 			}, showNotification: false
 		}))
-
 	}
 
 	const modalOpen = (e) => {
@@ -95,7 +99,6 @@ function StudentListPage() {
 			}, showNotification: true
 		}))
 	}
-
 	const onRemoveExcel = () => {
 		setExcelHeading([])
 		setExcelData([])
@@ -115,7 +118,7 @@ function StudentListPage() {
 				</Grid.Column>
 
 				<Grid.Column width={6} textAlign="right">
-					<Button className="primaryBtn" onClick={openModal}><Icon name="plus" /> Add Student</Button>
+					<Button className="primaryBtn" onClick={() => openModal("Add Student")}><Icon name="plus" /> Add Student</Button>
 					<Button className="alternateBtn" onClick={() => fileInputRef.current.click()} ><Icon name="upload" /> Upload Excel</Button>
 					<input ref={fileInputRef} type="file" hidden onChange={onFileChange} />
 				</Grid.Column>
@@ -141,7 +144,6 @@ function StudentListPage() {
 									)
 								},
 							},
-
 							{
 								headerName: "Grade",
 								fieldName: "gradeName",
