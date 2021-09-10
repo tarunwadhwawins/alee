@@ -1,60 +1,107 @@
-import React from "react";
-import {  Modal, Button, Form, Grid } from "semantic-ui-react";
-
-
-const School = [
-	{ key: 'Stanton College Preparatory School', value: 'Stanton College Preparatory School', text: 'Stanton College Preparatory School' },
-	{ key: 'Gilbert Classical Academy', value: 'Gilbert Classical Academy', text: 'Gilbert Classical Academy' },
-	{ key: 'Liberal Arts and Science Academy High School', value: 'Liberal Arts and Science Academy High School', text: 'Liberal Arts and Science Academy High School' },
-]
-const Teacher = [
-	{ key: 'All', value: 'All', text: 'All' },
-	{ key: 'Jane Doe', value: 'Jane Doe', text: 'Jane Doe' },
-	{ key: 'Michael Smith', value: 'Michael Smith', text: 'Michael Smith' },
-	{ key: 'Maria Garcia', value: 'Maria Garcia', text: 'Maria Garcia' },
-]
-const Grade = [
-	{ key: '5th', value: '5th', text: '5th' },
-	{ key: '6th', value: '6th', text: '6th' },
-	{ key: '7th', value: '7th', text: '7th' },
-	{ key: '8th', value: '8th', text: '8th' },
-	{ key: '9th', value: '9th', text: '9th' },
-	{ key: '10th', value: '10th', text: '9th' },
-]
-const Template = [
-	{ key: 'All', value: 'All', text: 'All' },
-	{ key: 'Shared text', value: 'Shared text', text: 'Shared text' },
-	{ key: 'Readers workshop', value: 'Readers workshop', text: 'Readers workshop' },
-	{ key: 'Writers workshop', value: 'Writers workshop', text: 'Writers workshop' },
-	{ key: 'Interactive Read aloud', value: 'Interactive Read aloud', text: 'Interactive Read aloud' },
-]
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
+import { useDispatch, useSelector } from 'react-redux';
+import { apiCall } from "../../../../../../src/store/actions/api.actions";
 
 function AddAssignTemplate(props) {
-	 
-    return (
+	const initialState = { schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, actionPerformedBy: "" }
+
+	const [template, setTemplate] = useState([])
+	const [grade, setGrade] = useState([])
+	const [school, setSchool] = useState([])
+	const [teacher, setTeacher] = useState([])
+	const [values, setValues] = useState(initialState);
+	const api = useSelector(state => state.api)
+	const dispatch = useDispatch();
+
+	const getGrades = () => {
+		dispatch(apiCall({
+			urls: ["GETGRADESLIST"], method: "GET", data: { "ActiveGrades": true, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
+				const getGrades = response.map((grades) => {
+					return { value: grades.gradeId, text: grades.gradeName }
+				});
+				setGrade(getGrades)
+			}
+		}));
+	}
+
+	const getTemplate = () => {
+		dispatch(apiCall({
+			urls: ["GETTEMPLATELIST"], method: "GET", data: { "templateId": -1, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
+				const getTemplate = response.map((template) => {
+					return { value: template.templateId, text: template.template }
+				});
+				setTemplate(getTemplate)
+			}
+		}));
+	}
+
+	const getSchoolList = () => {
+		dispatch(apiCall({
+			urls: ["GETSCHOOLSLIST"], method: "GET", data: { pageNo: 1, pageSize: 10000 }, onSuccess: (response) => {
+				const getSchool = response.map((school) => {
+					return { value: school.schoolId, text: school.schoolName }
+				});
+				setSchool(getSchool)
+			}
+		}))
+	}
+
+	useEffect(() => {
+		getTemplate();
+		getGrades();
+		getSchoolList();
+	}, []);
+
+	const onHandleChange = (e, { data, value }) => {
+		if (data === "schoolId") {
+			dispatch(apiCall({
+				urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: value, pageNo: 1, pageSize: 1000 }, onSuccess: (response) => {
+					const getTeachers = response.map((teacherData) => {
+						return { value: teacherData.teacherId, text: teacherData.firstName + teacherData.lastName }
+					});
+					setTeacher(getTeachers)
+				}
+			}))
+		}
+		setValues(initialState)
+		setValues({ ...values, [data]: value});
+	}
+
+	const onSubmit =()=>{
+		dispatch(apiCall({
+			urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
+				props.closeModal();
+			},showNotification:true
+		}))
+	}
+
+
+	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
 			<Modal.Header>Assign Template</Modal.Header>
-			<Modal.Content scrolling>
+			<Modal.Content>
 				<Modal.Description>
+					
 					<Form>
 						<Grid>
 							<Grid.Column width={8}>
-								<Form.Select label="School" placeholder="Select School" options={School}/>
+								<Form.Select label="School" placeholder="Select School" data="schoolId" options={school} onChange={onHandleChange} value={values.schoolId} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select multiple label="Teacher" placeholder="Select Teacher" options={Teacher}/>
+								<Form.Select multiple label="Teacher" placeholder="Select Teacher" data="teacherId" options={teacher} onChange={onHandleChange} value={values.teacherId} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select label="Grade" placeholder="Select Grade" options={Grade}/>
+								<Form.Select label="Grade" placeholder="Select Grade" options={grade} data="gradeId" onChange={onHandleChange} value={values.gradeId} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select multiple label="Template" placeholder="Select Template" options={Template}/>
+								<Form.Select multiple label="Template" placeholder="Select Template" data="templateId" options={template} onChange={onHandleChange} value={values.templateId} />
 							</Grid.Column>
-							<Grid.Column width={8}  className='status'>
+							<Grid.Column width={8} className='status'>
 								<p>Status</p>
-								<div className="statusToggle"> 
-								<span>Inactive</span>
-								<Form.Checkbox label="Active" toggle className="commonToggle" />
+								<div className="statusToggle">
+									<span>Inactive</span>
+									<Form.Checkbox label="Active" toggle className="commonToggle" />
 								</div>
 							</Grid.Column>
 						</Grid>
@@ -62,11 +109,11 @@ function AddAssignTemplate(props) {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn"  onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn"  onClick={props.closeModal}>Confirm</Button>
+				<Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
+				<Button className="primaryBtn" onClick={onSubmit} loading={api.isApiLoading} >Confirm</Button>
 			</Modal.Actions>
 		</Modal>
-		);
-  }
-  
-  export default AddAssignTemplate;
+	);
+}
+
+export default AddAssignTemplate;

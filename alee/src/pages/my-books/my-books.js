@@ -4,17 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
 import ConfirmModal from "../../shared/components/organisms/modal/common-confirm-modal/index";
 import { Link, commonFunctions } from "../../shared/functional/global-import";
-import { storeMyBookData } from "../../store/actions/global.actions";
-import { storeBookDetails, storeTags } from "../../store/actions/global.actions";
+import { storeMyBookData ,storeBookDetails, storeTags} from "../../store/actions/global.actions";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
 	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
 
-	const [tagFields, setTagFields] = useState([]);
-	const [fieldData, setFieldData] = useState([]);
-	const [fieldOptions, setFieldOptions] = useState([]);
+	// const [tagFields, setTagFields] = useState([]);
+	// const [fieldData, setFieldData] = useState([]);
+	// const [fieldOptions, setFieldOptions] = useState([]);
 
 
 	const dispatch = useDispatch();
@@ -56,41 +55,42 @@ function MyBookPage(props) {
 		dispatch(storeMyBookData(data));
 	}
 
-	useEffect(() => {
-		getTagField();
-	}, []);
+	// useEffect(() => {
+	// 	getTagField();
+	// }, []);
 
-	const getTagField = () => {
+	// const getTagField = () => {
  
-		let aa = [];
+	// 	let aa = [];
 
-		dispatch(apiCall({
-			urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { "PageNo ": 1, "PageSize ": 100 }, onSuccess: (response) => {
-				setTagFields(response)
-				let fieldName = [];
-				response.filter(code => code.dataTypeName === "Int").map((filtercode) => {
+	// 	dispatch(apiCall({
+	// 		urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { "PageNo ": 1, "PageSize ": 100 }, onSuccess: (response) => {
+	// 			debugger
+	// 			setTagFields(response)
+	// 			let fieldName = [];
+	// 			response.filter(code => code.dataTypeName === "Dropdown").map((filtercode) => {
 
-					fieldName.push(filtercode.fieldName)
-					setFieldData(fieldData.concat(fieldName))
+	// 				fieldName.push(filtercode.fieldName)
+	// 				setFieldData(fieldData.concat(fieldName))
 
-					dispatch(apiCall({
-						urls: ["GETTAGCUSTOMFIELDSLIST"], method: "GET", data: { fieldName: filtercode.fieldName }, onSuccess: (response) => {
-							const res = response.map((single) => {
-								return { value: single.id, text: single.codeName }
-							});
+	// 				dispatch(apiCall({
+	// 					urls: ["GETTAGCUSTOMFIELDSLIST"], method: "GET", data: { fieldName: filtercode.fieldName }, onSuccess: (response) => {
+	// 						const res = response.map((single) => {
+	// 							return { value: single.tagId, text: single.tagTypeName }
+	// 						});
 
-							// if (res.length > 0) {
-								setFieldOptions(fieldOptions => [...fieldOptions, { [filtercode.fieldName]: res }])
-								aa.push({ [filtercode.fieldName]: res })
-							// }
-						}
-					}))
-					dispatch(storeTags(aa))
-				});
-				setFieldData(fieldData.concat(fieldName))
-			}
-		}))
-	}
+	// 						// if (res.length > 0) {
+	// 							setFieldOptions(fieldOptions => [...fieldOptions, { [filtercode.fieldName]: res }])
+	// 							aa.push({ [filtercode.fieldName]: res })
+	// 						// }
+	// 					}
+	// 				}))
+	// 				dispatch(storeTags(aa))
+	// 			});
+	// 			setFieldData(fieldData.concat(fieldName))
+	// 		}
+	// 	}))
+	// }
 
 
 	const api = useSelector(state => state.api)

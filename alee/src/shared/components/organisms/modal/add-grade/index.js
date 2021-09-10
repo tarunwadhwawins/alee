@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Modal, Button, Form, Grid, Dimmer, Loader, Label } from "semantic-ui-react";
+import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
@@ -14,7 +14,6 @@ function AddGrade(props) {
 	}
 	const [grade, setGrade] = useState(initialValues);
 	const api = useSelector((state) => state.api);
-
 	const [, forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const dispatch = useDispatch();

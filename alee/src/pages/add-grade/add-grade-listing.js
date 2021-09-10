@@ -10,7 +10,6 @@ function AddGradePage() {
 	const [editGrade, setEditGrade] = useState([]);
 	const [editGradeToggle, setEditGradeToggle] = useState(false);
 	const openModal = () => {
-		debugger
 		setAddgrade(!addgrade)
 		if (editGradeToggle) {
 			setEditGradeToggle(!editGradeToggle);

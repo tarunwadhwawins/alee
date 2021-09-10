@@ -11,11 +11,10 @@ import { apiCall } from "../../store/actions/api.actions";
 import { useParams } from "react-router-dom";
 
 function AddTagPage() {
-const chapterId = useParams();
+	const chapterId = useParams();
 	const tagInitialState = { bookId: null, chapterId: chapterId.id, pageId: null, tagText: "", bookTagList: [], actionPerformedBy: "string" }
 	const [tagStatus, setTagStatus] = useState(false);
 	const [tagFields, setTagFields] = useState([]);
-	const [fieldData, setFieldData] = useState([]);
 	const [tagData, setTagData] = useState(tagInitialState);
 
 	const dispatch = useDispatch();
@@ -33,25 +32,15 @@ const chapterId = useParams();
 	}, []);
 
 	const getTagField = () => {
-
-		let aa = [];
-
 		dispatch(apiCall({
-			urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { "PageNo ": 1, "PageSize ": 100 }, onSuccess: (response) => {
-
+			urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { PageNo: 1, PageSize: 100 }, onSuccess: (response) => {
 				setTagFields(response)
-				let fieldName = [];
-				response.filter(code => code.dataTypeName === "Int").map((filtercode) => {
-
-					fieldName.push(filtercode.fieldName)
-
-				});
-				setFieldData(fieldData.concat(fieldName))
 			}
 		}))
 	}
 
 	const onHandleTagSelected = (data) => {
+		      ;
 		const textSelected = window.getSelection().toString();
 		if (textSelected !== "") {
 			setTagData({ ...tagData, tagText: textSelected, bookId: data.bookId, pageId: data.pageId })
@@ -60,6 +49,7 @@ const chapterId = useParams();
 	}
 
 	const onHandleTag = (e, { value, index }) => {
+		      ;
 		const matchValue = tagData.bookTagList.findIndex((a) => a.customFieldId === index);
 		if (matchValue !== -1) {
 			tagData.bookTagList.splice(matchValue, 1);
@@ -67,7 +57,6 @@ const chapterId = useParams();
 		const aa = tagData.bookTagList.concat({ customFieldId: index, response: JSON.stringify(value) })
 		setTagData({ ...tagData, bookTagList: aa })
 	}
-
 	const tagOnContent = () => {
 		dispatch(apiCall({
 			urls: ["ADDBOOKTAG"], method: "POST", data: tagData, onSuccess: (response) => {
@@ -88,7 +77,7 @@ const chapterId = useParams();
 				</Grid.Column>
 			</Grid>
 
-			{tagStatus && <AddTagModal openModal={tagStatus} tagFields={tagFields} closeModal={openModal} fieldData={fieldData} onHandleTag={onHandleTag} tagOnContent={tagOnContent} />}
+			{tagStatus && <AddTagModal openModal={tagStatus} tagFields={tagFields} closeModal={openModal} onHandleTag={onHandleTag} tagOnContent={tagOnContent} />}
 		</div>
 	);
 }

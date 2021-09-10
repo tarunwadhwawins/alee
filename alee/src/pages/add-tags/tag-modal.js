@@ -21,11 +21,11 @@ function AddTagModal(props) {
                     {props.tagFields && props.tagFields.length > 0 && props.tagFields.map((singleField, index) => {
 
                         const ss = tags.filter(code => code[singleField.fieldName])
-                        const aa = singleField.dataTypeName === "Int" && ss[0][singleField.fieldName]
+                        const aa = singleField.dataTypeName === "Dropdown" && ss[0][singleField.fieldName]
 
                         return (
                             <Grid.Column width={8}>
-                                {singleField.dataTypeName === "Int" ?
+                                {singleField.dataTypeName === "Dropdown" ?
 
                                     <Form.Field>
                                         <Form.Select placeholder={'Select ' + singleField.fieldName} label={singleField.fieldName} options={aa} onChange={props.onHandleTag} index={singleField.customFieldId} />

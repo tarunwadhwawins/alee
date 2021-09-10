@@ -11,7 +11,7 @@ function AddTagsListingPage(props) {
 	const [editForm, SetEditForm] = useState(false)
 
 	const openModal = () => {
-		debugger
+		      
 		setTaglisting(!taglisting)
 		if (editForm) {
 			SetEditForm(!editForm)
@@ -19,7 +19,7 @@ function AddTagsListingPage(props) {
 
 	}
 	const onHandleEdit = (data) => {
-		debugger
+		      
 		SetEditData(data)
 		SetEditForm(!editForm)
 		openModal();
