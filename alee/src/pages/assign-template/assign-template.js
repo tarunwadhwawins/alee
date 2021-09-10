@@ -35,8 +35,13 @@ function AssignTemplatePage() {
 						allApi={{ getApiName: "GETASSIGNEDTEMPLATES", deleteApiName: "DELETEASSIGNEDTEMPLATE", toggleApiName: "TOGGLEASSIGNEDTEMPPLATE" }} reload={reload}
 						additionalParams={{ SchoolId: -1 }}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal="Student"
+						messageInModal="assigned template"
 						columns={[
+							{
+								headerName: "Template",
+								fieldName: "templateName",
+								isSorting: true,
+							},
 							{
 								headerName: "School Name",
 								fieldName: "schoolName",
@@ -51,11 +56,6 @@ function AssignTemplatePage() {
 							{
 								headerName: "Grade",
 								fieldName: "gradeName",
-								isSorting: true,
-							},
-							{
-								headerName: "Template",
-								fieldName: "templateName",
 								isSorting: true,
 							},
 							{
@@ -76,7 +76,7 @@ function AssignTemplatePage() {
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color" link />
-											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateDetailId, "delete")}/>
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateId, "delete")} />
 										</>
 									);
 								},

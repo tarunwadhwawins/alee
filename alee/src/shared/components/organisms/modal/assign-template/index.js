@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
+import { Modal, Button, Form, Grid } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 
 function AddAssignTemplate(props) {
-	const initialState = { schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, actionPerformedBy: "" }
+	const initialState = { schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "" }
 
 	const [template, setTemplate] = useState([])
 	const [grade, setGrade] = useState([])
@@ -65,14 +65,19 @@ function AddAssignTemplate(props) {
 			}))
 		}
 		setValues(initialState)
-		setValues({ ...values, [data]: value});
+		setValues({ ...values, [data]: value });
 	}
 
-	const onSubmit =()=>{
+	const onHandleChangeToggle = (e, { checked }) => {
+		setValues({ ...values, isActive: checked });
+	}
+
+	const onSubmit = () => {
 		dispatch(apiCall({
 			urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
 				props.closeModal();
-			},showNotification:true
+				setValues(initialState);
+			}, showNotification: true
 		}))
 	}
 
@@ -82,7 +87,7 @@ function AddAssignTemplate(props) {
 			<Modal.Header>Assign Template</Modal.Header>
 			<Modal.Content>
 				<Modal.Description>
-					
+
 					<Form>
 						<Grid>
 							<Grid.Column width={8}>
@@ -101,7 +106,7 @@ function AddAssignTemplate(props) {
 								<p>Status</p>
 								<div className="statusToggle">
 									<span>Inactive</span>
-									<Form.Checkbox label="Active" toggle className="commonToggle" />
+									<Form.Checkbox label="Active" toggle className="commonToggle" checked={values.isActive ? true : false} onChange={onHandleChangeToggle} />
 								</div>
 							</Grid.Column>
 						</Grid>

@@ -51,7 +51,7 @@ function LessonPlanCreationPage(props) {
 	//  get api //
 	const getTemplate = () => {
 		dispatch(apiCall({
-			urls: ["GETASSIGNEDTEMPLATETEACHER"], method: "GET", data: { "TeacherId": teacherId, "SchoolId": 70, }, onSuccess: (response) => {
+			urls: ["GETASSIGNEDTEMPLATETEACHER"], method: "GET", data: { "TeacherId": teacherId, "SchoolId": schoolId, }, onSuccess: (response) => {
 				const getTemplate = response.map((template) => {
 					return { value: template.templateId, text: template.templateName }
 				});
