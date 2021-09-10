@@ -18,8 +18,7 @@ function AddTagsListingPage(props) {
 		}
 
 	}
-	const onHandleEdit = (data) => {
-		      
+	const onHandleEdit = (data) => {      
 		SetEditData(data)
 		SetEditForm(!editForm)
 		openModal();

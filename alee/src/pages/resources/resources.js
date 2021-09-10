@@ -1,37 +1,13 @@
-import React, {
-  useState,
-  useEffect
-} from "react";
-import {
-  Grid,
-  Header,
-  Button,
-  Form,
-  Tab,
-  Icon,
-  Dimmer,
-  Loader
-} from "semantic-ui-react";
-import {
-  DataTable
-} from "../../../src/shared/components/organisms";
-import {
-  GlobalCodeSelect
-} from "../../shared/components";
-import {
-  useDispatch,
-  useSelector
-} from "react-redux";
-import {
-  apiCall
-} from "../../store/actions/api.actions";
-import {
-  commonFunctions
-} from "../../shared/functional/global-import";
-import {
-  DragDropContext,
-  Droppable
-} from 'react-beautiful-dnd';
+import React, { useState, useEffect, useRef } from "react";
+import { Grid, Header, Button, Form, Tab, Icon, Dimmer, Loader } from "semantic-ui-react";
+import { DataTable } from "../../../src/shared/components/organisms";
+import { GlobalCodeSelect } from "../../shared/components";
+import { useDispatch, useSelector } from "react-redux";
+import { apiCall } from "../../store/actions/api.actions";
+import { showNotification } from "../../store/actions/global.actions";
+import { commonFunctions, Notifications } from "../../shared/functional/global-import";
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import SimpleReactValidator from 'simple-react-validator';
 
 function ResourcesPage() {
 
@@ -56,11 +32,11 @@ function ResourcesPage() {
   };
   const [grade, setGradeList] = useState([]);
   const [resources, setResources] = useState(initialValues);
+  const [, forceUpdate] = useState()
+  const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
+
   const fileChange = (e) => {
-    setResources({
-      ...resources,
-      UploadPdf: e.target.files[0]
-    });
+    setResources({ ...resources, UploadPdf: e.target.files[0] });
   };
   const onHandleEdit = (data) => {
     const {
@@ -72,14 +48,14 @@ function ResourcesPage() {
       link
     } = data;
     if (data.resourceTypeName === "Audio") {
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, AudioLink: link })
+    }
+    else if (data.resourceTypeName === "Video") {
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, VideoLink: link })
+    }
+    else if (data.resourceTypeName === "Article") {
       setResources({
-        ...resources,
-        ResourceId: resourceId,
-        GradeId: gradeId,
-        BookId: bookId,
-        ChapterId: chapterId,
-        PageId: pageId,
-        AudioLink: link
+        ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link
       })
     } else if (data.resourceTypeName === "Video") {
       setResources({
@@ -144,21 +120,17 @@ function ResourcesPage() {
     });
   };
 
+
   // get api //
   const getBookList = (value) => {
     dispatch(
       apiCall({
         urls: ["GETBOOKSLISTBYGRADEID"],
         method: "GET",
-        data: {
-          "GradeId": value
-        },
+        data: { "GradeId": value },
         onSuccess: (response) => {
           const bookListed = response.map((singledata) => {
-            return {
-              text: singledata.bookName,
-              value: singledata.bookId
-            };
+            return { text: singledata.bookName, value: singledata.bookId };
           });
           setBooklist(bookListed);
         }
@@ -173,11 +145,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETGRADESLIST"],
         method: "GET",
-        data: ({
-          ActiveGrades: true,
-          OrderBy: "GradeName",
-          OrderByDescending: false
-        }),
+        data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
         onSuccess: (response) => {
           const grade = response.map((singledata) => {
             return {
@@ -195,9 +163,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERLIST"],
         method: "GET",
-        data: {
-          bookId: value
-        },
+        data: { bookId: value },
         onSuccess: (response) => {
           const chapters = response.map((singledata) => {
             return {
@@ -215,16 +181,11 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERPAGES"],
         method: "GET",
-        data: {
-          ChapterId: value
-        },
+        data: { ChapterId: value },
         onSuccess: (response) => {
 
           const pages = response.map((singledata) => {
-            return {
-              text: singledata.pageNo,
-              value: singledata.pageId
-            };
+            return { text: singledata.pageNo, value: singledata.pageId };
           });
           setPageList(pages);
         },
@@ -232,16 +193,15 @@ function ResourcesPage() {
     );
   };
 
-  const onHandleChange = (e, {
-    data,
-    value
-  }) => {
+  const onHandleChange = (e, { data, value }) => {
 
     if (data.toLowerCase() === "gradeid") {
       getBookList(value);
-    } else if (data.toLowerCase() === "bookid") {
+    }
+    else if (data.toLowerCase() === "bookid") {
       getChapterList(value);
-    } else if (data.toLowerCase() === "chapterid") {
+    }
+    else if (data.toLowerCase() === "chapterid") {
       getPageList(value);
     }
     setResources({
@@ -263,40 +223,34 @@ function ResourcesPage() {
     }
   }
   const panes = [{
-      menuItem: "Audio",
-      render: () => {
-        return ( <
-          Tab.Pane attached = {
-            false
-          }
-          key = "Audio" >
-          <
-          DataTable
-
-          allApi = {
+    menuItem: "Audio",
+    render: () => {
+      return (
+        <Tab.Pane attached={false} key="Audio">
+          <DataTable allApi={
             {
               getApiName: "GETRESOURCESLIST",
               deleteApiName: "DELETERESOURCES",
               toggleApiName: "RESOURCESTOGGLE",
             }
           }
-          reload = {
-            reload
-          }
-          searchOption = {
-            {
-              show: true,
-              placeHolder: "Search"
+            reload={
+              reload
             }
-          }
-          additionalParams = {
-            {
-              resourceTypeId: 18
+            searchOption={
+              {
+                show: true,
+                placeHolder: "Search"
+              }
             }
-          }
-          messageInModal = "audio"
-          columns = {
-            [{
+            additionalParams={
+              {
+                resourceTypeId: 18
+              }
+            }
+            messageInModal="audio"
+            columns={
+              [{
                 headerName: "Grade",
                 fieldName: "gradeName",
                 isSorting: true,
@@ -322,19 +276,11 @@ function ResourcesPage() {
                 fieldName: "link",
                 isSorting: false,
                 Cell: (props) => {
-                  return ( <
-                    a href = {
-                      (props.link)
-                    }
-                    target = "_blank" >
-                    <
-                    Icon name = {
-                      checkDisplayIcon(props.link)
-                    }
-                    className = "primary-color"
-                    link / >
-                    <
-                    /a>
+                  return (<a href={(props.link)} target="_blank">
+                    <Icon name={checkDisplayIcon(props.link)}
+                      className="primary-color"
+                      link />
+                  </a>
                   )
                 },
               },
@@ -343,68 +289,83 @@ function ResourcesPage() {
                 fieldName: "Action",
                 isSorting: false,
                 Cell: (props, confirmModalOpen) => {
-                  return ( <
-                    >
-                    <
-                    Icon title = "Edit"
-                    name = "edit"
-                    className = "primary-color"
-                    link onClick = {
-                      () => onHandleEdit(props)
-                    }
-                    /> <
-                    Icon title = "Delete"
-                    name = "trash alternate"
-                    color = "red"
-                    link onClick = {
-                      () =>
-                      confirmModalOpen(props.resourceLinkId, "delete")
-                    }
-                    /> <
-                    />
+                  return (
+                    <>
+                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                      <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")} />
+                    </>
+                  );
+                }
+              },
+              {
+                headerName: "Audio",
+                fieldName: "link",
+                isSorting: false,
+                Cell: (props) => {
+                  return (
+                    <a href={(props.link)}
+                      target="_blank">
+                      <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                    </a>
+                  )
+                },
+              },
+              {
+                headerName: "Action",
+                fieldName: "Action",
+                isSorting: false,
+                Cell: (props, confirmModalOpen) => {
+                  return (
+                    <>
+                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                      <Icon
+                        title="Delete"
+                        name="trash alternate"
+                        color="red"
+                        link
+                        onClick={() =>
+                          confirmModalOpen(props.resourceLinkId, "delete")
+                        }
+                      />
+                    </>
                   );
                 },
               },
-            ]
-          } >
-          < /DataTable> <
-          /Tab.Pane>
-        );
-      },
+              ]}
+          ></DataTable>
+        </Tab.Pane>
+      );
     },
-    {
-      menuItem: "Video",
-      render: () => {
-        return ( <
-          Tab.Pane attached = {
-            false
-          }
-          key = "Video" >
-          <
-          DataTable allApi = {
+  },
+  {
+    menuItem: "Video",
+    render: () => {
+      return (
+        <Tab.Pane attached={false} key="Video">
+          <DataTable allApi={
             {
               getApiName: "GETRESOURCESLIST",
               deleteApiName: "DELETERESOURCES",
               toggleApiName: "RESOURCESTOGGLE",
             }
           }
-          reload = {
-            reload
-          }
-          searchOption = {
-            {
-              show: true,
-              placeHolder: "Search"
+            reload={
+              reload
             }
-          }
-          additionalParams = {
-            {
-              resourceTypeId: 19
+            searchOption={
+              {
+                show: true,
+                placeHolder: "Search"
+              }
             }
-          }
-          messageInModal = "video"
-          columns = {
-            [{
+            additionalParams={
+              {
+                resourceTypeId: 19
+              }
+            }
+            messageInModal="video"
+            columns={
+              [{
                 headerName: "Grade",
                 fieldName: "gradeName",
                 isSorting: true,
@@ -430,20 +391,16 @@ function ResourcesPage() {
                 fieldName: "link",
                 isSorting: false,
                 Cell: (props) => {
-                  return props.link ? ( <
-                    a href = {
-                      (props.link)
-                    }
-                    target = "_blank" >
+                  return props.link ? (<a href={
+                    (props.link)
+                  }
+                    target="_blank" >
                     <
-                    Icon name = "youtube"
-                    className = "primary-color"
-                    link / >
-                    <
-                    /a>
-                  ) : (
-                    "-"
-                  );
+                      Icon name="youtube"
+                      className="primary-color"
+                      link />
+                  </a>
+                  ) : ("-");
                 },
               },
               {
@@ -451,370 +408,303 @@ function ResourcesPage() {
                 fieldName: "Action",
                 isSorting: false,
                 Cell: (props, confirmModalOpen) => {
-                  return ( <
+                  return (<
                     >
                     <
-                    Icon title = "Edit"
-                    name = "edit"
-                    className = "primary-color"
-                    link onClick = {
-                      () => onHandleEdit(props)
-                    }
+                      Icon title="Edit"
+                      name="edit"
+                      className="primary-color"
+                      link onClick={
+                        () => onHandleEdit(props)
+                      }
                     /> <
-                    Icon title = "Delete"
-                    name = "trash alternate"
-                    color = "red"
-                    link onClick = {
-                      () =>
-                      confirmModalOpen(props.resourceLinkId, "delete")
-                    }
-                    /> <
+                      Icon title="Delete"
+                      name="trash alternate"
+                      color="red"
+                      link onClick={
+                        () =>
+                          confirmModalOpen(props.resourceLinkId, "delete")
+                      }
                     />
+
+                  </>
+                  );
+                }
+              },
+              {
+                headerName: "Action",
+                fieldName: "Action",
+                isSorting: false,
+                Cell: (props, confirmModalOpen) => {
+                  return (
+                    <>
+                      <Icon title="Edit" name="edit" className="primary-color" link
+                        onClick={() => onHandleEdit(props)} />
+                      <Icon
+                        title="Delete"
+                        name="trash alternate"
+                        color="red"
+                        link
+                        onClick={() =>
+                          confirmModalOpen(props.resourceLinkId, "delete")
+                        }
+                      />
+                    </>
                   );
                 },
               },
-            ]
-          } >
-          < /DataTable> <
-          /Tab.Pane>
-        );
-      },
+              ]}
+          ></DataTable>
+        </Tab.Pane>
+      );
     },
-    {
-      menuItem: "Article",
-      render: () => {
-        return ( <
-          Tab.Pane attached = {
-            false
+  },
+  {
+    menuItem: "Article",
+    render: () => {
+      return (<Tab.Pane attached={false} key="Article">
+        <DataTable allApi={
+          {
+            getApiName: "GETRESOURCESLIST",
+            deleteApiName: "DELETERESOURCES",
+            toggleApiName: "RESOURCESTOGGLE",
           }
-          key = "Article" >
-          <
-          DataTable allApi = {
-            {
-              getApiName: "GETRESOURCESLIST",
-              deleteApiName: "DELETERESOURCES",
-              toggleApiName: "RESOURCESTOGGLE",
-            }
-          }
-          reload = {
-            reload
-          }
-          searchOption = {
+        }
+          reload={reload}
+          searchOption={
             {
               show: true,
               placeHolder: "Search"
             }
           }
-          additionalParams = {
+          additionalParams={
             {
               resourceTypeId: 20
             }
           }
-          messageInModal = "article"
-          columns = {
+          messageInModal="article"
+          columns={
             [{
-                headerName: "Grade",
-                fieldName: "gradeName",
-                isSorting: true,
-              },
-              {
-                headerName: "Book",
-                fieldName: "bookName",
-                isSorting: true,
-              },
+              headerName: "Grade",
+              fieldName: "gradeName",
+              isSorting: true,
+            },
+            {
+              headerName: "Book",
+              fieldName: "bookName",
+              isSorting: true,
+            },
 
-              {
-                headerName: "Chapter",
-                fieldName: "chapterName",
-                isSorting: true,
+            {
+              headerName: "Chapter",
+              fieldName: "chapterName",
+              isSorting: true,
+            },
+            {
+              headerName: "Page",
+              fieldName: "pageNo",
+              isSorting: true,
+            },
+            {
+              headerName: "Article",
+              fieldName: "link",
+              isSorting: false,
+              Cell: (props) => {
+                return props.link?.indexOf("pdf") < 0 ? (<a href={(props.link)} target="_blank">
+                  <Icon name={checkDisplayIcon(props.link)}
+                    className="primary-color" link />
+                </a>) : ("-");
+              }
+            },
+            {
+              headerName: "Article",
+              fieldName: "link",
+              isSorting: false,
+              Cell: (props) => {
+                return props.link?.indexOf("pdf") < 0 ? (
+                  <a href={(props.link)}
+                    target="_blank">
+                    <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                  </a>
+                ) : ("-");
               },
-              {
-                headerName: "Page",
-                fieldName: "pageNo",
-                isSorting: true,
-              },
-              {
-                headerName: "Article",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-                  ;
-                  return props.link?.indexOf("pdf") < 0 ? ( <
-                    a href = {
-                      (props.link)
-                    }
-                    target = "_blank" >
-                    <
-                    Icon name = {
-                      checkDisplayIcon(props.link)
-                    }
-                    className = "primary-color"
-                    link / >
-                    <
-                    /a>
-                  ) : (
-                    "-"
-                  );
-                },
-              },
-              {
-                headerName: "Pdf",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-                  return props.link?.indexOf("pdf") > 0 ? ( <
-                    a href = {
-                      commonFunctions.concatenateImageWithAPIUrl(props.link)
-                    }
-                    target = "_blank" >
-                    <
-                    Icon name = "file pdf"
-                    className = "primary-color"
-                    link / >
-                    <
-                    /a>
-                  ) : (
-                    "-"
-                  );
-                },
-              },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
-                Cell: (props, confirmModalOpen) => {
-                  return ( <
-                    >
-                    <
-                    Icon title = "Edit"
-                    name = "edit"
-                    className = "primary-color"
-                    link onClick = {
-                      () => onHandleEdit(props)
-                    }
-                    /> <
-                    Icon title = "Delete"
-                    name = "trash alternate"
-                    color = "red"
-                    link onClick = {
-                      () =>
-                      confirmModalOpen(props.resourceLinkId, "delete")
-                    }
-                    /> <
+            },
+            {
+              headerName: "Action",
+              fieldName: "Action",
+              isSorting: false,
+              Cell: (props, confirmModalOpen) => {
+                return (
+                  <>
+                    <Icon title="Edit" name="edit" className="primary-color"
+                      link onClick={
+                        () => onHandleEdit(props)
+                      }
+                    /> <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")}
                     />
-                  );
-                },
+                  </>
+                );
               },
-            ]
-          } >
-          < /DataTable> <
-          /Tab.Pane>
-        );
-      },
+            },]}>
+
+        </DataTable>
+      </Tab.Pane >
+      );
     },
+  },
   ];
-  const onHandleSubmit = () => {
-    var formData = commonFunctions.getFormData(resources);
-    dispatch(
-      apiCall({
-        urls: ["ADDUPDATERESOURCES"],
-        method: "Post",
-        data: formData,
-        onSuccess: (response) => {
+  const onHandleSubmit = (e) => {
+    debugger
+    const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
+    const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+    if (isFormValid) {
+      var formData = commonFunctions.getFormData(resources);
+      dispatch(
+        apiCall({
+          urls: ["ADDUPDATERESOURCES"],
+          method: "Post",
+          data: formData,
+          onSuccess: (response) => {
 
-          GridReload();
-          cancelClear();
-          setResources(initialValues);
-        },
-        showNotification: true,
-      })
-    );
+            GridReload();
+            cancelClear();
+            setResources(initialValues);
+          },
+          showNotification: true,
+        })
+      );
+    } else if (AudioLink === "" && VideoLink === "" && ArticleLink === "" && UploadPdf === "") {
+      dispatch(Notifications.show({ title: "Error", message: 'Please add atleast one the resourc source.', position: 'br', autoDismiss: 2 }, "error"))
+
+    }
   };
-  return ( <
-    div className = "common-shadow resources" > {
-      api.isApiLoading && ( <
-        Dimmer active inverted >
-        <
-        Loader / >
-        <
-        /Dimmer>
-
-      )
-    } <
-    Grid >
-    <
-    Grid.Column width = {
-      16
-    } >
-    <
-    Header as = "h3"
-    className = "commonHeading" >
-    Resources <
-    /Header> <
-    /Grid.Column> <
-    Grid.Column width = {
-      16
-    } >
-    <
-    Form >
-    <
-    Grid >
-    <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Grade"
-    placeholder = "Grades"
-    options = {
-      grade
-    }
-    data = "GradeId"
-    value = {
-      resources.GradeId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
-    /Grid.Column> <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Book"
-    placeholder = "Select Book"
-    options = {
-      booklist
-    }
-    data = "BookId"
-    value = {
-      resources.BookId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
-    /Grid.Column> <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Chapter"
-    placeholder = "Select Chapter"
-    options = {
-      chapterList
-    }
-    data = "ChapterId"
-    value = {
-      resources.ChapterId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
-    /Grid.Column> <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Page"
-    placeholder = "Select Page"
-    options = {
-      pageList
-    }
-    data = "PageId"
-    value = {
-      resources.PageId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
-    /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input label = "Audio"
-    placeholder = "Embed URL"
-    value = {
-      resources.AudioLink
-    }
-    data = "AudioLink"
-    onChange = {
-      onHandleChange
-    }
-    /> <
-    /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input label = "Video"
-    placeholder = "Embed URL"
-    value = {
-      resources.VideoLink
-    }
-    data = "VideoLink"
-    onChange = {
-      onHandleChange
-    }
-    /> <
-    /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input label = "Article"
-    placeholder = "Article"
-    value = {
-      resources.ArticleLink
-    }
-    data = "ArticleLink"
-    onChange = {
-      onHandleChange
-    }
-    /> <
-    /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input type = "file"
-    label = "Upload Pdf"
-    placeholder = "Embed URL"
-    onChange = {
-      fileChange
-    }
-    data = "UploadPdf" /
-    >
-    <
-    /Grid.Column> <
-    Grid.Column width = "16"
-    textAlign = "right" >
-    <
-    Button className = "secondaryBtn"
-    onClick = {
-      cancelClear
-    } > Cancel < /Button> <
-    Button className = "primaryBtn"
-    onClick = {
-      onHandleSubmit
-    }
-    loading = {
-      api.isApiLoading
-    } > {
-      resources.ResourceId > 0 ? "Update" : "Save"
-    } <
-    /Button> <
-    /Grid.Column> <
-    Grid.Column width = {
-      16
-    } >
-    <
-    Tab menu = {
+  return (
+    <div className="common-shadow resources" >
       {
-        text: true
-      }
-    }
-    panes = {
-      panes
-    }
-    onTabChange = {
-      cancelClear
-    }
-    /> <
-    /Grid.Column> <
-    /Grid> <
-    /Form> <
-    /Grid.Column> <
-    /Grid> <
-    /div>
+        api.isApiLoading && (<
+          Dimmer active inverted >
+          <Loader />
+        </Dimmer>
+
+        )}
+      <Grid>
+        <Grid.Column width={16}>
+          <Header as="h3" className="commonHeading">
+            Resources
+          </Header>
+        </Grid.Column>
+        <Grid.Column width={16}>
+          <Form>
+            <Grid>
+              <Grid.Column width="4">
+                {/* <GlobalCodeSelect
+                  label="Grade"
+                  placeholder="Grades"
+                  categoryType="Grades"
+                  onChange={onHandleChange}
+                  data="GradeId"
+                  value={resources.GradeId}
+                /> */}
+                <Form.Select
+                  label="Grade"
+                  placeholder="Grades"
+                  options={grade}
+                  data="GradeId"
+                  value={resources.GradeId}
+                  onChange={onHandleChange}
+                  error={simpleValidator.current.message('GradeId', resources.GradeId, 'required')}
+
+                />
+              </Grid.Column>
+              <Grid.Column width="4">
+                <Form.Select
+                  label="Book"
+                  placeholder="Select Book"
+                  options={booklist}
+                  data="BookId"
+                  value={resources.BookId}
+                  onChange={onHandleChange}
+                  error={simpleValidator.current.message('BookId', resources.BookId, 'required')}
+
+                />
+              </Grid.Column>
+              <Grid.Column width="4">
+                <Form.Select
+                  label="Chapter"
+                  placeholder="Select Chapter"
+                  options={chapterList}
+                  data="ChapterId"
+                  value={resources.ChapterId}
+                  onChange={onHandleChange}
+                  error={simpleValidator.current.message('ChapterId', resources.ChapterId, 'required')}
+
+                />
+              </Grid.Column>
+              <Grid.Column width="4">
+                <Form.Select
+                  label="Page"
+                  placeholder="Select Page"
+                  options={pageList}
+                  data="PageId"
+                  value={resources.PageId}
+                  onChange={onHandleChange}
+                  error={simpleValidator.current.message('PageId', resources.PageId, 'required')}
+
+                />
+              </Grid.Column>
+              <Grid.Column width="8">
+                <Form.Input
+                  label="Audio"
+                  placeholder="Embed URL"
+                  value={resources.AudioLink}
+                  data="AudioLink"
+                  onChange={onHandleChange}
+
+                />
+              </Grid.Column>
+              <Grid.Column width="8">
+                <Form.Input
+                  label="Video"
+                  placeholder="Embed URL"
+                  value={resources.VideoLink}
+                  data="VideoLink"
+                  onChange={onHandleChange}
+                />
+              </Grid.Column>
+              <Grid.Column width="8">
+                <Form.Input
+                  label="Article"
+                  placeholder="Article"
+                  value={resources.ArticleLink}
+                  data="ArticleLink"
+                  onChange={onHandleChange}
+                />
+              </Grid.Column>
+              <Grid.Column width="8">
+                <Form.Input
+                  type="file"
+                  label="Upload Pdf"
+                  placeholder="Embed URL"
+                  onChange={fileChange}
+                  data="UploadPdf"
+                />
+              </Grid.Column>
+              <Grid.Column width="16" textAlign="right">
+                <Button className="secondaryBtn" onClick={cancelClear}> Cancel </Button>
+                <Button
+                  className="primaryBtn"
+                  onClick={onHandleSubmit}
+                  loading={api.isApiLoading} >{resources.ResourceId > 0 ? "Update" : "Save"}
+                </Button>
+              </Grid.Column>
+              <Grid.Column width={16}>
+                <Tab menu={{ text: true }} panes={panes} onTabChange={cancelClear} />
+              </Grid.Column>
+            </Grid>
+          </Form>
+        </Grid.Column>
+      </Grid>
+    </div>
   );
 }
 

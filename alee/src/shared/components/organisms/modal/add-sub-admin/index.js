@@ -3,9 +3,9 @@ import { Grid, Modal, Button, Form, Dimmer, Loader } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
+import { commonFunctions } from "../../../../functional/global-import";
 
 function AddSubAdmin(props) {
-
   const auth = useSelector((state) => state.auth);
   const api = useSelector((state) => state.api);
   const [, forceUpdate] = useState()
@@ -21,7 +21,6 @@ function AddSubAdmin(props) {
     actionPerformedBy: "string",
     actionPerformedDate: "2021-08-11T04:52:29.657Z",
   };
-
   const [subAdmin, setSubAdmin] = useState(initialAddValues);
   const dispatch = useDispatch();
   const onHandleChange = (e, { data, value, checked, type }) => {
@@ -30,13 +29,11 @@ function AddSubAdmin(props) {
       setSubAdmin({ ...subAdmin, [data]: checked });
     }
   };
-
   useEffect(() => {
     if (props.modalType === "EDIT") {
       editSubAdmin();
     }
   }, [props.openModal]);
-
   const editSubAdmin = () => {
     if (props.editDetail) {
       const {
@@ -98,6 +95,7 @@ function AddSubAdmin(props) {
   };
 
   const closeModal = () => {
+    simpleValidator.current.hideMessages();
     props.closeModal();
     setSubAdmin(initialAddValues);
   };

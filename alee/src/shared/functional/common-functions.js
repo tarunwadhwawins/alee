@@ -2,6 +2,9 @@ import SimpleReactValidator from "simple-react-validator";
 import { Label, Form } from "semantic-ui-react";
 import { env } from "../functional/global-import";
 import moment from 'moment';
+import React, { useState, useEffect, useRef } from "react";
+
+
 
 // This function is used to handle common onchange in all the forms in the application.
 const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
@@ -27,13 +30,14 @@ const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
   return state;
 };
 
+
 // This function is used to handle common form submit in all the forms in the application.
-const onHandleFormSubmit = (e, formObj) => {
+const onHandleFormSubmit = (e, simpleValidator, forceUpdate) => {
 
   e.preventDefault();
-  if (formObj.validator.allValid() === false) {
-    formObj.validator.showMessages();
-    formObj.forceUpdate();
+  if (simpleValidator.current.allValid() === false) {
+    simpleValidator.current.showMessages();
+    forceUpdate(true);
     return false;
   } else {
     return true;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Grid, Header, Button, Form, Image, Icon } from "semantic-ui-react";
 import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
@@ -11,11 +11,14 @@ import { useForm } from "react-hook-form";
 import ForgotPasswordModal from "../../shared/components/organisms/modal/forgot-password/forgot-password";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import SimpleReactValidator from 'simple-react-validator';
+import { commonFunctions } from "../../shared/functional/global-import";
 
-const schema = yup.object().shape({
-  email: yup.string().email("Email must be valid email").required("Email is required"),
-  password: yup.string().required("Password is required"),
-});
+
+// const schema = yup.object().shape({
+//   email: yup.string().email("Email must be valid email").required("Email is required"),
+//   password: yup.string().required("Password is required"),
+// });
 
 function LoginForm() {
   const [forgotPasswordStatus, setForgotPasswordStatus] = React.useState(false)
@@ -26,10 +29,13 @@ function LoginForm() {
   const [fieldOptions, setFieldOptions] = useState([]);
 
   const [iconToggle, setIconToggle] = React.useState(false)
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema),
-    mode: 'onChange'
-  });
+  // const { register, handleSubmit, formState: { errors } } = useForm({
+  //   resolver: yupResolver(schema),
+  //   mode: 'onChange'
+  // });
+  const [, forceUpdate] = useState()
+  const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
+
 
   const [logInForm, setLogInForm] = useState({ email: "", password: "" })
   let history = useHistory();
@@ -38,26 +44,30 @@ function LoginForm() {
   const onHandleChange = (e, { value, data }) => {
     setLogInForm({ ...logInForm, [data]: value })
   }
-  const onSubmit = (values) => {
-    dispatch(apiCall({
-      urls: ["LOGIN"], method: "Post", data: values, onSuccess: (response) => {
-        tagStore();
-        if (response.isSuccess) {
-          //dispatch(loginSuccess(response.role));
-          dispatch(storeUserDetail(response));
-          getGlobalCode();
-          if (response.role === "Admin") {
-            history.push(`${env.PUBLIC_URL}/dashboard`);
+  const onSubmit = (e) => {
+    debugger
+    const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+    if (isFormValid) {
+      dispatch(apiCall({
+        urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
+          debugger
+          if (response.isSuccess) {
+            //dispatch(loginSuccess(response.role));
+            dispatch(storeUserDetail(response));
+            getGlobalCode();
+            if (response.role === "Admin") {
+              history.push(`${env.PUBLIC_URL}/dashboard`);
+            }
+            if (response.role === "School") {
+              history.push(`${env.PUBLIC_URL}/upload-excel`);
+            }
+            if (response.role === "Teacher") {
+              history.push(`${env.PUBLIC_URL}/dashboard`);
+            }
           }
-          if (response.role === "School") {
-            history.push(`${env.PUBLIC_URL}/upload-excel`);
-          }
-          if (response.role === "Teacher") {
-            history.push(`${env.PUBLIC_URL}/dashboard`);
-          }
-        }
-      }, showNotification: true
-    }))
+        }, showNotification: true
+      }))
+    }
     //dispatch(Notifications.error({ title: "Error", message: "", position: 'br', autoDismiss: 5 }));
     //(Notifications.success({ title: "warning", message: "a", position: 'br', autoDismiss: 5 }));
   }
@@ -111,7 +121,10 @@ function LoginForm() {
   return (
     <div className="signIn">
       <div className="signInner">
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form
+          onSubmit={onSubmit}
+        // onSubmit={handleSubmit(onSubmit)}
+        >
           <Grid>
             <Grid.Column width={6} className="p-0">
               <div className="signInnerLeft">
@@ -125,20 +138,27 @@ function LoginForm() {
                   <Header as="h2">Sign In</Header>
                 </Grid.Column>
                 <Grid.Column width={16}>
-                  <Form.Input label="Email" placeholder="abc@gmail.com" data="email" type="email" name="email" onChange={onHandleChange}  {...register("email")} />
-                  <p className="error">{errors.email?.message}</p>
+                  <Form.Input label="Email" placeholder="abc@gmail.com" data="email" type="email" name="email" onChange={onHandleChange}
+                    error={simpleValidator.current.message('email', logInForm.email, 'required|email')}
+                  // {...register("email")} 
+
+                  />
+                  {/* <p className="error">{errors.email?.message}</p> */}
                 </Grid.Column>
                 <Grid.Column width={16} >
-                  <Form.Input className="loginPassword" label="Password" type={iconToggle ? "" : "password"} placeholder="******" data="password" onChange={onHandleChange}  {...register("password")} />
+                  <Form.Input className="loginPassword" label="Password" type={iconToggle ? "" : "password"} placeholder="******" data="password" onChange={onHandleChange}
+                    error={simpleValidator.current.message('gradeName', logInForm.password, 'required|password')}
+                  //  {...register("password")} 
+                  />
                   {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
                   {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
-                  <p className="error">{errors.password?.message}</p>
+                  {/* <p className="error">{errors.password?.message}</p> */}
                 </Grid.Column>
                 <Grid.Column width={10} verticalAlign="middle">
                   <Form.Checkbox label='Remember me' />
                 </Grid.Column>
-                <Grid.Column width={7} >
-                  <Button className="primaryBtn" type="submit" loading={api.isApiLoading}>Sign In</Button>
+                <Grid.Column width={7}>
+                  <Button className="primaryBtn" loading={api.isApiLoading} >Sign In</Button>
                 </Grid.Column>
                 <Grid.Column width={9} textAlign="right" verticalAlign="middle">
                   <Link onClick={forgetPassword} className="primary-color">Forgot Password</Link>

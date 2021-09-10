@@ -31,101 +31,101 @@
 	}
 }
 .bookDetail {
-	img.ui.image {
-		border-radius: 8px;
-	}
-	.ui.header {
-		margin: 5px 0;
-		color: $primary-color;
-		font-size: 13px;
-		font-weight: 100;
-	}
-	p {
-		font-size: 12px;
-		color: $gray-color;
-	}
+  img.ui.image {
+    border-radius: 8px;
+  }
+  .ui.header {
+    margin: 5px 0;
+    color: $primary-color;
+    font-size: 13px;
+    font-weight: 100;
+  }
+  p {
+    font-size: 12px;
+    color: $gray-color;
+  }
 }
 .filterBy {
-	box-shadow: none!important;
-	border: none!important;
-	.item {
-		padding: 7px 10px!important;
-		&:before {
-			display: none!important;
-		}
-	}
+  box-shadow: none !important;
+  border: none !important;
+  .item {
+    padding: 7px 10px !important;
+    &:before {
+      display: none !important;
+    }
+  }
 }
 .booksResult {
-	border-left: 1px solid $secondary-color; 
-	padding-left: 40px;
-	.ui.items {
-		.item {
-			background-color: $secondary-color;
-			border-radius: 5px;
-			overflow: hidden;
-			.content {
-				padding: 9px 15px;
-				.header {
-					display: flex;
-					justify-content: space-between;
-					color: $primary-color;
-				}
-				.meta {
-					display: flex;
-					justify-content: space-between;
-					margin-bottom: 0;
-					font-size: 13px;
-				}
-				.description {
-					font-size: 13px;
-					margin-top: 5px;
-				}
-				.extra {
-					font-size: 13px;
-					margin-top: 5px;
-					.icons {
-						position: absolute;
-						right: 0;
-						bottom: 0;
-						margin: 0;
-					}
-				}
-			}
-		}
-	}
+  border-left: 1px solid $secondary-color;
+  padding-left: 40px;
+  .ui.items {
+    .item {
+      background-color: $secondary-color;
+      border-radius: 5px;
+      overflow: hidden;
+      .content {
+        padding: 9px 15px;
+        .header {
+          display: flex;
+          justify-content: space-between;
+          color: $primary-color;
+        }
+        .meta {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0;
+          font-size: 13px;
+        }
+        .description {
+          font-size: 13px;
+          margin-top: 5px;
+        }
+        .extra {
+          font-size: 13px;
+          margin-top: 5px;
+          .icons {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
 }
 .lessonPlanTemplate {
-	background-color: $secondary-color;
-    color: $primary-color;
-    text-align: center;
-    border-radius: 5px;
-    height: 70px;
+  background-color: $secondary-color;
+  color: $primary-color;
+  text-align: center;
+  border-radius: 5px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  cursor: pointer;
+  p {
+    font-size: 16px;
+  }
+  &.yourOwn {
+    background-color: $primary-color;
+    color: $white-color;
+  }
+  a {
     display: flex;
+    height: 100%;
+    width: 100%;
+    color: $white-color;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-	cursor: pointer;
-	p {
-		font-size: 16px;
-	}
-	&.yourOwn {
-		background-color: $primary-color;
-		color: $white-color;
-	}
-	a {
-		display: flex;
-		height: 100%;
-		width: 100%;
-		color: $white-color;
-		align-items: center;
-		justify-content: center;
-	}
+  }
 }
 h4.ui.header.bookName {
-	color: $white-color;
-	background-color: $primary-color;
-	padding: 10px;
-	border-radius: 5px;
+  color: $white-color;
+  background-color: $primary-color;
+  padding: 10px;
+  border-radius: 5px;
 }
 .chapterBox {
 	border: 1px solid $gray-color;
@@ -150,296 +150,291 @@ h4.ui.header.bookName {
 	}
 }
 .addMore {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 .wrapperClassName {
-	margin-top: 10px;
-	.editorClassName  {
-		border: 1px dashed $gray-color;
-		padding: 0 10px;
-		.public-DraftStyleDefault-ltr {
-			height: 150px;
-		}
-	}
+  margin-top: 10px;
+  .editorClassName {
+    border: 1px dashed $gray-color;
+    padding: 0 10px;
+    .public-DraftStyleDefault-ltr {
+      height: 150px;
+    }
+  }
 }
 .searchResultFilter {
-	box-shadow: 0 0 5px rgba(0,0,0,.2);
-	padding: 15px;
-	border-radius: 5px;
-	background-color: $secondary-color;
-	.ui.vertical.menu {
-		background-color: transparent;
-	}
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 5px;
+  background-color: $secondary-color;
+  .ui.vertical.menu {
+    background-color: transparent;
+  }
 }
 .totalBoxes {
-	.totalBoxesInnerr {
-		background-color: $primary-color;
-		padding: 10px;
-		border-radius: 5px;
-		color: $white-color;
-		p {
-			font-size: 14px;
-		}
-		h5.ui.header {
-			font-size: 16px;
-			color: $white-color;
-			min-height: 40px;
-			a {
-				color: $white-color;
-			}
-		}
-	}
+  .totalBoxesInnerr {
+    background-color: $primary-color;
+    padding: 10px;
+    border-radius: 5px;
+    color: $white-color;
+    p {
+      font-size: 14px;
+    }
+    h5.ui.header {
+      font-size: 16px;
+      color: $white-color;
+      min-height: 40px;
+      a {
+        color: $white-color;
+      }
+    }
+  }
 }
 .performanceMatrix {
-	h4.ui.header {
-		margin-bottom: 10px;
-	}
-	.performanceMatrixInner {
-		border: 1px solid $gray-color;
-		padding: 15px;
-		border-radius: 5px;
-		.performanceMatrixInnerBox {
-			text-align: center;
-			position: relative;
-			&:before {
-				content: "";
-				position: absolute;
-				top: 0;
-				right: -15px;
-				bottom: 0;
-				background-color: $gray-color;
-				width: 1px;
-			}
-			
-			&.borderNone {
-				&:before {
-					display: none;
-				}
-				
-			}
-			h5.ui.header {
-				font-size: 20px;
-				margin-bottom: 10px;
-			}
-			p {
-				font-size: 18px;
-			}
-		}
-	}
+  h4.ui.header {
+    margin-bottom: 10px;
+  }
+  .performanceMatrixInner {
+    border: 1px solid $gray-color;
+    padding: 15px;
+    border-radius: 5px;
+    .performanceMatrixInnerBox {
+      text-align: center;
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -15px;
+        bottom: 0;
+        background-color: $gray-color;
+        width: 1px;
+      }
+
+      &.borderNone {
+        &:before {
+          display: none;
+        }
+      }
+      h5.ui.header {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 18px;
+      }
+    }
+  }
 }
 .minHeight {
-	height: calc(100vh - 95px);
+  height: calc(100vh - 95px);
 }
-.ui.fluid.input.left.icon{
-	input {
-		height: 45px;
-	}
+.ui.fluid.input.left.icon {
+  input {
+    height: 45px;
+  }
 }
 .searchHeader {
-	.ui.radio.checkbox {
-		input {
-			&:checked {
-				~ label {
-					&:before {
-						background-color: $primary-color!important;
-						border-color: $primary-color!important;
-					}
-					&:after {
-						color: $white-color!important;
-						content: '\e800'!important;
-						font-size: 25px;
-						left: -2px;
-						top: 2px;
-						width: 17px!important;
-    					height: 17px!important;
-						
-					}
-				}
-			}
-			&:focus {
-				~ label {
-					&:before {
-						border-color: $secondary-color!important;
-					}
-				}
-			}
-		}
-		label {
-			&:before {
-				width: 17px!important;
-    			height: 17px!important;
-				border-radius: 3px;
-				
-			}
-			&:after {
-				background: none!important;
-			}
-		}
-	}
+  .ui.radio.checkbox {
+    input {
+      &:checked {
+        ~ label {
+          &:before {
+            background-color: $primary-color !important;
+            border-color: $primary-color !important;
+          }
+          &:after {
+            color: $white-color !important;
+            content: "\e800" !important;
+            font-size: 25px;
+            left: -2px;
+            top: 2px;
+            width: 17px !important;
+            height: 17px !important;
+          }
+        }
+      }
+      &:focus {
+        ~ label {
+          &:before {
+            border-color: $secondary-color !important;
+          }
+        }
+      }
+    }
+    label {
+      &:before {
+        width: 17px !important;
+        height: 17px !important;
+        border-radius: 3px;
+      }
+      &:after {
+        background: none !important;
+      }
+    }
+  }
 }
 .passingYear {
-	.ui.dropdown{
-		>.menu {
-			height: 145px!important;
-		}
-	}
+  .ui.dropdown {
+    > .menu {
+      height: 145px !important;
+    }
+  }
 }
-
 
 // Scan Book Page
 .scanBook {
-	.scanBookInner {
-		border: 1px dashed $gray-color;
-		padding: 15px;
-	}
-	.scanBookList {
-		background-color: $secondary-color;
-		padding:10px 5px;
-		border-radius: 3px;
-		color: $primary-color;
-		position: relative;
-		font-size: 16px;
-		margin-bottom: 10px;
-		.bookIcon {
-			color: $primary-color!important;
-			margin-right: 10px;
-		}
-		.closeIcon {
-			position: absolute;
-			right: 2px;
-			top: 10px;
-		}
-	}
-	.coverImg {
-		display: flex;
-		align-items: flex-start;
-		div {
-			position: relative;
-			margin: 0 0 0 10px;
-			box-shadow: 0 0 10px rgba(0,0,0,.1);
-			border-radius: 5px;
-			img {
-				max-width: 100px!important;
-				height: 100px;
-				object-fit: cover;
-				min-width: 100px;
-			}
-			i.icon {
-				position: absolute;
-				top: -10px;
-				right: -10px;
-				background-color: #000;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				color: #fff;
-				height: 20px;
-				width: 20px;
-				border-radius: 30px;
-			}
-			
-		}
-	}
+  .scanBookInner {
+    border: 1px dashed $gray-color;
+    padding: 15px;
+  }
+  .scanBookList {
+    background-color: $secondary-color;
+    padding: 10px 5px;
+    border-radius: 3px;
+    color: $primary-color;
+    position: relative;
+    font-size: 16px;
+    margin-bottom: 10px;
+    .bookIcon {
+      color: $primary-color !important;
+      margin-right: 10px;
+    }
+    .closeIcon {
+      position: absolute;
+      right: 2px;
+      top: 10px;
+    }
+  }
+  .coverImg {
+    display: flex;
+    align-items: flex-start;
+    div {
+      position: relative;
+      margin: 0 0 0 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      img {
+        max-width: 100px !important;
+        height: 100px;
+        object-fit: cover;
+        min-width: 100px;
+      }
+      i.icon {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        height: 20px;
+        width: 20px;
+        border-radius: 30px;
+      }
+    }
+  }
 }
 .stf__parent {
-	background-image: url(../images/background.jpg);
-	background-color: #f9f9f9;
-	background-size: cover;
-	.demoPage{
-		background-color: #f9f9f9;
-		padding: 10px;
-		.ui.header {
-			text-align: center;
-			padding-bottom: 15px;
-		}
-	}
+  background-image: url(../images/background.jpg);
+  background-color: #f9f9f9;
+  background-size: cover;
+  .demoPage {
+    background-color: #f9f9f9;
+    padding: 10px;
+    .ui.header {
+      text-align: center;
+      padding-bottom: 15px;
+    }
+  }
 }
 .myBooks {
-	padding-left: 0!important;
-	border: none!important;
+  padding-left: 0 !important;
+  border: none !important;
 }
 
 .addTag {
-	.bookPage {
-		border: 1px solid $gray-color;
-		padding: 15px;
-		border-radius: 5px;
-		.ui.header {
-			text-align: center;
-		}
-	}
+  .bookPage {
+    border: 1px solid $gray-color;
+    padding: 15px;
+    border-radius: 5px;
+    .ui.header {
+      text-align: center;
+    }
+  }
 }
 .resources {
-	.ui.menu {
-		display: inline-flex;
-		margin: 10px 0!important;
-		.item {
-			background-color: $secondary-color;
-			color: $primary-color;
-			padding: 12px 30px!important;
-			&:first-child {
-				border-radius: 5px 0 0 5px;
-			}
-			&:last-child {
-				border-radius: 0 5px 5px 0;
-			}
-			&.active, &:hover {
-				background-color: $primary-color!important;
-				color: $white-color!important;
-			}
-		}
-	}
-	.ui.tab {
-		padding: 0!important;
-		border: none!important;
-		box-shadow: none!important;
-	}
+  .ui.menu {
+    display: inline-flex;
+    margin: 10px 0 !important;
+    .item {
+      background-color: $secondary-color;
+      color: $primary-color;
+      padding: 12px 30px !important;
+      &:first-child {
+        border-radius: 5px 0 0 5px;
+      }
+      &:last-child {
+        border-radius: 0 5px 5px 0;
+      }
+      &.active,
+      &:hover {
+        background-color: $primary-color !important;
+        color: $white-color !important;
+      }
+    }
+  }
+  .ui.tab {
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 }
 .status {
-	p {
-		padding-bottom: 10px;
-	}
-	.statusToggle {
-		display: flex;
-		align-items: center;
-		span {
-			margin-right: 15px;
-		}
-	}
+  p {
+    padding-bottom: 10px;
+  }
+  .statusToggle {
+    display: flex;
+    align-items: center;
+    span {
+      margin-right: 15px;
+    }
+  }
 }
 .addTagsModal.ui.modal {
-	background: transparent;
-	>.header {
-		background: rgba(255,255,255,.8);
-	}
-	>.content {
-		background: rgba(255,255,255,.8);
-		
-	}
-	>.actions {
-		background: rgba(249, 250, 251, 0.8);
-	}
+  background: transparent;
+  > .header {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  > .content {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  > .actions {
+    background: rgba(249, 250, 251, 0.8);
+  }
 }
 
 .bookFlip {
-	.bookFlipOuter{
-		height: 510px!important;
-		overflow: hidden;
-	}
-	.stf__parent {
-		// height: 500px!important;
-		// overflow: hidden;
-		.demoPage {
-			height: 500px!important;
-			overflow: auto;
-		} 
-	}
-	img.ui.image {
-		height: 300px;
-		object-fit: cover;
-		margin: 0 auto;
-	}
+  .bookFlipOuter {
+    height: 510px !important;
+    overflow: hidden;
+  }
+  .stf__parent {
+    // height: 500px!important;
+    // overflow: hidden;
+    .demoPage {
+      height: 500px !important;
+      overflow: auto;
+    }
+  }
+  img.ui.image {
+    height: 300px;
+    object-fit: cover;
+    margin: 0 auto;
+  }
 }
 
 .profileView {
@@ -602,33 +597,46 @@ h4.ui.header.bookName {
 }
 
 .buyPlan {
-	padding: 15px;
-	border-radius: 5px;
-	text-align: center;
-	border: 2px solid #fff;
-	box-shadow: 0 0 5px rgba(0,0,0,.1);
-	&:hover{
-		border-color: $primary-color;
-	}
-	h4.ui.header {
-		color: $primary-color;
-	}
-	p {
-		color: #999;
-		font-size: 18px;
-		.dollor {
-			color: $primary-color;
-			font-size: 14px;
-		}
-		.value {
-			color: $primary-color;
-			font-size: 25px;
-		}
-	}
-	.primaryBtn.ui.button {
-		width: 100%;
-		margin-top: 60px;
-	}
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  border: 2px solid #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  &:hover {
+    border-color: $primary-color;
+  }
+  h4.ui.header {
+    color: $primary-color;
+  }
+  p {
+    color: #999;
+    font-size: 18px;
+    .dollor {
+      color: $primary-color;
+      font-size: 14px;
+    }
+    .value {
+      color: $primary-color;
+      font-size: 25px;
+    }
+  }
+  .primaryBtn.ui.button {
+    width: 100%;
+    margin-top: 60px;
+  }
+}
+
+.addGradeInput {
+  .field {
+    label {
+      color: rgba(0, 0, 0, 0.87) !important;
+    }
+    &.error {
+      .srv-validation-message {
+        color: #f00;
+      }
+    }
+  }
 }
 
 .setImg {
