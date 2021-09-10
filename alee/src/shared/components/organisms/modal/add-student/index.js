@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Grid, Modal, Button, Form, Dimmer, Loader } from "semantic-ui-react";
 import { apiCall } from "../../../../../store/actions/api.actions";
 import { useDispatch, useSelector } from "react-redux";
-import { GlobalCodeSelect } from "../../../../components";
 
 function AddStudent(props) {
   debugger
