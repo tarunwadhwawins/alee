@@ -8,22 +8,10 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import SimpleReactValidator from 'simple-react-validator';
-
-// const schema = yup.object().shape({
-//     email: yup.string().email("Email must be valid email").required("Email is required"),
-//     password: yup.string().required("Password is required"),
-//     confirmPassword: yup.string().required("Confirm password is required"),
-//     firstName: yup.string().required("First Name is required"),
-//     lastName: yup.string().required("Last Name is required"),
-//     contactNo: yup.string().required("Phone Number is required"),
-//     address: yup.string().required("Address is required"),
-// });
+import { commonFunctions } from "../../shared/functional/global-import";
 
 function TeacherSignup(props) {
-    // const { register, handleSubmit, formState: { errors } } = useForm({
-    //     resolver: yupResolver(schema),
-    //     mode: 'onChange'
-    // });
+
     const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "", actionPerformedBy: "", userId: "", excelReferenceId: null, teacherId: null, schoolId: 0 })
     let history = useHistory();
     const onHandleChange = (e, { value, data }) => {
@@ -34,18 +22,11 @@ function TeacherSignup(props) {
     const [, forceUpdate] = useState()
     const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
-    const onsubmit = () => {
+    const onsubmit = (e) => {
         debugger
-        // values.schoolId = 0
-        // values.teacherId = null
-        // values.excelReferenceId = null
-        // values.userId = "test"
-        // values.actionPerformedBy = ""
-        const formValid = simpleValidator.current.allValid()
-        if (!formValid) {
-            simpleValidator.current.showMessages();
-            forceUpdate(true);
-        } else {
+    
+        const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+        if (isFormValid) {
             dispatch(apiCall({
                 urls: ["TEACHERREGISTRATION"], method: "Post", data: teacherForm, onSuccess: (response) => {
                     history.push(`${env.PUBLIC_URL}`);

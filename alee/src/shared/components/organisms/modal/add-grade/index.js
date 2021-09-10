@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
+import { commonFunctions } from "../../../../functional/global-import";
 import SimpleReactValidator from 'simple-react-validator';
 
 function AddGrade(props) {
-	debugger
 	const initialValues = {
 		gradeName: "",
 		isActive: true,
@@ -14,8 +14,10 @@ function AddGrade(props) {
 	}
 	const [grade, setGrade] = useState(initialValues);
 	const api = useSelector((state) => state.api);
+
 	const [, forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
+
 	const dispatch = useDispatch();
 	const onHandleChange = (e, { data, value, checked, type }) => {
 		setGrade({ ...grade, [data]: value });
@@ -23,13 +25,10 @@ function AddGrade(props) {
 			setGrade({ ...grade, [data]: checked });
 		}
 	};
-	const onHandleSubmit = () => {
+	const onHandleSubmit = (e) => {
 		debugger
-		const formValid = simpleValidator.current.allValid()
-		if (!formValid) {
-			simpleValidator.current.showMessages();
-			forceUpdate(true);
-		} else {
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
 			dispatch(
 				apiCall({
 					urls: ["ADDGRADE"],

@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Modal, Button, Form ,Input } from "semantic-ui-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Grid, Modal, Button, Form, Input } from "semantic-ui-react";
 import { GlobalCodeSelect } from "../../../../components";
 import { useDispatch } from 'react-redux';
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 //import { commonValidation } from "../../../organisms/common-validations/index";
+import SimpleReactValidator from 'simple-react-validator';
+import { commonFunctions } from "../../../../functional/global-import";
 
 const initialValues = { subscriptionPlanId: null, subscriptionPlanName: "", durationTypeId: null, noOfStudents: null, price: null, description: "", isActive: true, actionPerformedBy: "string" }
 
 const AddSubscription = (props) => {
 
 	const [values, setValues] = useState(initialValues)
-	// const [errors, setErrors] = useState(false)
-
-	// const av = (a, b, c) => errors && commonValidation.ValidateInfo(a, b, c);
+	const [, forceUpdate] = useState()
+	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
 	const dispatch = useDispatch();
 	const onHandleChange = (e, { data, value, checked, type }) => {
@@ -21,19 +22,20 @@ const AddSubscription = (props) => {
 			setValues({ ...values, [data]: checked })
 		}
 	}
-	const onHandleSubmit = () => {
-		dispatch(apiCall({
-			urls: ["POSTSUBSCRIPTION"], method: "POST", data: values, onSuccess: (response) => {
-
-				props.closeModal();
-				props.GridReload();
-				setValues(initialValues);
-			}, showNotification: true
-		}))
+	const onHandleSubmit = (e) => {
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
+			dispatch(apiCall({
+				urls: ["POSTSUBSCRIPTION"], method: "POST", data: values, onSuccess: (response) => {
+					props.closeModal();
+					props.GridReload();
+					setValues(initialValues);
+				}, showNotification: true
+			}))
+		}
 	}
 
 	useEffect(() => {
-
 		editForm();
 	}, [props.editData]);
 
@@ -44,6 +46,7 @@ const AddSubscription = (props) => {
 		}
 	}
 	const closeModal = () => {
+		simpleValidator.current.hideMessages();
 		props.closeModal();
 		setValues(initialValues);
 	}
@@ -56,19 +59,28 @@ const AddSubscription = (props) => {
 					<Form>
 						<Grid columns="2">
 							<Grid.Column>
-								<Form.Input label="Subscription Plan" onChange={onHandleChange} data="subscriptionPlanName" value={values.subscriptionPlanName} />
-							</Grid.Column>
-							<Grid.Column>
-								<GlobalCodeSelect label="Duration" placeholder="Select Duration" categoryType="SubscriptionDurationType" onChange={onHandleChange} data="durationTypeId" value={values.durationTypeId}
+								<Form.Input label="Subscription Plan" onChange={onHandleChange} data="subscriptionPlanName" value={values.subscriptionPlanName} placeholder="Please enter subscription plan"
+									error={simpleValidator.current.message('subscriptionPlanName', values.subscriptionPlanName, 'required')}
 								/>
 							</Grid.Column>
 							<Grid.Column>
-								<Form.Input label="No. of Students" onChange={onHandleChange} data="noOfStudents" value={values.noOfStudents} />
+								<GlobalCodeSelect label="Duration" placeholder="Select Duration" categoryType="SubscriptionDurationType" onChange={onHandleChange} data="durationTypeId" value={values.durationTypeId}
+									error={simpleValidator.current.message('durationType', values.durationTypeId, 'required')}
+
+								/>
 							</Grid.Column>
 							<Grid.Column>
-								<div class="field">
-							    <label>Price</label>
-								<Input label="Price" label={{ basic: true, content: '$' }} labelPosition='left'  placeholder="price" onChange={onHandleChange} data="price" value={values.price} />
+								<Form.Input label="No. of Students" placeholder="Please enter number of students" onChange={onHandleChange} data="noOfStudents" value={values.noOfStudents}
+									error={simpleValidator.current.message('numberOfStudents', values.noOfStudents, 'required')}
+								/>
+							</Grid.Column>
+							<Grid.Column>
+								<div className="field">
+									<label>Price</label>
+									<Input label="Price" label={{ basic: true, content: '$' }} labelPosition='left' placeholder="price" onChange={onHandleChange} data="price" value={values.price}
+										error={simpleValidator.current.message('price', values.price, 'required')}
+									/>
+									{simpleValidator.current.message('price', values.price, 'required')}
 								</div>
 							</Grid.Column>
 							<Grid.Column className='status'>

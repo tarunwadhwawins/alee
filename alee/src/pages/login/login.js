@@ -12,6 +12,7 @@ import ForgotPasswordModal from "../../shared/components/organisms/modal/forgot-
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import SimpleReactValidator from 'simple-react-validator';
+import { commonFunctions } from "../../shared/functional/global-import";
 
 
 // const schema = yup.object().shape({
@@ -43,13 +44,10 @@ function LoginForm() {
   const onHandleChange = (e, { value, data }) => {
     setLogInForm({ ...logInForm, [data]: value })
   }
-  const onSubmit = () => {
+  const onSubmit = (e) => {
     debugger
-    const formValid = simpleValidator.current.allValid()
-    if (!formValid) {
-      simpleValidator.current.showMessages();
-      forceUpdate(true);
-    } else {
+    const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+    if (isFormValid) {
       dispatch(apiCall({
         urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
           debugger

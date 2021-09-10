@@ -252,16 +252,24 @@ h5.ui.header.forCommonTable {
   padding: 50px 0 !important ;
 }
 .field {
+  position: relative;
   label {
     color: rgba(0, 0, 0, 0.87) !important;
   }
+  .srv-validation-message {
+    position: absolute;
+    top: 100%;
+    font-size: 12px;
+    color: #f00;
+    line-height: 12px;
+  }
   &.error {
-    .srv-validation-message {
-      position: absolute;
-      top: 100%;
-      font-size: 12px;
-      color: #f00;
-      line-height: 12px;
+    .ui.input {
+      input {
+        background: #fff6f6;
+        border-color: #e0b4b4;
+        color: #9f3a38;
+      }
     }
   }
 }

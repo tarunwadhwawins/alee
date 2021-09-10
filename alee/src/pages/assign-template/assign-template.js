@@ -20,6 +20,7 @@ function AssignTemplatePage() {
 		setReload(!reload)
 	}
 
+
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -76,7 +77,7 @@ function AssignTemplatePage() {
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color" link />
-											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateDetailId, "delete")}/>
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateDetailId, "delete")} />
 										</>
 									);
 								},

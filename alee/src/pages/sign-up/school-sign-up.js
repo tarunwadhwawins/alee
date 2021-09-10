@@ -8,21 +8,10 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import SimpleReactValidator from 'simple-react-validator';
-
-// const schema = yup.object().shape({
-//   email: yup.string().email("Email must be valid email").required("Email is required"),
-//   password: yup.string().required("Password is required"),
-//   confirmPassword: yup.string().required("Confirm password is required"),
-//   schoolName: yup.string().required("School Name is required"),
-//   schoolContactNo: yup.string().required("Phone Number is required"),
-//   schoolAddress: yup.string().required("School Address is required"),
-// });
+import { commonFunctions } from "../../shared/functional/global-import";
 
 function SchoolSignup(props) {
-  // const { register, handleSubmit, formState: { errors } } = useForm({
-  //   resolver: yupResolver(schema),
-  //   mode: 'onChange'
-  // });
+
   const [schoolForm, setSchoolForm] = useState({ schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", password: "", confirmPassword: "", schoolId: null, userId: "", actionPerformedBy: "" })
   let history = useHistory();
 
@@ -35,16 +24,10 @@ function SchoolSignup(props) {
     setSchoolForm({ ...schoolForm, [data]: value })
   }
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
     debugger
-    // values.schoolId = null
-    // values.userId = ""
-    // values.actionPerformedBy = ""
-    const formValid = simpleValidator.current.allValid()
-    if (!formValid) {
-      simpleValidator.current.showMessages();
-      forceUpdate(true);
-    } else {
+    const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+    if (isFormValid) {
       dispatch(apiCall({
         urls: ["SCHOOLREGISTRATION"], method: "Post", data: schoolForm, onSuccess: (response) => {
           history.push(`${env.PUBLIC_URL}`);
