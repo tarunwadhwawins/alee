@@ -399,8 +399,7 @@ function ResourcesPage() {
                       Icon name="youtube"
                       className="primary-color"
                       link />
-                  </a>
-                  ) : ("-");
+                  </a>) : ("-");
                 },
               },
               {
@@ -557,7 +556,7 @@ function ResourcesPage() {
     debugger
     const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-    if (isFormValid) {
+    if (isFormValid && AudioLink !== "" && VideoLink !== "" && ArticleLink !== "" && UploadPdf !== "") {
       var formData = commonFunctions.getFormData(resources);
       dispatch(
         apiCall({
