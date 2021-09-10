@@ -15,7 +15,6 @@ const schema = yup.object().shape({
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required("Last Name is required"),
     contactNo: yup.string().required("Phone Number is required"),
-    address: yup.string().required("Address is required"),
 });
 
 function TeacherSignup(props) {
@@ -62,10 +61,10 @@ function TeacherSignup(props) {
                     <Form.Input label="Phone Number" placeholder="(123) 456-7890" data="contactNo" onChange={onHandleChange} {...register("contactNo")} />
                     <p className="error">{errors.contactNo?.message}</p>
                 </Grid.Column>
-                <Grid.Column width={8} >
+                {/* <Grid.Column width={8} >
                     <Form.Input label="Address" placeholder="Address" data="address" onChange={onHandleChange} {...register("address")} />
                     <p className="error">{errors.address?.message}</p>
-                </Grid.Column>
+                </Grid.Column> */}
                 <Grid.Column width={8} >
                     <Form.Input label="Password" placeholder="********" type="password" data="password" onChange={onHandleChange} {...register("password")} />
                     <p className="error">{errors.password?.message}</p>

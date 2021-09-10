@@ -60,7 +60,7 @@ function AddSubAdmin(props) {
   };
 
   const onHandleSubmit = () => {
-    debugger;
+               
     const formValid = simpleValidator.current.allValid()
     if (!formValid) {
       simpleValidator.current.showMessages();

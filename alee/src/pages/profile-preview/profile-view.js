@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Header, Image, List, Divider, Icon, Dimmer, Loader } from "semantic-ui-react";
-import { profile } from "../../shared/functional/global-image-import"
+import { Grid, Header, Image, List, Divider, Icon, Dimmer, Loader,Button } from "semantic-ui-react";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../store/actions/api.actions";
 import { useParams } from 'react-router-dom';
+import { env } from "../../shared/functional/global-import";
+import { Link } from "../../shared/functional/global-import";
+// import { profile } from "../../shared/functional/global-image-import";
+
 function ProfileViewPage() {
 	const teacherId = useParams();
 	const api = useSelector((state) => state.api);
 	const dispatch = useDispatch();
 	const [teacherData, setTeacherData] = useState([]);
+	const [editData, SetEditData] = useState([]);
 	useEffect(() => {
 		getTeacherProfile();
 	}, []);
@@ -25,54 +29,51 @@ function ProfileViewPage() {
 			})
 		);
 	};
+	const onHandleEdit = (data) => {
+		           
+		SetEditData(editData.concat(data));
+	}
 	return (
 		<>
-			{api.isApiLoading && (
-				<Dimmer active inverted><Loader />
-				</Dimmer>
-			)}
 			<div className="common-shadow profileView">
-				{api.isApiLoading && (<Dimmer active inverted><Loader /></Dimmer>)}
+				{api.isApiLoading && (
+				<Dimmer active inverted><Loader /></Dimmer>)}
 				<div className="profileViewHeader" >
 					{teacherData.map((teacherProfile, index) => {
-						return (
-							<>
-								<div className="profileImgOuter">
-									<div className="profileImg">
-										<Image src={commonFunctions.concatenateImageWithAPIUrl(teacherProfile.image)} />
-									</div>
+						return (<>
+							<div className="ProfileEdit">
+	 <Button type='button'as={Link} to={{ pathname:`${env.PUBLIC_URL}/profile`,state:{editData}}} onClick={() => onHandleEdit(teacherData)}> Edit</Button>
+							</div>
+							<div className="profileImgOuter">
+								<div className="profileImg">
+									<Image src={commonFunctions.concatenateImageWithAPIUrl(teacherProfile.image)} />
 								</div>
-								<div className="profileViewHeaderDesc">
-									<Header as='h3' className="commonHeading">
-										{teacherProfile.teacherName}
-									</Header>
-									<List horizontal className="basicInfo">
-										<List.Item>
-											<List.Icon name='mail' />
-											<List.Content>{teacherProfile.email}</List.Content>
-										</List.Item>
-										<List.Item>
-											<List.Icon name='mobile alternate' />
-											<List.Content>{teacherProfile.contactNo}</List.Content>
-										</List.Item>
-									</List>
-									<p><span>{teacherProfile.schoolName}:</span>{teacherProfile.address}</p>
-									<List horizontal className="gradePlan">
-										{/* <List.Item>
-											<List.Content>
-												<span>{grade}</span>
-												<List.Header>Grade</List.Header>
-											</List.Content>
-										</List.Item> */}
-										<List.Item>
-											<List.Content>
-												<span>{teacherProfile.lessonPlans}</span>
-												<List.Header>LessonPlan</List.Header>
-											</List.Content>
-										</List.Item>
-									</List>
-								</div>
-							</>
+							</div>
+							<div className="profileViewHeaderDesc">
+								<Header as='h3' className="commonHeading">
+									{teacherProfile.teacherName}
+								</Header>
+								<List horizontal className="basicInfo">
+									<List.Item>
+										<List.Icon name='mail' />
+										<List.Content>{teacherProfile.email}</List.Content>
+									</List.Item>
+									<List.Item>
+										<List.Icon name='mobile alternate' />
+										<List.Content>{teacherProfile.contactNo}</List.Content>
+									</List.Item>
+								</List>
+								<p><span>{teacherProfile.schoolName}:</span>{teacherProfile.address}</p>
+								<List horizontal className="gradePlan">
+									<List.Item>
+										<List.Content>
+											<span>{teacherProfile.lessonPlans}</span>
+											<List.Header>LessonPlan</List.Header>
+										</List.Content>
+									</List.Item>
+								</List>
+							</div>
+						</>
 						);
 					})}
 				</div>
@@ -121,15 +122,14 @@ function ProfileViewPage() {
 								<Header as="h4">Key Skillset</Header>
 								{skill && skill.length > 0 && skill.map((skills, index) => {
 									return (
-										<>
-											<p><span>Skills:</span>{skills}</p>
-										</>
+										<><p><span>Skills:</span>{skills}</p></>
 									);
 								})}
 							</Grid.Column>
 						</Grid>
 					);
 				})}
+        
 			</div>
 
 		</>

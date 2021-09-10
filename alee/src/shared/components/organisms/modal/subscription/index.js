@@ -8,12 +8,7 @@ import { apiCall } from "../../../../../../src/store/actions/api.actions";
 const initialValues = { subscriptionPlanId: null, subscriptionPlanName: "", durationTypeId: null, noOfStudents: null, price: null, description: "", isActive: true, actionPerformedBy: "string" }
 
 const AddSubscription = (props) => {
-
 	const [values, setValues] = useState(initialValues)
-	// const [errors, setErrors] = useState(false)
-
-	// const av = (a, b, c) => errors && commonValidation.ValidateInfo(a, b, c);
-
 	const dispatch = useDispatch();
 	const onHandleChange = (e, { data, value, checked, type }) => {
 		setValues({ ...values, [data]: value })

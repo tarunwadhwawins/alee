@@ -8,11 +8,18 @@ import ProfileStepTwo from "./profile-step-two";
 import ProfileStepThree from "./profile-step-three";
 import ProfileStepFour from "./profile-step-four";
 import { commonFunctions } from "../../shared/functional/global-import";
+import { env } from "../../shared/functional/global-import";
+import { useHistory } from "react-router-dom";
 
 const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "", actionPerformedBy: "", imageurl:null }
 const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "", index: null, updateButtonEducation: false, }
 const initialSchool = { institute: "", position: "", grades: [], isCurrent: true, index: null, updateButtonSchool: false, }
-function MyProfile() {
+function MyProfile(){    
+debugger;
+  let history = useHistory();
+  const aa =history.location.state
+
+  const api = useSelector(state => state.api);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId);
   const [activeStep, setActiveStep] = useState(0);
   const [values, setValues] = useState(initialState);
@@ -20,14 +27,12 @@ function MyProfile() {
   const [formSecondStep, setFormSecondStep] = useState([]);
   const [school, setSchool] = useState(initialSchool)
   const [thirdSecondStep, setThirdSecondStep] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const [skilled, setSkilled] = useState("");
   const [skill, setSkill] = useState({ updatedSkill: false });
   const [skills, setSkills] = useState([]);
   const [grade, setGradeList] = useState([]);
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
-
-
   const dispatch = useDispatch();
   useEffect(() => {
     setValues({ ...values, teacherId: teacherId })
@@ -35,7 +40,6 @@ function MyProfile() {
   useEffect(() => {
     getGradeList();
   }, []);
-
   const getGradeList = () => {
     dispatch(
       apiCall({
@@ -214,7 +218,7 @@ function MyProfile() {
                 <Button className="alternateBtn" onClick={() => changeStep(1)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={onStepFirst}>
+                <Button className="primaryBtn" onClick={onStepFirst}loading={api.isApiLoading}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -239,7 +243,7 @@ function MyProfile() {
                 <Button className="alternateBtn" onClick={() => changeStep(2)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={onStepSecond}>
+                <Button className="primaryBtn" onClick={onStepSecond}loading={api.isApiLoading}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -266,7 +270,7 @@ function MyProfile() {
                 <Button className="alternateBtn" onClick={() => changeStep(3)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={onThreeStepEducation}>
+                <Button className="primaryBtn" onClick={onThreeStepEducation} loading={api.isApiLoading}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -278,10 +282,7 @@ function MyProfile() {
           <>
             <ProfileStepFour onHandleChange={onChangeFourstep} skills={skills} addMoreSkill={addMoreSkill}
               editSkills={editSkills} removeSkill={removeSkill} skilled={skilled} updateSkill={updateSkill}
-              skill={skill} ClearSkill={ClearSkill}
-
-
-            />
+              skill={skill} ClearSkill={ClearSkill}/>
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
@@ -290,8 +291,10 @@ function MyProfile() {
                 </Button>
                 <Button className="alternateBtn">
                   Preview
-                </Button>
-                <Button className="primaryBtn" as={Link} to="lesson-library" onClick={onFourStepSkill}>
+                </Button> 
+                <Button className="primaryBtn" as={Link} to={`${env.PUBLIC_URL}/profile-preview/${teacherId}`}
+                onClick={onFourStepSkill}
+                loading={api.isApiLoading}>
                   Save & Continue
                 </Button>
               </Grid.Column>
@@ -368,7 +371,13 @@ function MyProfile() {
           </Step.Group>
         </Grid.Column>
       </Grid>
+      
       <div>{getStepContent(activeStep)}</div>
+      {/* <Grid>
+        <Grid.Column width={16}>
+      <ProfileViewPage/>
+     </Grid.Column>
+     </Grid> */}
     </>
   );
 }

@@ -471,6 +471,13 @@ h4.ui.header.bookName {
 				color: #ddd;
 			}
 		}
+		.ProfileEdit {
+			position: absolute;
+			top: 18px;
+			right: 17px;
+			font-size: 19px;
+			/* background-color: white; */
+		}
 		.profileImgOuter {
 			margin-right: 30px;
 			text-align: center;
@@ -496,6 +503,7 @@ h4.ui.header.bookName {
 			.custom-file-upload {
 				cursor: pointer;
 			}
+		
 		}
 		.profileImg {
 			position: relative;

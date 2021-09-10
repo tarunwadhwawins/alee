@@ -77,9 +77,7 @@ function AddGrade(props) {
 							<Grid.Column width={8}>
 								<Form.Input label="Grade" data="gradeName" value={grade.gradeName}
 						       	onChange={onHandleChange}
-                               error={simpleValidator.current.message('gradeName', grade.gradeName, 'required')}
-								/>
-
+                               error={simpleValidator.current.message('gradeName', grade.gradeName, 'required')}/>
 							</Grid.Column>
 							<Grid.Column className="status">
 								<p>Status</p>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
 
 function LessonPlanCreationPage(props) {
+
 	const bookId = useSelector(state => state.global.myBookData.bookId);
 	const auth = useSelector((state) => state.auth);
 	const initialState = { lessonPlanId: null, teacherId: auth.userDetail.teacherId, bookId: bookId, chapterId: null, gradeId: null, templateId: null, lessonPlanName: "", templateResponse: [], notes: [], actionPerformedBy: "", isNoteAdded: true }
@@ -70,7 +71,6 @@ function LessonPlanCreationPage(props) {
 			}
 		}));
 	}
-
 	const getBookTagContent = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKTAGDATA"], method: "GET", data: { "PageId": 1432, "TagText": "About the Author" }, onSuccess: (response) => {

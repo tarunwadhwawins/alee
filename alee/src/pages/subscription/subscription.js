@@ -10,7 +10,6 @@ function SubscriptionPage() {
 	const openModal = () => {
 		setSubscription(!subscription)
 	}
-
 	const GridReload = () => {
 		SetReload(!reload)
 	}
@@ -49,7 +48,6 @@ function SubscriptionPage() {
 								fieldName: "noOfStudents",
 								isSorting: true
 							},
-
 							{
 								headerName: "Price",
 								fieldName: "price",
@@ -70,6 +68,7 @@ function SubscriptionPage() {
 								fieldName: "Action",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
+									           
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />

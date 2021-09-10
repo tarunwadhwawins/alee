@@ -39,9 +39,7 @@ function ManageTeacherPage() {
 								isSorting: true,
 								Cell: (props) => {
 									return (
-										<>
-											<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-										</>
+										<> <a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a></>
 									);
 								},
 
@@ -69,7 +67,6 @@ function ManageTeacherPage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											{/* <Icon title="Edit" name="edit" className="primary-color" link /> */}
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
 										</>
 									);
