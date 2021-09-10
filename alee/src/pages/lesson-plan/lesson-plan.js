@@ -24,9 +24,9 @@ function LessonPlanPage() {
 						searchOption={{ show: true, placeHolder: "Search" }}
 						columns={[
 							{
-								headerName: "Book Name",
-								fieldName: "bookName",
-								isSorting: true,
+								headerName: "Lesson Plan Name",
+								fieldName: "lessonPlanName",
+								isSorting: true
 							},
 							{
 								headerName: "Chapter",
@@ -34,9 +34,9 @@ function LessonPlanPage() {
 								isSorting: true,
 							},
 							{
-								headerName: "Lesson Plan Name",
-								fieldName: "lessonPlanName",
-								isSorting: true
+								headerName: "Book Name",
+								fieldName: "bookName",
+								isSorting: true,
 							},
 							{
 								headerName: "Action",
