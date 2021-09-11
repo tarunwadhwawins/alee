@@ -547,7 +547,7 @@ function ResourcesPage() {
             },]}>
 
         </DataTable>
-      </Tab.Pane >
+      </Tab.Pane>
       );
     },
   },
