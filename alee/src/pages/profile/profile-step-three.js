@@ -1,10 +1,8 @@
 import React from "react";
 import { Form, Grid, Icon, Button, Table, TableCell } from "semantic-ui-react";
 import { GlobalCodeMultiSelect } from "../../shared/components";
-
 function ProfileStepThree(props) {
 	const { onHandleChange, school, thirdSecondStep } = props;
-
 	return (
 		<Form>
 			<Grid>

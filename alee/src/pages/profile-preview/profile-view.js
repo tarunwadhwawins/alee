@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Header, Image, List, Divider, Icon, Dimmer, Loader,Button } from "semantic-ui-react";
+import { Grid, Header, Image, List, Divider, Icon, Dimmer, Loader, Button } from "semantic-ui-react";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../store/actions/api.actions";
 import { useParams } from 'react-router-dom';
 import { env } from "../../shared/functional/global-import";
 import { Link } from "../../shared/functional/global-import";
-// import { profile } from "../../shared/functional/global-image-import";
-
 function ProfileViewPage() {
 	const teacherId = useParams();
 	const api = useSelector((state) => state.api);
 	const dispatch = useDispatch();
 	const [teacherData, setTeacherData] = useState([]);
-	const [editData, SetEditData] = useState([]);
+	const [education, setEducation] = useState([])
 	useEffect(() => {
 		getTeacherProfile();
 	}, []);
@@ -30,19 +28,24 @@ function ProfileViewPage() {
 		);
 	};
 	const onHandleEdit = (data) => {
-		           
-		SetEditData(editData.concat(data));
+		debugger;
+		setTeacherData(data);
 	}
 	return (
 		<>
 			<div className="common-shadow profileView">
 				{api.isApiLoading && (
-				<Dimmer active inverted><Loader /></Dimmer>)}
+					<Dimmer active inverted><Loader /></Dimmer>)}
 				<div className="profileViewHeader" >
 					{teacherData.map((teacherProfile, index) => {
+						debugger;
+			     	const education = teacherProfile.educationQualifications ? JSON.parse(teacherProfile.educationQualifications):[];
+					//  {education && education.length > 0 && education.map((Qualification, index)})}
 						return (<>
 							<div className="ProfileEdit">
-	 <Button type='button'as={Link} to={{ pathname:`${env.PUBLIC_URL}/profile`,state:{editData}}} onClick={() => onHandleEdit(teacherData)}> Edit</Button>
+								<Button type='button' as={Link}
+									to={{ pathname: `${env.PUBLIC_URL}/profile`, state: {teacherProfile,education} }}
+									onClick={() => onHandleEdit(teacherProfile)}> Edit</Button>
 							</div>
 							<div className="profileImgOuter">
 								<div className="profileImg">
@@ -78,16 +81,22 @@ function ProfileViewPage() {
 					})}
 				</div>
 				{teacherData.map((teacherdata, index) => {
-					const education = teacherdata.educationQualifications ? JSON.parse(teacherdata.educationQualifications) : [];
-					const Employe = teacherdata.employmentHistory ? JSON.parse(teacherdata.employmentHistory) : [];
-					const skill = teacherdata.keySkillSet ? JSON.parse(teacherdata.keySkillSet) : [];
+					const education = teacherdata.educationQualifications ? JSON.parse(teacherdata.educationQualifications):[];
+					const Employe = teacherdata.employmentHistory ? JSON.parse(teacherdata.employmentHistory):[];
+					const skill = teacherdata.keySkillSet ? JSON.parse(teacherdata.keySkillSet):[];
 					return (
 						<Grid className="profileViewBody" columns="1">
 
 							<Grid.Column width={8}>
 								<p><span>Subject : </span>{teacherdata.subject}</p>
 								<Header as="h4">Education Qualification</Header>
+								{/* <div className="ProfileEdit">
+								<Button type='button' as={Link}
+									to={{ pathname:`${env.PUBLIC_URL}/profile`, state: {education} }}
+									onClick={() => onHandleEductionEdit(teacherData)}> Edit</Button>
+						      	</div> */}
 								{education && education.length > 0 && education.map((Qualification, index) => {
+									debugger;
 									return (
 										<>
 											<p><span>Degree : </span> {Qualification.Degree}</p>
@@ -103,7 +112,6 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-
 									const currentCompany = Employe.find(x => x.IsCurrent === true)
 									const previousCompany = Employe.find(x => x.IsCurrent === false)
 									const employHistory = JSON.parse(currentCompany.ClassesTaught)[0];
@@ -129,7 +137,7 @@ function ProfileViewPage() {
 						</Grid>
 					);
 				})}
-        
+
 			</div>
 
 		</>

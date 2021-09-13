@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Button, Step, Grid, Divider, Header } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,15 +10,12 @@ import ProfileStepFour from "./profile-step-four";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
-
-const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "", actionPerformedBy: "", imageurl:null }
+const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "", actionPerformedBy: "", imageurl: null }
 const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "", index: null, updateButtonEducation: false, }
 const initialSchool = { institute: "", position: "", grades: [], isCurrent: true, index: null, updateButtonSchool: false, }
-function MyProfile(){    
-debugger;
+function MyProfile(props) {
   let history = useHistory();
-  const aa =history.location.state
-
+  const allData = history.location.state
   const api = useSelector(state => state.api);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId);
   const [activeStep, setActiveStep] = useState(0);
@@ -48,7 +45,7 @@ debugger;
         data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
         onSuccess: (response) => {
           const grade = response.map((singledata) => {
-            return { text: singledata.gradeName, value: singledata.gradeId };
+            return {text: singledata.gradeName, value: singledata.gradeId};
           });
           setGradeList(grade);
         },
@@ -56,19 +53,39 @@ debugger;
     );
   };
 
+  useEffect(() => {
+    editBasicInfo();
+  }, [allData]);
+  const editBasicInfo = () => {
+    if(allData){
+      const { schoolId, grades, teacherId, subjectId, image } = allData.teacherProfile;
+      setValues({
+        ...values, schoolId: schoolId, grades: grades, teacherId: teacherId, subjectId: subjectId,
+        image: image
+      });
+    }
+  };
+  useEffect(() => {
+    editEducations();
+  }, []);
+  const editEducations = () => {
+    if(allData){
+      debugger;
+      const {degree,college,inProgress,yearOfPassing} = allData.education;
+ setsecondstepValues({...secondstepValues,degree: degree, college: college, inProgress: inProgress, yearOfPassing: yearOfPassing});
+    }
+  };
   const onChangeFirststep = (e, { data, value }) => {
     setValues({ ...values, [data]: value });
   }
-
+  ////////  onchange  ////
   const onChangeSecondStep = (e, { data, value, checked, type }) => {
     const qualificationValue = type === "checkbox" ? checked : value;
     setsecondstepValues({ ...secondstepValues, [data]: qualificationValue })
   }
-
   const onChangeFourstep = (e, { value }) => {
     setSkilled(value);
   }
-
   const onStepFirst = () => {
     var formData = commonFunctions.getFormData(values);
     dispatch(apiCall({
@@ -81,13 +98,14 @@ debugger;
 
   const imageChange = (e) => {
     if (e.target.files) {
-      setValues({ ...values,
-         imageurl:window.URL.createObjectURL(e.target.files[0]),
-         image: e.target.files[0] });
+      setValues({
+        ...values,
+        imageurl: window.URL.createObjectURL(e.target.files[0]),
+        image: e.target.files[0]
+      });
     }
   };
   const removeSelectedImage = () => {
-            
     setValues();
   };
   /////////////-Second Step-/////////////
@@ -136,12 +154,10 @@ debugger;
   }
 
   const addEducation = () => {
-
     setThirdSecondStep(thirdSecondStep.concat({ institute: school.institute, position: school.position, grades: school.grades, isCurrent: school.isCurrent }));
     setSchool(initialSchool);
   }
   const removeEducation = (index) => {
-
     const rows = [...thirdSecondStep]
     rows.splice(index, 1);
     setThirdSecondStep(rows)
@@ -211,14 +227,14 @@ debugger;
           <>
             <ProfileStepOne onHandleChange={onChangeFirststep} grade={grade}
               imageChange={imageChange} values={values}
-              removeSelectedImage={removeSelectedImage} />
+              removeSelectedImage={removeSelectedImage} allData={allData} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
                 <Button className="alternateBtn" onClick={() => changeStep(1)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={onStepFirst}loading={api.isApiLoading}>
+                <Button className="primaryBtn" onClick={onStepFirst} loading={api.isApiLoading}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -243,7 +259,7 @@ debugger;
                 <Button className="alternateBtn" onClick={() => changeStep(2)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={onStepSecond}loading={api.isApiLoading}>
+                <Button className="primaryBtn" onClick={onStepSecond} loading={api.isApiLoading}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -282,7 +298,7 @@ debugger;
           <>
             <ProfileStepFour onHandleChange={onChangeFourstep} skills={skills} addMoreSkill={addMoreSkill}
               editSkills={editSkills} removeSkill={removeSkill} skilled={skilled} updateSkill={updateSkill}
-              skill={skill} ClearSkill={ClearSkill}/>
+              skill={skill} ClearSkill={ClearSkill} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
@@ -291,10 +307,10 @@ debugger;
                 </Button>
                 <Button className="alternateBtn">
                   Preview
-                </Button> 
+                </Button>
                 <Button className="primaryBtn" as={Link} to={`${env.PUBLIC_URL}/profile-preview/${teacherId}`}
-                onClick={onFourStepSkill}
-                loading={api.isApiLoading}>
+                  onClick={onFourStepSkill}
+                  loading={api.isApiLoading}>
                   Save & Continue
                 </Button>
               </Grid.Column>
@@ -371,7 +387,7 @@ debugger;
           </Step.Group>
         </Grid.Column>
       </Grid>
-      
+
       <div>{getStepContent(activeStep)}</div>
       {/* <Grid>
         <Grid.Column width={16}>

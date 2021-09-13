@@ -263,559 +263,559 @@ function ResourcesPage() {
     }
   }
   const panes = [{
-      menuItem: "Audio",
-      render: () => {
-        return ( <
-          Tab.Pane attached = {
-            false
-          }
-          key = "Audio" >
-          <
+    menuItem: "Audio",
+    render: () => {
+      return (<
+          Tab.Pane attached={
+          false
+        }
+        key="Audio" >
+        <
           DataTable
 
-          allApi = {
+          allApi={
             {
               getApiName: "GETRESOURCESLIST",
               deleteApiName: "DELETERESOURCES",
               toggleApiName: "RESOURCESTOGGLE",
             }
           }
-          reload = {
+          reload={
             reload
           }
-          searchOption = {
+          searchOption={
             {
               show: true,
               placeHolder: "Search"
             }
           }
-          additionalParams = {
+          additionalParams={
             {
               resourceTypeId: 18
             }
           }
-          messageInModal = "audio"
-          columns = {
+          messageInModal="audio"
+          columns={
             [{
-                headerName: "Grade",
-                fieldName: "gradeName",
-                isSorting: true,
-              },
-              {
-                headerName: "Book",
-                fieldName: "bookName",
-                isSorting: true,
-              },
+              headerName: "Grade",
+              fieldName: "gradeName",
+              isSorting: true,
+            },
+            {
+              headerName: "Book",
+              fieldName: "bookName",
+              isSorting: true,
+            },
 
-              {
-                headerName: "Chapter",
-                fieldName: "chapterName",
-                isSorting: true,
-              },
-              {
-                headerName: "Page",
-                fieldName: "pageNo",
-                isSorting: true,
-              },
-              {
-                headerName: "Audio",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-                  return ( <
-                    a href = {
-                      (props.link)
-                    }
-                    target = "_blank" >
-                    <
-                    Icon name = {
+            {
+              headerName: "Chapter",
+              fieldName: "chapterName",
+              isSorting: true,
+            },
+            {
+              headerName: "Page",
+              fieldName: "pageNo",
+              isSorting: true,
+            },
+            {
+              headerName: "Audio",
+              fieldName: "link",
+              isSorting: false,
+              Cell: (props) => {
+                return (<
+                    a href={
+                    (props.link)
+                  }
+                  target="_blank" >
+                  <
+                    Icon name={
                       checkDisplayIcon(props.link)
                     }
-                    className = "primary-color"
-                    link / >
-                    <
+                    className="primary-color"
+                    link />
+                  <
                     /a>
                   )
                 },
               },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
+                  {
+                    headerName: "Action",
+                  fieldName: "Action",
+                  isSorting: false,
                 Cell: (props, confirmModalOpen) => {
                   return ( <
                     >
                     <
-                    Icon title = "Edit"
-                    name = "edit"
-                    className = "primary-color"
-                    link onClick = {
-                      () => onHandleEdit(props)
-                    }
+                      Icon title="Edit"
+                      name="edit"
+                      className="primary-color"
+                      link onClick={
+                        () => onHandleEdit(props)
+                      }
                     /> <
-                    Icon title = "Delete"
-                    name = "trash alternate"
-                    color = "red"
-                    link onClick = {
-                      () =>
-                      confirmModalOpen(props.resourceLinkId, "delete")
-                    }
+                      Icon title="Delete"
+                      name="trash alternate"
+                      color="red"
+                      link onClick={
+                        () =>
+                          confirmModalOpen(props.resourceLinkId, "delete")
+                      }
                     /> <
                     />
-                  );
+                    );
                 },
               },
-            ]
+                    ]
           } >
-          < /DataTable> <
+                    < /DataTable> <
           /Tab.Pane>
-        );
+                    );
       },
     },
-    {
-      menuItem: "Video",
+                    {
+                      menuItem: "Video",
       render: () => {
         return ( <
-          Tab.Pane attached = {
-            false
-          }
-          key = "Video" >
-          <
-          DataTable allApi = {
-            {
-              getApiName: "GETRESOURCESLIST",
-              deleteApiName: "DELETERESOURCES",
-              toggleApiName: "RESOURCESTOGGLE",
-            }
-          }
-          reload = {
-            reload
-          }
-          searchOption = {
-            {
-              show: true,
-              placeHolder: "Search"
-            }
-          }
-          additionalParams = {
-            {
-              resourceTypeId: 19
-            }
-          }
-          messageInModal = "video"
-          columns = {
-            [{
-                headerName: "Grade",
-                fieldName: "gradeName",
-                isSorting: true,
-              },
-              {
-                headerName: "Book",
-                fieldName: "bookName",
-                isSorting: true,
-              },
+          Tab.Pane attached={
+                        false
+                      }
+                      key="Video" >
+                      <
+                        DataTable allApi={
+                          {
+                            getApiName: "GETRESOURCESLIST",
+                            deleteApiName: "DELETERESOURCES",
+                            toggleApiName: "RESOURCESTOGGLE",
+                          }
+                        }
+                        reload={
+                          reload
+                        }
+                        searchOption={
+                          {
+                            show: true,
+                            placeHolder: "Search"
+                          }
+                        }
+                        additionalParams={
+                          {
+                            resourceTypeId: 19
+                          }
+                        }
+                        messageInModal="video"
+                        columns={
+                          [{
+                            headerName: "Grade",
+                            fieldName: "gradeName",
+                            isSorting: true,
+                          },
+                          {
+                            headerName: "Book",
+                            fieldName: "bookName",
+                            isSorting: true,
+                          },
 
-              {
-                headerName: "Chapter",
-                fieldName: "chapterName",
-                isSorting: true,
-              },
-              {
-                headerName: "Page",
-                fieldName: "pageNo",
-                isSorting: true,
-              },
-              {
-                headerName: "Video",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-                  return props.link ? ( <
-                    a href = {
-                      (props.link)
-                    }
-                    target = "_blank" >
-                    <
-                    Icon name = "youtube"
-                    className = "primary-color"
-                    link / >
-                    <
+                          {
+                            headerName: "Chapter",
+                            fieldName: "chapterName",
+                            isSorting: true,
+                          },
+                          {
+                            headerName: "Page",
+                            fieldName: "pageNo",
+                            isSorting: true,
+                          },
+                          {
+                            headerName: "Video",
+                            fieldName: "link",
+                            isSorting: false,
+                            Cell: (props) => {
+                              return props.link ? (<
+                    a href={
+                                  (props.link)
+                                }
+                                target="_blank" >
+                                <
+                                  Icon name="youtube"
+                                  className="primary-color"
+                                  link />
+                                <
                     /a>
-                  ) : (
-                    "-"
-                  );
+                                ) : (
+                                "-"
+                                );
                 },
               },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
+                                {
+                                  headerName: "Action",
+                                fieldName: "Action",
+                                isSorting: false,
                 Cell: (props, confirmModalOpen) => {
                   return ( <
                     >
-                    <
-                    Icon title = "Edit"
-                    name = "edit"
-                    className = "primary-color"
-                    link onClick = {
-                      () => onHandleEdit(props)
-                    }
-                    /> <
-                    Icon title = "Delete"
-                    name = "trash alternate"
-                    color = "red"
-                    link onClick = {
-                      () =>
-                      confirmModalOpen(props.resourceLinkId, "delete")
-                    }
-                    /> <
+                                  <
+                                    Icon title="Edit"
+                                    name="edit"
+                                    className="primary-color"
+                                    link onClick={
+                                      () => onHandleEdit(props)
+                                    }
+                                  /> <
+                                    Icon title="Delete"
+                                    name="trash alternate"
+                                    color="red"
+                                    link onClick={
+                                      () =>
+                                        confirmModalOpen(props.resourceLinkId, "delete")
+                                    }
+                                  /> <
                     />
-                  );
+                                  );
                 },
               },
-            ]
+                                  ]
           } >
-          < /DataTable> <
+                                  < /DataTable> <
           /Tab.Pane>
-        );
+                                  );
       },
     },
-    {
-      menuItem: "Article",
+                                  {
+                                    menuItem: "Article",
       render: () => {
         return ( <
-          Tab.Pane attached = {
-            false
-          }
-          key = "Article" >
-          <
-          DataTable allApi = {
-            {
-              getApiName: "GETRESOURCESLIST",
-              deleteApiName: "DELETERESOURCES",
-              toggleApiName: "RESOURCESTOGGLE",
-            }
-          }
-          reload = {
-            reload
-          }
-          searchOption = {
-            {
-              show: true,
-              placeHolder: "Search"
-            }
-          }
-          additionalParams = {
-            {
-              resourceTypeId: 20
-            }
-          }
-          messageInModal = "article"
-          columns = {
-            [{
-                headerName: "Grade",
-                fieldName: "gradeName",
-                isSorting: true,
-              },
-              {
-                headerName: "Book",
-                fieldName: "bookName",
-                isSorting: true,
-              },
+          Tab.Pane attached={
+                                      false
+                                    }
+                                    key="Article" >
+                                    <
+                                      DataTable allApi={
+                                        {
+                                          getApiName: "GETRESOURCESLIST",
+                                          deleteApiName: "DELETERESOURCES",
+                                          toggleApiName: "RESOURCESTOGGLE",
+                                        }
+                                      }
+                                      reload={
+                                        reload
+                                      }
+                                      searchOption={
+                                        {
+                                          show: true,
+                                          placeHolder: "Search"
+                                        }
+                                      }
+                                      additionalParams={
+                                        {
+                                          resourceTypeId: 20
+                                        }
+                                      }
+                                      messageInModal="article"
+                                      columns={
+                                        [{
+                                          headerName: "Grade",
+                                          fieldName: "gradeName",
+                                          isSorting: true,
+                                        },
+                                        {
+                                          headerName: "Book",
+                                          fieldName: "bookName",
+                                          isSorting: true,
+                                        },
 
-              {
-                headerName: "Chapter",
-                fieldName: "chapterName",
-                isSorting: true,
-              },
-              {
-                headerName: "Page",
-                fieldName: "pageNo",
-                isSorting: true,
-              },
-              {
-                headerName: "Article",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-                  ;
-                  return props.link?.indexOf("pdf") < 0 ? ( <
-                    a href = {
-                      (props.link)
-                    }
-                    target = "_blank" >
-                    <
-                    Icon name = {
-                      checkDisplayIcon(props.link)
-                    }
-                    className = "primary-color"
-                    link / >
-                    <
+                                        {
+                                          headerName: "Chapter",
+                                          fieldName: "chapterName",
+                                          isSorting: true,
+                                        },
+                                        {
+                                          headerName: "Page",
+                                          fieldName: "pageNo",
+                                          isSorting: true,
+                                        },
+                                        {
+                                          headerName: "Article",
+                                          fieldName: "link",
+                                          isSorting: false,
+                                          Cell: (props) => {
+                                            ;
+                                            return props.link?.indexOf("pdf") < 0 ? (<
+                    a href={
+                                                (props.link)
+                                              }
+                                              target="_blank" >
+                                              <
+                                                Icon name={
+                                                  checkDisplayIcon(props.link)
+                                                }
+                                                className="primary-color"
+                                                link />
+                                              <
                     /a>
-                  ) : (
-                    "-"
-                  );
+                                              ) : (
+                                              "-"
+                                              );
                 },
               },
-              {
-                headerName: "Pdf",
-                fieldName: "link",
-                isSorting: false,
+                                              {
+                                                headerName: "Pdf",
+                                              fieldName: "link",
+                                              isSorting: false,
                 Cell: (props) => {
                   return props.link?.indexOf("pdf") > 0 ? ( <
-                    a href = {
-                      commonFunctions.concatenateImageWithAPIUrl(props.link)
-                    }
-                    target = "_blank" >
-                    <
-                    Icon name = "file pdf"
-                    className = "primary-color"
-                    link / >
-                    <
+                    a href={
+                                                  commonFunctions.concatenateImageWithAPIUrl(props.link)
+                                                }
+                                                target="_blank" >
+                                                <
+                                                  Icon name="file pdf"
+                                                  className="primary-color"
+                                                  link />
+                                                <
                     /a>
-                  ) : (
-                    "-"
-                  );
+                                                ) : (
+                                                "-"
+                                                );
                 },
               },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
+                                                {
+                                                  headerName: "Action",
+                                                fieldName: "Action",
+                                                isSorting: false,
                 Cell: (props, confirmModalOpen) => {
                   return ( <
                     >
-                    <
-                    Icon title = "Edit"
-                    name = "edit"
-                    className = "primary-color"
-                    link onClick = {
-                      () => onHandleEdit(props)
-                    }
-                    /> <
-                    Icon title = "Delete"
-                    name = "trash alternate"
-                    color = "red"
-                    link onClick = {
-                      () =>
-                      confirmModalOpen(props.resourceLinkId, "delete")
-                    }
-                    /> <
+                                                  <
+                                                    Icon title="Edit"
+                                                    name="edit"
+                                                    className="primary-color"
+                                                    link onClick={
+                                                      () => onHandleEdit(props)
+                                                    }
+                                                  /> <
+                                                    Icon title="Delete"
+                                                    name="trash alternate"
+                                                    color="red"
+                                                    link onClick={
+                                                      () =>
+                                                        confirmModalOpen(props.resourceLinkId, "delete")
+                                                    }
+                                                  /> <
                     />
-                  );
+                                                  );
                 },
               },
-            ]
+                                                  ]
           } >
-          < /DataTable> <
+                                                  < /DataTable> <
           /Tab.Pane>
-        );
+                                                  );
       },
     },
-  ];
+                                                  ];
   const onHandleSubmit = () => {
     var formData = commonFunctions.getFormData(resources);
-    dispatch(
-      apiCall({
-        urls: ["ADDUPDATERESOURCES"],
-        method: "Post",
-        data: formData,
+                                                  dispatch(
+                                                  apiCall({
+                                                    urls: ["ADDUPDATERESOURCES"],
+                                                  method: "Post",
+                                                  data: formData,
         onSuccess: (response) => {
 
-          GridReload();
-          cancelClear();
-          setResources(initialValues);
+                                                    GridReload();
+                                                  cancelClear();
+                                                  setResources(initialValues);
         },
-        showNotification: true,
+                                                  showNotification: true,
       })
-    );
+                                                  );
   };
-  return ( <
-    div className = "common-shadow resources" > {
-      api.isApiLoading && ( <
+                                                  return ( <
+    div className="common-shadow resources" > {
+                                                      api.isApiLoading && (<
         Dimmer active inverted >
-        <
-        Loader / >
-        <
+                                                        <
+                                                          Loader />
+                                                        <
         /Dimmer>
 
-      )
+                                                        )
     } <
     Grid >
-    <
-    Grid.Column width = {
-      16
-    } >
-    <
-    Header as = "h3"
-    className = "commonHeading" >
-    Resources <
+                                                          <
+    Grid.Column width={
+                                                              16
+                                                            } >
+                                                            <
+    Header as="h3"
+                                                              className="commonHeading" >
+                                                              Resources <
     /Header> <
     /Grid.Column> <
-    Grid.Column width = {
-      16
-    } >
-    <
+    Grid.Column width={
+                                                                  16
+                                                                } >
+                                                                <
     Form >
-    <
+                                                                  <
     Grid >
-    <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Grade"
-    placeholder = "Grades"
-    options = {
-      grade
-    }
-    data = "GradeId"
-    value = {
-      resources.GradeId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
+                                                                    <
+    Grid.Column width="4" >
+                                                                      <
+                                                                        Form.Select label="Grade"
+                                                                        placeholder="Grades"
+                                                                        options={
+                                                                          grade
+                                                                        }
+                                                                        data="GradeId"
+                                                                        value={
+                                                                          resources.GradeId
+                                                                        }
+                                                                        onChange={
+                                                                          onHandleChange
+                                                                        }
+                                                                      /> <
     /Grid.Column> <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Book"
-    placeholder = "Select Book"
-    options = {
-      booklist
-    }
-    data = "BookId"
-    value = {
-      resources.BookId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
+    Grid.Column width="4" >
+                                                                        <
+                                                                          Form.Select label="Book"
+                                                                          placeholder="Select Book"
+                                                                          options={
+                                                                            booklist
+                                                                          }
+                                                                          data="BookId"
+                                                                          value={
+                                                                            resources.BookId
+                                                                          }
+                                                                          onChange={
+                                                                            onHandleChange
+                                                                          }
+                                                                        /> <
     /Grid.Column> <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Chapter"
-    placeholder = "Select Chapter"
-    options = {
-      chapterList
-    }
-    data = "ChapterId"
-    value = {
-      resources.ChapterId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
+    Grid.Column width="4" >
+                                                                          <
+                                                                            Form.Select label="Chapter"
+                                                                            placeholder="Select Chapter"
+                                                                            options={
+                                                                              chapterList
+                                                                            }
+                                                                            data="ChapterId"
+                                                                            value={
+                                                                              resources.ChapterId
+                                                                            }
+                                                                            onChange={
+                                                                              onHandleChange
+                                                                            }
+                                                                          /> <
     /Grid.Column> <
-    Grid.Column width = "4" >
-    <
-    Form.Select label = "Page"
-    placeholder = "Select Page"
-    options = {
-      pageList
-    }
-    data = "PageId"
-    value = {
-      resources.PageId
-    }
-    onChange = {
-      onHandleChange
-    }
-    /> <
+    Grid.Column width="4" >
+                                                                            <
+                                                                              Form.Select label="Page"
+                                                                              placeholder="Select Page"
+                                                                              options={
+                                                                                pageList
+                                                                              }
+                                                                              data="PageId"
+                                                                              value={
+                                                                                resources.PageId
+                                                                              }
+                                                                              onChange={
+                                                                                onHandleChange
+                                                                              }
+                                                                            /> <
     /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input label = "Audio"
-    placeholder = "Embed URL"
-    value = {
-      resources.AudioLink
-    }
-    data = "AudioLink"
-    onChange = {
-      onHandleChange
-    }
-    /> <
+    Grid.Column width="8" >
+                                                                              <
+                                                                                Form.Input label="Audio"
+                                                                                placeholder="Embed URL"
+                                                                                value={
+                                                                                  resources.AudioLink
+                                                                                }
+                                                                                data="AudioLink"
+                                                                                onChange={
+                                                                                  onHandleChange
+                                                                                }
+                                                                              /> <
     /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input label = "Video"
-    placeholder = "Embed URL"
-    value = {
-      resources.VideoLink
-    }
-    data = "VideoLink"
-    onChange = {
-      onHandleChange
-    }
-    /> <
+    Grid.Column width="8" >
+                                                                                <
+                                                                                  Form.Input label="Video"
+                                                                                  placeholder="Embed URL"
+                                                                                  value={
+                                                                                    resources.VideoLink
+                                                                                  }
+                                                                                  data="VideoLink"
+                                                                                  onChange={
+                                                                                    onHandleChange
+                                                                                  }
+                                                                                /> <
     /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input label = "Article"
-    placeholder = "Article"
-    value = {
-      resources.ArticleLink
-    }
-    data = "ArticleLink"
-    onChange = {
-      onHandleChange
-    }
-    /> <
+    Grid.Column width="8" >
+                                                                                  <
+                                                                                    Form.Input label="Article"
+                                                                                    placeholder="Article"
+                                                                                    value={
+                                                                                      resources.ArticleLink
+                                                                                    }
+                                                                                    data="ArticleLink"
+                                                                                    onChange={
+                                                                                      onHandleChange
+                                                                                    }
+                                                                                  /> <
     /Grid.Column> <
-    Grid.Column width = "8" >
-    <
-    Form.Input type = "file"
-    label = "Upload Pdf"
-    placeholder = "Embed URL"
-    onChange = {
-      fileChange
-    }
-    data = "UploadPdf" /
-    >
-    <
+    Grid.Column width="8" >
+                                                                                    <
+                                                                                      Form.Input type="file"
+                                                                                      label="Upload Pdf"
+                                                                                      placeholder="Embed URL"
+                                                                                      onChange={
+                                                                                        fileChange
+                                                                                      }
+                                                                                      data="UploadPdf" /
+                                                                                    >
+                                                                                    <
     /Grid.Column> <
-    Grid.Column width = "16"
-    textAlign = "right" >
-    <
-    Button className = "secondaryBtn"
-    onClick = {
-      cancelClear
-    } > Cancel < /Button> <
-    Button className = "primaryBtn"
-    onClick = {
-      onHandleSubmit
-    }
-    loading = {
-      api.isApiLoading
-    } > {
-      resources.ResourceId > 0 ? "Update" : "Save"
-    } <
+    Grid.Column width="16"
+                                                                                      textAlign="right" >
+                                                                                      <
+    Button className="secondaryBtn"
+                                                                                        onClick={
+                                                                                          cancelClear
+                                                                                        } > Cancel < /Button> <
+    Button className="primaryBtn"
+                                                                                          onClick={
+                                                                                            onHandleSubmit
+                                                                                          }
+                                                                                          loading={
+                                                                                            api.isApiLoading
+                                                                                          } > {
+                                                                                            resources.ResourceId > 0 ? "Update" : "Save"
+                                                                                          } <
     /Button> <
     /Grid.Column> <
-    Grid.Column width = {
-      16
-    } >
-    <
-    Tab menu = {
-      {
-        text: true
-      }
-    }
-    panes = {
-      panes
-    }
-    onTabChange = {
-      cancelClear
-    }
-    /> <
+    Grid.Column width={
+                                                                                              16
+                                                                                            } >
+                                                                                            <
+                                                                                              Tab menu={
+                                                                                                {
+                                                                                                  text: true
+                                                                                                }
+                                                                                              }
+                                                                                              panes={
+                                                                                                panes
+                                                                                              }
+                                                                                              onTabChange={
+                                                                                                cancelClear
+                                                                                              }
+                                                                                            /> <
     /Grid.Column> <
     /Grid> <
     /Form> <
     /Grid.Column> <
     /Grid> <
     /div>
-  );
+                                                                                            );
 }
 
-export default ResourcesPage;
+                                                                                            export default ResourcesPage;

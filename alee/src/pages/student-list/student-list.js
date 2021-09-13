@@ -33,7 +33,6 @@ function StudentListPage() {
 	const teacherId = useSelector(state => state.auth.userDetail.teacherId)
 
 	const onHandleEdit = (data) => {
-		debugger
 		SetEditData(data)
 		setEditStudent(!editStudent)
 		openModal();

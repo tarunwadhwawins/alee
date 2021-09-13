@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Form, Grid, Icon, Image, Button } from "semantic-ui-react";
+import { Form, Grid, Icon, Image, Button,Dimmer,Loader } from "semantic-ui-react";
 import { useDispatch } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
 import { GlobalCodeSelect, GlobalCodeMultiSelect } from "../../shared/components";
-import { profile } from "../../shared/functional/global-image-import"
+import { useSelector} from "react-redux";
+
+
 
 function ProfileStepOne(props) {
 	const [school, setSchool] = useState([]);
+	const api = useSelector(state => state.api);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		getSchoolList();
@@ -21,10 +25,17 @@ function ProfileStepOne(props) {
 			}
 		}))
 	}
-	const { onHandleChange, imageChange, values,removeSelectedImage} = props;
+	const { onHandleChange, imageChange, values} = props;
 	return (
 		<Form>
 			<Grid>
+					{
+						api.isApiLoading && (
+							<Dimmer active inverted>
+								<Loader />
+							</Dimmer>
+						)
+					}
 				<Grid.Column width={4}>
 					<div className="setImg">
 						<div className="setImgInner">
@@ -41,17 +52,17 @@ function ProfileStepOne(props) {
 				<Grid.Column width={12}>
 					<Grid>
 						<Grid.Column width={8}>
-							<Form.Dropdown placeholder='School Name' fluid selection search options={school} data="schoolId" onChange={onHandleChange} />
+							<Form.Dropdown placeholder='School Name' fluid selection search value={values.schoolId} options={school} data="schoolId" onChange={onHandleChange} />
 						</Grid.Column>
 						<Grid.Column width={8} >
 							{/* <Dropdown placeholder='Grade' fluid multiple selection options={props.grade} data="grades"/> */}
-							<GlobalCodeMultiSelect placeholder='Grade(s) taught' value={school.grades} categoryType="Grades" onChange={onHandleChange} data="grades" />
+							<GlobalCodeMultiSelect placeholder='Grade(s) taught' value={values.grades} categoryType="Grades" onChange={onHandleChange} data="grades"/>
 						</Grid.Column>
 						<Grid.Column width={8} >
 							<GlobalCodeSelect
 								placeholder="Choose Subjects"
 								categoryType="Subjects"
-								onChange={onHandleChange} data="subjectId"
+								onChange={onHandleChange} data="subjectId" value={values.subjectId}
 							/>
 						</Grid.Column>
 					</Grid>

@@ -5,7 +5,7 @@ import { apiCall } from "../../../../../store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
 
 function AddGrade(props) {
-	debugger
+debugger				
 	const initialValues = {
 		gradeName: "",
 		isActive: true,

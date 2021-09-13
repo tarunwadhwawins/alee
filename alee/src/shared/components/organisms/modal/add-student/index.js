@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { GlobalCodeSelect } from "../../../../components";
 
 function AddStudent(props) {
-  debugger
   const auth = useSelector((state) => state.auth);
   const [grade, setGradeList] = useState(null);
   const initialValues = {
