@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Grid } from "semantic-ui-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
+import SimpleReactValidator from 'simple-react-validator';
+import { commonFunctions } from "../../../../functional/global-import";
 
 function AddAssignTemplate(props) {
 	const initialState = { schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "" }
@@ -13,8 +15,11 @@ function AddAssignTemplate(props) {
 	const [values, setValues] = useState(initialState);
 	const api = useSelector(state => state.api)
 	const dispatch = useDispatch();
+	const [, forceUpdate] = useState()
+	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
 	const getGrades = () => {
+
 		dispatch(apiCall({
 			urls: ["GETGRADESLIST"], method: "GET", data: { "ActiveGrades": true, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
 				const getGrades = response.map((grades) => {
@@ -71,19 +76,23 @@ function AddAssignTemplate(props) {
 	const onHandleChangeToggle = (e, { checked }) => {
 		setValues({ ...values, isActive: checked });
 	}
-
-	const onSubmit = () => {
-		dispatch(apiCall({
-			urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
-				props.closeModal();
-				setValues(initialState);
-			}, showNotification: true
-		}))
+	const onSubmit = (e) => {
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
+			dispatch(apiCall({
+				urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
+					closeModal();
+				}, showNotification: true
+			}))
+		}
 	}
 
-
+	const closeModal = () => {
+		simpleValidator.current.hideMessages();
+		props.closeModal();
+	}
 	return (
-		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
+		<Modal open={props.openModal} onClose={closeModal} size="tiny">
 			<Modal.Header>Assign Template</Modal.Header>
 			<Modal.Content>
 				<Modal.Description>
@@ -91,16 +100,21 @@ function AddAssignTemplate(props) {
 					<Form>
 						<Grid>
 							<Grid.Column width={8}>
-								<Form.Select label="School" placeholder="Select School" data="schoolId" options={school} onChange={onHandleChange} value={values.schoolId} />
+								<Form.Select label="School" placeholder="Select School" data="schoolId" options={school} onChange={onHandleChange} value={values.schoolId}
+									error={simpleValidator.current.message('schoolId', values.schoolId, 'required')}
+								/>
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select multiple label="Teacher" placeholder="Select Teacher" data="teacherId" options={teacher} onChange={onHandleChange} value={values.teacherId} />
+								<Form.Select multiple label="Teacher" placeholder="Select Teacher" data="teacherId" options={teacher} onChange={onHandleChange} value={values.teacherId}
+									error={simpleValidator.current.message('teacherId', values.teacherId, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select label="Grade" placeholder="Select Grade" options={grade} data="gradeId" onChange={onHandleChange} value={values.gradeId} />
+								<Form.Select label="Grade" placeholder="Select Grade" options={grade} data="gradeId" onChange={onHandleChange} value={values.gradeId}
+									error={simpleValidator.current.message('gradeId', values.gradeId, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select multiple label="Template" placeholder="Select Template" data="templateId" options={template} onChange={onHandleChange} value={values.templateId} />
+								<Form.Select multiple label="Template" placeholder="Select Template" data="templateId" options={template} onChange={onHandleChange} value={values.templateId}
+									error={simpleValidator.current.message('templateId', values.templateId, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8} className='status'>
 								<p>Status</p>
@@ -114,7 +128,7 @@ function AddAssignTemplate(props) {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
+				<Button className="secondaryBtn" onClick={closeModal}>Cancel</Button>
 				<Button className="primaryBtn" onClick={onSubmit} loading={api.isApiLoading} >Confirm</Button>
 			</Modal.Actions>
 		</Modal>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Grid, Header, Button, Icon, Form, Dimmer, Loader, Table } from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
 import { DataTable } from "../../../src/shared/components/organisms";
@@ -26,7 +26,7 @@ function StudentListPage() {
 		if (editStudent) {
 			setEditStudent(!editStudent)
 		}
-	}	
+	}
 	const fileInputRef = React.createRef();
 	const dispatch = useDispatch();
 	const api = useSelector(state => state.api)

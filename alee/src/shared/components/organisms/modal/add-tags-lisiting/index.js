@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Button, Form, Grid, Dropdown } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../store/actions/api.actions";
@@ -6,7 +6,9 @@ import { env, commonFunctions } from "../../../../functional/global-import";
 import { useHistory } from "react-router-dom";
 import { GlobalCodeSelect } from "../../../../components";
 import { isInteger } from "formik";
-import { storeGlobalCodes,storeTags } from "../../../../../store/actions/global.actions";
+import { storeGlobalCodes, storeTags } from "../../../../../store/actions/global.actions";
+import SimpleReactValidator from 'simple-react-validator';
+
 
 const type = [
 	{ key: 'Standards', value: 'Standards', text: 'Standards' },
@@ -15,11 +17,13 @@ const type = [
 	{ key: 'Literary Elements', value: 'Literary Elements', text: 'Literary Elements' },
 ]
 function AddTagsListing(props) {
-	      
+
 	const initialValues = { tagId: null, tagTypeName: "", tagName: "", isActive: true, actionPerformedBy: "Admin" }
 	const [taglisting, setTaglisting] = React.useState(initialValues)
 	const [globalTag, setGlobalTag] = React.useState([])
 	const globalCode = useSelector(state => state.global.codes)
+	const [, forceUpdate] = useState()
+	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
 	// let history = useHistory();
 	const dispatch = useDispatch();
@@ -42,17 +46,20 @@ function AddTagsListing(props) {
 	}
 
 	// const onHandleToggle = () => setIsActive(!isActive);
-	const onsubmit = () => {
-		dispatch(apiCall({
-			urls: ["ADDTAG"], method: "Post", data: taglisting, onSuccess: (response) => {
-				// history.push(`${env.PUBLIC_URL}`);
-				props.closeModal();
-				props.GridReload();
-				getGlobalCode();
-				setTaglisting(initialValues);
-				tagStore();
-			}, showNotification: true
-		}));
+	const onsubmit = (e) => {
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
+			dispatch(apiCall({
+				urls: ["ADDTAG"], method: "Post", data: taglisting, onSuccess: (response) => {
+					// history.push(`${env.PUBLIC_URL}`);
+					props.closeModal();
+					props.GridReload();
+					getGlobalCode();
+					setTaglisting(initialValues);
+					tagStore();
+				}, showNotification: true
+			}));
+		}
 	}
 
 	const tagStore = () => {
@@ -79,7 +86,7 @@ function AddTagsListing(props) {
 							// }
 						}
 					}))
-					
+
 					dispatch(storeTags(aa))
 				});
 				setFieldData(fieldData.concat(fieldName))
@@ -96,20 +103,23 @@ function AddTagsListing(props) {
 			}, showNotification: false
 		}))
 	}
-	const onUpdate = () => {
-		dispatch(apiCall({
-			urls: ["UPDATETAG"], method: "PUT", data: taglisting, onSuccess: (response) => {
-				// history.push(`${env.PUBLIC_URL}`);
-				props.closeModal();
-				props.GridReload();
-				setTaglisting(initialValues);
-			}, showNotification: true
-		}))
+	const onUpdate = (e) => {
+		debugger
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
+			dispatch(apiCall({
+				urls: ["UPDATETAG"], method: "PUT", data: taglisting, onSuccess: (response) => {
+					// history.push(`${env.PUBLIC_URL}`);
+					closeModal();
+					props.GridReload();
+					setTaglisting(initialValues);
+				}, showNotification: true
+			}))
+		}
 	}
 
 	useEffect(() => {
 		if (props.editForm) {
-
 			const { editData } = props
 			if (editData !== undefined && Object.keys(editData).length > 0) {
 				editForm();
@@ -121,16 +131,15 @@ function AddTagsListing(props) {
 		const globalCodes = globalCode.filter(code => code.categoryName === "TagType").map((filtercode) => {
 			return { filtercode: filtercode.codeName, value: filtercode.globalCodeId, text: filtercode.codeName }
 		})
-
 		setGlobalTag(globalCodes)
 	}, [])
 	const editForm = () => {
-
 		const { modifiedDate, tagId, tagName, tagTypeName, tagTypeId, isActive } = props.editData;
 		setTaglisting({ ...taglisting, tagId: tagId, tagName: tagName, tagTypeName: tagTypeName, isActive: isActive, tagTypeId: tagTypeId })
 	}
 
 	const closeModal = () => {
+		simpleValidator.current.hideMessages();
 		props.closeModal();
 		setTaglisting(initialValues);
 	}
@@ -152,13 +161,10 @@ function AddTagsListing(props) {
 					<Form>
 						<Grid>
 							<Grid.Column width={8}>
-								<Form.Input label="Tag Name" data="tagName" value={taglisting.tagName} onChange={onHandleChange} />
+								<Form.Input label="Tag Name" placeholder="Please enter tag name" data="tagName" value={taglisting.tagName} onChange={onHandleChange}
+									error={simpleValidator.current.message('tagName', taglisting.tagName, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								{/* <GlobalCodeSelect label="Type" placeholder="Select Tag Type" data="tagType" categoryType="TagType" onChange={onHandleChange} onAddItem={onHandleAddition}
-								// value={taglisting.tagTypeId} 
-								/> */}
-
 								<Form.Dropdown
 									label="Type"
 									search
@@ -175,23 +181,8 @@ function AddTagsListing(props) {
 									onChange={onHandleChange}
 									// defaultValue={this.props.value}
 									onAddItem={onHandleAddition}
+									error={simpleValidator.current.message('tagType', taglisting.tagTypeId, 'required')}
 								/>
-
-
-								{/* <Form.Dropdown
-									className='icon'
-									floating
-									labeled
-									label="Tag Type"
-									options={globalTag}
-									value={taglisting.tagType}
-									onChange={onHandleChange}
-									search
-									data="tagTypeName"
-									type="tagTypeName"
-									text='Select Type'
-									selection
-								/> */}
 							</Grid.Column>
 							<Grid.Column width={8} className='status'>
 								<p>Status</p>
@@ -207,7 +198,6 @@ function AddTagsListing(props) {
 			<Modal.Actions>
 				<Button className="secondaryBtn" onClick={closeModal}>Cancel</Button>
 				{taglisting.tagId > 0 ? <Button className="primaryBtn" onClick={onUpdate}>Update</Button> : <Button className="primaryBtn" onClick={onsubmit}>Confirm</Button>}
-				{/* <Button className="primaryBtn" onClick={props.closeModal}>Confirm</Button> */}
 			</Modal.Actions>
 		</Modal>
 	);

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Grid, Icon, Header, Button, Table, Label, Form } from "semantic-ui-react";
+import { Grid, Icon, Header, Button, Form } from "semantic-ui-react";
 import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
 import AddAssignTemplate from "../../shared/components/organisms/modal/assign-template/index";
-import { Link } from "../../shared/functional/global-import";
 import { DataTable } from "../../../src/shared/components/organisms";
 
 function AssignTemplatePage() {
@@ -19,6 +18,7 @@ function AssignTemplatePage() {
 	const GridReload = () => {
 		setReload(!reload)
 	}
+
 
 	return (
 		<div className="common-shadow">

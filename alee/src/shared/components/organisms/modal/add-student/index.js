@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Grid, Modal, Button, Form, Dimmer, Loader } from "semantic-ui-react";
 import { apiCall } from "../../../../../store/actions/api.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobalCodeSelect } from "../../../../components";
+import SimpleReactValidator from 'simple-react-validator';
+import { commonFunctions } from "../../../../functional/global-import";
 
 function AddStudent(props) {
   const auth = useSelector((state) => state.auth);
@@ -18,6 +20,9 @@ function AddStudent(props) {
     actionPerformedBy: "string",
   };
   const [addStudent, setAddStudent] = useState(initialValues);
+  const [, forceUpdate] = useState()
+  const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
+
   const api = useSelector((state) => state.api);
   const dispatch = useDispatch();
   const onHandleChange = (e, { data, value, checked, type }) => {
@@ -26,20 +31,23 @@ function AddStudent(props) {
       setAddStudent({ ...addStudent, [data]: checked });
     }
   };
-  const onHandleSubmit = () => {
-    dispatch(
-      apiCall({
-        urls: ["ADDUPDATESTUDENT"],
-        method: "Post",
-        data: addStudent,
-        onSuccess: (response) => {
-          closeModal();
-          props.GridReload();
-          setAddStudent(initialValues);
-        },
-        showNotification: true,
-      })
-    );
+  const onHandleSubmit = (e) => {
+    const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+    if (isFormValid) {
+      dispatch(
+        apiCall({
+          urls: ["ADDUPDATESTUDENT"],
+          method: "Post",
+          data: addStudent,
+          onSuccess: (response) => {
+            closeModal();
+            props.GridReload();
+            setAddStudent(initialValues);
+          },
+          showNotification: true,
+        })
+      );
+    }
   };
   useEffect(() => {
     debugger
@@ -87,6 +95,7 @@ function AddStudent(props) {
     );
   };
   const closeModal = () => {
+    simpleValidator.current.hideMessages();
     setAddStudent(initialValues);
     props.closeModal();
   };
@@ -102,7 +111,7 @@ function AddStudent(props) {
           <Loader />
         </Dimmer>
       )}
-      <Modal.Header> {addStudent.studentId > 0 ?  "Edit Student":"Add Student" }</Modal.Header>
+      <Modal.Header> {addStudent.studentId > 0 ? "Edit Student" : "Add Student"}</Modal.Header>
       <Modal.Content scrolling>
         <Modal.Description>
           <Form>
@@ -113,6 +122,7 @@ function AddStudent(props) {
                   data="firstName"
                   value={addStudent.firstName}
                   onChange={onHandleChange}
+                  error={simpleValidator.current.message('firstName', addStudent.firstName, 'required')}
                 />
               </Grid.Column>
               <Grid.Column>
@@ -121,6 +131,8 @@ function AddStudent(props) {
                   data="lastName"
                   value={addStudent.lastName}
                   onChange={onHandleChange}
+                  error={simpleValidator.current.message('lastName', addStudent.lastName, 'required')}
+
                 />
               </Grid.Column>
               <Grid.Column>
@@ -129,6 +141,8 @@ function AddStudent(props) {
                   data="email"
                   onChange={onHandleChange}
                   value={addStudent.email}
+                  error={simpleValidator.current.message('email', addStudent.email, 'required')}
+
                 />
               </Grid.Column>
               <Grid.Column>
@@ -139,6 +153,8 @@ function AddStudent(props) {
                   data="gradeId"
                   value={addStudent.gradeId}
                   onChange={onHandleChange}
+                  error={simpleValidator.current.message('grade', addStudent.gradeId, 'required')}
+
                 />
               </Grid.Column>
               <Grid.Column className="status">
