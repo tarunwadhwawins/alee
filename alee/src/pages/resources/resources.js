@@ -310,10 +310,10 @@ function ResourcesPage() {
                   )
                 },
               },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
+                  {
+                    headerName: "Action",
+                  fieldName: "Action",
+                  isSorting: false,
                 Cell: (props, confirmModalOpen) => {
                   return (
                     <>
@@ -422,10 +422,10 @@ function ResourcesPage() {
                     <Icon name="youtube" className="primary-color" link /> </a>) : ("-");
                 },
               },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
+                                {
+                                  headerName: "Action",
+                                fieldName: "Action",
+                                isSorting: false,
                 Cell: (props, confirmModalOpen) => {
                   return (<>
                     <Icon title="Edit"
@@ -712,4 +712,4 @@ function ResourcesPage() {
   );
 }
 
-export default ResourcesPage;
+                                                                                            export default ResourcesPage;

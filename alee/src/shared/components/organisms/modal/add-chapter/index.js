@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 function AddChapter(props) {
 	const bookId = useSelector(state => state.global.myBookData.bookId)
-
 	const initialValues = {
 		chapterId: null,
 		chapterName: "",
@@ -38,7 +37,6 @@ function AddChapter(props) {
 		);
 	};
 	const closeModal = () => {
-		     
 		setChapter(initialValues);
 		props.closeModal();
 	}
@@ -53,7 +51,6 @@ function AddChapter(props) {
 	}, [props.editData]);
 
 	const editChapterlist = () => {
-		     
 		if (props.editData !== undefined && props.chapterText === undefined) {
 			const {
 				chapterId,
