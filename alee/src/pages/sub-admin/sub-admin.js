@@ -55,9 +55,7 @@ function SubAdminPage() {
 								isSorting: true,
 								Cell: (props) => {
 									return (
-										<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-									)
-
+										<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>)
 								},
 							},
 							{

@@ -8,6 +8,7 @@ function AssignTemplatePage() {
 	const [lesson, setLesson] = useState(false)
 	const [template, setTemplate] = useState(false)
 	const [reload, setReload] = useState(false)
+	const [editData, SetEditData] = useState([])
 
 	const openModal = () => {
 		setLesson(!lesson)
@@ -18,7 +19,9 @@ function AssignTemplatePage() {
 	const GridReload = () => {
 		setReload(!reload)
 	}
-
+	const onHandleEdit = (data) => {
+		SetEditData(data)
+	}
 
 	return (
 		<div className="common-shadow">
@@ -75,7 +78,7 @@ function AssignTemplatePage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon title="Edit" name="edit" className="primary-color" link />
+											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link />
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateId, "delete")} />
 										</>
 									);
@@ -86,8 +89,8 @@ function AssignTemplatePage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			<LessonPlanCustomModal openModal={lesson} closeModal={openModal} />
-			<AddAssignTemplate openModal={template} closeModal={openModal2} />
+		 <LessonPlanCustomModal openModal={lesson} closeModal={openModal} /> 
+			<AddAssignTemplate openModal={template} closeModal={openModal2} GridReload={GridReload} editData={editData} />
 		</div>
 	);
 }

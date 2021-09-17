@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Modal, Button, Form, Grid} from "semantic-ui-react";
+import { Modal, Button, Form, Grid } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions } from "../../../../functional/global-import";
 
 function AddAssignTemplate(props) {
-	const initialState = { schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "",teacherTemplateId:null}
-
+	const initialState = {
+		teacherTemplateId:0,
+		schoolId: null, gradeId: null, teacherId: [], templateId: [],
+		teacherAll:false, templateAll: false, isActive: true, actionPerformedBy: "",
+	}
 	const [template, setTemplate] = useState([])
 	const [grade, setGrade] = useState([])
 	const [school, setSchool] = useState([])
@@ -15,11 +18,9 @@ function AddAssignTemplate(props) {
 	const [values, setValues] = useState(initialState);
 	const api = useSelector(state => state.api)
 	const dispatch = useDispatch();
-	const [, forceUpdate] = useState()
+	const [,forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
-
 	const getGrades = () => {
-
 		dispatch(apiCall({
 			urls: ["GETGRADESLIST"], method: "GET", data: { "ActiveGrades": true, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
 				const getGrades = response.map((grades) => {
@@ -77,11 +78,13 @@ function AddAssignTemplate(props) {
 		setValues({ ...values, isActive: checked });
 	}
 	const onSubmit = (e) => {
-		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		const isFormValid = commonFunctions.onHandleFormSubmit(e,simpleValidator, forceUpdate);
 		if (isFormValid) {
 			dispatch(apiCall({
 				urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
+					debugger;
 					closeModal();
+					props.GridReload();
 					setValues(initialState);
 				}, showNotification: true
 			}))
@@ -91,9 +94,24 @@ function AddAssignTemplate(props) {
 	const closeModal = () => {
 		simpleValidator.current.hideMessages();
 		props.closeModal();
+		setValues(initialState);
 	}
+	useEffect(() => {
+		editChapterlist();
+	}, [props.editData]);
+
+	const editChapterlist = () => {
+		debugger;
+		if (props.editData) {
+			debugger;
+			const {teacherTemplateId,schoolId,gradeId,teacherId,templateId,teacherAll,templateAll,isActive,} = props.editData;
+			setValues({...values, teacherTemplateId: teacherTemplateId,schoolId:schoolId, gradeId: gradeId,teacherId:teacherId,
+				templateId:templateId,teacherAll:teacherAll,templateAll:templateAll,isActive:isActive
+			});
+		}
+	};
 	return (
-		<Modal open={props.openModal} onClose={closeModal} size="tiny">
+		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
 			<Modal.Header>Assign Template</Modal.Header>
 			<Modal.Content>
 				<Modal.Description>
@@ -129,8 +147,8 @@ function AddAssignTemplate(props) {
 				</Modal.Description>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button className="secondaryBtn" onClick={closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={onSubmit} loading={api.isApiLoading} >Confirm</Button>
+				<Button className="secondaryBtn" onClick={() => closeModal()}>Cancel</Button>
+				<Button className="primaryBtn" onClick={onSubmit} loading={api.isApiLoading} >{values.teacherTemplateId > 0 ? "Update" : "Confirm"}</Button>
 			</Modal.Actions>
 		</Modal>
 	);

@@ -114,7 +114,6 @@ function ProfileViewPage() {
 									const currentCompany = Employe.find(x => x.isCurrent === true)
 									const previousCompany = Employe.find(x => x.isCurrent === false)
 									const grade = JSON.parse(employmentHistory.grades)[0];
-									// const currentGrade = JSON.parse(currentCompany.grades)[0];
 									return (
 										<>
 											<p><span>Current Company : </span>{currentCompany?.institute}</p>

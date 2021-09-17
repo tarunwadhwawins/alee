@@ -35,7 +35,7 @@ function LoginForm() {
     if (isFormValid) {
       dispatch(apiCall({
         urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
-              
+          tagStore();
           if (response.isSuccess) {
             //dispatch(loginSuccess(response.role));
             dispatch(storeUserDetail(response));
@@ -58,7 +58,6 @@ function LoginForm() {
   }
 
   const tagStore = () => {
-
     let aa = [];
     dispatch(apiCall({
       urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { pageNo: 1, pageSize: 100 }, onSuccess: (response) => {

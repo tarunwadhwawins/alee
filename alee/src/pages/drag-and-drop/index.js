@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { FormBuilder, FormGenerator } from "cb-react-forms";
+import { FormBuilder} from "cb-react-forms";
 import { useDispatch, useSelector } from 'react-redux';
 import { commonFunctions, env } from "../../shared/functional/global-import";
 import { apiCall } from "../../store/actions/api.actions";
 import { useHistory, useParams } from "react-router-dom";
-import { EffectFlip } from "swiper";
+// import { EffectFlip } from "swiper";
 
 function DragDropPage() {
     const globalCode = useSelector(state => state.global.codes)

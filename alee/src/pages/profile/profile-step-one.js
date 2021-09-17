@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 // import ImageUploading from 'react-images-uploading';
 // import { commonFunctions } from "../../shared/functional/global-import";
 function ProfileStepOne(props) {
-	   
 	const [school, setSchool] = useState([]);
 	const api = useSelector(state => state.api);
 	const [grade, setGradeList] = useState([]);
@@ -63,7 +62,7 @@ function ProfileStepOne(props) {
 						<div className="setImgInner">
 							{values && (
 								<>
-									<img src={values.imageurl} data="image" value={values.image}/>
+								<img src={values.imageurl} data="image" value={values.image}/>
 								</>
 							)}
 						</div>
