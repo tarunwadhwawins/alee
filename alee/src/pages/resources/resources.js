@@ -18,6 +18,7 @@ function ResourcesPage() {
   const [chapterList, setChapterList] = useState([]);
   const [pageList, setPageList] = useState([]);
   const [booklist, setBooklist] = useState([]);
+  const [editForm, setEditForm] = useState(false);
 
   const initialValues = {
     ResourceId: "",
@@ -25,7 +26,7 @@ function ResourcesPage() {
     BookId: "",
     ChapterId: "",
     PageId: "",
-    UploadPdf: "",
+    UploadPdf: [],
     AudioLink: "",
     VideoLink: "",
     ArticleLink: "",
@@ -38,24 +39,22 @@ function ResourcesPage() {
   const fileChange = (e) => {
     setResources({ ...resources, UploadPdf: e.target.files[0] });
   };
-  const onHandleEdit = (data) => {
-    const {
-      resourceId,
-      gradeId,
-      bookId,
-      chapterId,
-      pageId,
-      link
-    } = data;
+  const onHandleEdit = (data, edit) => {
+    debugger
+    setResources(initialValues);
+    if (edit === "edit") {
+      setEditForm(!editForm);
+    }
+    const { resourceId, gradeId, bookId, chapterId, pageId, link } = data;
     if (data.resourceTypeName === "Audio") {
-      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, AudioLink: link })
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, AudioLink: JSON.parse(link)[0].AudioLink })
     }
     else if (data.resourceTypeName === "Video") {
-      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, VideoLink: link })
+      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, VideoLink: JSON.parse(link)[0].VideoLink })
     }
     else if (data.resourceTypeName === "Article") {
       setResources({
-        ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link
+        ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: JSON.parse(link)[0].ArticleLink,
       })
     } else if (data.resourceTypeName === "Video") {
       setResources({
@@ -75,7 +74,7 @@ function ResourcesPage() {
         BookId: bookId,
         ChapterId: chapterId,
         PageId: pageId,
-        ArticleLink: link
+        ArticleLink: JSON.parse(link)[0].Link.indexOf("pdf") < 0 ? JSON.parse(link)[0].Link : ""
       })
     } else if (data.resourceTypeName === "UploadPdf" && data.link.indexOf("pdf") < 0) {
 
@@ -86,39 +85,56 @@ function ResourcesPage() {
         BookId: bookId,
         ChapterId: chapterId,
         PageId: pageId,
-        ArticleLink: link
+        UploadPdf: JSON.parse(link)[1].Link
       })
     }
   }
   useEffect(() => {
-    editResouces();
+    // editResouces();
     getGradeList();
   }, []);
-  const editResouces = () => {
-    const {
-      ResourceId,
-      GradeId,
-      BookId,
-      ChapterId,
-      PageId,
-      UploadPdf,
-      AudioLink,
-      VideoLink,
-      ArticleLink,
-    } = resources;
-    setResources({
-      ...resources,
-      ResourceId: ResourceId,
-      GradeId: GradeId,
-      BookId: BookId,
-      ChapterId: ChapterId,
-      PageId: PageId,
-      UploadPdf: UploadPdf,
-      AudioLink: AudioLink,
-      VideoLink: VideoLink,
-      ArticleLink: ArticleLink
-    });
-  };
+  useEffect(() => {
+
+    if (editForm) {
+      getBookList();
+    }
+  }, [editForm, resources.GradeId]);
+  useEffect(() => {
+    if (editForm) {
+      getChapterList();
+    }
+  }, [editForm, resources.BookId]);
+  useEffect(() => {
+    debugger
+    if (resources.ChapterId) {
+      getPageList();
+    }
+  }, [editForm, resources.ChapterId]);
+  // const editResouces = () => {
+  //   const {
+  //     ResourceId,
+  //     GradeId,
+  //     BookId,
+  //     ChapterId,
+  //     PageId,
+  //     UploadPdf,
+  //     AudioLink,
+  //     VideoLink,
+  //     ArticleLink,
+  //   } = resources;
+  //   setResources({
+  //     ...resources,
+  //     ResourceId: ResourceId,
+  //     GradeId: GradeId,
+  //     BookId: BookId,
+  //     ChapterId: ChapterId,
+  //     PageId: PageId,
+  //     UploadPdf: UploadPdf,
+  //     AudioLink: AudioLink,
+  //     VideoLink: VideoLink,
+  //     ArticleLink: ArticleLink
+  //   });
+  // };
 
 
   // get api //
@@ -127,7 +143,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETBOOKSLISTBYGRADEID"],
         method: "GET",
-        data: { "GradeId": value },
+        data: { "GradeId": (value === undefined ? resources.GradeId : value) },
         onSuccess: (response) => {
           const bookListed = response.map((singledata) => {
             return { text: singledata.bookName, value: singledata.bookId };
@@ -161,7 +177,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERLIST"],
         method: "GET",
-        data: { bookId: value },
+        data: { bookId: (value === undefined ? resources.BookId : value) },
         onSuccess: (response) => {
           const chapters = response.map((singledata) => {
             return {
@@ -179,7 +195,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERPAGES"],
         method: "GET",
-        data: { ChapterId: value },
+        data: { ChapterId: (value === undefined ? resources.ChapterId : value) },
         onSuccess: (response) => {
 
           const pages = response.map((singledata) => {
@@ -192,7 +208,6 @@ function ResourcesPage() {
   };
 
   const onHandleChange = (e, { data, value }) => {
-
     if (data.toLowerCase() === "gradeid") {
       getBookList(value);
     }
@@ -214,10 +229,20 @@ function ResourcesPage() {
     setResources(initialValues);
   };
   const checkDisplayIcon = (link) => {
-    if (link?.indexOf("www.youtube.com") > -1) {
+    if (link?.indexOf("www.youtube.com") > 0) {
       return "youtube";
-    } else if (link?.indexOf("www.youtube.com") < 0) {
-      return "file audio outline";
+    }
+    if (link?.indexOf("Pdf") > 0) {
+      return "file pdf outline";
+    }
+    else {
+      return "linkify"
+    }
+  }
+  const checkDisplayIconPdf = (link) => {
+
+    if (link?.indexOf("Pdf") > 0) {
+      return "file pdf outline";
     }
   }
   const panes = [{
@@ -274,8 +299,9 @@ function ResourcesPage() {
                 fieldName: "link",
                 isSorting: false,
                 Cell: (props) => {
-                  return (<a href={(props.link)} target="_blank">
-                    <Icon name={checkDisplayIcon(props.link)}
+
+                  return (<a href={(JSON.parse(props.link)[0].AudioLink)} target="_blank">
+                    <Icon name={checkDisplayIcon(JSON.parse(props.link)[0].AudioLink)}
                       className="primary-color"
                       link />
                   </a>
@@ -289,46 +315,46 @@ function ResourcesPage() {
                 Cell: (props, confirmModalOpen) => {
                   return (
                     <>
-                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "edit")} />
                       <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")} />
                     </>
                   );
                 }
               },
-              {
-                headerName: "Audio",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-                  return (
-                    <a href={(props.link)}
-                      target="_blank">
-                      <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
-                    </a>
-                  )
-                },
-              },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
-                Cell: (props, confirmModalOpen) => {
-                  return (
-                    <>
-                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-                      <Icon
-                        title="Delete"
-                        name="trash alternate"
-                        color="red"
-                        link
-                        onClick={() =>
-                          confirmModalOpen(props.resourceLinkId, "delete")
-                        }
-                      />
-                    </>
-                  );
-                },
-              },
+                // {
+                //   headerName: "Audio",
+                //   fieldName: "link",
+                //   isSorting: false,
+                //   Cell: (props) => {
+                //     return (
+                //       <a href={(props.link)}
+                //         target="_blank">
+                //         <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                //       </a>
+                //     )
+                //   },
+                // },
+                // {
+                //   headerName: "Action",
+                //   fieldName: "Action",
+                //   isSorting: false,
+                //   Cell: (props, confirmModalOpen) => {
+                //     return (
+                //       <>
+                //         <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
+                //         <Icon
+                //           title="Delete"
+                //           name="trash alternate"
+                //           color="red"
+                //           link
+                //           onClick={() =>
+                //             confirmModalOpen(props.resourceLinkId, "delete")
+                //           }
+                //         />
+                //       </>
+                //     );
+                //   },
+                // },
               ]}
           ></DataTable>
         </Tab.Pane>
@@ -389,15 +415,9 @@ function ResourcesPage() {
                 fieldName: "link",
                 isSorting: false,
                 Cell: (props) => {
-                  return props.link ? (<a href={
-                    (props.link)
-                  }
-                    target="_blank" >
-                    <
-                      Icon name="youtube"
-                      className="primary-color"
-                      link />
-                  </a>) : ("-");
+                  return props.link ? (<a href={((JSON.parse(props.link)[0].VideoLink))}
+                    target="_blank">
+                    <Icon name="youtube" className="primary-color" link /> </a>) : ("-");
                 },
               },
                                 {
@@ -405,51 +425,42 @@ function ResourcesPage() {
                                 fieldName: "Action",
                                 isSorting: false,
                 Cell: (props, confirmModalOpen) => {
-                  return (<
-                    >
-                    <
-                      Icon title="Edit"
+                  return (<>
+                    <Icon title="Edit"
                       name="edit"
-                      className="primary-color"
-                      link onClick={
-                        () => onHandleEdit(props)
-                      }
-                    /> <
-                      Icon title="Delete"
+                      className="primary-color" link onClick={() => onHandleEdit(props, "edit")}
+                    />
+                    <Icon title="Delete"
                       name="trash alternate"
                       color="red"
-                      link onClick={
-                        () =>
-                          confirmModalOpen(props.resourceLinkId, "delete")
-                      }
+                      link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")}
                     />
-
                   </>
                   );
                 }
               },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
-                Cell: (props, confirmModalOpen) => {
-                  return (
-                    <>
-                      <Icon title="Edit" name="edit" className="primary-color" link
-                        onClick={() => onHandleEdit(props)} />
-                      <Icon
-                        title="Delete"
-                        name="trash alternate"
-                        color="red"
-                        link
-                        onClick={() =>
-                          confirmModalOpen(props.resourceLinkId, "delete")
-                        }
-                      />
-                    </>
-                  );
-                },
-              },
+                // {
+                //   headerName: "Action",
+                //   fieldName: "Action",
+                //   isSorting: false,
+                //   Cell: (props, confirmModalOpen) => {
+                //     return (
+                //       <>
+                //         <Icon title="Edit" name="edit" className="primary-color" link
+                //           onClick={() => onHandleEdit(props)} />
+                //         <Icon
+                //           title="Delete"
+                //           name="trash alternate"
+                //           color="red"
+                //           link
+                //           onClick={() =>
+                //             confirmModalOpen(props.resourceLinkId, "delete")
+                //           }
+                //         />
+                //       </>
+                //     );
+                //   },
+                // },
               ]}
           ></DataTable>
         </Tab.Pane>
@@ -491,7 +502,6 @@ function ResourcesPage() {
               fieldName: "bookName",
               isSorting: true,
             },
-
             {
               headerName: "Chapter",
               fieldName: "chapterName",
@@ -507,21 +517,25 @@ function ResourcesPage() {
               fieldName: "link",
               isSorting: false,
               Cell: (props) => {
-                return props.link?.indexOf("pdf") < 0 ? (<a href={(props.link)} target="_blank">
-                  <Icon name={checkDisplayIcon(props.link)}
+
+                const articleData = ((JSON.parse(props.link)[0].ArticleLink) ? JSON.parse(props.link)[0].ArticleLink : null)
+                return articleData?.indexOf("www.youtube.com") > 0 ? (<a href={articleData} target="_blank">
+                  <Icon name={checkDisplayIcon(articleData)}
                     className="primary-color" link />
                 </a>) : ("-");
               }
             },
             {
-              headerName: "Article",
+              headerName: "Pdf",
               fieldName: "link",
               isSorting: false,
               Cell: (props) => {
-                return props.link?.indexOf("pdf") < 0 ? (
-                  <a href={(props.link)}
+
+                const pdfData = ((JSON.parse(props.link)[0].PdfLink) ? JSON.parse(props.link)[0].PdfLink : null)
+                return pdfData?.indexOf("pdf") > 0 ? (
+                  <a href={commonFunctions.concatenateImageWithAPIUrl(pdfData)}
                     target="_blank">
-                    <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                    <Icon name={checkDisplayIconPdf(pdfData)} className="primary-color" link />
                   </a>
                 ) : ("-");
               },
@@ -535,7 +549,7 @@ function ResourcesPage() {
                   <>
                     <Icon title="Edit" name="edit" className="primary-color"
                       link onClick={
-                        () => onHandleEdit(props)
+                        () => onHandleEdit(props, "edit")
                       }
                     /> <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")}
                     />
@@ -545,7 +559,7 @@ function ResourcesPage() {
             },]}>
 
         </DataTable>
-      </Tab.Pane >
+      </Tab.Pane>
       );
     },
   },
@@ -553,7 +567,7 @@ function ResourcesPage() {
   const onHandleSubmit = (e) => {
     const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-    if (isFormValid && AudioLink !== "" && VideoLink !== "" && ArticleLink !== "" && UploadPdf !== "") {
+    if (isFormValid && AudioLink !== "" || VideoLink !== "" || ArticleLink !== "" || UploadPdf !== []) {
       var formData = commonFunctions.getFormData(resources);
       dispatch(
         apiCall({
@@ -561,7 +575,6 @@ function ResourcesPage() {
           method: "Post",
           data: formData,
           onSuccess: (response) => {
-
             GridReload();
             cancelClear();
             setResources(initialValues);
@@ -571,18 +584,15 @@ function ResourcesPage() {
       );
     } else if (AudioLink === "" && VideoLink === "" && ArticleLink === "" && UploadPdf === "") {
       dispatch(Notifications.show({ title: "Error", message: 'Please add atleast one the resourc source.', position: 'br', autoDismiss: 2 }, "error"))
-
     }
   };
   return (
     <div className="common-shadow resources" >
       {
-        api.isApiLoading && (<
-          Dimmer active inverted >
+        api.isApiLoading &&
+        (<Dimmer active inverted>
           <Loader />
-        </Dimmer>
-
-        )}
+        </Dimmer>)}
       <Grid>
         <Grid.Column width={16}>
           <Header as="h3" className="commonHeading">
@@ -609,7 +619,6 @@ function ResourcesPage() {
                   value={resources.GradeId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('GradeId', resources.GradeId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="4">
@@ -621,7 +630,6 @@ function ResourcesPage() {
                   value={resources.BookId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('BookId', resources.BookId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="4">
@@ -633,7 +641,6 @@ function ResourcesPage() {
                   value={resources.ChapterId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('ChapterId', resources.ChapterId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="4">
@@ -645,7 +652,6 @@ function ResourcesPage() {
                   value={resources.PageId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('PageId', resources.PageId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="8">
@@ -655,7 +661,6 @@ function ResourcesPage() {
                   value={resources.AudioLink}
                   data="AudioLink"
                   onChange={onHandleChange}
-
                 />
               </Grid.Column>
               <Grid.Column width="8">
