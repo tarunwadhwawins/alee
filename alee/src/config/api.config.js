@@ -85,7 +85,7 @@ const API_ENDPOINTS = {
   TOGGLEISACTIVE: "/Template/ToggleIsActive",
   ADDTEMPLATEFIELDS: "/Template/AddTemplateFields",
   ADDUPDATETEMPLATE: "/Template/AddUpdateTemplate",
-  GETTEMPLATEFIELDLIST: "/Template/GetTemplateFieldsList",
+  GETTEMPLATEFIELDSLIST: "/Template/GetTemplateFieldsList",
   GETBOOKTAGDATA: "/BookTag/GetBookTagList",
   ADDLESSONPLANDATA: "/Lesson/AddLessonPlan",
   BOOKSEARCHBYTAG: "/Books/BookSearch",
@@ -97,8 +97,9 @@ const API_ENDPOINTS = {
   // GETTEMPLATELIST:"/Template/GetTemplateList",
   // DELETETEMPLATE:"/Template/DeleteTemplate",
   // TOGGLEISACTIVE:"/Template/ToggleIsActive",
-  RESETPASSWORD:"/Authentication/ResetPassword",
-  GETBOOKSLISTBYGRADEID:"/Books/GetBooksListByGradeId"
+  RESETPASSWORD: "/Authentication/ResetPassword",
+  GETBOOKSLISTBYGRADEID: "/Books/GetBooksListByGradeId",
+  DELETEPDFRESOURCES: "/Resource/DeletePdfResources",
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

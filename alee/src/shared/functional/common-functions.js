@@ -95,7 +95,7 @@ const concatenateImageWithAPIUrl = (Image) => {
 
 
 const getFormData = (data) => {
-  debugger
+      
   var formData = new FormData();
   Object.entries(data).map(function ([key, val]) {
     if (typeof val !== "undefined") {
@@ -107,7 +107,7 @@ const getFormData = (data) => {
         formData.append(key, file);
       }
       else if (key === "ids" || key === "grades" || key === "standards" || key === "comprehensionStrategies" || key === "valuesTag" || key === "literaryElements") {
-        debugger
+            
         var array = val;
         for (var i = 0; i < array.length; i++) {
           formData.append(key, array[i]);

@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Header, Image, List, Divider, Icon, Dimmer, Loader,Button } from "semantic-ui-react";
+import { Grid, Header, Image, List, Dimmer, Loader, Icon, Button } from "semantic-ui-react";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../store/actions/api.actions";
 import { useParams } from 'react-router-dom';
 import { env } from "../../shared/functional/global-import";
 import { Link } from "../../shared/functional/global-import";
-// import { profile } from "../../shared/functional/global-image-import";
-
 function ProfileViewPage() {
 	const teacherId = useParams();
 	const api = useSelector((state) => state.api);
 	const dispatch = useDispatch();
 	const [teacherData, setTeacherData] = useState([]);
-	const [editData, SetEditData] = useState([]);
 	useEffect(() => {
 		getTeacherProfile();
 	}, []);
@@ -30,50 +27,56 @@ function ProfileViewPage() {
 		);
 	};
 	const onHandleEdit = (data) => {
-		           
-		SetEditData(editData.concat(data));
+		setTeacherData(data);
 	}
 	return (
 		<>
 			<div className="common-shadow profileView">
 				{api.isApiLoading && (
-				<Dimmer active inverted><Loader /></Dimmer>)}
+					<Dimmer active inverted><Loader /></Dimmer>)}
 				<div className="profileViewHeader" >
 					{teacherData.map((teacherProfile, index) => {
-						return (<>
-							<div className="ProfileEdit">
-	 <Button type='button'as={Link} to={{ pathname:`${env.PUBLIC_URL}/profile`,state:{editData}}} onClick={() => onHandleEdit(teacherData)}> Edit</Button>
-							</div>
-							<div className="profileImgOuter">
-								<div className="profileImg">
-									<Image src={commonFunctions.concatenateImageWithAPIUrl(teacherProfile.image)} />
+
+						const education = teacherProfile.educationQualifications ? JSON.parse(teacherProfile.educationQualifications) : [];
+						const Employe = teacherProfile.employmentHistory ? JSON.parse(teacherProfile.employmentHistory) : [];
+						const skill = teacherProfile.keySkillSet ? JSON.parse(teacherProfile.keySkillSet) : [];
+						return (
+							<>
+								<div className="ProfileEdit">
+									<Button as={Link}
+										to={{ pathname: `${env.PUBLIC_URL}/profile`, state: { teacherProfile, education, Employe, skill } }}
+										onClick={() => onHandleEdit(teacherProfile)} icon> <Icon name="edit" /></Button>
 								</div>
-							</div>
-							<div className="profileViewHeaderDesc">
-								<Header as='h3' className="commonHeading">
-									{teacherProfile.teacherName}
-								</Header>
-								<List horizontal className="basicInfo">
-									<List.Item>
-										<List.Icon name='mail' />
-										<List.Content>{teacherProfile.email}</List.Content>
-									</List.Item>
-									<List.Item>
-										<List.Icon name='mobile alternate' />
-										<List.Content>{teacherProfile.contactNo}</List.Content>
-									</List.Item>
-								</List>
-								<p><span>{teacherProfile.schoolName}:</span>{teacherProfile.address}</p>
-								<List horizontal className="gradePlan">
-									<List.Item>
-										<List.Content>
-											<span>{teacherProfile.lessonPlans}</span>
-											<List.Header>LessonPlan</List.Header>
-										</List.Content>
-									</List.Item>
-								</List>
-							</div>
-						</>
+								<div className="profileImgOuter">
+									<div className="profileImg">
+										<Image src={commonFunctions.concatenateImageWithAPIUrl(teacherProfile.image)} />
+									</div>
+								</div>
+								<div className="profileViewHeaderDesc">
+									<Header as='h3' className="commonHeading">
+										{teacherProfile.teacherName}
+									</Header>
+									<List horizontal className="basicInfo">
+										<List.Item>
+											<List.Icon name='mail' />
+											<List.Content>{teacherProfile.email}</List.Content>
+										</List.Item>
+										<List.Item>
+											<List.Icon name='mobile alternate' />
+											<List.Content>{teacherProfile.contactNo}</List.Content>
+										</List.Item>
+									</List>
+									<p><span>{teacherProfile.schoolName}:</span>{teacherProfile.address}</p>
+									<List horizontal className="gradePlan">
+										<List.Item>
+											<List.Content>
+												<span>{teacherProfile.lessonPlans}</span>
+												<List.Header>LessonPlan</List.Header>
+											</List.Content>
+										</List.Item>
+									</List>
+								</div>
+							</>
 						);
 					})}
 				</div>
@@ -83,17 +86,21 @@ function ProfileViewPage() {
 					const skill = teacherdata.keySkillSet ? JSON.parse(teacherdata.keySkillSet) : [];
 					return (
 						<Grid className="profileViewBody" columns="1">
-
 							<Grid.Column width={8}>
 								<p><span>Subject : </span>{teacherdata.subject}</p>
 								<Header as="h4">Education Qualification</Header>
+								{/* <div className="ProfileEdit">
+								<Button type='button' as={Link}
+									to={{ pathname:`${env.PUBLIC_URL}/profile`, state: {education} }}
+									onClick={() => onHandleEductionEdit(teacherData)}> Edit</Button>
+						      	</div> */}
 								{education && education.length > 0 && education.map((Qualification, index) => {
 									return (
 										<>
-											<p><span>Degree : </span> {Qualification.Degree}</p>
-											<p><span>In progress : </span>{Qualification.InProgress}</p>
-											<p><span>School/College/University :</span>{Qualification.College}</p>
-											<p><span>Year of passing : </span>{Qualification.YearOfPassing}</p>
+											<p><span>Degree : </span> {Qualification.degree}</p>
+											<p><span>In progress : </span>{Qualification.inProgress}</p>
+											<p><span>School/College/University :</span>{Qualification.college}</p>
+											<p><span>Year of passing : </span>{Qualification.yearOfPassing}</p>
 										</>
 									);
 								})}
@@ -103,17 +110,19 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-
-									const currentCompany = Employe.find(x => x.IsCurrent === true)
-									const previousCompany = Employe.find(x => x.IsCurrent === false)
-									const employHistory = JSON.parse(currentCompany.ClassesTaught)[0];
+									debugger;
+									const currentCompany = Employe.find(x => x.isCurrent === true)
+									const previousCompany = Employe.find(x => x.isCurrent === false)
+									const grade = JSON.parse(employmentHistory.grades)[0];
+									// const currentGrade = JSON.parse(currentCompany.grades)[0];
 									return (
 										<>
-											<p><span>Current Company : </span>{currentCompany?.Institute}</p>
-											<p><span>Position : </span>{currentCompany?.Position}</p>
-											<p><span>Grade Taught : </span>{employHistory}</p>
-											<p><span>Previous Company : </span>{previousCompany?.Institute}</p>
-											<p><span>Position : </span>{previousCompany?.Position}</p>
+											<p><span>Current Company : </span>{currentCompany?.institute}</p>
+											<p><span>Position : </span>{currentCompany?.position}</p>
+											<p><span>Grade : </span>{grade}</p>
+											<p><span>Previous Company : </span>{previousCompany?.institute}</p>
+											<p><span>Position : </span>{previousCompany?.position}</p>
+											{/* <p><span>Grade  : </span>{previousGrade}</p> */}
 										</>
 									);
 								})}
@@ -129,7 +138,7 @@ function ProfileViewPage() {
 						</Grid>
 					);
 				})}
-        
+
 			</div>
 
 		</>

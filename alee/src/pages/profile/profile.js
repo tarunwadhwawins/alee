@@ -10,15 +10,13 @@ import ProfileStepFour from "./profile-step-four";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
-
-const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "", actionPerformedBy: "", imageurl:null }
-const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "", index: null, updateButtonEducation: false, }
-const initialSchool = { institute: "", position: "", grades: [], isCurrent: true, index: null, updateButtonSchool: false, }
-function MyProfile(){    
-debugger;
+const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "",actionPerformedBy: "" }
+const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "",index: null, updateButtonEducation: false,
+ teacherEducationDetailId:0 }
+const initialSchool = { institute: "", position: "", grades:[],isCurrent: true, index: null, updateButtonSchool: false,teacherWorkExperienceId:0 }
+function MyProfile(props) {
   let history = useHistory();
-  const aa =history.location.state
-
+  const allData = history.location.state
   const api = useSelector(state => state.api);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId);
   const [activeStep, setActiveStep] = useState(0);
@@ -32,6 +30,7 @@ debugger;
   const [skill, setSkill] = useState({ updatedSkill: false });
   const [skills, setSkills] = useState([]);
   const [grade, setGradeList] = useState([]);
+  // const [image, setImage] = useState(null);
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -56,43 +55,74 @@ debugger;
     );
   };
 
+  useEffect(() => {
+    editBasicInfo();
+    editEducations();
+    editEmployment();
+    editSkill();
+  }, []);
+  const editBasicInfo = () => {
+    if (allData) {
+      const { schoolId, grades, teacherId, subjectId, image} = allData.teacherProfile;
+      setValues({ ...values, schoolId: schoolId, grades: JSON.parse(grades),teacherId:teacherId,subjectId: subjectId,image:commonFunctions.concatenateImageWithAPIUrl(image)});
+    }
+  };
+  const editEducations = () => {
+    if (allData) {       
+      setFormSecondStep(formSecondStep.concat(allData.education));
+    }
+  };
+  const editEmployment = () => {
+    if (allData) {
+      debugger;
+    setThirdSecondStep(thirdSecondStep.concat(allData.Employe));
+    }
+  };
+  const editSkill = () => {
+    if (allData) {
+      setSkills(skills.concat(allData.skill));
+    }
+  };
   const onChangeFirststep = (e, { data, value }) => {
+       
     setValues({ ...values, [data]: value });
   }
-
+  ////onchange///
   const onChangeSecondStep = (e, { data, value, checked, type }) => {
     const qualificationValue = type === "checkbox" ? checked : value;
     setsecondstepValues({ ...secondstepValues, [data]: qualificationValue })
   }
-
   const onChangeFourstep = (e, { value }) => {
     setSkilled(value);
   }
-
   const onStepFirst = () => {
     var formData = commonFunctions.getFormData(values);
     dispatch(apiCall({
       urls: ["ADDTEACHERBASICINFO"], method: "POST", data: formData,
       onSuccess: (response) => {
+           
         changeStep(1);
       }, showNotification: true
     }))
   }
 
-  const imageChange = (e) => {
+  const imageChange = (e, index) => {
     if (e.target.files) {
-      setValues({ ...values,
-         imageurl:window.URL.createObjectURL(e.target.files[0]),
-         image: e.target.files[0] });
+      setValues({ ...values, imageurl: window.URL.createObjectURL(e.target.files[0]), image: e.target.files[0] });
     }
   };
-  const removeSelectedImage = () => {
-            
-    setValues();
-  };
+  // const imageChange = (imageList) => {
+  // 	    
+  // 	setImage(imageList);
+  //   setValues(imageList);
+  // }
+  // const removeSelectedImage = () => {
+  //   setValues();
+  // };
   /////////////-Second Step-/////////////
   const addMoreQualification = () => {
-    setFormSecondStep(formSecondStep.concat({ degree: secondstepValues.degree, college: secondstepValues.college, inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing }))
+    setFormSecondStep(formSecondStep.concat({ degree: secondstepValues.degree, college: secondstepValues.college, 
+      inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing,teacherEducationDetailId:secondstepValues.teacherEducationDetailId}))
     setsecondstepValues(initialStateStepSecond)
   }
   const removeQualification = (index) => {
@@ -100,19 +130,21 @@ debugger;
     rows.splice(index, 1);
     setFormSecondStep({ rows, updateButtonEducation: false });
   }
-  const editQualification = (data, index) => {
-    setsecondstepValues({ ...secondstepValues, degree: data.degree, college: data.college, inProgress: data.inProgress, yearOfPassing: data.yearOfPassing, index: index, updateButtonEducation: true })
-  }
+  const editQualification = (data, index) => {             ;
+    setsecondstepValues({ ...secondstepValues, degree: data.degree, college: data.college, inProgress: data.inProgress, yearOfPassing: data.yearOfPassing, index: index, updateButtonEducation: true, teacherEducationDetailId: data.teacherEducationDetailId })}
   const updateQualification = () => {
     const items = [...formSecondStep];
-    items[secondstepValues.index] = { "degree": secondstepValues.degree, "college": secondstepValues.college, "inProgress": secondstepValues.inProgress, "yearOfPassing": secondstepValues.yearOfPassing }
+    items[secondstepValues.index] = { "degree": secondstepValues.degree, "college": secondstepValues.college,
+     "inProgress": secondstepValues.inProgress, "yearOfPassing": secondstepValues.yearOfPassing,"teacherEducationDetailId":secondstepValues.teacherEducationDetailId }
     setFormSecondStep(items);
     setsecondstepValues({ updateButtonEducation: false });
     setsecondstepValues(initialStateStepSecond);
   }
   const onStepSecond = () => {
     dispatch(apiCall({
-      urls: ["ADDTEACHERQUALIFICATION"], method: "POST", data: ({ teacherQualificationData: formSecondStep, teacherEducationDetailId: null, teacherId: teacherId, actionPerformedBy: "" }), onSuccess: (response) => {
+      urls: ["ADDTEACHERQUALIFICATION"], method: "POST", data: ({ teacherQualificationData: formSecondStep, teacherId: teacherId,
+         actionPerformedBy: "" }), onSuccess: (response) => {
+                            ;
         changeStep(2);
       }, showNotification: true
     }))
@@ -125,39 +157,40 @@ debugger;
     const isCurrent = type === "checkbox" ? checked : value;
     setSchool({ ...school, [data]: isCurrent })
   }
-
   const onThreeStepEducation = () => {
     dispatch(apiCall({
-      urls: ["ADDTEACHERWORKEXPERIENCE"], method: "POST", data: ({ teacherWorkExperienceData: thirdSecondStep, teacherWorkExperienceId: null, teacherId: teacherId, actionPerformedBy: "" }),
-      onSuccess: (response) => {
+      urls: ["ADDTEACHERWORKEXPERIENCE"], method: "POST", data: ({ teacherWorkExperienceData: thirdSecondStep,teacherId: teacherId,
+        actionPerformedBy: "" }),
+        onSuccess: (response) => {
         changeStep(3);
       }, showNotification: true
     }));
   }
-
   const addEducation = () => {
-
-    setThirdSecondStep(thirdSecondStep.concat({ institute: school.institute, position: school.position, grades: school.grades, isCurrent: school.isCurrent }));
+    debugger;
+    setThirdSecondStep(thirdSecondStep.concat({ institute: school.institute,position:school.position,grades:school.grades, 
+      isCurrent: school.isCurrent,teacherWorkExperienceId:school.teacherWorkExperienceId}));
     setSchool(initialSchool);
   }
   const removeEducation = (index) => {
-
     const rows = [...thirdSecondStep]
     rows.splice(index, 1);
     setThirdSecondStep(rows)
   }
   const editEducation = (data, index) => {
+    debugger;
     setSchool({
       ...school, institute: data.institute, position: data.position,
-      grades: data.grades, isCurrent: data.isCurrent, index: index, updateButtonSchool: true
+      grades:JSON.parse(data.grades)[0], isCurrent: data.isCurrent, index: index, updateButtonSchool: true,
+      teacherWorkExperienceId:data.teacherWorkExperienceId
     })
   }
   const updateEducation = () => {
-
+    debugger;
     const items = [...thirdSecondStep];
     items[school.index] = {
       "institute": school.institute, "position": school.position,
-      "grades": school.grades, "isCurrent": school.isCurrent
+      "grades": school.grades, "isCurrent": school.isCurrent, "teacherWorkExperienceId":school.teacherWorkExperienceId
     }
     setThirdSecondStep(items);
     setSchool({ updateButtonSchool: false })
@@ -174,7 +207,6 @@ debugger;
         teacherId: teacherId, actionPerformedBy: ""
       }),
       onSuccess: (response) => {
-
       }, showNotification: true
     }))
   }
@@ -184,15 +216,14 @@ debugger;
   }
   const editSkills = (data, index) => {
     setSkilled(data);
-    setSkill({ updatedSkill: true });
     setSelectedIndex(index);
+    setSkill({ updatedSkill: true });
   }
   const updateSkill = () => {
     skills[selectedIndex] = skilled
     setSkills(skills);
-    setSkill({ updatedSkill: false });
     setSkilled("");
-
+    setSkill({ updatedSkill: false });
   }
   const removeSkill = (index) => {
     const rows = [...skills]
@@ -211,14 +242,14 @@ debugger;
           <>
             <ProfileStepOne onHandleChange={onChangeFirststep} grade={grade}
               imageChange={imageChange} values={values}
-              removeSelectedImage={removeSelectedImage} />
+             allData={allData}/>
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
                 <Button className="alternateBtn" onClick={() => changeStep(1)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={onStepFirst}loading={api.isApiLoading}>
+                <Button className="primaryBtn" onClick={onStepFirst} loading={api.isApiLoading}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -243,7 +274,7 @@ debugger;
                 <Button className="alternateBtn" onClick={() => changeStep(2)}>
                   Save as draft
                 </Button>
-                <Button className="primaryBtn" onClick={onStepSecond}loading={api.isApiLoading}>
+                <Button className="primaryBtn" onClick={onStepSecond} loading={api.isApiLoading}>
                   Continue
                 </Button>
               </Grid.Column>
@@ -282,7 +313,7 @@ debugger;
           <>
             <ProfileStepFour onHandleChange={onChangeFourstep} skills={skills} addMoreSkill={addMoreSkill}
               editSkills={editSkills} removeSkill={removeSkill} skilled={skilled} updateSkill={updateSkill}
-              skill={skill} ClearSkill={ClearSkill}/>
+              skill={skill} ClearSkill={ClearSkill} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
@@ -291,10 +322,10 @@ debugger;
                 </Button>
                 <Button className="alternateBtn">
                   Preview
-                </Button> 
+                </Button>
                 <Button className="primaryBtn" as={Link} to={`${env.PUBLIC_URL}/profile-preview/${teacherId}`}
-                onClick={onFourStepSkill}
-                loading={api.isApiLoading}>
+                  onClick={onFourStepSkill}
+                  loading={api.isApiLoading}>
                   Save & Continue
                 </Button>
               </Grid.Column>
@@ -371,13 +402,8 @@ debugger;
           </Step.Group>
         </Grid.Column>
       </Grid>
-      
+
       <div>{getStepContent(activeStep)}</div>
-      {/* <Grid>
-        <Grid.Column width={16}>
-      <ProfileViewPage/>
-     </Grid.Column>
-     </Grid> */}
     </>
   );
 }

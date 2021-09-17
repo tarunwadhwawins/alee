@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Modal, Button, Form, Grid, Dimmer, Loader } from "semantic-ui-react";
+import { Modal, Button, Form, Grid} from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions } from "../../../../functional/global-import";
 
 function AddAssignTemplate(props) {
-	const initialState = { schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "" }
+	const initialState = { schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "",teacherTemplateId:null}
 
 	const [template, setTemplate] = useState([])
 	const [grade, setGrade] = useState([])
@@ -82,6 +82,7 @@ function AddAssignTemplate(props) {
 			dispatch(apiCall({
 				urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
 					closeModal();
+					setValues(initialState);
 				}, showNotification: true
 			}))
 		}

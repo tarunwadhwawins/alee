@@ -1,23 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Grid, Header, Button, Form, Tab, Icon, Dimmer, Loader } from "semantic-ui-react";
 import { DataTable } from "../../../src/shared/components/organisms";
-import { GlobalCodeSelect } from "../../shared/components";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../store/actions/api.actions";
-import { showNotification } from "../../store/actions/global.actions";
 import { commonFunctions, Notifications } from "../../shared/functional/global-import";
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import SimpleReactValidator from 'simple-react-validator';
+import ConfirmModal from "../../shared/components/organisms/modal/common-confirm-modal/index";
 
 function ResourcesPage() {
-
   const api = useSelector((state) => state.api);
   const [reload, SetReload] = useState(false);
-  const [editData, SetEditData] = useState([]);
+  // const [editData, SetEditData] = useState([]);
   const dispatch = useDispatch();
   const [chapterList, setChapterList] = useState([]);
   const [pageList, setPageList] = useState([]);
   const [booklist, setBooklist] = useState([]);
+  const [editForm, setEditForm] = useState(false);
+  const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
 
   const initialValues = {
     ResourceId: "",
@@ -25,101 +24,90 @@ function ResourcesPage() {
     BookId: "",
     ChapterId: "",
     PageId: "",
-    UploadPdf: "",
+    UploadPdf: null,
+    editUploadPdf: "",
     AudioLink: "",
     VideoLink: "",
     ArticleLink: "",
+    deletePdfId: "",
+    ArticleLinkId: "",
+    VideoLinkId: "",
+    AudioLinkId: "",
   };
   const [grade, setGradeList] = useState([]);
   const [resources, setResources] = useState(initialValues);
   const [, forceUpdate] = useState()
   const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
+
+  // ==================== Global Code Static ResourceType =====================================
+  const globalCode = useSelector(state => state.global.codes)
+
+  let globalCodes = globalCode.filter(code => code.categoryName === "ResourceType").map((filtercode) => {
+
+    return { filtercode: filtercode.codeName, value: filtercode.globalCodeId, text: filtercode.codeName }
+  });
+
+  // ==================== Global Code Static ResourceType =====================================
+
+
+  const confirmModalOpen = (id, type, isActive) => {
+
+    setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type, isActive: isActive })
+  }
+
+  const modalClose = () => {
+    setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
+  }
   const fileChange = (e) => {
+    debugger
     setResources({ ...resources, UploadPdf: e.target.files[0] });
   };
-  const onHandleEdit = (data) => {
-    const {
-      resourceId,
-      gradeId,
-      bookId,
-      chapterId,
-      pageId,
-      link
-    } = data;
-    if (data.resourceTypeName === "Audio") {
-      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, AudioLink: link })
+  const onHandleEdit = (data, edit) => {
+    if (edit === "edit") {
+      setEditForm(true);
     }
-    else if (data.resourceTypeName === "Video") {
-      setResources({ ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, VideoLink: link })
-    }
-    else if (data.resourceTypeName === "Article") {
-      setResources({
-        ...resources, ResourceId: resourceId, GradeId: gradeId, BookId: bookId, ChapterId: chapterId, PageId: pageId, ArticleLink: link
-      })
-    } else if (data.resourceTypeName === "Video") {
-      setResources({
-        ...resources,
-        ResourceId: resourceId,
-        GradeId: gradeId,
-        BookId: bookId,
-        ChapterId: chapterId,
-        PageId: pageId,
-        VideoLink: link
-      })
-    } else if (data.resourceTypeName === "Article") {
-      setResources({
-        ...resources,
-        ResourceId: resourceId,
-        GradeId: gradeId,
-        BookId: bookId,
-        ChapterId: chapterId,
-        PageId: pageId,
-        ArticleLink: link
-      })
-    } else if (data.resourceTypeName === "UploadPdf" && data.link.indexOf("pdf") < 0) {
+    const { resourceId, gradeId, bookId, chapterId, pageId, link } = data;
+    let convertedLink = JSON.parse(link)[0]
 
-      setResources({
-        ...resources,
-        ResourceId: resourceId,
-        GradeId: gradeId,
-        BookId: bookId,
-        ChapterId: chapterId,
-        PageId: pageId,
-        ArticleLink: link
-      })
-    }
+    setResources({
+      ResourceId: resourceId,
+      GradeId: gradeId,
+      BookId: bookId,
+      ChapterId: chapterId,
+      PageId: pageId,
+      VideoLink: convertedLink.VideoLink === "null" ? "" : convertedLink.VideoLink,
+      AudioLink: convertedLink.AudioLink === "null" ? "" : convertedLink.AudioLink,
+      editUploadPdf: convertedLink.PdfLink,
+      ArticleLink: convertedLink.ArticleLink === "null" ? "" : convertedLink.ArticleLink,
+      AudioLinkId: convertedLink.AudioLinkId,
+      VideoLinkId: convertedLink.VideoLinkId,
+      ArticleLinkId: convertedLink.ArticleLinkId,
+      PdfLinkId: convertedLink.PdfLinkId,
+    })
   }
+
   useEffect(() => {
-    editResouces();
     getGradeList();
   }, []);
-  const editResouces = () => {
-    const {
-      ResourceId,
-      GradeId,
-      BookId,
-      ChapterId,
-      PageId,
-      UploadPdf,
-      AudioLink,
-      VideoLink,
-      ArticleLink,
-    } = resources;
-    setResources({
-      ...resources,
-      ResourceId: ResourceId,
-      GradeId: GradeId,
-      BookId: BookId,
-      ChapterId: ChapterId,
-      PageId: PageId,
-      UploadPdf: UploadPdf,
-      AudioLink: AudioLink,
-      VideoLink: VideoLink,
-      ArticleLink: ArticleLink
-    });
-  };
 
+  useEffect(() => {
+    if (resources.GradeId) {
+      getBookList();
+    }
+  }, [editForm, resources.GradeId]);
+
+  useEffect(() => {
+    if (editForm) {
+      getChapterList();
+    }
+  }, [editForm, resources.BookId]);
+  useEffect(() => {
+
+    if (resources.ChapterId) {
+      getPageList();
+    }
+  }, [editForm, resources.ChapterId]);
 
   // get api //
   const getBookList = (value) => {
@@ -127,7 +115,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETBOOKSLISTBYGRADEID"],
         method: "GET",
-        data: { "GradeId": value },
+        data: { "GradeId": (value === undefined ? resources.GradeId : value) },
         onSuccess: (response) => {
           const bookListed = response.map((singledata) => {
             return { text: singledata.bookName, value: singledata.bookId };
@@ -139,8 +127,6 @@ function ResourcesPage() {
   };
   //  get api //
   const getGradeList = () => {
-    const ActiveGrades = true
-
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],
@@ -163,7 +149,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERLIST"],
         method: "GET",
-        data: { bookId: value },
+        data: { bookId: (value === undefined ? resources.BookId : value) },
         onSuccess: (response) => {
           const chapters = response.map((singledata) => {
             return {
@@ -181,7 +167,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERPAGES"],
         method: "GET",
-        data: { ChapterId: value },
+        data: { ChapterId: (value === undefined ? resources.ChapterId : value) },
         onSuccess: (response) => {
 
           const pages = response.map((singledata) => {
@@ -192,9 +178,17 @@ function ResourcesPage() {
       })
     );
   };
-
+  const onHandleDeletePdf = () => {
+    dispatch(apiCall({
+      urls: ["DELETEPDFRESOURCES"], method: "DELETE", data: { id: resources.PdfLinkId }, onSuccess: (response) => {
+        debugger
+        setResources(resources.editUploadPdf === "")
+        modalClose();
+        GridReload();
+      }, showNotification: true
+    }))
+  }
   const onHandleChange = (e, { data, value }) => {
-
     if (data.toLowerCase() === "gradeid") {
       getBookList(value);
     }
@@ -204,22 +198,32 @@ function ResourcesPage() {
     else if (data.toLowerCase() === "chapterid") {
       getPageList(value);
     }
-    setResources({
-      ...resources,
-      [data]: value
-    });
+    setResources({ ...resources, [data]: value });
   };
   const GridReload = () => {
     SetReload(!reload);
   };
   const cancelClear = () => {
+    setBooklist([])
+    setChapterList([])
+    setPageList([])
     setResources(initialValues);
   };
   const checkDisplayIcon = (link) => {
-    if (link?.indexOf("www.youtube.com") > -1) {
+    if (link?.indexOf("www.youtube.com") > 0) {
       return "youtube";
-    } else if (link?.indexOf("www.youtube.com") < 0) {
-      return "file audio outline";
+    }
+    if (link?.indexOf("Pdf") > 0) {
+      return "file pdf outline";
+    }
+    else {
+      return "linkify"
+    }
+  }
+  const checkDisplayIconPdf = (link) => {
+
+    if (link?.indexOf("Pdf") > 0) {
+      return "file pdf outline";
     }
   }
   const panes = [{
@@ -234,9 +238,7 @@ function ResourcesPage() {
               toggleApiName: "RESOURCESTOGGLE",
             }
           }
-            reload={
-              reload
-            }
+            reload={reload}
             searchOption={
               {
                 show: true,
@@ -276,8 +278,9 @@ function ResourcesPage() {
                 fieldName: "link",
                 isSorting: false,
                 Cell: (props) => {
-                  return (<a href={(props.link)} target="_blank">
-                    <Icon name={checkDisplayIcon(props.link)}
+
+                  return (<a href={(JSON.parse(props.link)[0].AudioLink)} target="_blank">
+                    <Icon name={checkDisplayIcon(JSON.parse(props.link)[0].AudioLink)}
                       className="primary-color"
                       link />
                   </a>
@@ -289,47 +292,14 @@ function ResourcesPage() {
                 fieldName: "Action",
                 isSorting: false,
                 Cell: (props, confirmModalOpen) => {
+                  const deleteAudio = JSON.parse(props.link)[0].AudioLinkId
                   return (
                     <>
-                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-                      <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")} />
+                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "edit")} />
+                      <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(deleteAudio, "delete")} />
                     </>
                   );
                 }
-              },
-              {
-                headerName: "Audio",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-                  return (
-                    <a href={(props.link)}
-                      target="_blank">
-                      <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
-                    </a>
-                  )
-                },
-              },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
-                Cell: (props, confirmModalOpen) => {
-                  return (
-                    <>
-                      <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-                      <Icon
-                        title="Delete"
-                        name="trash alternate"
-                        color="red"
-                        link
-                        onClick={() =>
-                          confirmModalOpen(props.resourceLinkId, "delete")
-                        }
-                      />
-                    </>
-                  );
-                },
               },
               ]}
           ></DataTable>
@@ -391,15 +361,9 @@ function ResourcesPage() {
                 fieldName: "link",
                 isSorting: false,
                 Cell: (props) => {
-                  return props.link ? (<a href={
-                    (props.link)
-                  }
-                    target="_blank" >
-                    <
-                      Icon name="youtube"
-                      className="primary-color"
-                      link />
-                  </a>) : ("-");
+                  return props.link ? (<a href={((JSON.parse(props.link)[0].VideoLink))}
+                    target="_blank">
+                    <Icon name="youtube" className="primary-color" link /> </a>) : ("-");
                 },
               },
               {
@@ -407,50 +371,20 @@ function ResourcesPage() {
                 fieldName: "Action",
                 isSorting: false,
                 Cell: (props, confirmModalOpen) => {
-                  return (<
-                    >
-                    <
-                      Icon title="Edit"
+                  const deleteVideo = JSON.parse(props.link)[0].VideoLinkId
+                  return (<>
+                    <Icon title="Edit"
                       name="edit"
-                      className="primary-color"
-                      link onClick={
-                        () => onHandleEdit(props)
-                      }
-                    /> <
-                      Icon title="Delete"
+                      className="primary-color" link onClick={() => onHandleEdit(props, "edit")}
+                    />
+                    <Icon title="Delete"
                       name="trash alternate"
                       color="red"
-                      link onClick={
-                        () =>
-                          confirmModalOpen(props.resourceLinkId, "delete")
-                      }
+                      link onClick={() => confirmModalOpen(deleteVideo, "delete")}
                     />
-
                   </>
                   );
                 }
-              },
-              {
-                headerName: "Action",
-                fieldName: "Action",
-                isSorting: false,
-                Cell: (props, confirmModalOpen) => {
-                  return (
-                    <>
-                      <Icon title="Edit" name="edit" className="primary-color" link
-                        onClick={() => onHandleEdit(props)} />
-                      <Icon
-                        title="Delete"
-                        name="trash alternate"
-                        color="red"
-                        link
-                        onClick={() =>
-                          confirmModalOpen(props.resourceLinkId, "delete")
-                        }
-                      />
-                    </>
-                  );
-                },
               },
               ]}
           ></DataTable>
@@ -493,7 +427,6 @@ function ResourcesPage() {
               fieldName: "bookName",
               isSorting: true,
             },
-
             {
               headerName: "Chapter",
               fieldName: "chapterName",
@@ -509,21 +442,24 @@ function ResourcesPage() {
               fieldName: "link",
               isSorting: false,
               Cell: (props) => {
-                return props.link?.indexOf("pdf") < 0 ? (<a href={(props.link)} target="_blank">
-                  <Icon name={checkDisplayIcon(props.link)}
+
+                const articleData = ((JSON.parse(props.link)[0].ArticleLink) ? JSON.parse(props.link)[0].ArticleLink : null)
+                return articleData?.indexOf("www.youtube.com") > 0 ? (<a href={articleData} target="_blank">
+                  <Icon name={checkDisplayIcon(articleData)}
                     className="primary-color" link />
                 </a>) : ("-");
               }
             },
             {
-              headerName: "Article",
+              headerName: "Pdf",
               fieldName: "link",
               isSorting: false,
               Cell: (props) => {
-                return props.link?.indexOf("pdf") < 0 ? (
-                  <a href={(props.link)}
+                const pdfData = ((JSON.parse(props.link)[0].PdfLink) ? JSON.parse(props.link)[0].PdfLink : null)
+                return pdfData?.indexOf("pdf") > 0 ? (
+                  <a href={commonFunctions.concatenateImageWithAPIUrl(pdfData)}
                     target="_blank">
-                    <Icon name={checkDisplayIcon(props.link)} className="primary-color" link />
+                    <Icon name={checkDisplayIconPdf(pdfData)} className="primary-color" link />
                   </a>
                 ) : ("-");
               },
@@ -533,14 +469,12 @@ function ResourcesPage() {
               fieldName: "Action",
               isSorting: false,
               Cell: (props, confirmModalOpen) => {
+                debugger
+                const deleteArticle = JSON.parse(props.link)[0].ArticleLinkId ? JSON.parse(props.link)[0].ArticleLinkId : JSON.parse(props.link)[0].PdfLinkId
                 return (
                   <>
-                    <Icon title="Edit" name="edit" className="primary-color"
-                      link onClick={
-                        () => onHandleEdit(props)
-                      }
-                    /> <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.resourceLinkId, "delete")}
-                    />
+                    <Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "edit")} />
+                    <Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(deleteArticle, "delete")} />
                   </>
                 );
               },
@@ -556,7 +490,7 @@ function ResourcesPage() {
     debugger
     const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-    if (isFormValid && AudioLink !== "" && VideoLink !== "" && ArticleLink !== "" && UploadPdf !== "") {
+    if (isFormValid && (AudioLink !== "" || (VideoLink !== "" && VideoLink !== null) || (ArticleLink !== "" && ArticleLink !== null) || (UploadPdf !== "" && UploadPdf !== undefined))) {
       var formData = commonFunctions.getFormData(resources);
       dispatch(
         apiCall({
@@ -564,28 +498,27 @@ function ResourcesPage() {
           method: "Post",
           data: formData,
           onSuccess: (response) => {
-
             GridReload();
             cancelClear();
+
+            setEditForm(false)
             setResources(initialValues);
+            simpleValidator.current.hideMessages();
           },
           showNotification: true,
         })
       );
-    } else if (AudioLink === "" && VideoLink === "" && ArticleLink === "" && UploadPdf === "") {
+    } else if ((AudioLink === "" || (VideoLink === "" && VideoLink === null) || (ArticleLink === "" && ArticleLink === null) || (UploadPdf === "" && UploadPdf === undefined))) {
       dispatch(Notifications.show({ title: "Error", message: 'Please add atleast one the resourc source.', position: 'br', autoDismiss: 2 }, "error"))
-
     }
   };
   return (
     <div className="common-shadow resources" >
       {
-        api.isApiLoading && (<
-          Dimmer active inverted >
+        api.isApiLoading &&
+        (<Dimmer active inverted>
           <Loader />
-        </Dimmer>
-
-        )}
+        </Dimmer>)}
       <Grid>
         <Grid.Column width={16}>
           <Header as="h3" className="commonHeading">
@@ -596,14 +529,6 @@ function ResourcesPage() {
           <Form>
             <Grid>
               <Grid.Column width="4">
-                {/* <GlobalCodeSelect
-                  label="Grade"
-                  placeholder="Grades"
-                  categoryType="Grades"
-                  onChange={onHandleChange}
-                  data="GradeId"
-                  value={resources.GradeId}
-                /> */}
                 <Form.Select
                   label="Grade"
                   placeholder="Grades"
@@ -612,7 +537,6 @@ function ResourcesPage() {
                   value={resources.GradeId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('GradeId', resources.GradeId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="4">
@@ -624,7 +548,6 @@ function ResourcesPage() {
                   value={resources.BookId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('BookId', resources.BookId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="4">
@@ -636,7 +559,6 @@ function ResourcesPage() {
                   value={resources.ChapterId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('ChapterId', resources.ChapterId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="4">
@@ -648,7 +570,6 @@ function ResourcesPage() {
                   value={resources.PageId}
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('PageId', resources.PageId, 'required')}
-
                 />
               </Grid.Column>
               <Grid.Column width="8">
@@ -658,7 +579,6 @@ function ResourcesPage() {
                   value={resources.AudioLink}
                   data="AudioLink"
                   onChange={onHandleChange}
-
                 />
               </Grid.Column>
               <Grid.Column width="8">
@@ -681,12 +601,21 @@ function ResourcesPage() {
               </Grid.Column>
               <Grid.Column width="8">
                 <Form.Input
+                  // ref={this.fileInputRef}
                   type="file"
                   label="Upload Pdf"
                   placeholder="Embed URL"
                   onChange={fileChange}
                   data="UploadPdf"
                 />
+                {resources.editUploadPdf &&
+                  <div>Download Pdf file
+                    <a href={commonFunctions.concatenateImageWithAPIUrl(resources.editUploadPdf)}
+                      target="_blank" rel="noreferrer">
+                      <Icon name={checkDisplayIconPdf(resources.editUploadPdf)} className="primary-color" link />
+                    </a>
+                    <Icon name="trash" onClick={() => confirmModalOpen(resources.PdfLinkId, "delete")} />
+                  </div>}
               </Grid.Column>
               <Grid.Column width="16" textAlign="right">
                 <Button className="secondaryBtn" onClick={cancelClear}> Cancel </Button>
@@ -703,6 +632,8 @@ function ResourcesPage() {
           </Form>
         </Grid.Column>
       </Grid>
+      <ConfirmModal open={confirmModal} onConfirm={onHandleDeletePdf} close={modalClose} message={"Do you want to delete pdf file ?"} />
+
     </div>
   );
 }

@@ -25,7 +25,6 @@ function PaymentManagementPage() {
 								<Table.Cell>Gold</Table.Cell>
 								<Table.Cell>June 25, 2021</Table.Cell>
 								<Table.Cell textAlign="right">
-									<Icon name="edit" className="primary-color" link/>
 									<Icon name="trash alternate" color="red" link/>
 								</Table.Cell>
 							</Table.Row>
@@ -34,7 +33,6 @@ function PaymentManagementPage() {
 								<Table.Cell>Silver</Table.Cell>
 								<Table.Cell>June 20, 2021</Table.Cell>
 								<Table.Cell textAlign="right">
-									<Icon name="edit" className="primary-color" link/>
 									<Icon name="trash alternate" color="red" link/>
 								</Table.Cell>
 							</Table.Row>
@@ -43,7 +41,6 @@ function PaymentManagementPage() {
 								<Table.Cell>Premium</Table.Cell>
 								<Table.Cell>July 05, 2021</Table.Cell>
 								<Table.Cell textAlign="right">
-									<Icon name="edit" className="primary-color" link/>
 									<Icon name="trash alternate" color="red" link/>
 								</Table.Cell>
 							</Table.Row>

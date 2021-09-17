@@ -1,10 +1,37 @@
-import React from "react";
-import { Form, Grid, Icon, Button, Table, TableCell } from "semantic-ui-react";
+import React,{useEffect, useState}from "react";
+import { Form, Grid, Icon, Button, Table, TableCell,Dropdown } from "semantic-ui-react";
 import { GlobalCodeMultiSelect } from "../../shared/components";
-
+import { useDispatch } from 'react-redux';
+import { apiCall } from "../../store/actions/api.actions";
 function ProfileStepThree(props) {
+	const [grade, setGradeList] = useState([]);
+	const dispatch = useDispatch();
 	const { onHandleChange, school, thirdSecondStep } = props;
 
+	useEffect(() => {
+		getGradeList();
+		
+	},[]);
+	//  get api //
+	const getGradeList = () => {
+		dispatch(
+			apiCall({
+				urls: ["GETGRADESLIST"],
+				method: "GET",
+				data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
+				onSuccess: (response) => {
+					const grade = response.map((singledata) => {
+					
+						return {
+							text: singledata.gradeName,
+							value: singledata.gradeId
+						};
+					});
+					setGradeList(grade);
+				},
+			})
+		);
+	};
 	return (
 		<Form>
 			<Grid>
@@ -15,7 +42,7 @@ function ProfileStepThree(props) {
 					<Form.Input placeholder='Position' onChange={onHandleChange} value={school.position} data="position" />
 				</Grid.Column>
 				<Grid.Column width={4}>
-					<GlobalCodeMultiSelect placeholder='Grade(s) taught' value={school.grades} categoryType="Grades" onChange={onHandleChange} data="grades" />
+				<Dropdown placeholder='Grade' fluid multiple selection onChange={onHandleChange} options={grade} data="grades" value={school.gradesgrades}/>
 				</Grid.Column>
 				<Grid.Column width={4} > <div className="statusToggle">
 					<Form.Checkbox label="CurrentPosition " toggle

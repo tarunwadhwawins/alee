@@ -7,7 +7,6 @@ import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions } from "../../../../functional/global-import";
 
 function AddStudent(props) {
-  debugger
   const auth = useSelector((state) => state.auth);
   const [grade, setGradeList] = useState(null);
   const initialValues = {
@@ -51,7 +50,7 @@ function AddStudent(props) {
     }
   };
   useEffect(() => {
-    debugger
+        
     if (props.editStudent) {
       editStudentlist();
     }

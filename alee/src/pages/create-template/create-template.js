@@ -40,6 +40,10 @@ function CreateTemplatePage() {
 		}))
 	}
 
+	const onHandleEdit = (e, text) => {
+		debugger
+		history.push(`${env.PUBLIC_URL}/drag/${e.templateId}`);
+	}
 	const onChangeTemplate = (e, { value }) => {
 		setTemplateName(value)
 	}
@@ -86,7 +90,7 @@ function CreateTemplatePage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon title="Edit" name="edit" className="primary-color" link />
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "edit")} />
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.templateId, "delete")} />
 										</>
 									);
