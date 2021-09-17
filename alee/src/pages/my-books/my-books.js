@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
 import ConfirmModal from "../../shared/components/organisms/modal/common-confirm-modal/index";
 import { Link, commonFunctions } from "../../shared/functional/global-import";
-import { storeMyBookData ,storeBookDetails, storeTags} from "../../store/actions/global.actions";
+import { storeMyBookData} from "../../store/actions/global.actions";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
 	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
-	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
+	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: ""})
 
 	// const [tagFields, setTagFields] = useState([]);
 	// const [fieldData, setFieldData] = useState([]);
@@ -65,7 +65,7 @@ function MyBookPage(props) {
 
 	// 	dispatch(apiCall({
 	// 		urls: ["GETTAGCUSTOMFIELDS"], method: "GET", data: { "PageNo ": 1, "PageSize ": 100 }, onSuccess: (response) => {
-	// 			debugger
+	// 			    
 	// 			setTagFields(response)
 	// 			let fieldName = [];
 	// 			response.filter(code => code.dataTypeName === "Dropdown").map((filtercode) => {
@@ -118,6 +118,7 @@ function MyBookPage(props) {
 				<Grid.Column width={16}>
 					<div className="booksResult myBooks">
 						{bookList && bookList.map((data, index) => {
+							   
 							return (
 								<Item.Group>
 									<Item>
@@ -126,9 +127,9 @@ function MyBookPage(props) {
 										<Item.Content >
 											<Item.Header onClick={() => addBookData(data)} as={Link} to={`${auth === "Admin" ? "book-flip" : "book-summary"}`}><span>{data.bookName}</span></Item.Header>
 											<Item.Meta><span>{data.author}</span></Item.Meta>
-											<Item.Description>
+											{/* <Item.Description>
 												{data.bookSummary !== null && JSON.parse(data.bookSummary).blocks[0].text}
-											</Item.Description>
+											</Item.Description> */}
 											<Item.Extra> {auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} /></div>}</Item.Extra>
 										</Item.Content>
 									</Item>

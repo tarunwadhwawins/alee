@@ -139,8 +139,6 @@ function ResourcesPage() {
   };
   //  get api //
   const getGradeList = () => {
-    const ActiveGrades = true
-
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],
@@ -553,7 +551,6 @@ function ResourcesPage() {
   },
   ];
   const onHandleSubmit = (e) => {
-    debugger
     const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
     if (isFormValid && AudioLink !== "" && VideoLink !== "" && ArticleLink !== "" && UploadPdf !== "") {

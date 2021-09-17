@@ -36,7 +36,7 @@ function AddChapterSummary(props) {
 	}, [props.openModal]);
 
 	const onHandleSubmit = (e) => {
-		debugger
+		    
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
 			dispatch(

@@ -26,7 +26,7 @@ function AddGrade(props) {
 		}
 	};
 	const onHandleSubmit = (e) => {
-		debugger
+		    
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
 			dispatch(
@@ -45,20 +45,20 @@ function AddGrade(props) {
 		}
 	};
 	const closeModal = () => {
-		debugger
+		    
 		setGrade(initialValues);
 		simpleValidator.current.hideMessages();
 		props.closeModal();
 	}
 	useEffect(() => {
-		debugger
+		    
 		if (props.editGradeToggle) {
 			editGradelist();
 		}
 	}, [props.editGradeToggle]);
 
 	const editGradelist = () => {
-		debugger
+		    
 		const { gradeId, gradeName, isActive, } = props.editGrade;
 		setGrade({ ...grade, gradeId: gradeId, gradeName: gradeName, isActive: isActive, });
 	};

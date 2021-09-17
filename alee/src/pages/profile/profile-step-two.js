@@ -45,7 +45,6 @@ function ProfileStepTwo(props) {
 					</Table.Header>
 					<Table.Body>
 						{props.formSecondStep && props.formSecondStep.map((singleData, index) => {
-
 							return (
 								<Table.Row key={index}>
 									<Table.Cell>{singleData.degree}</Table.Cell>

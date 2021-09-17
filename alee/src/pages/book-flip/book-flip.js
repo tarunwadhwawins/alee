@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Grid, Button, Header, Image, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Button, Header,Dimmer, Loader } from "semantic-ui-react";
 import HTMLFlipBook from 'react-pageflip';
 import { useDispatch, useSelector } from 'react-redux';
-import { storeBookDetails } from "../../../src/store/actions/global.actions";
+// import { storeBookDetails } from "../../../src/store/actions/global.actions";
 import { apiCall } from "../../store/actions/api.actions";
-import { animateScroll } from "react-scroll";
+// import { animateScroll } from "react-scroll";
 import { useHistory } from "react-router-dom";
 import LessonPlanCreationPage from "../../pages/lesson-plan-creation/lesson-plan-creation";
-import parse from 'html-react-parser';
+// import parse from 'html-react-parser';
 
 
 function BookFlipPage(props) {
@@ -105,8 +105,7 @@ function BookFlipPage(props) {
 				<Grid>
 					<Grid.Column width={16} className="bookFlipOuter">
 						<HTMLFlipBook width={550} height={600} size="stretch" minWidth={315} maxWidth={2000} minHeight={400} maxHeight={1533} maxShadowOpacity={0.5} showCover={true} mobileScrollSupport={true}
-							useMouseEvents={false} onFlip={onFlip} ref={pageFlip}
-						>
+							useMouseEvents={false} onFlip={onFlip} ref={pageFlip}>
 							{
 								(bookPageData && bookPageData.length > 0) ?
 									bookPageData.map((singleData, index) => {

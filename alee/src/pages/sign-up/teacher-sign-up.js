@@ -20,7 +20,7 @@ function TeacherSignup(props) {
     const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
     const onsubmit = (e) => {
-        debugger
+            
     
         const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
         if (isFormValid) {

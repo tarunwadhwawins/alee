@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Grid, Icon, Form, Button, Header, Image } from "semantic-ui-react";
-import { Link, commonFunctions } from "../../shared/functional/global-import";
+import {commonFunctions } from "../../shared/functional/global-import";
 import { apiCall } from "../../store/actions/api.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import ImageUploading from 'react-images-uploading';
@@ -42,9 +42,11 @@ function UploadPdfPage() {
 	const onHandleSubmit = (e) => {
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
+		
 			let formdata = commonFunctions.getFormData({ pdfFile: uploadExcel, bookCoverImage: bookCoverImage, bookTitle: bookTitle, author: author, grades: grades });
 			dispatch(apiCall({
 				urls: ["UPLOADPDF"], method: "POST", data: formdata, onSuccess: (response) => {
+					   
 					removeBook();
 				}, showNotification: true
 			}))
@@ -52,6 +54,7 @@ function UploadPdfPage() {
 	}
 
 	const onImageChange = (imageList) => {
+		   
 		setBookCoverImage(imageList)
 	}
 
@@ -82,7 +85,6 @@ function UploadPdfPage() {
 									{simpleValidator.current.message("grades", grades, "required")}
 								</div>
 							</Grid.Column>
-
 							<Grid.Column width={8}>
 								<ImageUploading value={bookCoverImage} onChange={onImageChange} dataURLKey="data_url">
 									{({
@@ -94,12 +96,12 @@ function UploadPdfPage() {
 												Cover Image
 											</Button>
 											{bookCoverImage.length <= 0 && <div className='uploadedImg'>
-												<Image src={commonFunctions.concatenateImageWithAPIUrl(null)} /></div>}
+									<Image src={commonFunctions.concatenateImageWithAPIUrl(null)} /></div>}
 											{bookCoverImage.map((image, index) => (
 												<div key={index} >
 													{image['data_url'] ?
-														<Image src={image['data_url']} alt="image" /> :
-														<Image src={image} alt="image" alt="image" />
+														<Image src={image['data_url']} alt="image"/> :
+														<Image src={image} alt="image" alt="image"/>
 													}
 													<Icon name="close" onClick={() => onImageRemove(index)} />
 												</div>
