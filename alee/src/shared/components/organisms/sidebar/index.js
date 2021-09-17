@@ -116,11 +116,11 @@ function Sidebar(props) {
 								<span>Manage Schools</span>
 							</Menu.Item>
 						</div>
-						<Menu.Item title="Scan Book" as={Link} to={`${env.PUBLIC_URL}/scan-book`} name='ScanBook' active={activeItem === 'ScanBook'} onClick={handleItemClick}>
+						{/*<Menu.Item title="Scan Book" as={Link} to={`${env.PUBLIC_URL}/scan-book`} name='ScanBook' active={activeItem === 'ScanBook'} onClick={handleItemClick}>
 							<Image src={ScanBookWhite} className="white" />
 							<Image src={ScanBookBlue} className="blue" />
 							<span>Scan Book</span>
-						</Menu.Item>
+						</Menu.Item>*/}
 						<Menu.Item title="Upload PDF" as={Link} to={`${env.PUBLIC_URL}/upload-pdf`} name='uploadpdf' active={activeItem === 'uploadpdf'} onClick={handleItemClick}>
 							<Image src={PdfBookWhite} className="white" />
 							<Image src={PdfBookBlue} className="blue" />

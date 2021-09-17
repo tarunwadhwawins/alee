@@ -50,7 +50,7 @@ function AddStudent(props) {
     }
   };
   useEffect(() => {
-    debugger
+        
     if (props.editStudent) {
       editStudentlist();
     }

@@ -127,8 +127,6 @@ function ResourcesPage() {
   };
   //  get api //
   const getGradeList = () => {
-    const ActiveGrades = true
-
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],

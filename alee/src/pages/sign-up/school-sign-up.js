@@ -22,7 +22,7 @@ function SchoolSignup(props) {
   }
 
   const onSubmit = (e) => {
-    debugger
+        
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
     if (isFormValid && (schoolForm.password === schoolForm.confirmPassword)) {
       dispatch(apiCall({

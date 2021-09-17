@@ -30,12 +30,12 @@ function LoginForm() {
     setLogInForm({ ...logInForm, [data]: value })
   }
   const onSubmit = (e) => {
-    debugger
+        
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
     if (isFormValid) {
       dispatch(apiCall({
         urls: ["LOGIN"], method: "Post", data: logInForm, onSuccess: (response) => {
-          debugger
+              
           if (response.isSuccess) {
             //dispatch(loginSuccess(response.role));
             dispatch(storeUserDetail(response));

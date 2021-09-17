@@ -4,14 +4,18 @@ import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
 import { storeBookDetails } from "../../../../store/actions/global.actions";
+import {commonFunctions } from "../../../functional/global-import";
 
-const trigger = (
-  <span>
-    <Image src={profile} /> Hello, Julie
-  </span>
-)
+
 
 function Header(props) {
+  const image = useSelector(state => state.auth.userDetail.image);
+  const name = useSelector(state => state.auth.userDetail.name);
+  const trigger = (
+    <span>
+  <Image  src={commonFunctions.concatenateImageWithAPIUrl(image)}/>{name}
+    </span>
+  )
   const api = useSelector(state => state.auth.userDetail.role)
   const dispatch = useDispatch();
 

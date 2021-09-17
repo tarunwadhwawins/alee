@@ -3,7 +3,7 @@ import { Grid, Modal, Button, Form, Dimmer, Loader } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
-import { commonFunctions } from "../../../../functional/global-import";
+// import { commonFunctions } from "../../../../functional/global-import";
 
 function AddSubAdmin(props) {
   const auth = useSelector((state) => state.auth);
@@ -144,7 +144,7 @@ function AddSubAdmin(props) {
                       placeholder="********"
                       value={subAdmin.password}
                       onChange={onHandleChange}
-                      error={simpleValidator.current.message('password', subAdmin.password, 'required|min:6|max:6')}
+                      error={simpleValidator.current.message('password', subAdmin.password, 'required|min:0|max:5')}
                     />
                   </Grid.Column>
                   <Grid.Column>
@@ -154,7 +154,7 @@ function AddSubAdmin(props) {
                       data="confirmPassword"
                       placeholder="********"
                       onChange={onHandleChange}
-                      error={simpleValidator.current.message('confirmPassword', subAdmin.confirmPassword, 'required|min:6|max:6')} />
+                      error={simpleValidator.current.message('confirmPassword', subAdmin.confirmPassword, 'required|min:0|max:6')} />
                   </Grid.Column>
                 </>
               )}

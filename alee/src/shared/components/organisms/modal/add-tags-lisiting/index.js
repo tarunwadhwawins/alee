@@ -104,7 +104,7 @@ function AddTagsListing(props) {
 		}))
 	}
 	const onUpdate = (e) => {
-		debugger
+		    
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
 			dispatch(apiCall({
