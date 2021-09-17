@@ -7,11 +7,9 @@ import { useSelector } from "react-redux";
 // import ImageUploading from 'react-images-uploading';
 // import { commonFunctions } from "../../shared/functional/global-import";
 function ProfileStepOne(props) {
-	   
 	const [school, setSchool] = useState([]);
 	const api = useSelector(state => state.api);
 	const [grade, setGradeList] = useState([]);
-
 	const dispatch = useDispatch();
 	useEffect(() => {
 		getSchoolList();
@@ -70,32 +68,6 @@ function ProfileStepOne(props) {
 						<Button className="primaryBtn" onChange={imageChange}>Browse Image<input type="file" /></Button>
 					</div>
 				</Grid.Column >
-				{/* <Grid.Column width={8}>
-								<ImageUploading value={image}onChange={imageChange}dataURLKey="data_url">
-									{({
-										imageList, onImageUpload, isDragging, dragProps, onImageRemove
-									}) => (
-										// write your building UI
-										<div className={image.length > 0 && 'coverImg'}>
-											<Button className="primaryBtn" onClick={onImageUpload} {...dragProps}>
-											Browse Image
-											</Button>
-											{bookCoverImage.length <= 0 && <div className='uploadedImg'>
-									<Image src={commonFunctions.concatenateImageWithAPIUrl(null)} /></div>}
-											{bookCoverImage.map((image, index) => (
-												<div key={index} >
-													{image['data_url'] ?
-														<Image src={image['data_url']} alt="image"/> :
-														<Image src={image} alt="image" alt="image"/>
-													}
-													<Icon name="close" onClick={() => onImageRemove(index)} />
-												</div>
-											))}
-										</div>
-									)}
-								</ImageUploading>
-							</Grid.Column> */}
-
 				<Grid.Column width={12}>
 					<Grid>
 						<Grid.Column width={8}>
