@@ -4,21 +4,12 @@ import { Link, env } from "../../shared/functional/global-import";
 import { Logo } from "../../shared/functional/global-image-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
-import { loginSuccess, storeUserDetail } from "../../../src/store/actions/auth.actions";
+import { storeUserDetail } from "../../../src/store/actions/auth.actions";
 import { storeGlobalCodes, storeTags } from "../../../src/store/actions/global.actions";
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from "react-hook-form";
 import ForgotPasswordModal from "../../shared/components/organisms/modal/forgot-password/forgot-password";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions } from "../../shared/functional/global-import";
-
-
-// const schema = yup.object().shape({
-//   email: yup.string().email("Email must be valid email").required("Email is required"),
-//   password: yup.string().required("Password is required"),
-// });
 
 function LoginForm() {
   const [forgotPasswordStatus, setForgotPasswordStatus] = React.useState(false)
@@ -29,14 +20,8 @@ function LoginForm() {
   const [fieldOptions, setFieldOptions] = useState([]);
 
   const [iconToggle, setIconToggle] = React.useState(false)
-  // const { register, handleSubmit, formState: { errors } } = useForm({
-  //   resolver: yupResolver(schema),
-  //   mode: 'onChange'
-  // });
   const [, forceUpdate] = useState()
   const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
-
-
   const [logInForm, setLogInForm] = useState({ email: "", password: "" })
   let history = useHistory();
   const dispatch = useDispatch();

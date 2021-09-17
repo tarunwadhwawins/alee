@@ -7,9 +7,9 @@ import { apiCall } from "../../../../store/actions/api.actions";
 import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index";
 
 function DataTable(props) {
-    
+
     const [values, setValues] = useState([])
-    const [gridObjects, setGridObjects] = useState({ pageNo: 1, pageSize: 100, sortArrow: "sort", orderBy:"", searchValue: "", orderByDescending:null, heading: "" })
+    const [gridObjects, setGridObjects] = useState({ pageNo: 1, pageSize: 100, sortArrow: "sort", orderBy: "", searchValue: "", orderByDescending: null, heading: "" })
     const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
@@ -25,6 +25,7 @@ function DataTable(props) {
         }))
     }
     const confirmModalOpen = (id, type, isActive) => {
+
         setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type, isActive: isActive })
     }
 

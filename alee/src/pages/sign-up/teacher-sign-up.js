@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import SimpleReactValidator from 'simple-react-validator';
-import { commonFunctions } from "../../shared/functional/global-import";
+import { commonFunctions, Notifications } from "../../shared/functional/global-import";
 
 function TeacherSignup(props) {
 
@@ -21,14 +21,17 @@ function TeacherSignup(props) {
 
     const onsubmit = (e) => {
         debugger
-    
+
         const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-        if (isFormValid) {
+        if (isFormValid &&
+            (teacherForm.password === teacherForm.confirmPassword)) {
             dispatch(apiCall({
                 urls: ["TEACHERREGISTRATION"], method: "Post", data: teacherForm, onSuccess: (response) => {
                     history.push(`${env.PUBLIC_URL}`);
                 }, showNotification: true
             }))
+        } if (teacherForm.password !== teacherForm.confirmPassword) {
+            dispatch(Notifications.show({ title: "Error", message: 'Password and confirm password not matched.', position: 'br', autoDismiss: 2 }, "error"))
         }
     }
 
