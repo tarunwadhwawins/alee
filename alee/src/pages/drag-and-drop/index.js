@@ -1,48 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import { FormBuilder} from "cb-react-forms";
+import { FormBuilder, FormGenerator } from "cb-react-forms";
 import { useDispatch, useSelector } from 'react-redux';
 import { commonFunctions, env } from "../../shared/functional/global-import";
 import { apiCall } from "../../store/actions/api.actions";
 import { useHistory, useParams } from "react-router-dom";
-// import { EffectFlip } from "swiper";
 
 function DragDropPage() {
+
     const globalCode = useSelector(state => state.global.codes)
     const dispatch = useDispatch();
     const templateId = useParams();
     let history = useHistory();
-    const [fields, setFields] = useState([])
+
     const exportForm = (data) => {
         console.log(data);
-        debugger
-        // const fields = [];
+        const fields = [];
         for (let i = 0; i < JSON.parse(data).length; i++) {
             const fieldsData = { templateFieldId: 0, fieldName: JSON.parse(data)[i].label.blocks[0].text, fieldDataTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "DataType", JSON.parse(data)[i].element)).globalCodeId, fieldOrder: i + 1, isRequired: JSON.parse(data)[0].required, categoryName: null }
-            // fields.push(fieldsData)
-            setFields(fieldsData)
+            fields.push(fieldsData)
         }
-
         dispatch(apiCall({
             urls: ["ADDTEMPLATEFIELDS"], method: "POST", data: { "templateId": templateId.id, "fields": fields, "isActive": true, "actionPerformedBy": "" }, onSuccess: (response) => {
                 history.push(`${env.PUBLIC_URL}/create-template`);
             }, showNotification: true
         }))
-    }
-    useEffect(() => {
-        onEditTemplate();
-    }, []);
-
-    const onEditTemplate = () => {
-        debugger
-        dispatch(apiCall({
-            urls: ["GETTEMPLATEFIELDSLIST"], method: "GET", data: { "templateId": templateId.id }, onSuccess: (response) => {
-                //    const fields.push(response)
-                debugger
-                // setFields(response)
-                items.push(response)
-            }
-        }));
     }
 
     const items = [
