@@ -67,7 +67,7 @@ function SchoolSignup(props) {
           </Grid.Column>
           <Grid.Column width={8} >
             <Form.Input label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
-              error={simpleValidator.current.message('password', schoolForm.password, 'required|password')}
+              error={simpleValidator.current.message('password', schoolForm.password, 'required|password|')}
             />
             {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
             {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
