@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Grid, Button, Form } from "semantic-ui-react";
+import { Grid, Button, Form, Icon } from "semantic-ui-react";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
@@ -10,6 +10,8 @@ import { commonFunctions, Notifications } from "../../shared/functional/global-i
 function TeacherSignup(props) {
 
     const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "", actionPerformedBy: "", userId: "", excelReferenceId: null, teacherId: null, schoolId: 0 })
+    const [iconToggle, setIconToggle] = React.useState(false)
+    const [iconToggleConfirm, setIconToggleConfirm] = React.useState(false)
     let history = useHistory();
     const onHandleChange = (e, { value, data }) => {
         setTeacherForm({ ...teacherForm, [data]: value })
@@ -34,7 +36,12 @@ function TeacherSignup(props) {
             dispatch(Notifications.show({ title: "Error", message: 'Password and confirm password not matched.', position: 'br', autoDismiss: 2 }, "error"))
         }
     }
-
+    const passwordToggle = () => {
+        setIconToggle(!iconToggle)
+    }
+    const confirmPasswordToggle = () => {
+        setIconToggleConfirm(!iconToggleConfirm)
+    }
     return (
         <Form onSubmit={onsubmit}  >
             <Grid>
@@ -63,14 +70,20 @@ function TeacherSignup(props) {
                     />
                 </Grid.Column>
                 <Grid.Column width={8} >
-                    <Form.Input label="Password" placeholder="********" type="password" data="password" onChange={onHandleChange}
+                    <Form.Input label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
                         error={simpleValidator.current.message('password', teacherForm.password, 'required')}
                     />
+                    {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
+                    {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
+
                 </Grid.Column>
                 <Grid.Column width={8} >
-                    <Form.Input label="Confirm Password" placeholder="********" type="password" data="confirmPassword" onChange={onHandleChange}
+                    <Form.Input label="Confirm Password" placeholder="********" type={iconToggleConfirm ? "" : "password"} data="confirmPassword" onChange={onHandleChange}
                         error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword, 'required')}
                     />
+                    {!iconToggleConfirm && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}
+                    {iconToggleConfirm && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}
+
                 </Grid.Column>
 
                 <Grid.Column width={8} textAlign="right">

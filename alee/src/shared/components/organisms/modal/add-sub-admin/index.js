@@ -3,7 +3,7 @@ import { Grid, Modal, Button, Form, Dimmer, Loader } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
-// import { commonFunctions } from "../../../../functional/global-import";
+import { Notifications } from "../../../../functional/global-import";
 
 function AddSubAdmin(props) {
   const auth = useSelector((state) => state.auth);
@@ -57,12 +57,16 @@ function AddSubAdmin(props) {
   };
 
   const onHandleSubmit = () => {
-               
+    debugger
     const formValid = simpleValidator.current.allValid()
     if (!formValid) {
       simpleValidator.current.showMessages();
       forceUpdate(true);
-    } else if (props.modalType === "ADD") {
+    }
+    if (subAdmin.password !== subAdmin.confirmPassword) {
+      dispatch(Notifications.show({ title: "Error", message: 'Password and confirm password not matched.', position: 'br', autoDismiss: 2 }, "error"))
+    }
+    if (props.modalType === "ADD" && (subAdmin.password === subAdmin.confirmPassword) && (subAdmin.password !== "" && subAdmin.confirmPassword !== "")) {
       dispatch(
         apiCall({
           urls: ["SUBADMINREGISTRATION"],
@@ -78,7 +82,7 @@ function AddSubAdmin(props) {
           showNotification: true,
         })
       );
-    } else {
+    } if (props.modalType !== "ADD") {
       dispatch(
         apiCall({
           urls: ["UPDATESUBADMIN"],
@@ -136,15 +140,15 @@ function AddSubAdmin(props) {
                       error={simpleValidator.current.message('email', subAdmin.email, 'required|email')}
                     />
                   </Grid.Column>
-
                   <Grid.Column>
                     <Form.Input
                       label="Password"
                       data="password"
                       placeholder="********"
+                      type="password"
                       value={subAdmin.password}
                       onChange={onHandleChange}
-                      error={simpleValidator.current.message('password', subAdmin.password, 'required|min:0|max:5')}
+                      error={simpleValidator.current.message('password', subAdmin.password, 'required|min:6|max:150')}
                     />
                   </Grid.Column>
                   <Grid.Column>
@@ -153,8 +157,9 @@ function AddSubAdmin(props) {
                       value={subAdmin.confirmPassword}
                       data="confirmPassword"
                       placeholder="********"
+                      type="password"
                       onChange={onHandleChange}
-                      error={simpleValidator.current.message('confirmPassword', subAdmin.confirmPassword, 'required|min:0|max:6')} />
+                      error={simpleValidator.current.message('confirmPassword', subAdmin.confirmPassword, 'required|min:6|max:150')} />
                   </Grid.Column>
                 </>
               )}
