@@ -55,7 +55,6 @@ function AddSubAdmin(props) {
       });
     }
   };
-
   const onHandleSubmit = () => {
     debugger
     const formValid = simpleValidator.current.allValid()
@@ -97,7 +96,6 @@ function AddSubAdmin(props) {
       );
     }
   };
-
   const closeModal = () => {
     simpleValidator.current.hideMessages();
     props.closeModal();
@@ -195,5 +193,4 @@ function AddSubAdmin(props) {
     </Modal>
   );
 }
-
 export default AddSubAdmin;
