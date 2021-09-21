@@ -13,6 +13,7 @@ function AddChapter(props) {
 		chapterSummary: "",
 		bookId: bookId,
 		actionPerformedBy: "string"
+		
 	}
 	const [chapter, setChapter] = useState(initialValues);
 	const api = useSelector((state) => state.api);

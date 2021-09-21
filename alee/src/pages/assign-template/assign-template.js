@@ -35,8 +35,8 @@ function AssignTemplatePage() {
 				<Grid.Column width={16}>
 
 					<DataTable
-						allApi={{ getApiName: "GETASSIGNEDTEMPLATES", deleteApiName: "DELETEASSIGNEDTEMPLATE", toggleApiName: "TOGGLEASSIGNEDTEMPPLATE" }} reload={reload}
-						additionalParams={{ SchoolId: -1 }}
+						allApi={{ getApiName: "GETASSIGNEDTEMPLATES", deleteApiName:"DELETEASSIGNEDTEMPLATE", toggleApiName:"TOGGLEASSIGNEDTEMPPLATE" }} reload={reload}
+						additionalParams={{ SchoolId: -1}}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="assigned template"
 						columns={[
@@ -64,7 +64,7 @@ function AssignTemplatePage() {
 							{
 								headerName: "Status",
 								fieldName: "isActive",
-								isSorting: false,
+								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherTemplateDetailId, "update", props.isActive)} />

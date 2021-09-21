@@ -149,7 +149,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERLIST"],
         method: "GET",
-        data: { bookId: (value === undefined ? resources.BookId : value) },
+        data: { bookId: (value === undefined ? resources.BookId:value),OrderBy: "PageNo", OrderByDescending:true},
         onSuccess: (response) => {
           const chapters = response.map((singledata) => {
             return {
@@ -236,6 +236,7 @@ function ResourcesPage() {
               getApiName: "GETRESOURCESLIST",
               deleteApiName: "DELETERESOURCES",
               toggleApiName: "RESOURCESTOGGLE",
+              OrderBy: "ModifiedDate", OrderByDescending:true,
             }
           }
             reload={reload}
@@ -249,7 +250,9 @@ function ResourcesPage() {
               {
                 resourceTypeId: 18
               }
+
             }
+
             messageInModal="audio"
             columns={
               [{

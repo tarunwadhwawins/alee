@@ -51,8 +51,7 @@ function TeacherSignup(props) {
                     />
                 </Grid.Column>
                 <Grid.Column width={8} >
-                    <Form.Input label="Last Name" placeholder="Last Name" data="lastName" onChange={onHandleChange}
-                    />
+                    <Form.Input label="Last Name" placeholder="Last Name" data="lastName" onChange={onHandleChange}/>
                 </Grid.Column>
                 <Grid.Column width={8} >
                     <Form.Input label="Email" placeholder="abc@gmail.com" data="email" onChange={onHandleChange}
@@ -60,18 +59,20 @@ function TeacherSignup(props) {
                     />
                 </Grid.Column>
                 <Grid.Column width={8} >
-                    <Form.Input label="Phone Number" placeholder="(123) 456-7890" data="contactNo" onChange={onHandleChange}
+                    <Form.Input label="Phone Number" placeholder="+1(123) 456-7890" data="contactNo" onChange={onHandleChange} maxLength={10}
                         error={simpleValidator.current.message('contactNo', teacherForm.contactNo, 'required')}
                     />
                 </Grid.Column>
-                <Grid.Column width={8} >
+                {/* <Grid.Column width={8} >
                     <Form.Input label="Address" placeholder="Address" data="address" onChange={onHandleChange}
                         error={simpleValidator.current.message('address', teacherForm.address, 'required')}
                     />
-                </Grid.Column>
+                </Grid.Column> */}
                 <Grid.Column width={8} >
                     <Form.Input label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
-                        error={simpleValidator.current.message('password', teacherForm.password, 'required')}
+                        // error={simpleValidator.current.message('password', teacherForm.password, 'required')}
+                        error={teacherForm.password ? simpleValidator.current.message("password", teacherForm.password , "required|min:6|max:20") :
+                        simpleValidator.current.message("password", teacherForm.password, "min:6|max:20")}
                     />
                     {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
                     {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
@@ -79,7 +80,11 @@ function TeacherSignup(props) {
                 </Grid.Column>
                 <Grid.Column width={8} >
                     <Form.Input label="Confirm Password" placeholder="********" type={iconToggleConfirm ? "" : "password"} data="confirmPassword" onChange={onHandleChange}
-                        error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword, 'required')}
+                        // error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword, 'required')}
+                        error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword,
+                        `validConfirmPassword:${teacherForm.confirmPassword}`)}
+
+
                     />
                     {!iconToggleConfirm && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}
                     {iconToggleConfirm && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}

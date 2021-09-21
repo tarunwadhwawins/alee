@@ -10,7 +10,7 @@ import ProfileStepFour from "./profile-step-four";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
-const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "",actionPerformedBy: "" }
+const initialState = { schoolId: null, grades: [],teacherId: null, subjectId: null, image: "",actionPerformedBy: "" }
 const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "",index: null, updateButtonEducation: false,
  teacherEducationDetailId:0 }
 const initialSchool = { institute: "", position: "", grades:[],isCurrent: true, index: null, updateButtonSchool: false,teacherWorkExperienceId:0 }
@@ -84,13 +84,12 @@ function MyProfile(props) {
     }
   };
   const onChangeFirststep = (e, { data, value }) => {
-       
     setValues({ ...values, [data]: value });
   }
   ////onchange///
   const onChangeSecondStep = (e, { data, value, checked, type }) => {
     const qualificationValue = type === "checkbox" ? checked : value;
-    setsecondstepValues({ ...secondstepValues, [data]: qualificationValue })
+    setsecondstepValues({...secondstepValues, [data]: qualificationValue})
   }
   const onChangeFourstep = (e, { value }) => {
     setSkilled(value);
@@ -111,14 +110,7 @@ function MyProfile(props) {
       setValues({ ...values, imageurl: window.URL.createObjectURL(e.target.files[0]), image: e.target.files[0] });
     }
   };
-  // const imageChange = (imageList) => {
-  // 	    
-  // 	setImage(imageList);
-  //   setValues(imageList);
-  // }
-  // const removeSelectedImage = () => {
-  //   setValues();
-  // };
+
   /////////////-Second Step-/////////////
   const addMoreQualification = () => {
     setFormSecondStep(formSecondStep.concat({ degree: secondstepValues.degree, college: secondstepValues.college, 

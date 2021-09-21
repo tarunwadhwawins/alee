@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Header, Button, Label, Table, Icon, Form } from "semantic-ui-react";
+import { Grid, Header, Button,Icon,Form } from "semantic-ui-react";
 import AddGrade from "../../shared/components/organisms/modal/add-grade/index"
 import { DataTable } from "../../../src/shared/components/organisms";
 
@@ -48,7 +48,7 @@ function AddGradePage() {
 							{
 								headerName: "Status",
 								fieldName: "isActive",
-								isSorting: false,
+								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.gradeId, "update", props.isActive)} />

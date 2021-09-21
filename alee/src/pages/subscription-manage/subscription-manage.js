@@ -58,7 +58,7 @@ function SubscriptionManagePage() {
               {
                 headerName: "Status",
                 fieldName: "isActive",
-                isSorting: false,
+                isSorting: true,
                 Cell: (props, confirmModalOpen) => {
                   return (
                     <Form.Checkbox

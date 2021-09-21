@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { Grid, Icon, Header, Button, Table, Label, Form } from "semantic-ui-react";
 import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
 import AddTemplateModal from "../../shared/components/organisms/modal/add-template/index"
 import { Link, env } from "../../shared/functional/global-import";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { apiCall } from "../../store/actions/api.actions";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { useHistory } from "react-router-dom";
+import SimpleReactValidator from 'simple-react-validator';
+import { commonFunctions } from "../../shared/functional/global-import";
 
 function CreateTemplatePage() {
+	const [, forceUpdate] = useState()
+	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const [lesson, setLesson] = useState(false)
 	const [template, setTemplate] = useState(false)
 	const [reload, setReload] = useState(false)
-	const [templateName, setTemplateName] = useState("")
+	const [templateName, setTemplateName] = useState("");
+	
 
 	const dispatch = useDispatch();
 	let history = useHistory();
@@ -27,10 +32,11 @@ function CreateTemplatePage() {
 		setReload(!reload)
 	}
 
-	const onSubmitTemplate = () => {
+	const onSubmitTemplate = (e) => {
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
 		dispatch(apiCall({
-			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: {
-				"templateId": null, "templateName": templateName, "isActive": true,
+			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: {"templateId": null, "templateName": templateName, "isActive": true,
 				"actionPerformedBy": ""
 			}, onSuccess: (response) => {
 				openModal2();
@@ -38,6 +44,7 @@ function CreateTemplatePage() {
 				history.push(`${env.PUBLIC_URL}/drag/${response.id}`);
 			}, showNotification: true
 		}))
+	}
 	}
 
 	const onHandleEdit = (e, text) => {
@@ -76,7 +83,7 @@ function CreateTemplatePage() {
 							{
 								headerName: "Status",
 								fieldName: "isActive",
-								isSorting: false,
+								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.templateId, "update", props.isActive)} />
@@ -101,7 +108,7 @@ function CreateTemplatePage() {
 				</Grid.Column>
 			</Grid>
 			<LessonPlanCustomModal openModal={lesson} closeModal={openModal} />
-			<AddTemplateModal openModal={template} closeModal={openModal2} onChangeTemplate={onChangeTemplate} onSubmitTemplate={onSubmitTemplate} />
+			<AddTemplateModal openModal={template} closeModal={openModal2} onChangeTemplate={onChangeTemplate} onSubmitTemplate={onSubmitTemplate} templateName={templateName} simpleValidator={simpleValidator} />
 		</div>
 	);
 }

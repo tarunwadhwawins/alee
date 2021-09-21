@@ -74,15 +74,20 @@ function AddAssignTemplate(props) {
 		setValues({ ...values, [data]: value });
 	}
 
-	const onHandleChangeToggle = (e, { checked }) => {
-		setValues({ ...values, isActive: checked });
-	}
+	// const onHandleChangeToggle = (e, { checked }) => {
+	// 	setValues({ ...values, isActive: checked });
+	// }
+	const onHandleChangeToggle = (e, {data,checked, type }) => {
+		debugger
+		if (type === "checkbox") {
+			setValues({ ...values, [data]: checked });
+		}
+	  };
 	const onSubmit = (e) => {
 		const isFormValid = commonFunctions.onHandleFormSubmit(e,simpleValidator, forceUpdate);
 		if (isFormValid) {
 			dispatch(apiCall({
 				urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
-					debugger;
 					closeModal();
 					props.GridReload();
 					setValues(initialState);
@@ -97,7 +102,9 @@ function AddAssignTemplate(props) {
 		setValues(initialState);
 	}
 	useEffect(() => {
+		if(props.editData){
 		editChapterlist();
+		}
 	}, [props.editData]);
 
 	const editChapterlist = () => {
@@ -139,7 +146,11 @@ function AddAssignTemplate(props) {
 								<p>Status</p>
 								<div className="statusToggle">
 									<span>Inactive</span>
-									<Form.Checkbox label="Active" toggle className="commonToggle" checked={values.isActive ? true : false} onChange={onHandleChangeToggle} />
+									<Form.Checkbox label="Active" toggle className="commonToggle"
+									 checked={values.isActive ? false:true} 
+									 value={values.isActive}
+									 data="isActive"
+									 onChange={onHandleChangeToggle} />
 								</div>
 							</Grid.Column>
 						</Grid>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Grid, Header, Form, Button, Table, Dimmer, Loader, Icon } from "semantic-ui-react";
 import { apiCall } from "../../store/actions/api.actions";
 import { useSelector, useDispatch } from 'react-redux';
-import { commonFunctions, Link, env } from "../../shared/functional/global-import";
+import { commonFunctions, env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
 import ConfirmModal from "./confirm-excel-modal";
 
@@ -65,12 +65,10 @@ function UploadExcelPage() {
 			setSelectedTeachers(st)
 		}
 	}
-
 	const modalOpen = (e) => {
 		setUseOfModal(e)
 		setModalStatus(!modalStatus)
 	}
-
 	const selectAll = () => {
 		if (excelData.length !== selectedTeachers.length) {
 			setSelectedTeachers(excelData.map(teacher => teacher.Id))
@@ -79,13 +77,12 @@ function UploadExcelPage() {
 			setSelectedTeachers([])
 		}
 	}
-
 	const onSaveExcel = () => {
-		    
+
 		let formdata = commonFunctions.getFormData({ ids: selectedTeachers, schoolId: schoolId });
 		dispatch(apiCall({
 			urls: ["ADDTEACHEREXCEL"], method: "POST", data: formdata, onSuccess: (response) => {
-				    
+
 				modalOpen();
 				history.push(`${env.PUBLIC_URL}/school-manage-teachers`);
 			}, showNotification: true

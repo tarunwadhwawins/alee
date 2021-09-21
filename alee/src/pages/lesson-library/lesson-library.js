@@ -92,7 +92,7 @@ function LessonLibrary() {
 				<Grid.Column computer={8} tablet={8}>
 					<Input fluid icon="search" name="searchValue"
 						onKeyPress={handleKeyPress}
-						data="SearchValue" iconPosition="left" placeholder="Search by Book Title"
+						data="SearchValue" iconPosition="left" placeholder="Search by Book Title,Author"
 						className="common-search-bar" />
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">

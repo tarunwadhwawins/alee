@@ -53,7 +53,7 @@ function ManageTeacherPage() {
 							{
 								headerName: "Status",
 								fieldName: "createdAt",
-								isSorting: false,
+								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update", props.isActive)} />

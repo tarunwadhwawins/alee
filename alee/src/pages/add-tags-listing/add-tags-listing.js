@@ -56,7 +56,7 @@ function AddTagsListingPage(props) {
 							{
 								headerName: "Status",
 								fieldName: "isActive",
-								isSorting: false,
+								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.tagId, "update", props.isActive)} />

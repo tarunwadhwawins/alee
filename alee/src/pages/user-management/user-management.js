@@ -62,7 +62,7 @@ function UserManagementPage(props) {
 					{
 						headerName: "Approved",
 						fieldName: "isUser",
-						isSorting: false,
+						isSorting: true,
 						Cell: (props, confirmModalOpen) => {
 							return (
 								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.userId, "approve", props.isActive)} />
