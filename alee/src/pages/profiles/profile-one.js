@@ -3,10 +3,10 @@ import { Form, Grid, Button, Image, Header } from "semantic-ui-react";
 import { useDispatch } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
 import { profile } from "../../shared/functional/global-image-import";
-import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import {env } from "../../shared/functional/global-import";
 function ProfileOne(props) {
-    const [schoolData, setSchoolData] = useState(null);
+    const [schoolData, setSchoolData] = useState([]);
     const schoolId = useSelector(state => state.auth.userDetail.schoolId);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -35,7 +35,8 @@ function ProfileOne(props) {
             <Grid>
 
                 <Grid.Column width={16}>
-                    <Header as="h3" className="commonHeading" onClick={() => onHandleEdit(schoolData)}>Manage Profile</Header>
+                    <Header as="h3" className="commonHeading"
+                        to={`${env.PUBLIC_URL}/profile-school/${props.schoolId}`}>Manage Profile</Header>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <div className="setImg">

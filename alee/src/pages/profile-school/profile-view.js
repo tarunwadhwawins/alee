@@ -8,8 +8,7 @@ import { useParams } from 'react-router-dom';
 function ProfileView() {
 	const schoolId = useParams();
 	const api = useSelector(state => state.api);
-	const [schoolData, setSchoolData] = useState(null);
-
+	const [schoolData, setSchoolData] = useState([]);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		getTeacherProfile();
