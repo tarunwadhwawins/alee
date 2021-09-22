@@ -51,7 +51,8 @@ function TeacherSignup(props) {
                     />
                 </Grid.Column>
                 <Grid.Column width={8} >
-                    <Form.Input label="Last Name" placeholder="Last Name" data="lastName" onChange={onHandleChange}/>
+                    <Form.Input label="Last Name" placeholder="Last Name" data="lastName" onChange={onHandleChange}
+                    error={simpleValidator.current.message('lastName', teacherForm.lastName, 'required')}/>
                 </Grid.Column>
                 <Grid.Column width={8} >
                     <Form.Input label="Email" placeholder="abc@gmail.com" data="email" onChange={onHandleChange}
