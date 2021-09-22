@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Divider, Form, Grid, Header,Icon } from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
 import Moment from "react-moment";
-import { useDispatch } from 'react-redux';
 import { DataTable } from "../../../src/shared/components/organisms";
 import { logDOM } from "@testing-library/dom";
 
 function UserManagementPage(props) {
 	const [student, setStudent] = useState(false)
-	const [popUpMessage, setPopUpMessage] = useState()
-	const dispatch = useDispatch();
+	const [popup,setPopup]=useState(null)
 
 	const openModal = () => {
 		setStudent(!student)
@@ -68,31 +66,30 @@ function UserManagementPage(props) {
 							debugger
 							return (
 								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => {
-									setPopUpMessage(props.roleName);
 									confirmModalOpen(props.userId, "approve", props.isActive);
 								}
 								} />
 							);
 						},
 					},
-					{
-						headerName: "Action",
-						fieldName: "Action",
-						isSorting: false,
-						Cell: (props, confirmModalOpen) => {
-							     ;
-							return (
-								<>
-									<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.userId,props.roleName, "delete",)} />
-								</>
-							);
-						},
-					},
+					// {
+					// 	headerName: "Action",
+					// 	fieldName: "Action",
+					// 	isSorting: false,
+					// 	Cell: (props, confirmModalOpen) => {
+					// 		     ;
+					// 		return (
+					// 			<>
+					// 			props.roleName
+					// 				<Icon title="Delete" name="trash alternate" color="red" link onClick={() => { confirmModalOpen(props.userId,props.roleName, "delete",)}} />
+					// 			</>
+					// 		);
+					// 	},
+					// },
 				]}
 
 			></DataTable>
 			<div>
-			{/* <ConfirmModal open={confirmModal} onConfirm={onHandleDelete} close={modalClose} message={"Do you want to delete this book ?"} /> */}
 			</div>
 		</div>
 	);
