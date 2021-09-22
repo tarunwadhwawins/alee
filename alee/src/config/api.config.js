@@ -102,6 +102,7 @@ const API_ENDPOINTS = {
   DELETEPDFRESOURCES: "/Resource/DeletePdfResources",
   DELETEUSER: "/Authentication/DeleteUser",
   GETTEMPLATEFIELD:"/Template/GetTemplateFieldsList",
+  CHANGEPASSWORD:"/Authentication/ChangePassword"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];
