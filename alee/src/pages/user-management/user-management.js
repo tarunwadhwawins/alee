@@ -7,6 +7,7 @@ import { logDOM } from "@testing-library/dom";
 
 function UserManagementPage(props) {
 	const [student, setStudent] = useState(false)
+	const [popup,setPopup]=useState(null)
 
 	const openModal = () => {
 		setStudent(!student)
@@ -65,7 +66,7 @@ function UserManagementPage(props) {
 							debugger
 							return (
 								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => {
-									confirmModalOpen(props.userId,props.roleName, "approve", props.isActive);
+									confirmModalOpen(props.userId, "approve", props.isActive);
 								}
 								} />
 							);
