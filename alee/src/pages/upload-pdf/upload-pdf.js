@@ -27,8 +27,10 @@ function UploadPdfPage() {
 		debugger;
 		const files = event.target.files;
 		if (event.target.files.length > 0) {
-		setFileName(event.target.files[0].name)}
-		setUploadExcel(files)}
+			setFileName(event.target.files[0].name)
+		}
+		setUploadExcel(files)
+	}
 	const removeBook = () => {
 		setFileName("");
 		setUploadExcel(initialState);
@@ -36,17 +38,27 @@ function UploadPdfPage() {
 		setAuthor("");
 		setGrades([]);
 		setBookCoverImage([]);
-		
+
 	}
 
 	const onHandleSubmit = (e) => {
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
-			let formdata = commonFunctions.getFormData({ pdfFile: uploadExcel, bookCoverImage: bookCoverImage, bookTitle: bookTitle, author: author, Grades: grades });
+			debugger
+			var formData = new FormData();
+			formData.append('pdfFile', uploadExcel[0])
+			formData.append('bookCoverImage', bookCoverImage[0].file)
+			formData.append('bookTitle', bookTitle)
+			formData.append('author', author)
+			grades.grades.forEach((gradedata, index) => {
+				formData.append(`Grades[${index}]`, gradedata)
+			})
+			// let formdata = commonFunctions.getFormData({ pdfFile: uploadExcel, bookCoverImage: bookCoverImage, bookTitle: bookTitle, author: author, Grades: grades.grades });
 			dispatch(apiCall({
-				urls: ["UPLOADPDF"], method: "POST", data: formdata, onSuccess: (response) => {
+				urls: ["UPLOADPDF"], method: "POST", data: formData, onSuccess: (response) => {
 					debugger;
 					removeBook();
+					setGrades([]);
 				}, showNotification: true
 			}))
 		}
@@ -77,7 +89,7 @@ function UploadPdfPage() {
 			})
 		);
 	};
-	const onHandleChange = (e,{ data, value }) => {
+	const onHandleChange = (e, { data, value }) => {
 		debugger;
 		setGrades({ ...grades, [data]: value });
 	}
@@ -107,8 +119,8 @@ function UploadPdfPage() {
 										error={simpleValidator.current.message('grades', grades, 'required')}
 									/> */}
 									<Dropdown placeholder='Grade' fluid multiple selection onChange={onHandleChange}
-										data="grades" options={grade} value={grades.grades} 
-										 />
+										data="grades" options={grade}
+									/>
 									{simpleValidator.current.message("grades", grades, "required")}
 								</div>
 							</Grid.Column>

@@ -9,7 +9,7 @@ import ConfirmModal from "../../../components/organisms/modal/common-confirm-mod
 function DataTable(props) {
 
     const [values, setValues] = useState([])
-    const [gridObjects, setGridObjects] = useState({ pageNo: 1, pageSize: 100, sortArrow: "sort", orderBy: "ModifiedDate", searchValue: "", orderByDescending:true, heading: "" })
+    const [gridObjects, setGridObjects] = useState({ pageNo: 1, pageSize: 100, sortArrow: "sort", orderBy: "ModifiedDate", searchValue: "", orderByDescending: true, heading: "" })
     const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)

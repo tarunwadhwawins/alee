@@ -30,7 +30,6 @@ function LessonPlanCreationPage(props) {
 	const openModal2 = () => {
 		setNotes(!notes)
 	}
-
 	const onTemplateChange = (e, { value }) => {
 		setLessonPlan({ ...lessonPlan, templateId: value })
 		dispatch(apiCall({
