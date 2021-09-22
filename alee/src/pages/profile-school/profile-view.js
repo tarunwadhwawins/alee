@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Header, Image, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Header, Image, Dimmer, Loader,List } from "semantic-ui-react";
 import { useDispatch } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
 import { useSelector } from "react-redux";
@@ -39,6 +39,7 @@ function ProfileView() {
 							<div className="profileImgOuter">
 								<div className="profileImg">
 								<Image src={commonFunctions.concatenateImageWithAPIUrl(schoolProfile.image)} />
+                               
 								</div>
 							</div>
 
@@ -46,7 +47,17 @@ function ProfileView() {
 								<Header as='h3' className="commonHeading">
 									{schoolProfile.schoolName}
 								</Header>
+								<List horizontal className="gradePlan">
+										<List.Item>
+											<List.Content>
+												<span>{schoolProfile.noOfAssociatedTeachers}</span>
+												<List.Header>AssociatedTeachers</List.Header>
+											</List.Content>
+										</List.Item>
+									</List>
+
 							</div>
+						
 						</div>
 						<Grid>
 							<Grid.Column width={16}>

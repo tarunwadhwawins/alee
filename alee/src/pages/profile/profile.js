@@ -15,6 +15,7 @@ const initialStateStepSecond = { degree: "", college: "", inProgress: false, yea
  teacherEducationDetailId:0 }
 const initialSchool = { institute: "", position: "", grades:[],isCurrent: true, index: null, updateButtonSchool: false,teacherWorkExperienceId:0 }
 function MyProfile(props) {
+  debugger;
   let history = useHistory();
   const allData = history.location.state
   const api = useSelector(state => state.api);
