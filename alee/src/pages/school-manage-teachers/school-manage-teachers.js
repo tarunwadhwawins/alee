@@ -17,7 +17,7 @@ function SchoolManageTeacherPage(props) {
 						allApi={{ getApiName: "GETTEACHERSLIST", deleteApiName: "DELETETEACHER", toggleApiName: "TEACHERTOGGLE" }}
 						additionalParams={{ schoolId: schoolId }}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal="school"
+						messageInModal="Teacher"
 
 						columns={[
 							{
