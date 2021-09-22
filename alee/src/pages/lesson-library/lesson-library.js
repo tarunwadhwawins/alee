@@ -16,7 +16,7 @@ function LessonLibrary() {
 	//const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 
 	// const onHandleChangeSearch = (e, {data,value }) => {   
-	// 	debugger
+	// 	     
 	// 	setValues({searchValue: value})
 	// 	setTextSearch({...textSearch ,[data]:value})
 	// }
@@ -32,7 +32,7 @@ function LessonLibrary() {
 		const search = e === undefined ? "" : e
 		dispatch(apiCall({
 			urls: ["GETBOOKSLIST"], method: "GET", data: { pageNo: 1, pageSize: 100, searchValue: search }, onSuccess: (response) => {
-				debugger;
+				     ;
 				setBookList(response)
 			}
 		}));
@@ -45,7 +45,7 @@ function LessonLibrary() {
 		}))
 	}
 	const onFilter = () => {
-		debugger;
+		     ;
 		dispatch(apiCall({
 			urls: ["BOOKSEARCHBYTAG"], method: "POST", data: { tagIds: valuesTag, textToSearch: textSearch }, onSuccess: (response) => {
 				setBookList(response)
@@ -59,13 +59,13 @@ function LessonLibrary() {
 	}
 
 	const handleKeyPress = (e) => {
-		debugger;
+		     ;
 		if (e.key === 'Enter') {
 			getBookList(e.target.value)
 		}
 	}
 	//    const onHandleChangeSearch = (e) => {
-	// 		debugger;
+	// 		     ;
 	// 		setValues({searchValue:e.target.value});
 	// 	  }
 	const onValue = (e, { value }) => {
@@ -97,7 +97,7 @@ function LessonLibrary() {
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">
 					{tagFields && tagFields.length > 0 && tagFields.map((singleField, index) => {
-						debugger;
+						     ;
 						const value = tags.length > 0 && tags.filter(code => code[singleField.fieldName])
 						const standard = singleField.dataTypeName === "Dropdown" && value[0][singleField.fieldName]
 						return (

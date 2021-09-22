@@ -36,7 +36,6 @@ function ProfileViewPage() {
 					<Dimmer active inverted><Loader /></Dimmer>)}
 				<div className="profileViewHeader" >
 					{teacherData.map((teacherProfile, index) => {
-
 						const education = teacherProfile.educationQualifications ? JSON.parse(teacherProfile.educationQualifications) : [];
 						const Employe = teacherProfile.employmentHistory ? JSON.parse(teacherProfile.employmentHistory) : [];
 						const skill = teacherProfile.keySkillSet ? JSON.parse(teacherProfile.keySkillSet) : [];
@@ -110,7 +109,7 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-									debugger;
+						
 									const currentCompany = Employe.find(x => x.isCurrent === true)
 									const previousCompany = Employe.find(x => x.isCurrent === false)
 									const grade = JSON.parse(employmentHistory.grades)[0];

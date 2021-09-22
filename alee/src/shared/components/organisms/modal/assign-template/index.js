@@ -78,7 +78,7 @@ function AddAssignTemplate(props) {
 	// 	setValues({ ...values, isActive: checked });
 	// }
 	const onHandleChangeToggle = (e, {data,checked, type }) => {
-		debugger
+		     
 		if (type === "checkbox") {
 			setValues({ ...values, [data]: checked });
 		}
@@ -108,9 +108,9 @@ function AddAssignTemplate(props) {
 	}, [props.editData]);
 
 	const editChapterlist = () => {
-		debugger;
+		     ;
 		if (props.editData) {
-			debugger;
+			     ;
 			const {teacherTemplateId,schoolId,gradeId,teacherId,templateId,teacherAll,templateAll,isActive,} = props.editData;
 			setValues({...values, teacherTemplateId: teacherTemplateId,schoolId:schoolId, gradeId: gradeId,teacherId:teacherId,
 				templateId:templateId,teacherAll:teacherAll,templateAll:templateAll,isActive:isActive

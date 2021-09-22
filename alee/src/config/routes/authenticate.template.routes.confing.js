@@ -14,6 +14,12 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: false,
+    path: `${env.PUBLIC_URL}/profiles`,
+    component: lazy(() => import('../../pages/profiles'))
+  },
+  {
+    exact: true,
+    private: false,
     path: `${env.PUBLIC_URL}/profile`,
     component: lazy(() => import('../../pages/profile'))
   },

@@ -12,6 +12,7 @@ function ManageSchoolPage() {
 			<Grid.Column width={16}>
 				<DataTable
 					allApi={{ getApiName: "GETSCHOOLSLIST", deleteApiName: "DELETESCHOOL", toggleApiName: "SCHOOLTOGGLE" }}
+					additionalParams={{ SchoolId:-1  }}
 					searchOption={{ show: true, placeHolder: "Search" }}
 					messageInModal="school"
 					columns={[

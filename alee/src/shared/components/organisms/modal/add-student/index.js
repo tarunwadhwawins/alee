@@ -50,12 +50,12 @@ function AddStudent(props) {
     }
   };
   useEffect(() => {
-        
     if (props.editStudent) {
       editStudentlist();
     }
     getGradeList();
   }, [props.editStudent]);
+
 
   const editStudentlist = () => {
     if (props.editStudent) {
@@ -99,6 +99,7 @@ function AddStudent(props) {
     setAddStudent(initialValues);
     props.closeModal();
   };
+   
   return (
     <Modal
       open={props.openModal}

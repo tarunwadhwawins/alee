@@ -14,7 +14,7 @@ function ManageTeacherPage() {
 						allApi={{ getApiName: "GETTEACHERSLIST", toggleApiName: "TEACHERTOGGLE", deleteApiName: "DELETETEACHER" }}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="teacher"
-						additionalParams={{ schoolId: -1, orderBy: "ModifiedDate", OrderByDescending: true }}
+						additionalParams={{ schoolId: -1 }}
 						columns={[
 							{
 								headerName: "Teacher Name",

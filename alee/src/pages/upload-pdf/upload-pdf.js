@@ -24,7 +24,7 @@ function UploadPdfPage() {
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
 	const onFileChange = (event) => {
-		debugger;
+		     ;
 		const files = event.target.files;
 		if (event.target.files.length > 0) {
 		setFileName(event.target.files[0].name)}
@@ -45,7 +45,7 @@ function UploadPdfPage() {
 			let formdata = commonFunctions.getFormData({ pdfFile: uploadExcel, bookCoverImage: bookCoverImage, bookTitle: bookTitle, author: author, Grades: grades });
 			dispatch(apiCall({
 				urls: ["UPLOADPDF"], method: "POST", data: formdata, onSuccess: (response) => {
-					debugger;
+					     ;
 					removeBook();
 				}, showNotification: true
 			}))
@@ -78,7 +78,7 @@ function UploadPdfPage() {
 		);
 	};
 	const onHandleChange = (e,{ data, value }) => {
-		debugger;
+		     ;
 		setGrades({ ...grades, [data]: value });
 	}
 

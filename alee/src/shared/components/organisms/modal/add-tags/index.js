@@ -5,7 +5,7 @@ import { Grid, Modal, Button, Popup, Header } from "semantic-ui-react";
 function AddTags(props) {
     return (
 		<div className="addTagsModal">
-			<Modal className="addTagsModal" open={props.openModal} onClose={props.closeModal} size="big" >
+			<Modal className="addTagsModal" open={props.openModal} onClose={props.closeModal} size="big">
 				<Modal.Header>Lesson Plan Creation (Animal Farm )</Modal.Header>
 				<Modal.Content scrolling>
 					<Modal.Description>

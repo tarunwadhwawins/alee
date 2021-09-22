@@ -14,8 +14,6 @@ function MyBookPage(props) {
 	// const [tagFields, setTagFields] = useState([]);
 	// const [fieldData, setFieldData] = useState([]);
 	// const [fieldOptions, setFieldOptions] = useState([]);
-
-
 	const dispatch = useDispatch();
 	const auth = useSelector(state => state.auth.userDetail.role)
 	//  call the api //
@@ -41,7 +39,6 @@ function MyBookPage(props) {
 	const modalClose = () => {
 		setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
 	}
-
 	const onHandleDelete = () => {
 		dispatch(apiCall({
 			urls: ["DELETEBOOKS"], method: "DELETE", data: { id: confirmModal.selectedId }, onSuccess: (response) => {

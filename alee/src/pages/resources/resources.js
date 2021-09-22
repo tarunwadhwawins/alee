@@ -13,7 +13,7 @@ function ResourcesPage() {
   // const [editData, SetEditData] = useState([]);
   const dispatch = useDispatch();
   const [chapterList, setChapterList] = useState([]);
-  const [pageList, setPageList] = useState([]);
+  // const [pageList, setPageList] = useState([]);
   const [booklist, setBooklist] = useState([]);
   const [editForm, setEditForm] = useState(false);
   const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
@@ -60,7 +60,7 @@ function ResourcesPage() {
     setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
   }
   const fileChange = (e) => {
-    debugger
+         
     setResources({ ...resources, UploadPdf: e.target.files[0] });
   };
   const onHandleEdit = (data, edit) => {
@@ -104,9 +104,9 @@ function ResourcesPage() {
   }, [editForm, resources.BookId]);
   useEffect(() => {
 
-    if (resources.ChapterId) {
-      getPageList();
-    }
+    // if (resources.ChapterId) {
+    //   getPageList();
+    // }
   }, [editForm, resources.ChapterId]);
 
   // get api //
@@ -149,7 +149,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERLIST"],
         method: "GET",
-        data: { bookId: (value === undefined ? resources.BookId:value),OrderBy: "PageNo", OrderByDescending:true},
+        data: { bookId: (value === undefined ? resources.BookId : value), OrderBy: "PageNo", OrderByDescending: true },
         onSuccess: (response) => {
           const chapters = response.map((singledata) => {
             return {
@@ -162,26 +162,26 @@ function ResourcesPage() {
       })
     );
   };
-  const getPageList = (value) => {
-    dispatch(
-      apiCall({
-        urls: ["GETCHAPTERPAGES"],
-        method: "GET",
-        data: { ChapterId: (value === undefined ? resources.ChapterId : value) },
-        onSuccess: (response) => {
+  // const getPageList = (value) => {
+  //   dispatch(
+  //     apiCall({
+  //       urls: ["GETCHAPTERPAGES"],
+  //       method: "GET",
+  //       data: { ChapterId: (value === undefined ? resources.ChapterId : value) },
+  //       onSuccess: (response) => {
 
-          const pages = response.map((singledata) => {
-            return { text: singledata.pageNo, value: singledata.pageId };
-          });
-          setPageList(pages);
-        },
-      })
-    );
-  };
+  //         const pages = response.map((singledata) => {
+  //           return { text: singledata.pageNo, value: singledata.pageId };
+  //         });
+  //         setPageList(pages);
+  //       },
+  //     })
+  //   );
+  // };
   const onHandleDeletePdf = () => {
     dispatch(apiCall({
       urls: ["DELETEPDFRESOURCES"], method: "DELETE", data: { id: resources.PdfLinkId }, onSuccess: (response) => {
-        debugger
+             
         setResources(resources.editUploadPdf === "")
         modalClose();
         GridReload();
@@ -195,9 +195,9 @@ function ResourcesPage() {
     else if (data.toLowerCase() === "bookid") {
       getChapterList(value);
     }
-    else if (data.toLowerCase() === "chapterid") {
-      getPageList(value);
-    }
+    // else if (data.toLowerCase() === "chapterid") {
+    //   getPageList(value);
+    // }
     setResources({ ...resources, [data]: value });
   };
   const GridReload = () => {
@@ -206,7 +206,7 @@ function ResourcesPage() {
   const cancelClear = () => {
     setBooklist([])
     setChapterList([])
-    setPageList([])
+    // setPageList([])
     setResources(initialValues);
   };
   const checkDisplayIcon = (link) => {
@@ -221,7 +221,6 @@ function ResourcesPage() {
     }
   }
   const checkDisplayIconPdf = (link) => {
-
     if (link?.indexOf("Pdf") > 0) {
       return "file pdf outline";
     }
@@ -236,7 +235,7 @@ function ResourcesPage() {
               getApiName: "GETRESOURCESLIST",
               deleteApiName: "DELETERESOURCES",
               toggleApiName: "RESOURCESTOGGLE",
-              OrderBy: "ModifiedDate", OrderByDescending:true,
+              OrderBy: "ModifiedDate", OrderByDescending: true,
             }
           }
             reload={reload}
@@ -271,11 +270,11 @@ function ResourcesPage() {
                 fieldName: "chapterName",
                 isSorting: true,
               },
-              {
-                headerName: "Page",
-                fieldName: "pageNo",
-                isSorting: true,
-              },
+              // {
+              //   headerName: "Page",
+              //   fieldName: "pageNo",
+              //   isSorting: true,
+              // },
               {
                 headerName: "Audio",
                 fieldName: "link",
@@ -354,11 +353,11 @@ function ResourcesPage() {
                 fieldName: "chapterName",
                 isSorting: true,
               },
-              {
-                headerName: "Page",
-                fieldName: "pageNo",
-                isSorting: true,
-              },
+              // {
+              //   headerName: "Page",
+              //   fieldName: "pageNo",
+              //   isSorting: true,
+              // },
               {
                 headerName: "Video",
                 fieldName: "link",
@@ -435,11 +434,11 @@ function ResourcesPage() {
               fieldName: "chapterName",
               isSorting: true,
             },
-            {
-              headerName: "Page",
-              fieldName: "pageNo",
-              isSorting: true,
-            },
+            // {
+            //   headerName: "Page",
+            //   fieldName: "pageNo",
+            //   isSorting: true,
+            // },
             {
               headerName: "Article",
               fieldName: "link",
@@ -472,7 +471,7 @@ function ResourcesPage() {
               fieldName: "Action",
               isSorting: false,
               Cell: (props, confirmModalOpen) => {
-                debugger
+                     
                 const deleteArticle = JSON.parse(props.link)[0].ArticleLinkId ? JSON.parse(props.link)[0].ArticleLinkId : JSON.parse(props.link)[0].PdfLinkId
                 return (
                   <>
@@ -490,7 +489,7 @@ function ResourcesPage() {
   },
   ];
   const onHandleSubmit = (e) => {
-    debugger
+         
     const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
     if (isFormValid && (AudioLink !== "" || (VideoLink !== "" && VideoLink !== null) || (ArticleLink !== "" && ArticleLink !== null) || (UploadPdf !== "" && UploadPdf !== undefined))) {
@@ -531,7 +530,7 @@ function ResourcesPage() {
         <Grid.Column width={16}>
           <Form>
             <Grid>
-              <Grid.Column width="4">
+              <Grid.Column width="5">
                 <Form.Select
                   label="Grade"
                   placeholder="Grades"
@@ -542,7 +541,7 @@ function ResourcesPage() {
                   error={simpleValidator.current.message('GradeId', resources.GradeId, 'required')}
                 />
               </Grid.Column>
-              <Grid.Column width="4">
+              <Grid.Column width="5">
                 <Form.Select
                   label="Book"
                   placeholder="Select Book"
@@ -553,7 +552,7 @@ function ResourcesPage() {
                   error={simpleValidator.current.message('BookId', resources.BookId, 'required')}
                 />
               </Grid.Column>
-              <Grid.Column width="4">
+              <Grid.Column width="5">
                 <Form.Select
                   label="Chapter"
                   placeholder="Select Chapter"
@@ -564,7 +563,7 @@ function ResourcesPage() {
                   error={simpleValidator.current.message('ChapterId', resources.ChapterId, 'required')}
                 />
               </Grid.Column>
-              <Grid.Column width="4">
+              {/* <Grid.Column width="4">
                 <Form.Select
                   label="Page"
                   placeholder="Select Page"
@@ -574,7 +573,7 @@ function ResourcesPage() {
                   onChange={onHandleChange}
                   error={simpleValidator.current.message('PageId', resources.PageId, 'required')}
                 />
-              </Grid.Column>
+              </Grid.Column> */}
               <Grid.Column width="8">
                 <Form.Input
                   label="Audio"

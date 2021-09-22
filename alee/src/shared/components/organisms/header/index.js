@@ -5,10 +5,10 @@ import { profile } from "../../../functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
 import { storeBookDetails } from "../../../../store/actions/global.actions";
 import { commonFunctions } from "../../../functional/global-import";
-
-
+import ForgotPasswordModal from "../../organisms/modal/forgot-password/forgot-password";
 
 function Header(props) {
+  const [forgotPasswordStatus, setForgotPasswordStatus] = useState(false)
   const image = useSelector(state => state.auth.userDetail.image);
   const name = useSelector(state => state.auth.userDetail.name);
   const trigger = (
@@ -22,9 +22,13 @@ function Header(props) {
   const onHandleLogout = () => {
     dispatch(storeBookDetails(""));
   }
-
+  const forgetPassword = () => {
+         ;
+    setForgotPasswordStatus(!forgotPasswordStatus);
+  };
   return (
     <React.Fragment>
+      <div>
       <div className="Header">
         <Grid>
           <Grid.Column width={8} verticalAlign="middle">
@@ -84,6 +88,13 @@ function Header(props) {
             </Dropdown>
             <Dropdown trigger={trigger}>
               <Dropdown.Menu className="left setting-dropdown">
+              {api === "School" &&
+                  <Dropdown.Item
+                    as={Link}
+                    to="profiles"
+                    icon="user"
+                    text="Manage Profile"
+                  />}
                 {api === "Teacher" &&
                   <Dropdown.Item
                     as={Link}
@@ -91,13 +102,11 @@ function Header(props) {
                     icon="user"
                     text="My Profile"
                   />}
+                 
                 <Dropdown.Item
                   icon="repeat"
                   text="Change Password"
-                />
-                <Dropdown.Item
-                  icon="unlock alternate"
-                  text="Forget Password"
+                  onClick={forgetPassword} 
                 />
                 <Dropdown.Item
                   as={Link}
@@ -111,6 +120,8 @@ function Header(props) {
             </Dropdown>
           </Grid.Column>
         </Grid>
+      </div>
+      <ForgotPasswordModal openModal={forgotPasswordStatus} closeModal={forgetPassword} />
       </div>
     </React.Fragment>
   );

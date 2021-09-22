@@ -529,6 +529,9 @@ h4.ui.header.bookName {
       z-index: 1;
       width: 100%;
       padding: 25px 0 0;
+      &.schoolHeader {
+        padding: 55px 0 0;
+      }
       .blue {
         color: $primary-color;
         span {

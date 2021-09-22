@@ -4,8 +4,7 @@ import { DataTable } from "../../../src/shared/components/organisms";
 import { useSelector } from 'react-redux';
 import { Link, env } from "../../shared/functional/global-import";
 
-function SchoolManageTeacherPage(props) {
-
+function SchoolManageTeacherPage(props) {                      
 	const schoolId = useSelector(state => state.auth.userDetail.schoolId)
 	return (
 		<div className="common-shadow">
@@ -19,6 +18,7 @@ function SchoolManageTeacherPage(props) {
 						additionalParams={{ schoolId: schoolId }}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="school"
+
 						columns={[
 							{
 								headerName: "Teacher Name",
@@ -56,7 +56,7 @@ function SchoolManageTeacherPage(props) {
 							{
 								headerName: "Status",
 								fieldName: "isActive",
-								isSorting: false,
+								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, "update", props.isActive)} />
@@ -70,7 +70,7 @@ function SchoolManageTeacherPage(props) {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon title="Edit" name="edit" className="primary-color" link />
+											{/* <Icon title="Edit" name="edit" className="primary-color" link /> */}
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherId, "delete")} />
 										</>
 									);

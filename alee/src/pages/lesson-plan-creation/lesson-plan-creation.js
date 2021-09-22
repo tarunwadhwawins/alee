@@ -32,9 +32,10 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onTemplateChange = (e, { value }) => {
+		     ;
 		setLessonPlan({ ...lessonPlan, templateId: value })
 		dispatch(apiCall({
-			urls: ["GETTEMPLATEFIELDLIST"], method: "GET", data: { "templateId": value }, onSuccess: (response) => {
+			urls: ["GETTEMPLATEFIELD"], method: "GET", data: { "templateId": value }, onSuccess: (response) => {
 				setTemplateFields(response)
 			}
 		}));

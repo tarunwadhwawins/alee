@@ -74,7 +74,7 @@ function MyProfile(props) {
   };
   const editEmployment = () => {
     if (allData) {
-      debugger;
+           ;
     setThirdSecondStep(thirdSecondStep.concat(allData.Employe));
     }
   };
@@ -159,7 +159,7 @@ function MyProfile(props) {
     }));
   }
   const addEducation = () => {
-    debugger;
+         ;
     setThirdSecondStep(thirdSecondStep.concat({ institute: school.institute,position:school.position,grades:school.grades, 
       isCurrent: school.isCurrent,teacherWorkExperienceId:school.teacherWorkExperienceId}));
     setSchool(initialSchool);
@@ -170,7 +170,7 @@ function MyProfile(props) {
     setThirdSecondStep(rows)
   }
   const editEducation = (data, index) => {
-    debugger;
+         ;
     setSchool({
       ...school, institute: data.institute, position: data.position,
       grades:JSON.parse(data.grades)[0], isCurrent: data.isCurrent, index: index, updateButtonSchool: true,
@@ -178,7 +178,7 @@ function MyProfile(props) {
     })
   }
   const updateEducation = () => {
-    debugger;
+         ;
     const items = [...thirdSecondStep];
     items[school.index] = {
       "institute": school.institute, "position": school.position,
@@ -312,9 +312,6 @@ function MyProfile(props) {
                 <Button className="secondaryBtn" onClick={() => changeStep(2)}>
                   Back
                 </Button>
-                <Button className="alternateBtn">
-                  Preview
-                </Button>
                 <Button className="primaryBtn" as={Link} to={`${env.PUBLIC_URL}/profile-preview/${teacherId}`}
                   onClick={onFourStepSkill}
                   loading={api.isApiLoading}>
@@ -386,7 +383,7 @@ function MyProfile(props) {
               <Step.Content>
                 <Step.Description>4</Step.Description>
                 <Step.Title>
-                  <span>Key <br />Skillset </span>
+                  <span>Key <br/>Skillset </span>
                 </Step.Title>
 
               </Step.Content>

@@ -13,7 +13,6 @@ import { commonFunctions } from "../../shared/functional/global-import";
 
 function LoginForm() {
   const [forgotPasswordStatus, setForgotPasswordStatus] = React.useState(false)
-
   //////// for tag store //////
   const [tagFields, setTagFields] = useState([]);
   const [fieldData, setFieldData] = useState([]);
@@ -97,6 +96,7 @@ function LoginForm() {
     }))
   }
   const forgetPassword = () => {
+         ;
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
   const passwordToggle = () => {

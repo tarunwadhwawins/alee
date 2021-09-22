@@ -33,8 +33,8 @@ function CreateTemplatePage() {
 	}
 
 	const onSubmitTemplate = (e) => {
-		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-		if (isFormValid) {
+		// const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		// if (isFormValid) {
 		dispatch(apiCall({
 			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: {"templateId": null, "templateName": templateName, "isActive": true,
 				"actionPerformedBy": ""
@@ -44,11 +44,11 @@ function CreateTemplatePage() {
 				history.push(`${env.PUBLIC_URL}/drag/${response.id}`);
 			}, showNotification: true
 		}))
-	}
+	
 	}
 
 	const onHandleEdit = (e, text) => {
-		debugger
+		     
 		history.push(`${env.PUBLIC_URL}/drag/${e.templateId}`);
 	}
 	const onChangeTemplate = (e, { value }) => {
@@ -97,8 +97,8 @@ function CreateTemplatePage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props, "edit")} />
-											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.templateId, "delete")} />
+											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props,"edit")} />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.templateId,"delete")} />
 										</>
 									);
 								},

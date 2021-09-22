@@ -19,7 +19,7 @@ function SchoolSignup(props) {
   const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
   const onHandleChange = (e, { value, data }) => {
-    debugger
+         
     setSchoolForm({ ...schoolForm, [data]: value })
   }
 

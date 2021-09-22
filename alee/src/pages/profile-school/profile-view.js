@@ -1,83 +1,68 @@
-import React from "react";
-import { Grid, Header, Image, List, Divider, Icon } from "semantic-ui-react";
-import { profile, Logo, Grade, Curriculum, Class, LessonPlan, } from "../../shared/functional/global-image-import"
-
-
+import React, { useState, useEffect } from "react";
+import { Grid, Header, Image, Dimmer, Loader } from "semantic-ui-react";
+import { useDispatch } from 'react-redux';
+import { apiCall } from "../../store/actions/api.actions";
+import { useSelector } from "react-redux";
+import { commonFunctions } from "../../shared/functional/global-import";
+import { useParams } from 'react-router-dom';
 function ProfileView() {
+	const schoolId = useParams();
+	const api = useSelector(state => state.api);
+	const [schoolData, setSchoolData] = useState(null);
+
+	const dispatch = useDispatch();
+	useEffect(() => {
+		getTeacherProfile();
+	}, []);
+	const getTeacherProfile = () => {
+		dispatch(
+			apiCall({
+				urls: ["GETSCHOOLSLIST"],
+				method: "GET",
+				data: schoolId,
+				onSuccess: (response) => {
+					debugger;
+					setSchoolData(response);
+				},
+			})
+		);
+	};
 	return (
+
 		<div className="common-shadow profileView">
-			<div className="profileViewHeader" >
-				<div className="profileImgOuter">
-					<div className="profileImg">
-						<Image src={Logo} />
-					</div>
-					{/* <Icon name='edit outline' title="Edit" />
-					<Icon name='trash alternate outline' title="Delete" /> */}
-				</div>
+			{api.isApiLoading && (
+				<Dimmer active inverted><Loader /></Dimmer>)}
+			{schoolData && schoolData.map((schoolProfile, index) => {
+				debugger;
+				return (
+					<>
+						<div className="profileViewHeader" >
+							<div className="profileImgOuter">
+								<div className="profileImg">
+								<Image src={commonFunctions.concatenateImageWithAPIUrl(schoolProfile.image)} />
+								</div>
+							</div>
 
-				<div className="profileViewHeaderDesc">
-					<Header as='h3' className="commonHeading">
-					HOLY NAME HIGH SCHOOL
-					</Header>
-					<List horizontal className="basicInfo">
-						{/* <List.Item>
-							<List.Icon name='mail' />
-							<List.Content>Mark@gmail.com</List.Content>
-						</List.Item>
-						<List.Item>
-							<List.Icon name='mobile alternate' />
-							<List.Content>(555) 564-5666</List.Content>
-						</List.Item> */}
-					</List>
-					<p><span>School Name :</span> 	Thomas Jefferson High School for Science and Technology</p>
-					<List horizontal className="gradePlan">
-						<List.Item>
-							<List.Content>
-								<span>12th</span>
-								<List.Header>Grade</List.Header>
-							</List.Content>
-						</List.Item>
-						<List.Item>
-							<List.Content>
-								<span>10</span>
-								<List.Header>Lesson Plan </List.Header>
-							</List.Content>
-						</List.Item>
-					</List>
-
-				</div>
-			</div>
-			<Grid className="profileViewBody" columns="1">
-				<Grid.Column width={8}>
-					<p><span>Subject : </span> English Literature</p>
-					<Header as="h4">Education Qualification</Header>
-					<p><span>Degree : </span> BCA</p>
-					<p><span>In progress : </span> Yes</p>
-					<p><span>School/College/University : </span> Gilbert Classical Academy</p>
-					<p><span>Year of passing : </span> 2012</p>
-					<Divider hidden />
-					<p><span>Degree : </span> MCA</p>
-					<p><span>In progress : </span> Yes</p>
-					<p><span>School/College/University : </span> Gilbert Classical Academy</p>
-					<p><span>Year of passing : </span> 2015</p>
-				</Grid.Column>
-				<Grid.Column width={8}>
-
-				</Grid.Column>
-				<Grid.Column>
-					<Header as="h4">Work/Employment History</Header>
-					<p><span>Current Company : </span> Liberal Arts High School</p>
-					<p><span>Position : </span> Teacher</p>
-					<p><span>Grade Taught : </span> 5th, 7th, 9th</p>
-					{/* <Divider fitted/> */}
-					<p><span>Previous Company : </span> Gilbert Classical Academy</p>
-					<p><span>Position : </span> Teacher</p>
-				</Grid.Column>
-				<Grid.Column>
-					<Header as="h4">Key Skillset</Header>
-					<p><span>Skills : </span> Communication, Patience, Creativity, Dedication.</p>
-				</Grid.Column>
-			</Grid>
+							<div className="profileViewHeaderDesc schoolHeader">
+								<Header as='h3' className="commonHeading">
+									{schoolProfile.schoolName}
+								</Header>
+							</div>
+						</div>
+						<Grid>
+							<Grid.Column width={16}>
+								<p>Email : <span>{schoolProfile.email}</span></p>
+							</Grid.Column>
+							<Grid.Column width={16}>
+								<p>Address : <span>{schoolProfile.address}</span></p>
+							</Grid.Column>
+							<Grid.Column width={16}>
+								<p>Phone : <span>{schoolProfile.contactNo}</span></p>
+							</Grid.Column>
+						</Grid>
+					</>
+				);
+			})}
 		</div>
 	);
 }
