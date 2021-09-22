@@ -11,6 +11,7 @@ function ProfileViewPage() {
 	const api = useSelector((state) => state.api);
 	const dispatch = useDispatch();
 	const [teacherData, setTeacherData] = useState([]);
+	const roles = useSelector(state => state.auth.userDetail.role)
 	useEffect(() => {
 		getTeacherProfile();
 	}, []);
@@ -40,12 +41,14 @@ function ProfileViewPage() {
 						const Employe = teacherProfile.employmentHistory ? JSON.parse(teacherProfile.employmentHistory) : [];
 						const skill = teacherProfile.keySkillSet ? JSON.parse(teacherProfile.keySkillSet) : [];
 						return (
-							<>
+							<>	
+							{roles === "Teacher" &&
 								<div className="ProfileEdit">
 									<Button as={Link}
-										to={{ pathname: `${env.PUBLIC_URL}/profile`, state: { teacherProfile, education, Employe, skill } }}
+										to={{ pathname: `${env.PUBLIC_URL}/profile`, state: { teacherProfile, education, Employe, skill} }}
 										onClick={() => onHandleEdit(teacherProfile)} icon> <Icon name="edit" /></Button>
 								</div>
+					            }
 								<div className="profileImgOuter">
 									<div className="profileImg">
 										<Image src={commonFunctions.concatenateImageWithAPIUrl(teacherProfile.image)} />
