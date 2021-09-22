@@ -76,7 +76,7 @@ function CreateTemplatePage() {
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Link className="primary-color" onClick={openModal}>{props.template}</Link>
+										<Link className="primary-color">{props.template}</Link>
 									);
 								},
 							},
