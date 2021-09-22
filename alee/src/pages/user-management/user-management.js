@@ -4,9 +4,12 @@ import AddStudent from "../../shared/components/organisms/modal/add-student/inde
 import Moment from "react-moment";
 import { useDispatch } from 'react-redux';
 import { DataTable } from "../../../src/shared/components/organisms";
+import { logDOM } from "@testing-library/dom";
 
 function UserManagementPage(props) {
 	const [student, setStudent] = useState(false)
+	const [popUpMessage, setPopUpMessage] = useState()
+	const dispatch = useDispatch();
 
 	const openModal = () => {
 		setStudent(!student)
@@ -62,8 +65,13 @@ function UserManagementPage(props) {
 						fieldName: "isUser",
 						isSorting: true,
 						Cell: (props, confirmModalOpen) => {
+							debugger
 							return (
-								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.userId, "approve", props.isActive)} />
+								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => {
+									setPopUpMessage(props.roleName);
+									confirmModalOpen(props.userId, "approve", props.isActive);
+								}
+								} />
 							);
 						},
 					},
