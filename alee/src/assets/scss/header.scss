@@ -1,122 +1,131 @@
 @import "variables.scss";
 .Header {
-	position: fixed;
-	top: 0;
-	left: 200px;
-	right: 0;
-	box-shadow: 0 0 5px rgba(0,0,0,.1);
-	padding: 10px;
-	z-index: 2;
-	background-color: $white-color;
-	transition: all .5s ease-out;
-	.ui.grid {
-		.menuBar {
-			i.icon {
-				background-color: $primary-color;
-				height: 35px;
-				width: 35px;
-				color: $white-color;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				border-radius: 5px;
-				opacity: 1;
-				font-size: 18px;
-			}
-		}
-		>.column.profile {
-			display: flex!important;
-			justify-content: flex-end;
-			.ui.dropdown {
-				display: flex;
-    			align-items: center;
-				span {
-					display: inline-flex;
-					align-items: center;
-					img.ui.image {
-						max-width: 45px;
-						margin-right: 5px;
-					}
-				}
-				.menu {
-					right: 0!important;
-					left: initial!important;
-					>.item {
-						&:hover {
-							background-color:$primary-color;
-							color: $white-color;
-						}
-					}
-				}
-			}
-			.notificationDropdown.ui.dropdown {
-				padding: 0;
-    			margin-right: 40px;
-				>.text {
-					position: absolute;
-					top: 0;
-					right: 0;
-					background-color: $secondary-color;
-					color: $primary-color;
-					height: 16px;
-					width: 16px;
-					text-align: center;
-					border-radius: 50%;
-					font-size: 12px;
-					line-height: 16px;
-					margin: 0;
-				}
-				i.icon, i.icons {
-					font-size: 25px;
-					color: $primary-color;
-				}
-				.menu {
-					min-width: initial !important;
-					width: 300px;
-					.ui.card {
-						width: 100%;
-						white-space: initial!important;
-						.content.body {
-							padding: 0!important;
-							.ui.feed {
-								.event {
-									padding: 10px!important;
-									&:hover {
-										background-color: $secondary-color;
-									}
-									.content {
-										.summary {
-											font-weight: 100;
-											color: $primary-color!important;
-											a {
-												color: $primary-color!important;
-												font-weight: 600;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				
-			}
-		}
-	}
+  position: fixed;
+  top: 0;
+  left: 200px;
+  right: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 2;
+  background-color: $white-color;
+  transition: all 0.5s ease-out;
+
+  .ui.grid {
+    .menuBar {
+      i.icon {
+        background-color: $primary-color;
+        height: 35px;
+        width: 35px;
+        color: $white-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        opacity: 1;
+        font-size: 18px;
+      }
+    }
+    > .column.profile {
+      display: flex !important;
+      justify-content: flex-end;
+      .ui.dropdown {
+        display: flex;
+        align-items: center;
+        span {
+          display: inline-flex;
+          align-items: center;
+          img.ui.image {
+            max-width: 45px;
+            margin-right: 5px;
+          }
+        }
+        .menu {
+          right: 0 !important;
+          left: initial !important;
+          > .item {
+            &:hover {
+              background-color: $primary-color;
+              color: $white-color;
+            }
+          }
+        }
+      }
+
+      .notificationDropdown.ui.dropdown {
+        padding: 0;
+        margin-right: 40px;
+        > .text {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: $secondary-color;
+          color: $primary-color;
+          height: 16px;
+          width: 16px;
+          text-align: center;
+          border-radius: 50%;
+          font-size: 12px;
+          line-height: 16px;
+          margin: 0;
+        }
+        i.icon,
+        i.icons {
+          font-size: 25px;
+          color: $primary-color;
+        }
+        .menu {
+          min-width: initial !important;
+          width: 300px;
+          .ui.card {
+            width: 100%;
+            white-space: initial !important;
+            .content.body {
+              padding: 0 !important;
+              .ui.feed {
+                .event {
+                  padding: 10px !important;
+                  &:hover {
+                    background-color: $secondary-color;
+                  }
+                  .content {
+                    .summary {
+                      font-weight: 100;
+                      color: $primary-color !important;
+                      a {
+                        color: $primary-color !important;
+                        font-weight: 600;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .App {
-	&.menuCollapse {
-		.Header {
-			left: 80px;
-			transition: all .5s ease-out;
-			.menuBar {
-				i.icon {
-					&:before {
-						transform: matrix(-1, 0, 0, 1, 0, 0);
-					}
-				}
-			}
-		}
-	}
+  &.menuCollapse {
+    .Header {
+      left: 80px;
+      transition: all 0.5s ease-out;
+      .menuBar {
+        i.icon {
+          &:before {
+            transform: matrix(-1, 0, 0, 1, 0, 0);
+          }
+        }
+      }
+    }
+  }
+}
+
+.passwordIcon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
