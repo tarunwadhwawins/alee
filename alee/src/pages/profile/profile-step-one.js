@@ -17,7 +17,7 @@ function ProfileStepOne(props) {
 	}, []);
 	const getSchoolList = () => {
 		dispatch(apiCall({
-			urls: ["GETSCHOOLSLIST"], method: "GET", data: { pageNo: 1, pageSize: 10000 }, onSuccess: (response) => {
+			urls: ["GETSCHOOLSLIST"], method: "GET", data: { schoolId:-1, pageNo: 1, pageSize: 10000 }, onSuccess: (response) => {
 				const getSchool = response.map((school) => {
 					return { value: school.schoolId, text: school.schoolName }
 				});
@@ -61,7 +61,7 @@ function ProfileStepOne(props) {
 						<div className="setImgInner">
 							{values && (
 								<>
-									<img src={values.imageurl} data="image" value={values.image}/>
+									<img src={values.imageurl} data="image" value={values.imageurl}/>
 								</>
 							)}
 						</div>
