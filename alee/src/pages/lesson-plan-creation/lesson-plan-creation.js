@@ -31,10 +31,11 @@ function LessonPlanCreationPage(props) {
 		setNotes(!notes)
 	}
 	const onTemplateChange = (e, { value }) => {
-		     ;
+		   
 		setLessonPlan({ ...lessonPlan, templateId: value })
 		dispatch(apiCall({
 			urls: ["GETTEMPLATEFIELD"], method: "GET", data: { "templateId": value }, onSuccess: (response) => {
+				   
 				setTemplateFields(response)
 			}
 		}));
@@ -81,12 +82,12 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onTemplateFieldChange = (e, { value, index, checked, type }) => {
-		const matchValue = lessonPlan.templateResponse.findIndex((a) => a.templateFieldId === index);
+		const matchValue = lessonPlan.templateResponse.findIndex((filed) => filed.templateFieldId === index);
 		if (matchValue !== -1) {
 			lessonPlan.templateResponse.splice(matchValue, 1);
 		}
-		const aa = lessonPlan.templateResponse.concat({ templateFieldId: index, response: value })
-		setLessonPlan({ ...lessonPlan, templateResponse: aa })
+		const lessonPlanFiled = lessonPlan.templateResponse.concat({ templateFieldId: index, response: value })
+		setLessonPlan({ ...lessonPlan, templateResponse: lessonPlanFiled })
 	}
 
 	const onChangeDescription = (e, { value, index }) => {
@@ -104,7 +105,6 @@ function LessonPlanCreationPage(props) {
 	const addMultipleNotes = () => {
 		setAddNotes(addNotes.concat({ noteId: null, noteDescription: "", studentIds: [], studentAll: false }))
 	}
-
 	const removeNotes = (index) => {
 		const rows = [...addNotes]
 		rows.splice(index, 1);
@@ -172,10 +172,9 @@ function LessonPlanCreationPage(props) {
 						<Form>
 							<Grid>
 								{templateFields.map((singleData, index) => {
-
+                                    
 									if (singleData.fieldDataType === "Header") {
 										return (
-
 											<Grid.Column width={16} key={index}>
 												<Header as="h3" className="commonHeading">{singleData.fieldName}</Header>
 											</Grid.Column>

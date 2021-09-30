@@ -1,23 +1,28 @@
-import React, { useState,useRef } from "react";
-import { Grid, Icon, Header, Button, Table, Label, Form } from "semantic-ui-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Grid, Icon, Header, Button, Form } from "semantic-ui-react";
 import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
 import AddTemplateModal from "../../shared/components/organisms/modal/add-template/index"
 import { Link, env } from "../../shared/functional/global-import";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { apiCall } from "../../store/actions/api.actions";
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import SimpleReactValidator from 'simple-react-validator';
-import { commonFunctions } from "../../shared/functional/global-import";
+// import { commonFunctions } from "../../shared/functional/global-import";
 
 function CreateTemplatePage() {
+	const initialState = {
+		templateId: null, templateName: "", "isActive": true,
+		actionPerformedBy: ""
+	}
 	const [, forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const [lesson, setLesson] = useState(false)
 	const [template, setTemplate] = useState(false)
 	const [reload, setReload] = useState(false)
-	const [templateName, setTemplateName] = useState("");
-	
+	const [templateName, setTemplateName] = useState(initialState);
+	const [editData, setEditData] = useState([]);
+
 
 	const dispatch = useDispatch();
 	let history = useHistory();
@@ -31,30 +36,41 @@ function CreateTemplatePage() {
 	const gridReload = () => {
 		setReload(!reload)
 	}
-
 	const onSubmitTemplate = (e) => {
-		// const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-		// if (isFormValid) {
+		  
 		dispatch(apiCall({
-			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: {"templateId": null, "templateName": templateName, "isActive": true,
-				"actionPerformedBy": ""
-			}, onSuccess: (response) => {
+			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: { templateName }, onSuccess: (response) => {
+				  
 				openModal2();
 				gridReload();
-				history.push(`${env.PUBLIC_URL}/drag/${response.id}`);
+				<>
+					{templateName.templateId === null ? history.push(`${env.PUBLIC_URL}/drag/${response.id}`) : response}
+				</>
 			}, showNotification: true
 		}))
-	
 	}
-
 	const onHandleEdit = (e, text) => {
-		     
 		history.push(`${env.PUBLIC_URL}/drag/${e.templateId}`);
 	}
 	const onChangeTemplate = (e, { value }) => {
 		setTemplateName(value)
 	}
+	const onHandletemplateEdit = (data) => {
+		setEditData(editData.concat(data))
+		openModal2();
+	}
+	// useEffect(() => {
+	// 	editTemplate();
+	// }, [editData]);
 
+	// const editTemplate = () => {
+	// 	if (editData.length > 0) {
+	// 		const { templateId, templateName } = editData[editData.length - 1];
+	// 		setTemplateName({
+	// 			...templateName, templateId: templateId, templateName: templateName
+	// 		});
+	// 	}
+	// };
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -72,11 +88,11 @@ function CreateTemplatePage() {
 						columns={[
 							{
 								headerName: "Template",
-								fieldName: "template",
+								fieldName: "templateName",
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Link className="primary-color">{props.template}</Link>
+										<Link className="primary-color">{props.templateName}</Link>
 									);
 								},
 							},
@@ -97,8 +113,9 @@ function CreateTemplatePage() {
 								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
-											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props,"edit")} />
-											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.templateId,"delete")} />
+											{/* <Icon title="tag" name="tag" className="primary-color" link onClick={() => onHandleEdit(props)} /> */}
+											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link/>
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.templateId, "delete")} />
 										</>
 									);
 								},

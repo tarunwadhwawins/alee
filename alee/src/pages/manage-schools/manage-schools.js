@@ -12,7 +12,7 @@ function ManageSchoolPage() {
 			<Grid.Column width={16}>
 				<DataTable
 					allApi={{ getApiName: "GETSCHOOLSLIST", deleteApiName: "DELETESCHOOL", toggleApiName: "SCHOOLTOGGLE" }}
-					additionalParams={{ SchoolId:-1  }}
+					additionalParams={{ SchoolId: -1 }}
 					searchOption={{ show: true, placeHolder: "Search" }}
 					messageInModal="school"
 					columns={[
@@ -37,12 +37,12 @@ function ManageSchoolPage() {
 							fieldName: "email",
 							isSorting: true,
 							Cell: (props) => {
-								
-								return  (
-							<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
-								) 
-							  },
-					
+
+								return (
+									<a className="orange-color" href={`mailto:${props.email}`}>{props.email}</a>
+								)
+							},
+
 						},
 
 						{
@@ -50,8 +50,10 @@ function ManageSchoolPage() {
 							fieldName: "isActive",
 							isSorting: true,
 							Cell: (props, confirmModalOpen) => {
+								                  
 								return (
-									<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "update", props.isActive)} />
+									<Form.Checkbox checked={props.isActive ? true : false} toggle
+										className="commonToggle" onChange={() => confirmModalOpen(props.schoolId, "update", props.isActive)} />
 								);
 							},
 						},
@@ -61,10 +63,9 @@ function ManageSchoolPage() {
 							isSorting: false,
 							Cell: (props, confirmModalOpen) => {
 								return (
-									<>
-										{/* <Icon title="Edit" name="edit" className="primary-color" link /> */}
-										<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.schoolId, "delete")} />
-									</>
+
+									<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.schoolId, "delete")} />
+
 								);
 							},
 						},

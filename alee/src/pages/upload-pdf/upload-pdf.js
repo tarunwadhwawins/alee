@@ -24,7 +24,6 @@ function UploadPdfPage() {
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
 	const onFileChange = (event) => {
-		     ;
 		const files = event.target.files;
 		if (event.target.files.length > 0) {
 			setFileName(event.target.files[0].name)
@@ -33,7 +32,7 @@ function UploadPdfPage() {
 	}
 	const removeBook = () => {
 		setFileName("");
-		setUploadExcel(initialState);
+		setUploadExcel("");
 		setBookTitle("");
 		setAuthor("");
 		setGrades([]);
@@ -44,7 +43,7 @@ function UploadPdfPage() {
 	const onHandleSubmit = (e) => {
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
-			debugger
+			          
 			var formData = new FormData();
 			formData.append('pdfFile', uploadExcel[0])
 			formData.append('bookCoverImage', bookCoverImage[0].file)
@@ -56,7 +55,7 @@ function UploadPdfPage() {
 			// let formdata = commonFunctions.getFormData({ pdfFile: uploadExcel, bookCoverImage: bookCoverImage, bookTitle: bookTitle, author: author, Grades: grades.grades });
 			dispatch(apiCall({
 				urls: ["UPLOADPDF"], method: "POST", data: formData, onSuccess: (response) => {
-					debugger;
+					       
 					removeBook();
 					setGrades([]);
 				}, showNotification: true
@@ -90,7 +89,7 @@ function UploadPdfPage() {
 		);
 	};
 	const onHandleChange = (e, { data, value }) => {
-		debugger;
+		       
 		setGrades({ ...grades, [data]: value });
 	}
 
@@ -98,7 +97,7 @@ function UploadPdfPage() {
 		<div className="scanBook">
 			<Grid>
 				<Grid.Column width={16}>
-					<Header as="h3" className="commonHeading">Upload book</Header>
+					<Header as="h3" className="commonHeading">Upload Pdf</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<div className="scanBookInner">
@@ -115,9 +114,6 @@ function UploadPdfPage() {
 							</Grid.Column>
 							<Grid.Column width={8}>
 								<div className="field">
-									{/* <GlobalCodeMultiSelect fluid placeholder='Grade(s) taught' value={grades} categoryType="Grades" onChange={(e, { value }) => setGrades(value)}
-										error={simpleValidator.current.message('grades', grades, 'required')}
-									/> */}
 									<Dropdown placeholder='Grade' fluid multiple selection onChange={onHandleChange}
 										data="grades" options={grade}
 									/>
@@ -148,13 +144,14 @@ function UploadPdfPage() {
 										</div>
 									)}
 								</ImageUploading>
+									{simpleValidator.current.message("bookCoverImage", bookCoverImage, "required")}
 							</Grid.Column>
 							<Grid.Column width={4}>
 								<Form>
 									<Form.Field>
-										<Button content="Choose Pdf" disabled={api.isApiLoading} className="primaryBtn" onClick={() => fileInputRef.current.click()} />
-										<input ref={fileInputRef} accept="application/pdf" type="file" hidden onChange={onFileChange}
-										// error={simpleValidator.current.message('fileName', fileName, 'required')}
+										<Button content="Choose Pdf" disabled={api.isApiLoading} className="primaryBtn" 
+										onClick={() => fileInputRef.current.click()} />
+										<input ref={fileInputRef} accept="application/pdf" type="file"hidden onChange={onFileChange}
 										/>
 									</Form.Field>
 								</Form>
@@ -163,8 +160,9 @@ function UploadPdfPage() {
 								<div className="scanBookList">
 									<Icon name='book' className="bookIcon" />
 									<span>{fileName}</span>
-									{/* <Icon name='close' className="closeIcon" color='red' link /> */}
+									{/*<Icon name='close' className="closeIcon" color='red' link />*/}
 								</div>
+										{/* {simpleValidator.current.message("uploadExcel", uploadExcel, "required")} */}
 							</Grid.Column></>}
 						</Grid>
 					</div>

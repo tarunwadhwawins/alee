@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Divider, Form, Grid, Header,Icon } from "semantic-ui-react";
+import { Divider, Form, Grid, Header, Icon } from "semantic-ui-react";
 import AddStudent from "../../shared/components/organisms/modal/add-student/index";
 import Moment from "react-moment";
 import { DataTable } from "../../../src/shared/components/organisms";
@@ -7,7 +7,7 @@ import { logDOM } from "@testing-library/dom";
 
 function UserManagementPage(props) {
 	const [student, setStudent] = useState(false)
-	const [popup,setPopup]=useState(null)
+	const [popup, setPopup] = useState(null)
 
 	const openModal = () => {
 		setStudent(!student)
@@ -22,9 +22,10 @@ function UserManagementPage(props) {
 			</Grid.Column>
 			<AddStudent openModal={student} closeModal={openModal} />
 			<DataTable
-				allApi={{ getApiName: "GETUSERMANAGEMENTLIST", toggleApiName: "APPROVEUSERMANAGEMENT", deleteApiName:"DELETEUSER"}}
+				allApi={{ getApiName: "GETUSERMANAGEMENTLIST", toggleApiName: "APPROVEUSERMANAGEMENT", deleteApiName: "DELETEUSER" }}
 				searchOption={{ show: true, placeHolder: "Search" }}
-				messageInModal="User"
+				messageInModal="school"
+
 				columns={[
 					{
 						headerName: "Name",
@@ -63,7 +64,7 @@ function UserManagementPage(props) {
 						fieldName: "isUser",
 						isSorting: true,
 						Cell: (props, confirmModalOpen) => {
-							debugger
+
 							return (
 								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => {
 									confirmModalOpen(props.userId, "approve", props.isActive);
@@ -72,20 +73,19 @@ function UserManagementPage(props) {
 							);
 						},
 					},
-					// {
-					// 	headerName: "Action",
-					// 	fieldName: "Action",
-					// 	isSorting: false,
-					// 	Cell: (props, confirmModalOpen) => {
-					// 		     ;
-					// 		return (
-					// 			<>
-					// 			props.roleName
-					// 				<Icon title="Delete" name="trash alternate" color="red" link onClick={() => { confirmModalOpen(props.userId,props.roleName, "delete",)}} />
-					// 			</>
-					// 		);
-					// 	},
-					// },
+					{
+						headerName: "Action",
+						fieldName: "Action",
+						isSorting: false,
+						Cell: (props, confirmModalOpen) => {
+							return (
+								<>
+									<Icon title="Delete" name="trash alternate" color="red" 
+									link onClick={() => { confirmModalOpen(props.userId, "delete") }} />
+								</>
+							);
+						},
+					},
 				]}
 
 			></DataTable>

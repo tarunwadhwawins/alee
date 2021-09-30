@@ -29,25 +29,24 @@ function App(props) {
                     <Route key={i} exact={route.exact} path={route.path} render={(props) => <Component {...props} />} />
                 })
               }
-              {/* <Route path={`${env.PUBLIC_URL}/:path?/:path?`} exact> */}
+              {/* <Route path={`${env.PUBLIC_URL}/:path?/:path?`} exact>  */}
               <AuthenticateUserTemplate>
                 <Suspense fallback={<Loader active />}>
                   <Switch>
                     {AuthenticateTemplateRoutesConfing.map((route, i) => {
                       const Component = route.component;
                       return route.private ?
-                        // handle private routes of the application   userTypes={route.userTypes}
-                        <PrivateRoute key={i} exact={route.exact} path={route.path} render={(props) => <Component {...props} />} />
-                        :
-                        // handle public routes of the application
-                        <Route key={i} exact={route.exact} path={route.path} render={(props) => <Component {...props} />} />
+                            // handle private routes of the application   userTypes={route.userTypes}
+                            <PrivateRoute key={i} exact={route.exact} path={route.path} render={(props) => <Component {...props} />} />
+                            :
+                            // handle public routes of the application
+                            <Route key={i} exact={route.exact} path={route.path} render={(props) => <Component {...props} />} />
                     })
                     }
                   </Switch>
-
                 </Suspense>
               </AuthenticateUserTemplate>
-              {/* </Route> */}
+              {/* </Route>  */}
             </Switch>
           </Suspense>
         </AppContainer>

@@ -7,7 +7,6 @@ import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions, Notifications } from "../../../../functional/global-import";
 
 const ChangePassword = (props) => {
-    debugger
     const userEmail = useSelector(state => state.auth.userDetail.email)
     const initialStateOfChangePassword = { email: userEmail, existingPassword: "", newPassword: "", confirmPassword: "" }
     const [password, setPassword] = React.useState(initialStateOfChangePassword)

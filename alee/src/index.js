@@ -8,7 +8,7 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 
 let { store, persistor } = configureStore();
 
-ReactDOM.render(
+ReactDOM.render( 
   <ReduxProvider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>

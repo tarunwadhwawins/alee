@@ -60,7 +60,7 @@ function ResourcesPage() {
     setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
   }
   const fileChange = (e) => {
-         
+                  
     setResources({ ...resources, UploadPdf: e.target.files[0] });
   };
   const onHandleEdit = (data, edit) => {
@@ -115,29 +115,28 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETBOOKSLISTBYGRADEID"],
         method: "GET",
-        data: { "GradeId": (value === undefined ? resources.GradeId : value) },
+        data:{"GradeId":value},
         onSuccess: (response) => {
+                        
           const bookListed = response.map((singledata) => {
-            return { text: singledata.bookName, value: singledata.bookId };
+            return { text:singledata.bookName, value: singledata.bookId};
           });
           setBooklist(bookListed);
         }
       })
     );
   };
-  //  get api //
+//  get api //
   const getGradeList = () => {
     dispatch(
       apiCall({
         urls: ["GETGRADESLIST"],
         method: "GET",
-        data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
+        data:({ActiveGrades:true,OrderBy:"GradeName",OrderByDescending:false}),
         onSuccess: (response) => {
+                        
           const grade = response.map((singledata) => {
-            return {
-              text: singledata.gradeName,
-              value: singledata.gradeId
-            };
+            return { text: singledata.gradeName, value: singledata.gradeId };
           });
           setGradeList(grade);
         },
@@ -149,39 +148,22 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETCHAPTERLIST"],
         method: "GET",
-        data: { bookId: (value === undefined ? resources.BookId : value), OrderBy: "PageNo", OrderByDescending: true },
+        data:{bookId:value},
         onSuccess: (response) => {
+                        
           const chapters = response.map((singledata) => {
-            return {
-              text: singledata.chapterName,
-              value: singledata.chapterId
-            };
+            return { text: singledata.chapterName, value: singledata.chapterId };
           });
           setChapterList(chapters);
         },
       })
     );
   };
-  // const getPageList = (value) => {
-  //   dispatch(
-  //     apiCall({
-  //       urls: ["GETCHAPTERPAGES"],
-  //       method: "GET",
-  //       data: { ChapterId: (value === undefined ? resources.ChapterId : value) },
-  //       onSuccess: (response) => {
-
-  //         const pages = response.map((singledata) => {
-  //           return { text: singledata.pageNo, value: singledata.pageId };
-  //         });
-  //         setPageList(pages);
-  //       },
-  //     })
-  //   );
-  // };
+  
   const onHandleDeletePdf = () => {
     dispatch(apiCall({
       urls: ["DELETEPDFRESOURCES"], method: "DELETE", data: { id: resources.PdfLinkId }, onSuccess: (response) => {
-             
+
         setResources(resources.editUploadPdf === "")
         modalClose();
         GridReload();
@@ -189,15 +171,12 @@ function ResourcesPage() {
     }))
   }
   const onHandleChange = (e, { data, value }) => {
-    if (data.toLowerCase() === "gradeid") {
+    if(data.toLowerCase() === "gradeid"){
       getBookList(value);
     }
-    else if (data.toLowerCase() === "bookid") {
+    else if(data.toLowerCase() === "bookid"){
       getChapterList(value);
     }
-    // else if (data.toLowerCase() === "chapterid") {
-    //   getPageList(value);
-    // }
     setResources({ ...resources, [data]: value });
   };
   const GridReload = () => {
@@ -457,6 +436,7 @@ function ResourcesPage() {
               fieldName: "link",
               isSorting: false,
               Cell: (props) => {
+                              
                 const pdfData = ((JSON.parse(props.link)[0].PdfLink) ? JSON.parse(props.link)[0].PdfLink : null)
                 return pdfData?.indexOf("pdf") > 0 ? (
                   <a href={commonFunctions.concatenateImageWithAPIUrl(pdfData)}
@@ -471,7 +451,7 @@ function ResourcesPage() {
               fieldName: "Action",
               isSorting: false,
               Cell: (props, confirmModalOpen) => {
-                     
+
                 const deleteArticle = JSON.parse(props.link)[0].ArticleLinkId ? JSON.parse(props.link)[0].ArticleLinkId : JSON.parse(props.link)[0].PdfLinkId
                 return (
                   <>
@@ -489,7 +469,7 @@ function ResourcesPage() {
   },
   ];
   const onHandleSubmit = (e) => {
-         
+
     const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
     if (isFormValid && (AudioLink !== "" || (VideoLink !== "" && VideoLink !== null) || (ArticleLink !== "" && ArticleLink !== null) || (UploadPdf !== "" && UploadPdf !== undefined))) {

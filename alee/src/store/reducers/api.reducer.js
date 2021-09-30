@@ -1,7 +1,7 @@
 import * as types from "../types";
 const initialState = { isApiLoading: false };
 
-const apiReducer = (state = initialState, actions) => {
+const apiReducer = (state = initialState, actions) => {              
     switch (actions.type) {
         case types.API_START:
             return { ...state, isApiLoading :true }

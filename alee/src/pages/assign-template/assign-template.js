@@ -13,7 +13,7 @@ function AssignTemplatePage() {
 	const openModal = () => {
 		setLesson(!lesson)
 	}
-	const openModal2 = () => {
+	const openModal2 = () => {                                   
 		setTemplate(!template)
 	}
 	const GridReload = () => {
@@ -21,7 +21,9 @@ function AssignTemplatePage() {
 	}
 	const onHandleEdit = (data) => {
 		SetEditData(data)
+		openModal2();
 	}
+
 
 	return (
 		<div className="common-shadow">
@@ -35,8 +37,8 @@ function AssignTemplatePage() {
 				<Grid.Column width={16}>
 
 					<DataTable
-						allApi={{ getApiName: "GETASSIGNEDTEMPLATES", deleteApiName:"DELETEASSIGNEDTEMPLATE", toggleApiName:"TOGGLEASSIGNEDTEMPPLATE" }} reload={reload}
-						additionalParams={{ SchoolId: -1}}
+						allApi={{ getApiName: "GETASSIGNEDTEMPLATES", deleteApiName: "DELETEASSIGNEDTEMPLATE", toggleApiName: "TOGGLEASSIGNEDTEMPPLATE" }} reload={reload}
+						additionalParams={{ SchoolId: -1 }}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="assigned template"
 						columns={[
@@ -76,6 +78,7 @@ function AssignTemplatePage() {
 								fieldName: "Action",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
+									                                       
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link />
@@ -89,7 +92,7 @@ function AssignTemplatePage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-		 <LessonPlanCustomModal openModal={lesson} closeModal={openModal} /> 
+			<LessonPlanCustomModal openModal={lesson} closeModal={openModal} />
 			<AddAssignTemplate openModal={template} closeModal={openModal2} GridReload={GridReload} editData={editData} />
 		</div>
 	);

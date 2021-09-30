@@ -1,18 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { FormBuilder, FormGenerator } from "cb-react-forms";
+// import ReactDOM from "react-dom";
+import { FormBuilder} from "cb-react-forms";
 import { useDispatch, useSelector } from 'react-redux';
 import { commonFunctions, env } from "../../shared/functional/global-import";
 import { apiCall } from "../../store/actions/api.actions";
 import { useHistory, useParams } from "react-router-dom";
 
 function DragDropPage() {
-
     const globalCode = useSelector(state => state.global.codes)
     const dispatch = useDispatch();
     const templateId = useParams();
     let history = useHistory();
-
     const exportForm = (data) => {
         console.log(data);
         const fields = [];
@@ -59,16 +57,11 @@ function DragDropPage() {
             name: "Multi-line Input",
             icon: "fa fa-text-height"
         },
-        // {
-        //     key: "Date",
-        //     name: "Date",
-        //     icon: "fa fa-calendar"
-        // },
     ];
 
     return (
         <div>
-            <FormBuilder items={items} onSubmit={exportForm} />
+            <FormBuilder items={items} onSubmit={exportForm}/>
         </div>
     );
 }

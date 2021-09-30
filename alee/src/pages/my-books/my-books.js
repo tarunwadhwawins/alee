@@ -8,7 +8,7 @@ import { storeMyBookData} from "../../store/actions/global.actions";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
-	const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
+	const [values, setValues] = useState({ pageNo: 1, pageSize: 10, searchValue: "", })
 	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: ""})
 
 	// const [tagFields, setTagFields] = useState([]);
@@ -124,9 +124,9 @@ function MyBookPage(props) {
 										<Item.Content >
 											<Item.Header onClick={() => addBookData(data)} as={Link} to={`${auth === "Admin" ? "book-flip" : "book-summary"}`}><span>{data.bookName}</span></Item.Header>
 											<Item.Meta><span>{data.author}</span></Item.Meta>
-											{/* <Item.Description>
-												{data.bookSummary !== null && JSON.parse(data.bookSummary).blocks[0].text}
-											</Item.Description> */}
+											<Item.Description>
+												{data.bookSummary && JSON.parse(data.bookSummary).blocks[0].text}
+											</Item.Description>
 											<Item.Extra> {auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} /></div>}</Item.Extra>
 										</Item.Content>
 									</Item>

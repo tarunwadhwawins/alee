@@ -3,10 +3,11 @@ import { Icon, Grid, Dropdown, Image, Feed, Card } from "semantic-ui-react";
 import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
-import { storeBookDetails } from "../../../../store/actions/global.actions";
+import {logout } from "../../../../store/actions/auth.actions";
+
+
 import { commonFunctions } from "../../../functional/global-import";
 import ChangePassword from "../modal/change-password/change-password";
-
 function Header(props) {
   const [forgotPasswordStatus, setForgotPasswordStatus] = useState(false)
   const image = useSelector(state => state.auth.userDetail.image);
@@ -16,14 +17,14 @@ function Header(props) {
       <Image src={commonFunctions.concatenateImageWithAPIUrl(image)} />{name}
     </span>
   )
-  const api = useSelector(state => state.auth.userDetail.role)
+  const api = useSelector(state => state.auth.userDetail.role);
   const dispatch = useDispatch();
 
   const onHandleLogout = () => {
-    dispatch(storeBookDetails(""));
+                                       
+    dispatch(logout());
   }
   const forgetPassword = () => {
-    ;
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
   return (

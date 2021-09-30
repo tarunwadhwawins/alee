@@ -48,6 +48,9 @@ function LoginForm() {
             if (response.role === "Teacher") {
               history.push(`${env.PUBLIC_URL}/dashboard`);
             }
+            if (response.role === "SubAdmin") {
+              history.push(`${env.PUBLIC_URL}/dashboard`);
+            }
           }
         }, showNotification: true
       }))
@@ -96,7 +99,6 @@ function LoginForm() {
     }))
   }
   const forgetPassword = () => {
-         ;
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
   const passwordToggle = () => {
@@ -131,7 +133,7 @@ function LoginForm() {
                 </Grid.Column>
                 <Grid.Column width={16} >
                   <Form.Input className="loginPassword" label="Password" type={iconToggle ? "" : "password"} placeholder="******" data="password" onChange={onHandleChange}
-                    error={simpleValidator.current.message('gradeName', logInForm.password, 'required|password')}
+                    error={simpleValidator.current.message('password', logInForm.password, 'required|password')}
                   //  {...register("password")} 
                   />
                   {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}

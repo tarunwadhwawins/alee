@@ -7,9 +7,13 @@ import { apiCall } from "../../../../store/actions/api.actions";
 import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index";
 
 function DataTable(props) {
-
-    const [values, setValues] = useState([])
-    const [gridObjects, setGridObjects] = useState({ pageNo: 1, pageSize: 100, sortArrow: "sort", orderBy: "ModifiedDate", searchValue: "", orderByDescending: true, heading: "" })
+    // const [listItem, setlistItem] = useState({ pageNo: 1, pageSize: 100 })
+    // const [isFetching, setIsFetching] = useState(false);
+    const [values, setValues] = useState([]);
+    const [gridObjects, setGridObjects] = useState({
+        pageNo: 1, pageSize: 100,
+        sortArrow: "sort", orderBy: "ModifiedDate", searchValue: "", orderByDescending: true, heading: "", hasMore: true
+    })
     const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
@@ -19,13 +23,13 @@ function DataTable(props) {
 
     const getCommonTable = () => {
         dispatch(apiCall({
-            urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams }, onSuccess: (response) => {
+            urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams },
+            onSuccess: (response) => {
                 setValues(response)
             }
         }))
     }
     const confirmModalOpen = (id, type, isActive) => {
-
         setConfirmModal({ ...confirmModal, modalStatus: true, selectedId: id, type: type, isActive: isActive })
     }
 
@@ -50,22 +54,40 @@ function DataTable(props) {
             }, showNotification: true
         }))
     }
-
     const onHandleSorting = (heading) => {
         let orderBy = heading.charAt(0).toUpperCase() + heading.slice(1);
         let orderByDescending = gridObjects.orderByDescending === false ? true : false;
         let sortArrow = gridObjects.sortArrow === "sort up" ? "sort down" : "sort up";
         setGridObjects({ ...gridObjects, sortArrow: sortArrow, heading: heading, orderBy: orderBy, orderByDescending: orderByDescending }, s => getCommonTable())
     }
-
     const onHandleChangeSearch = (e, { value }) => {
         setGridObjects({ ...gridObjects, searchValue: value })
     }
+    // useEffect(() => {
+    //     window.addEventListener("scroll", handleScroll);
+    //     return () => window.removeEventListener("scroll", handleScroll);
+    // }, []);
+
+    // useEffect(() => {
+    //     if (!isFetching) return;
+    //     getCommonTable();
+    // }, [isFetching]);
+
+
+    // const handleScroll = () => {
+    //     if (
+    //         window.innerHeight + document.documentElement.scrollTop !==
+    //         document.documentElement.offsetHeight
+    //         )
+    //         return;
+    //     setIsFetching(true);
+    // };
+
 
     const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
     const showMessage = props.messageInModal !== undefined ? props.messageInModal : "record"
-    const bb = confirmModal.isActive ? "deactivate" : "activate"
-    const message = "Do you want to " + (confirmModal.type === "update" ? bb : confirmModal.type) + " this " + showMessage + " ?"
+    const messages = confirmModal.isActive ? "deactivate" : "activate"
+    const message = "Do you want to " + (confirmModal.type === "update" ? messages : confirmModal.type) + " this " + showMessage + " ?"
     return (
         <Grid>
             {props.searchOption && props.searchOption.show &&
@@ -91,6 +113,7 @@ function DataTable(props) {
                             gridData={values}
                             getCommonTable={getCommonTable}
                             confirmModalOpen={confirmModalOpen}
+                        // hasMore={hasMore}
                         />
 
                     </Table>

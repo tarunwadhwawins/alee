@@ -4,15 +4,17 @@ import { Grid, Form, Modal, Button } from "semantic-ui-react";
 
 
 function AddTemplateModal(props) {
-
 	const { templateName, simpleValidator } = props;
+
 	return (
 		<Modal
 			open={props.openModal}
 			onClose={props.closeModal}
 			size="tiny"
 		>
-			<Modal.Header>Create Template</Modal.Header>
+
+
+			<Modal.Header>{templateName.templateId > 0 ? "Edit Template" : "Create Template"} </Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>
 					<Form>
@@ -30,7 +32,7 @@ function AddTemplateModal(props) {
 			</Modal.Content>
 			<Modal.Actions>
 				<Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
-				<Button className="primaryBtn" onClick={props.onSubmitTemplate}>Confirm</Button>
+				<Button className="primaryBtn" onClick={props.onSubmitTemplate}>{templateName.templateId > 0 ? "Update" : "Confirm"}</Button>
 			</Modal.Actions>
 		</Modal>
 	);

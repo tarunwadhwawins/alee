@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import { Header, Sidebar } from '..';
-
+import Header from '../../components/organisms/header';
+import  Sidebar  from '../organisms/sidebar';
+import { useSelector } from 'react-redux';
 function AuthenticateUserTemplate(props) {
     const [isActive, setIsActive] = useState(false)
-    
+
     const handleToggle = () => {
         setIsActive(!isActive)
     };
-    
+    const auth = useSelector(state => state.auth)
+
+
     return (
         <div className={`App ${isActive ? "menuCollapse" : ""}`}>
             <div>
-                <Header onMenuClick={handleToggle}/>
+            {auth.userDetail &&
+            <> <Header onMenuClick={handleToggle} />
                 <Sidebar />
+              </>  }
             </div>
             <div className="main-container">
                 <div className="main-page">

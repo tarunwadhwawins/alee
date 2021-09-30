@@ -38,7 +38,7 @@ function AddGradePage() {
 						allApi={{ getApiName: "GETGRADESLIST", deleteApiName: "DELETEGRADE", toggleApiName: "GRADESTOGGLE" }} reload={reload}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="grade"
-						additionalParams={{ ActiveGrades: false }}
+						additionalParams={{ActiveGrades:true}}
 						columns={[
 							{
 								headerName: "Grade",

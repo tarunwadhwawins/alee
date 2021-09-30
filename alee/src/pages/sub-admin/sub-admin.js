@@ -19,6 +19,7 @@ function SubAdminPage() {
 		SeteditDetail(data)
 		openModal("EDIT");
 	}
+	
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -64,7 +65,9 @@ function SubAdminPage() {
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.subAdminId, "update", props.isActive)} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle
+										 className="commonToggle"
+										  onChange={() => confirmModalOpen(props.subAdminId, "update", props.isActive)} />
 									);
 								},
 							},

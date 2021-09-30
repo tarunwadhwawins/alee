@@ -32,7 +32,6 @@ function LessonLibrary() {
 		const search = e === undefined ? "" : e
 		dispatch(apiCall({
 			urls: ["GETBOOKSLIST"], method: "GET", data: { pageNo: 1, pageSize: 100, searchValue: search }, onSuccess: (response) => {
-				     ;
 				setBookList(response)
 			}
 		}));
@@ -45,7 +44,6 @@ function LessonLibrary() {
 		}))
 	}
 	const onFilter = () => {
-		     ;
 		dispatch(apiCall({
 			urls: ["BOOKSEARCHBYTAG"], method: "POST", data: { tagIds: valuesTag, textToSearch: textSearch }, onSuccess: (response) => {
 				setBookList(response)
@@ -59,7 +57,6 @@ function LessonLibrary() {
 	}
 
 	const handleKeyPress = (e) => {
-		     ;
 		if (e.key === 'Enter') {
 			getBookList(e.target.value)
 		}
@@ -97,7 +94,6 @@ function LessonLibrary() {
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">
 					{tagFields && tagFields.length > 0 && tagFields.map((singleField, index) => {
-						     ;
 						const value = tags.length > 0 && tags.filter(code => code[singleField.fieldName])
 						const standard = singleField.dataTypeName === "Dropdown" && value[0][singleField.fieldName]
 						return (
@@ -132,13 +128,13 @@ function LessonLibrary() {
 					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
 					
 				</Grid.Column>
-				<Grid.Column>
 				{api.isApiLoading && (
+				<Grid.Column>
 						<Dimmer active inverted>
 							<Loader />
 						</Dimmer>
-					)}
 				</Grid.Column>
+					)}
 					{!api.isApiLoading && bookList && bookList.map((data, index) => {
 
 						return (

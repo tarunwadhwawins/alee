@@ -45,7 +45,6 @@ function AddGrade(props) {
 		}
 	};
 	const closeModal = () => {
-		    
 		setGrade(initialValues);
 		simpleValidator.current.hideMessages();
 		props.closeModal();
@@ -80,7 +79,7 @@ function AddGrade(props) {
 								<div className="addGradeInput">
 									<Form.Input label="Grade" data="gradeName" value={grade.gradeName}
 										onChange={onHandleChange}
-										error={simpleValidator.current.message('gradeName', grade.gradeName, 'required')}
+										error={simpleValidator.current.message('grade', grade.gradeName, 'required')}
 									/>
 								</div>
 							</Grid.Column>

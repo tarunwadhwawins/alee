@@ -10,7 +10,6 @@ function SchoolSignup(props) {
 
   const [schoolForm, setSchoolForm] = useState({ schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", password: "", confirmPassword: "", schoolId: null, userId: "", actionPerformedBy: "" })
   let history = useHistory();
-
   const dispatch = useDispatch();
   const api = useSelector(state => state.api)
   const [, forceUpdate] = useState()

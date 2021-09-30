@@ -7,18 +7,18 @@ import { commonFunctions } from "../../../../functional/global-import";
 
 function AddAssignTemplate(props) {
 	const initialState = {
-		teacherTemplateId:0,
+		teacherTemplateId: 0,
 		schoolId: null, gradeId: null, teacherId: [], templateId: [],
-		teacherAll:false, templateAll: false, isActive: true, actionPerformedBy: "",
+		teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "",
 	}
 	const [template, setTemplate] = useState([])
 	const [grade, setGrade] = useState([])
 	const [school, setSchool] = useState([])
 	const [teacher, setTeacher] = useState([])
 	const [values, setValues] = useState(initialState);
-	const api = useSelector(state => state.api)
+	const api = useSelector(state => state.api);
 	const dispatch = useDispatch();
-	const [,forceUpdate] = useState()
+	const [, forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const getGrades = () => {
 		dispatch(apiCall({
@@ -35,7 +35,7 @@ function AddAssignTemplate(props) {
 		dispatch(apiCall({
 			urls: ["GETTEMPLATELIST"], method: "GET", data: { "templateId": -1, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
 				const getTemplate = response.map((template) => {
-					return { value: template.templateId, text: template.template }
+					return { value: template.templateId, text: template.templateName }
 				});
 				setTemplate(getTemplate)
 			}
@@ -44,7 +44,7 @@ function AddAssignTemplate(props) {
 
 	const getSchoolList = () => {
 		dispatch(apiCall({
-			urls: ["GETSCHOOLSLIST"], method: "GET", data: { schoolId:-1, pageNo: 1, pageSize: 10000 }, onSuccess: (response) => {
+			urls: ["GETSCHOOLSLIST"], method: "GET", data: { schoolId: -1, pageNo: 1, pageSize: 10000 }, onSuccess: (response) => {
 				const getSchool = response.map((school) => {
 					return { value: school.schoolId, text: school.schoolName }
 				});
@@ -63,7 +63,7 @@ function AddAssignTemplate(props) {
 		if (data === "schoolId") {
 			dispatch(apiCall({
 				urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: value, pageNo: 1, pageSize: 1000 }, onSuccess: (response) => {
-					const getTeachers = response.map((teacherData) => {
+					const getTeachers = response.map((teacherData) => {                                          ;
 						return { value: teacherData.teacherId, text: teacherData.firstName + teacherData.lastName }
 					});
 					setTeacher(getTeachers)
@@ -77,14 +77,13 @@ function AddAssignTemplate(props) {
 	// const onHandleChangeToggle = (e, { checked }) => {
 	// 	setValues({ ...values, isActive: checked });
 	// }
-	const onHandleChangeToggle = (e, {data,checked, type }) => {
-		     
+	const onHandleChangeToggle = (e, { data, checked, type }) => {
 		if (type === "checkbox") {
 			setValues({ ...values, [data]: checked });
 		}
-	  };
+	};
 	const onSubmit = (e) => {
-		const isFormValid = commonFunctions.onHandleFormSubmit(e,simpleValidator, forceUpdate);
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
 			dispatch(apiCall({
 				urls: ["POSTTEMPLATEASSIGNED"], method: "POST", data: values, onSuccess: (response) => {
@@ -97,23 +96,21 @@ function AddAssignTemplate(props) {
 	}
 
 	const closeModal = () => {
-		simpleValidator.current.hideMessages();
 		props.closeModal();
 		setValues(initialState);
+		simpleValidator.current.hideMessages();
 	}
 	useEffect(() => {
-		if(props.editData){
 		editChapterlist();
-		}
 	}, [props.editData]);
 
 	const editChapterlist = () => {
-		     ;
-		if (props.editData) {
-			     ;
-			const {teacherTemplateId,schoolId,gradeId,teacherId,templateId,teacherAll,templateAll,isActive,} = props.editData;
-			setValues({...values, teacherTemplateId: teacherTemplateId,schoolId:schoolId, gradeId: gradeId,teacherId:teacherId,
-				templateId:templateId,teacherAll:teacherAll,templateAll:templateAll,isActive:isActive
+		   
+		if (props.editData!==undefined) {
+			const { teacherTemplateId, schoolId, gradeId, teacherId,templateId,  teacherAll, templateAll, isActive, } = props.editData;
+			setValues({
+				...values, teacherTemplateId: teacherTemplateId, schoolId: schoolId, gradeId: gradeId, teacherId:teacherId,
+				templateId: templateId, teacherAll: teacherAll, templateAll: templateAll, isActive: isActive
 			});
 		}
 	};
@@ -139,7 +136,7 @@ function AddAssignTemplate(props) {
 									error={simpleValidator.current.message('gradeId', values.gradeId, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select multiple label="Template" placeholder="Select Template" data="templateId" options={template} onChange={onHandleChange} value={values.templateId}
+								<Form.Select multiple label="Template" placeholder="Select Template" data="templateId"  options={template} onChange={onHandleChange} value={values.templateId}
 									error={simpleValidator.current.message('templateId', values.templateId, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8} className='status'>
@@ -147,10 +144,10 @@ function AddAssignTemplate(props) {
 								<div className="statusToggle">
 									<span>Inactive</span>
 									<Form.Checkbox label="Active" toggle className="commonToggle"
-									 checked={values.isActive ? false:true} 
-									 value={values.isActive}
-									 data="isActive"
-									 onChange={onHandleChangeToggle} />
+										checked={values.isActive ? false : true}
+										value={values.isActive}
+										data="isActive"
+										onChange={onHandleChangeToggle} />
 								</div>
 							</Grid.Column>
 						</Grid>

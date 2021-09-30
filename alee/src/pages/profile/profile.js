@@ -15,7 +15,7 @@ const initialStateStepSecond = { degree: "", college: "", inProgress: false, yea
  teacherEducationDetailId:0 }
 const initialSchool = { institute: "", position: "", grades:[],isCurrent: true, index: null, updateButtonSchool: false,teacherWorkExperienceId:0 }
 function MyProfile(props) {
-  debugger;
+         
   let history = useHistory();
   const allData = history.location.state
   const api = useSelector(state => state.api);
@@ -63,6 +63,7 @@ function MyProfile(props) {
     editSkill();
   }, []);
   const editBasicInfo = () => {
+                                                ;
     if (allData) {
       const { schoolId, grades, teacherId, subjectId, image} = allData.teacherProfile;
       setValues({ ...values, schoolId: schoolId, grades: JSON.parse(grades),teacherId:teacherId,subjectId: subjectId,image:commonFunctions.concatenateImageWithAPIUrl(image)});
@@ -75,7 +76,6 @@ function MyProfile(props) {
   };
   const editEmployment = () => {
     if (allData) {
-           ;
     setThirdSecondStep(thirdSecondStep.concat(allData.Employe));
     }
   };

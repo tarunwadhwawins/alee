@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Grid, Modal, Button, Form, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Modal, Button, Form, Dimmer, Loader, Icon } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
 import { Notifications } from "../../../../functional/global-import";
+import { commonFunctions } from "../../../../functional/global-import";
 
 function AddSubAdmin(props) {
   const auth = useSelector((state) => state.auth);
   const api = useSelector((state) => state.api);
   const [, forceUpdate] = useState()
-  const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
+  const [iconToggle, setIconToggle] = useState(false);
+  const [iconToggleConfirm, setIconToggleConfirm] = useState(false);
+
+  const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }));
   const initialAddValues = {
     email: "",
     password: "",
@@ -55,13 +59,15 @@ function AddSubAdmin(props) {
       });
     }
   };
-  const onHandleSubmit = () => {
-         
-    const formValid = simpleValidator.current.allValid()
-    if (!formValid) {
-      simpleValidator.current.showMessages();
-      forceUpdate(true);
-    }
+  const onHandleSubmit = (e) => {                                              ;
+    // const formValid = simpleValidator.current.allValid()
+    // if (!formValid) {
+    //   simpleValidator.current.showMessages();
+    //   forceUpdate(true);
+    // }
+
+    const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
     if (subAdmin.password !== subAdmin.confirmPassword) {
       dispatch(Notifications.show({ title: "Error", message: 'Password and confirm password not matched.', position: 'br', autoDismiss: 2 }, "error"))
     }
@@ -95,12 +101,21 @@ function AddSubAdmin(props) {
         })
       );
     }
+  }
   };
   const closeModal = () => {
     simpleValidator.current.hideMessages();
     props.closeModal();
     setSubAdmin(initialAddValues);
   };
+
+  const passwordToggle = () => {
+    setIconToggle(!iconToggle)
+  }
+  const confirmPasswordToggle = () => {
+    setIconToggleConfirm(!iconToggleConfirm)
+  }
+
   return (
     <Modal
       open={props.openModal}
@@ -143,11 +158,12 @@ function AddSubAdmin(props) {
                       label="Password"
                       data="password"
                       placeholder="********"
-                      type="password"
+                      type={iconToggle ? "" : "password"} 
                       value={subAdmin.password}
                       onChange={onHandleChange}
-                      error={simpleValidator.current.message('password', subAdmin.password, 'required|min:6|max:150')}
-                    />
+                      error={simpleValidator.current.message('password', subAdmin.password, 'required|min:6|max:150')} />
+                    {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
+                    {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
                   </Grid.Column>
                   <Grid.Column>
                     <Form.Input
@@ -155,9 +171,11 @@ function AddSubAdmin(props) {
                       value={subAdmin.confirmPassword}
                       data="confirmPassword"
                       placeholder="********"
-                      type="password"
+                      type={iconToggleConfirm ? "" : "password"}
                       onChange={onHandleChange}
                       error={simpleValidator.current.message('confirmPassword', subAdmin.confirmPassword, 'required|min:6|max:150')} />
+                    {!iconToggleConfirm && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}
+                    {iconToggleConfirm && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}
                   </Grid.Column>
                 </>
               )}
