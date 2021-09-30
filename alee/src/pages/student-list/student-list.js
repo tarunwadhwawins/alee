@@ -109,14 +109,14 @@ function StudentListPage() {
 	return (
 		<div className="common-shadow">
 			{!excel ? <Grid>
-				<Grid.Column width={4} verticalAlign="middle">
+				<Grid.Column largeScreen={4} computer={16} verticalAlign="middle">
 					<Header as="h3" className="commonHeading">Student list</Header>
 				</Grid.Column>
-				<Grid.Column width={6} verticalAlign="middle" textAlign="right">
+				<Grid.Column  largeScreen={6} computer={6} verticalAlign="middle">
 					<Icon name="file excel" className="primary-color" link /> Excel Template <a href={commonFunctions.concatenateImageWithAPIUrl(template)}>Download</a>
 				</Grid.Column>
 
-				<Grid.Column width={6} textAlign="right">
+				<Grid.Column  largeScreen={6} computer={10} textAlign="right">
 					<Button className="primaryBtn" onClick={() => openModal("Add Student")}><Icon name="plus" /> Add Student</Button>
 					<Button className="alternateBtn" onClick={() => fileInputRef.current.click()} ><Icon name="upload" /> Upload Excel</Button>
 					<input ref={fileInputRef} type="file" hidden onChange={onFileChange} />

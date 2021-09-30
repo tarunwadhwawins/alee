@@ -9,7 +9,9 @@
   z-index: 2;
   background-color: $white-color;
   transition: all 0.5s ease-out;
-
+  @media (max-width:991px) {
+    left: 0;
+  }
   .ui.grid {
     .menuBar {
       i.icon {
@@ -35,8 +37,12 @@
           display: inline-flex;
           align-items: center;
           img.ui.image {
-            max-width: 45px;
+            max-width: 35px;
             margin-right: 5px;
+            height: 35px;
+            border-radius: 50%;
+            overflow: hidden;
+            object-fit: cover;
           }
         }
         .menu {
@@ -112,6 +118,9 @@
     .Header {
       left: 80px;
       transition: all 0.5s ease-out;
+      @media (max-width:991px) {
+        left: 200px;
+      }
       .menuBar {
         i.icon {
           &:before {
