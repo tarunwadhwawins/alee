@@ -198,14 +198,6 @@ function Sidebar(props) {
 							<Image src={DashboardBlue} className="blue" />
 							<span>Dashboard</span>
 						</Menu.Item>
-						<Menu.Item title="User Management" className="lessonPlan" as={Link} to={`${env.PUBLIC_URL}/user-management`} name='user-management'
-							active={activeItem === 'user-management'}
-							onClick={handleItemClick}>
-							<Image src={UserManagementWhite} className="white" />
-							<Image src={UserManagementBlue} className="blue" />
-							<span>User Management</span>
-							<Icon name="caret down" onClick={handleClickUser} />
-						</Menu.Item>
 						<div className={`lessonPlanMenu  ${user === true ? "show" : ""}`}>
 							<Menu.Item title="Manage Teachers" as={Link} to={`${env.PUBLIC_URL}/manage-teachers`} name='manage-teacher' active={activeItem === 'manage-teacher'} onClick={handleItemClick}>
 								<Image src={ManageTeacherWhite} className="white" />
@@ -232,11 +224,6 @@ function Sidebar(props) {
 							<Image src={ResourceWhite} className="white" />
 							<Image src={ResourceBlue} className="blue" />
 							<span>Resources</span>
-						</Menu.Item>
-						<Menu.Item title="Sub-Admin" as={Link} to={`${env.PUBLIC_URL}/sub-admin`} name='sub-admin' active={activeItem === 'sub-admin'} onClick={handleItemClick}>
-							<Image src={SubAdminWhite} className="white" />
-							<Image src={SubAdminBlue} className="blue" />
-							<span>Sub-admin</span>
 						</Menu.Item>
 						<div className={`lessonPlanMenu  ${subscriptionToggle === true ? "show" : ""}`}>
 							<Menu.Item title="Subscription Manage" as={Link} to={`${env.PUBLIC_URL}/subscription-manage`} name='subscription-manage' active={activeItem === 'subscription-manage'} onClick={handleItemClick}>
