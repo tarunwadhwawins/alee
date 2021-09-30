@@ -40,12 +40,14 @@ a {
 .blueDivider {
   border-top-color: $primary-color !important;
 }
-.modal { 
-  left: initial!important;
-  top: initial!important;
-  bottom: initial!important;
-  right: initial!important;
-  
+.modal {
+  left: initial !important;
+  top: initial !important;
+  bottom: initial !important;
+  right: initial !important;
+}
+.commonTable {
+  overflow: auto;
 }
 .field {
   label {
@@ -191,13 +193,18 @@ a {
   .main-page {
     padding: 15px;
   }
+  @media (max-width: 991px) {
+    padding-left: 0;
+  }
 }
 
 .App {
   &.menuCollapse {
     .main-container {
-      padding: 64px 0 0 80px;
-      transition: all 0.5s ease-out;
+      @media (min-width: 991px) {
+        padding: 64px 0 0 80px;
+        transition: all 0.5s ease-out;
+      }
     }
   }
 }

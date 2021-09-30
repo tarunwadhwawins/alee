@@ -32,7 +32,7 @@ function LessonLibrary() {
 		const search = e === undefined ? "" : e
 		dispatch(apiCall({
 			urls: ["GETBOOKSLIST"], method: "GET", data: { pageNo: 1, pageSize: 100, searchValue: search }, onSuccess: (response) => {
-				     ;
+				;
 				setBookList(response)
 			}
 		}));
@@ -45,7 +45,7 @@ function LessonLibrary() {
 		}))
 	}
 	const onFilter = () => {
-		     ;
+		;
 		dispatch(apiCall({
 			urls: ["BOOKSEARCHBYTAG"], method: "POST", data: { tagIds: valuesTag, textToSearch: textSearch }, onSuccess: (response) => {
 				setBookList(response)
@@ -59,7 +59,7 @@ function LessonLibrary() {
 	}
 
 	const handleKeyPress = (e) => {
-		     ;
+		;
 		if (e.key === 'Enter') {
 			getBookList(e.target.value)
 		}
@@ -81,7 +81,7 @@ function LessonLibrary() {
 		}
 	}
 	const addBookData = (data) => {
-	 dispatch(storeMyBookData(data));
+		dispatch(storeMyBookData(data));
 	}
 	return (
 		<div className="searchHeader">
@@ -97,7 +97,7 @@ function LessonLibrary() {
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">
 					{tagFields && tagFields.length > 0 && tagFields.map((singleField, index) => {
-						     ;
+						;
 						const value = tags.length > 0 && tags.filter(code => code[singleField.fieldName])
 						const standard = singleField.dataTypeName === "Dropdown" && value[0][singleField.fieldName]
 						return (
@@ -128,45 +128,47 @@ function LessonLibrary() {
 
 
 				<Grid.Column computer={16}>
-					
+
 					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
-					
+
 				</Grid.Column>
-				<Grid.Column>
 				{api.isApiLoading && (
+					<Grid.Column>
 						<Dimmer active inverted>
 							<Loader />
 						</Dimmer>
-					)}
-				</Grid.Column>
-					{!api.isApiLoading && bookList && bookList.map((data, index) => {
+					</Grid.Column>
+				)}
+				</Grid>
+				<Grid columns={3}>
+				{!api.isApiLoading && bookList && bookList.map((data, index) => {
 
-						return (
+					return (
+					
+						<Grid.Column>
 
-							<Grid.Column width={4}>
+							<div className="bookDetail">
 
-								<div className="bookDetail">
+								<Item.Group>
+									<Item as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} onClick={() => addBookData(data)}>
+										<Image as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+										/>
+										<Item.Content>
+											<Item.Header>{data.bookName}</Item.Header>
+											<Item.Meta>{data.author}</Item.Meta>
+										</Item.Content>
+									</Item>
+								</Item.Group>
 
-									<Item.Group>
-										<Item as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} onClick={() => addBookData(data)}>
-											<Image as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
-											/>
-											<Item.Content>
-												<Item.Header>{data.bookName}</Item.Header>
-												<Item.Meta>{data.author}</Item.Meta>
-											</Item.Content>
-										</Item>
-									</Item.Group>
-
-									{/* <Image as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
+								{/* <Image as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} size='tiny' src={commonFunctions.concatenateImageWithAPIUrl(data.image)}
 								/>
 								<Header as={Link} to={{ pathname: '/book-flip', state: "lessonPlan" }} as="h5">{data.bookName}</Header>
 
 								<p>{data.author}</p> */}
-								</div>
-							</Grid.Column>
-						)
-					})}
+							</div>
+						</Grid.Column>
+					)
+				})}
 				{/* <Grid.Column width={16}>
 					<Button as={Link} to="search-result" className="primaryBtn">Show Search Result</Button>
 				</Grid.Column> */}

@@ -5,37 +5,41 @@
 	top: 0;
 	bottom: 0;
 	width: 200px;
-	background-color:$primary-color ;
-	transition: all .5s ease-out;
+	background-color: $primary-color;
+	transition: all 0.5s ease-out;
+	z-index: 9999;
+	@media (max-width: 991px) {
+		left: -200px;
+	}
 	.logo {
 		padding: 8px;
 		height: 60px;
 		a {
 			display: inline-block;
 			img.ui.image {
-				max-width:110px;
-				transition: all .5s ease-out;
+				max-width: 110px;
+				transition: all 0.5s ease-out;
 			}
 		}
 	}
 	.mainMenu {
 		overflow: auto;
-    	height: calc(100vh - 61px);
+		height: calc(100vh - 61px);
 		.topic {
 			display: flex;
 			justify-content: space-between;
 		}
 		.subMenu {
-			margin-left: 15px!important;
+			margin-left: 15px !important;
 		}
-		
+
 		.ui.menu {
 			width: 100%;
 			.item {
 				color: $white-color;
-				border-radius: 0!important;
-				padding: 15px!important;
-				margin: 0!important;
+				border-radius: 0 !important;
+				padding: 15px !important;
+				margin: 0 !important;
 				display: flex;
 				align-items: center;
 				img.ui.image {
@@ -46,16 +50,16 @@
 					}
 				}
 				&.chapterMenu {
-					margin-left: 10px!important;
+					margin-left: 10px !important;
 				}
 				&:hover {
 					background-color: $secondary-color;
 					color: $primary-color;
 					.blue {
-						display: block!important;
+						display: block !important;
 					}
 					.white {
-						display: none!important;
+						display: none !important;
 					}
 				}
 				&.active {
@@ -66,10 +70,10 @@
 						color: $primary-color;
 					}
 					.blue {
-						display: block!important;
+						display: block !important;
 					}
 					.white {
-						display: none!important;
+						display: none !important;
 					}
 				}
 				&.lessonPlan {
@@ -83,7 +87,7 @@
 				}
 			}
 			.lessonPlanMenu {
-				padding-left: 30px!important;	
+				padding-left: 30px !important;
 				display: none;
 				&.show {
 					display: block;
@@ -110,43 +114,53 @@
 		// 	.dropdown.icon {
 		// 		color: $white-color!important;
 		// 	}
-			// >.menu {
-			// 	left: 0;
-			// 	right: 0;
-			// 	background-color: $primary-color;
-			// 	>.item {
-			// 		padding: 15px!important;
-			// 		span {
-			// 			color: $white-color!important;
-			// 		}
-					
-			// 	}
-			// }
+		// >.menu {
+		// 	left: 0;
+		// 	right: 0;
+		// 	background-color: $primary-color;
+		// 	>.item {
+		// 		padding: 15px!important;
+		// 		span {
+		// 			color: $white-color!important;
+		// 		}
+
+		// 	}
+		// }
 		// }
 	}
 }
 
 .App {
 	&.menuCollapse {
-		.Sidebar { 
-			width: 80px;
-			transition: all .5s ease-out;
+		.Sidebar {
+			transition: all 0.5s ease-out;
+			@media (min-width: 991px) {
+				width: 80px;
+			}
+			@media (max-width: 991px) {
+				left: 0;
+			}
+
 			.logo {
 				img.ui.image {
-					max-width: 60px;
-					transition: all .5s ease-out;
+					@media (min-width: 991px) {
+						max-width: 60px;
+						transition: all 0.5s ease-out;
+					}
 				}
 			}
 			.mainMenu {
-				.ui.menu {
-					.item {
-						justify-content: center;
-						img.ui.image {
-							margin-right: 0px;
-						}
-						span {
-							display: none;
-							transition: all .5s ease-out;
+				@media (min-width: 991px) {
+					.ui.menu {
+						.item {
+							justify-content: center;
+							img.ui.image {
+								margin-right: 0px;
+							}
+							span {
+								display: none;
+								transition: all 0.5s ease-out;
+							}
 						}
 					}
 				}

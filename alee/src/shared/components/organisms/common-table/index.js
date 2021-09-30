@@ -80,20 +80,22 @@ function DataTable(props) {
                             <Loader />
                         </Dimmer>
                     )}
-                    <Table singleLine>
-                        <TableHeader
-                            columns={props.columns}
-                            onHandleSorting={onHandleSorting}
-                            gridObjects={gridObjects}
-                        />
-                        <TableRow singleLine
-                            columns={props.columns}
-                            gridData={values}
-                            getCommonTable={getCommonTable}
-                            confirmModalOpen={confirmModalOpen}
-                        />
+                    <div className="commonTable">
+                        <Table singleLine>
+                            <TableHeader
+                                columns={props.columns}
+                                onHandleSorting={onHandleSorting}
+                                gridObjects={gridObjects}
+                            />
+                            <TableRow singleLine
+                                columns={props.columns}
+                                gridData={values}
+                                getCommonTable={getCommonTable}
+                                confirmModalOpen={confirmModalOpen}
+                            />
 
-                    </Table>
+                        </Table>
+                    </div>
                 </div>
             </Grid.Column>
 
