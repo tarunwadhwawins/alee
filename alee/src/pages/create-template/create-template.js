@@ -37,15 +37,16 @@ function CreateTemplatePage() {
 		setReload(!reload)
 	}
 	const onSubmitTemplate = (e) => {
-		  
+
 		dispatch(apiCall({
 			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: { templateName }, onSuccess: (response) => {
-				  
+
 				openModal2();
 				gridReload();
-				<>
-					{templateName.templateId === null ? history.push(`${env.PUBLIC_URL}/drag/${response.id}`) : response}
-				</>
+				history.push(`${env.PUBLIC_URL}/drag/${response.id}`)
+
+				{/* {templateName.templateId === null ? history.push(`${env.PUBLIC_URL}/drag/${response.id}`) : response} */ }
+
 			}, showNotification: true
 		}))
 	}
@@ -114,7 +115,7 @@ function CreateTemplatePage() {
 									return (
 										<>
 											{/* <Icon title="tag" name="tag" className="primary-color" link onClick={() => onHandleEdit(props)} /> */}
-											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link/>
+											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link />
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.templateId, "delete")} />
 										</>
 									);
