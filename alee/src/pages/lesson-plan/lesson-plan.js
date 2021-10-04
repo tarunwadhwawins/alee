@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Icon, Header, Button, Form, Dropdown } from "semantic-ui-react";
 import { Link } from "../../shared/functional/global-import";
 import { DataTable } from "../../../src/shared/components/organisms";
-
+import { useSelector } from 'react-redux';
+import { env } from "../../shared/functional/global-import";
+// import LessonPreview from "../../shared/components/organisms/modal/lesson-preview/index"
 function LessonPlanPage() {
+	const [lessonPreview, setLessonPreview] = useState(false)
+	const teacherId = useSelector(state => state.auth.userDetail.teacherId);
+	const openModal = () => {
+		   
+		setLessonPreview(!lessonPreview);
+	}
 	return (
 		<div className="common-shadow">
 			<Grid columns="equal">
@@ -22,11 +30,24 @@ function LessonPlanPage() {
 					<DataTable
 						allApi={{ getApiName: "GETLESSONPLANLIST", deleteApiName: "DELETELESSONPLAN", toggleApiName: "LESSONTOGGLEISACTIVE" }} messageInModal="lesson Plan"
 						searchOption={{ show: true, placeHolder: "Search" }}
+						additionalParams={{ teacherId: teacherId }}
 						columns={[
 							{
 								headerName: "Lesson Plan Name",
 								fieldName: "lessonPlanName",
-								isSorting: true
+								isSorting: true,
+								Cell: (props) => {
+									   debugger   
+									return (
+										<>
+											<Link
+												to={`${env.PUBLIC_URL}/lesson-preview/${props.lessonPlanId}`}>
+												{props.lessonPlanName}
+											</Link>
+
+										</>
+									);
+								},
 							},
 							{
 								headerName: "Chapter",
@@ -56,6 +77,7 @@ function LessonPlanPage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
+			{/* <LessonPreview openModal={lessonPreview} closeModal={openModal} /> */}
 		</div>
 	);
 }

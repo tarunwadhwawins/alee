@@ -6,11 +6,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions } from "../../../../functional/global-import";
 
 function AddAssignTemplate(props) {
-	const initialState = {
-		teacherTemplateId: 0,
-		schoolId: null, gradeId: null, teacherId: [], templateId: [],
-		teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "",
-	}
+	const initialState = { teacherTemplateId: 0, schoolId: null, gradeId: null, teacherId: [], templateId: [], teacherAll: false, templateAll: false, isActive: true, actionPerformedBy: "" }
 	const [template, setTemplate] = useState([])
 	const [grade, setGrade] = useState([])
 	const [school, setSchool] = useState([])
@@ -30,18 +26,16 @@ function AddAssignTemplate(props) {
 			}
 		}));
 	}
-
 	const getTemplate = () => {
 		dispatch(apiCall({
 			urls: ["GETTEMPLATELIST"], method: "GET", data: { "templateId": -1, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
 				const getTemplate = response.map((template) => {
 					return { value: template.templateId, text: template.templateName }
-				});
+				});    
 				setTemplate(getTemplate)
 			}
 		}));
 	}
-
 	const getSchoolList = () => {
 		dispatch(apiCall({
 			urls: ["GETSCHOOLSLIST"], method: "GET", data: { schoolId: -1, pageNo: 1, pageSize: 10000 }, onSuccess: (response) => {
@@ -63,7 +57,8 @@ function AddAssignTemplate(props) {
 		if (data === "schoolId") {
 			dispatch(apiCall({
 				urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: value, pageNo: 1, pageSize: 1000 }, onSuccess: (response) => {
-					const getTeachers = response.map((teacherData) => {                                          ;
+					const getTeachers = response.map((teacherData) => {
+						;
 						return { value: teacherData.teacherId, text: teacherData.firstName + teacherData.lastName }
 					});
 					setTeacher(getTeachers)
@@ -73,11 +68,8 @@ function AddAssignTemplate(props) {
 		setValues(initialState)
 		setValues({ ...values, [data]: value });
 	}
-
-	// const onHandleChangeToggle = (e, { checked }) => {
-	// 	setValues({ ...values, isActive: checked });
-	// }
 	const onHandleChangeToggle = (e, { data, checked, type }) => {
+		      
 		if (type === "checkbox") {
 			setValues({ ...values, [data]: checked });
 		}
@@ -100,18 +92,30 @@ function AddAssignTemplate(props) {
 		setValues(initialState);
 		simpleValidator.current.hideMessages();
 	}
+
 	useEffect(() => {
-		editChapterlist();
+		editTemplatelist();
 	}, [props.editData]);
 
-	const editChapterlist = () => {
-		   
-		if (props.editData!==undefined) {
-			const { teacherTemplateId, schoolId, gradeId, teacherId,templateId,  teacherAll, templateAll, isActive, } = props.editData;
+	const editTemplatelist = () => {
+		      
+		if (props.editData !== undefined) {
+			   
+			const { teacherTemplateId, schoolId, gradeId, teacherId, templateId, teacherAll, templateAll, isActive, } = props.editData;
 			setValues({
-				...values, teacherTemplateId: teacherTemplateId, schoolId: schoolId, gradeId: gradeId, teacherId:teacherId,
-				templateId: templateId, teacherAll: teacherAll, templateAll: templateAll, isActive: isActive
+				...values, teacherTemplateId: teacherTemplateId, schoolId: schoolId, gradeId: gradeId, teacherId: [teacherId],
+				templateId: [templateId], teacherAll: teacherAll, templateAll: templateAll, isActive: isActive
 			});
+			dispatch(apiCall({
+				urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: schoolId, pageNo: 1, pageSize: 1000 }, onSuccess: (response) => {
+					const getTeachers = response.map((teacherData) => {
+						return { value: teacherData.teacherId, text: teacherData.firstName + teacherData.lastName }
+					});
+					setTeacher(getTeachers)
+				}
+			}))
+
+
 		}
 	};
 	return (
@@ -136,7 +140,7 @@ function AddAssignTemplate(props) {
 									error={simpleValidator.current.message('gradeId', values.gradeId, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Select multiple label="Template" placeholder="Select Template" data="templateId"  options={template} onChange={onHandleChange} value={values.templateId}
+								<Form.Select multiple label="Template" placeholder="Select Template" data="templateId" options={template} onChange={onHandleChange} value={values.templateId}
 									error={simpleValidator.current.message('templateId', values.templateId, 'required')} />
 							</Grid.Column>
 							<Grid.Column width={8} className='status'>
@@ -144,7 +148,7 @@ function AddAssignTemplate(props) {
 								<div className="statusToggle">
 									<span>Inactive</span>
 									<Form.Checkbox label="Active" toggle className="commonToggle"
-										checked={values.isActive ? false : true}
+										checked={values.isActive}
 										value={values.isActive}
 										data="isActive"
 										onChange={onHandleChangeToggle} />

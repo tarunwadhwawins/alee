@@ -10,7 +10,7 @@ import ProfileStepFour from "./profile-step-four";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
-const initialState = { schoolId: null, grades: [],teacherId: null, subjectId: null, image: "",actionPerformedBy: "" }
+const initialState = { schoolId: null, grades: [],teacherId: null, subjectId: null, image: "",actionPerformedBy: "",imageurl:"" }
 const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "",index: null, updateButtonEducation: false,
  teacherEducationDetailId:0 }
 const initialSchool = { institute: "", position: "", grades:[],isCurrent: true, index: null, updateButtonSchool: false,teacherWorkExperienceId:0 }
@@ -31,7 +31,6 @@ function MyProfile(props) {
   const [skill, setSkill] = useState({ updatedSkill: false });
   const [skills, setSkills] = useState([]);
   const [grade, setGradeList] = useState([]);
-  // const [image, setImage] = useState(null);
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -62,11 +61,10 @@ function MyProfile(props) {
     editEmployment();
     editSkill();
   }, []);
-  const editBasicInfo = () => {
-                                                ;
+  const editBasicInfo = () => {               
     if (allData) {
       const { schoolId, grades, teacherId, subjectId, image} = allData.teacherProfile;
-      setValues({ ...values, schoolId: schoolId, grades: JSON.parse(grades),teacherId:teacherId,subjectId: subjectId,image:commonFunctions.concatenateImageWithAPIUrl(image)});
+      setValues({ ...values, schoolId: schoolId, grades: JSON.parse(grades),teacherId:teacherId,subjectId: subjectId,imageurl:commonFunctions.concatenateImageWithAPIUrl(image)});
     }
   };
   const editEducations = () => {
@@ -75,6 +73,7 @@ function MyProfile(props) {
     }
   };
   const editEmployment = () => {
+       
     if (allData) {
     setThirdSecondStep(thirdSecondStep.concat(allData.Employe));
     }

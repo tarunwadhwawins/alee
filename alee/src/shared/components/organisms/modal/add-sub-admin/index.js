@@ -139,7 +139,7 @@ function AddSubAdmin(props) {
                   data="userName"
                   value={subAdmin.userName}
                   onChange={onHandleChange}
-                  error={simpleValidator.current.message('userName', subAdmin.userName, 'required')}
+                  error={simpleValidator.current.message('subAdmin', subAdmin.userName, 'required')}
                 />
               </Grid.Column>
               {props.modalType === "ADD" && (

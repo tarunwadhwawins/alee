@@ -5,15 +5,8 @@ import { Grid, Form, Modal, Button } from "semantic-ui-react";
 
 function AddTemplateModal(props) {
 	const { templateName, simpleValidator } = props;
-
 	return (
-		<Modal
-			open={props.openModal}
-			onClose={props.closeModal}
-			size="tiny"
-		>
-
-
+		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
 			<Modal.Header>{templateName.templateId > 0 ? "Edit Template" : "Create Template"} </Modal.Header>
 			<Modal.Content scrolling>
 				<Modal.Description>

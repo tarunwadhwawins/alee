@@ -4,10 +4,9 @@ import { useDispatch } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
 import { useSelector } from "react-redux";
 import { commonFunctions } from "../../shared/functional/global-import";
-import { env, Link } from "../../shared/functional/global-import";
 import SimpleReactValidator from 'simple-react-validator';
 function ProfileOne(props) {
-    const initState = { schoolId: null, schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", image: "", actionPerformedBy: "", imageurl: null }
+    const initState = { schoolId: null, schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", image: "", actionPerformedBy: "", imageurl:""}
     const [schoolForm, setSchoolForm] = useState(initState);
     const schoolId = useSelector(state => state.auth.userDetail.schoolId);
     const api = useSelector(state => state.api);
@@ -26,12 +25,14 @@ function ProfileOne(props) {
                 method: "GET",
                 data: { schoolId: schoolId },
                 onSuccess: (response) => {
+                       
                     if (response.length > 0) {
-                        setSchoolForm({
+                        setSchoolForm({ 
                             ...schoolForm,
                             schoolName: response[0].schoolName, schoolAddress: response[0].schoolAddress,
                             email: response[0].email,
                             schoolContactNo: response[0].schoolContactNo, schoolId: response[0].schoolId,
+                            imageurl:commonFunctions.concatenateImageWithAPIUrl(response[0].image)
                         })
                     }
 
@@ -40,7 +41,7 @@ function ProfileOne(props) {
         );
     };
     const onHandleSubmit = (e) => {
-                          
+
         const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
         if (isFormValid) {
             var formData = commonFunctions.getFormData(schoolForm);
@@ -51,7 +52,7 @@ function ProfileOne(props) {
                     data: formData,
                     onSuccess: (response) => {
                         setSchoolForm(response);
-                    },showNotification: true
+                    }, showNotification: true
                 })
             );
         }
@@ -64,7 +65,7 @@ function ProfileOne(props) {
     const onHandleChange = (e, { data, value }) => {
         setSchoolForm({ ...schoolForm, [data]: value });
     }
-
+          
     return (
         <>
             <Form>
@@ -80,8 +81,10 @@ function ProfileOne(props) {
 
                         <div className="setImg">
                             <div className="setImgInner">
-                                <img src={schoolForm.imageurl}
-                                />
+                                {schoolForm &&(
+                                <img src={schoolForm.imageurl} data="image" value={schoolForm.image}/>
+                               
+                                )},{schoolForm.image}
                             </div>
                             <Button className="primaryBtn" onChange={imageChange}>Browse Image<input type="file" /></Button>
                         </div>
@@ -110,7 +113,7 @@ function ProfileOne(props) {
                     <Grid.Column className="primeBtn" width={16} textAlign="right">
                         <Button className="primaryBtn" loading={api.isApiLoading}
                             onClick={onHandleSubmit}
-                            // as={Link} to={`${env.PUBLIC_URL}/profile-school/${schoolId}`}
+                        // as={Link} to={`${env.PUBLIC_URL}/profile-school/${schoolId}`}
                         >Update</Button>
                     </Grid.Column>
 

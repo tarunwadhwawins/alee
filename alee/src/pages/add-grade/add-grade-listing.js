@@ -38,7 +38,7 @@ function AddGradePage() {
 						allApi={{ getApiName: "GETGRADESLIST", deleteApiName: "DELETEGRADE", toggleApiName: "GRADESTOGGLE" }} reload={reload}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="grade"
-						additionalParams={{ActiveGrades:true}}
+						additionalParams={{ActiveGrades:false}}
 						columns={[
 							{
 								headerName: "Grade",
@@ -51,7 +51,7 @@ function AddGradePage() {
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.gradeId, "update", props.isActive)} />
+										<Form.Checkbox checked={props.isActive ? true : false} toggle className="commonToggle" onChange={() => confirmModalOpen(props.gradeId, "update",props.isActive)} />
 									);
 								},
 							},

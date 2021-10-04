@@ -226,7 +226,8 @@ function ResourcesPage() {
             }
             additionalParams={
               {
-                resourceTypeId: 18
+                resourceTypeId: 18,
+                bookId:-1
               }
 
             }
@@ -311,7 +312,7 @@ function ResourcesPage() {
             }
             additionalParams={
               {
-                resourceTypeId: 19
+                resourceTypeId: 19,bookId:-1
               }
             }
             messageInModal="video"
@@ -393,7 +394,7 @@ function ResourcesPage() {
           }
           additionalParams={
             {
-              resourceTypeId: 20
+              resourceTypeId: 20,bookId:-1
             }
           }
           messageInModal="article"
@@ -491,7 +492,7 @@ function ResourcesPage() {
         })
       );
     } else if ((AudioLink === "" || (VideoLink === "" && VideoLink === null) || (ArticleLink === "" && ArticleLink === null) || (UploadPdf === "" && UploadPdf === undefined))) {
-      dispatch(Notifications.show({ title: "Error", message: 'Please add atleast one the resourc source.', position: 'br', autoDismiss: 2 }, "error"))
+      dispatch(Notifications.show({ title: "Error", message: 'At Least one resource is required.', position: 'br', autoDismiss: 2 }, "error"))
     }
   };
   return (
@@ -518,7 +519,7 @@ function ResourcesPage() {
                   data="GradeId"
                   value={resources.GradeId}
                   onChange={onHandleChange}
-                  error={simpleValidator.current.message('GradeId', resources.GradeId, 'required')}
+                  error={simpleValidator.current.message('Grade', resources.GradeId, 'required')}
                 />
               </Grid.Column>
               <Grid.Column width="5">
@@ -529,7 +530,7 @@ function ResourcesPage() {
                   data="BookId"
                   value={resources.BookId}
                   onChange={onHandleChange}
-                  error={simpleValidator.current.message('BookId', resources.BookId, 'required')}
+                  error={simpleValidator.current.message('Book', resources.BookId, 'required')}
                 />
               </Grid.Column>
               <Grid.Column width="5">
@@ -540,7 +541,7 @@ function ResourcesPage() {
                   data="ChapterId"
                   value={resources.ChapterId}
                   onChange={onHandleChange}
-                  error={simpleValidator.current.message('ChapterId', resources.ChapterId, 'required')}
+                  error={simpleValidator.current.message('Chapter', resources.ChapterId, 'required')}
                 />
               </Grid.Column>
               {/* <Grid.Column width="4">

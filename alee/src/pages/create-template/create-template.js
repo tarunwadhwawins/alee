@@ -8,7 +8,7 @@ import { apiCall } from "../../store/actions/api.actions";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import SimpleReactValidator from 'simple-react-validator';
-// import { commonFunctions } from "../../shared/functional/global-import";
+import { commonFunctions } from "../../shared/functional/global-import";
 
 function CreateTemplatePage() {
 	const initialState = {
@@ -39,39 +39,39 @@ function CreateTemplatePage() {
 	const onSubmitTemplate = (e) => {
 
 		dispatch(apiCall({
-			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: { templateName }, onSuccess: (response) => {
-
+			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: templateName, onSuccess: (response) => {
+				      
 				openModal2();
 				gridReload();
-				history.push(`${env.PUBLIC_URL}/drag/${response.id}`)
-
-				{/* {templateName.templateId === null ? history.push(`${env.PUBLIC_URL}/drag/${response.id}`) : response} */ }
-
+				<>
+					{templateName.templateId !== null ? response : history.push(`${env.PUBLIC_URL}/drag/${response.id}`)}
+				</>
 			}, showNotification: true
 		}))
+
 	}
-	const onHandleEdit = (e, text) => {
-		history.push(`${env.PUBLIC_URL}/drag/${e.templateId}`);
-	}
-	const onChangeTemplate = (e, { value }) => {
-		setTemplateName(value)
-	}
+	// const onHandleEdit = (e, text) => {
+	// 	   
+	// 	history.push(`${env.PUBLIC_URL}/drag/${e.templateId}`);
+	// }
+	const onChangeTemplate = (e, { data, value }) => {
+		setTemplateName({ ...templateName, [data]: value });
+	};
 	const onHandletemplateEdit = (data) => {
 		setEditData(editData.concat(data))
 		openModal2();
 	}
-	// useEffect(() => {
-	// 	editTemplate();
-	// }, [editData]);
-
-	// const editTemplate = () => {
-	// 	if (editData.length > 0) {
-	// 		const { templateId, templateName } = editData[editData.length - 1];
-	// 		setTemplateName({
-	// 			...templateName, templateId: templateId, templateName: templateName
-	// 		});
-	// 	}
-	// };
+	useEffect(() => {
+		editTemplate();
+	}, [editData]);
+	const editTemplate = () => {
+		if (editData.length > 0) {
+			const { templateId, templateName } = editData[editData.length - 1];
+			setTemplateName({
+				...templateName, templateId: templateId, templateName: templateName
+			});
+		}
+	};
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -115,7 +115,7 @@ function CreateTemplatePage() {
 									return (
 										<>
 											{/* <Icon title="tag" name="tag" className="primary-color" link onClick={() => onHandleEdit(props)} /> */}
-											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link />
+											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandletemplateEdit(props)} link />
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.templateId, "delete")} />
 										</>
 									);

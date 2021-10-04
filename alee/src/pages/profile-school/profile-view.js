@@ -34,14 +34,11 @@ function ProfileView() {
 				return (
 					<>
 						<div className="profileViewHeader" >
-
 							<div className="profileImgOuter">
 								<div className="profileImg">
 									<Image src={commonFunctions.concatenateImageWithAPIUrl(schoolProfile.image)} />
-
 								</div>
 							</div>
-
 							<div className="profileViewHeaderDesc schoolHeader">
 								<Header as='h3' className="commonHeading">
 									{schoolProfile.schoolName}
@@ -54,9 +51,7 @@ function ProfileView() {
 										</List.Content>
 									</List.Item>
 								</List>
-
 							</div>
-
 						</div>
 						<Grid>
 							<Grid.Column width={16}>

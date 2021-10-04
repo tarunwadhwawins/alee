@@ -4,8 +4,7 @@ import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
 import {logout } from "../../../../store/actions/auth.actions";
-
-
+import { env } from "../../../functional/global-import";
 import { commonFunctions } from "../../../functional/global-import";
 import ChangePassword from "../modal/change-password/change-password";
 function Header(props) {
@@ -18,6 +17,8 @@ function Header(props) {
     </span>
   )
   const api = useSelector(state => state.auth.userDetail.role);
+  const isPublished = useSelector(state => state.auth.userDetail.isPublished);
+  const teacherId = useSelector(state => state.auth.userDetail.teacherId);
   const dispatch = useDispatch();
 
   const onHandleLogout = () => {
@@ -99,10 +100,11 @@ function Header(props) {
                   {api === "Teacher" &&
                     <Dropdown.Item
                       as={Link}
-                      to="profile"
+                      to={isPublished?`${env.PUBLIC_URL}/profile-preview/${teacherId}`:`${env.PUBLIC_URL}/profile`}
                       icon="user"
                       text="My Profile"
-                    />}
+                    />
+                  }
 
                   <Dropdown.Item
                     icon="repeat"

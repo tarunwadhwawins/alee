@@ -1,6 +1,6 @@
 import React from "react";
 // import ReactDOM from "react-dom";
-import { FormBuilder} from "cb-react-forms";
+import { FormBuilder } from "cb-react-forms";
 import { useDispatch, useSelector } from 'react-redux';
 import { commonFunctions, env } from "../../shared/functional/global-import";
 import { apiCall } from "../../store/actions/api.actions";
@@ -15,11 +15,17 @@ function DragDropPage() {
         console.log(data);
         const fields = [];
         for (let i = 0; i < JSON.parse(data).length; i++) {
-            const fieldsData = { templateFieldId: 0, fieldName: JSON.parse(data)[i].label.blocks[0].text, fieldDataTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "DataType", JSON.parse(data)[i].element)).globalCodeId, fieldOrder: i + 1, isRequired: JSON.parse(data)[0].required, categoryName: null }
+            const fieldsData = {
+                templateFieldId: 0, fieldName: JSON.parse(data)[i].label.blocks[0].text,
+                fieldDataTypeId: (commonFunctions.getGlobalCodeDetails(globalCode, "DataType",
+                JSON.parse(data)[i].element)).globalCodeId, fieldOrder: i + 1,
+                isRequired: JSON.parse(data)[0].required, categoryName: null
+            }
             fields.push(fieldsData)
         }
         dispatch(apiCall({
             urls: ["ADDTEMPLATEFIELDS"], method: "POST", data: { "templateId": templateId.id, "fields": fields, "isActive": true, "actionPerformedBy": "" }, onSuccess: (response) => {
+                   
                 history.push(`${env.PUBLIC_URL}/create-template`);
             }, showNotification: true
         }))
@@ -61,7 +67,7 @@ function DragDropPage() {
 
     return (
         <div>
-            <FormBuilder items={items} onSubmit={exportForm}/>
+            <FormBuilder items={items} onSubmit={exportForm} />
         </div>
     );
 }

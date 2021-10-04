@@ -4,15 +4,15 @@ import InviteTeacher from "../../shared/components/organisms/modal/invite-teache
 import AddNotes from "../../shared/components/organisms/modal/add-notes/index";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
+import Resources from "../../shared/components/organisms/modal/add-resources/index"
 
 function LessonPlanCreationPage(props) {
-
 	const bookId = useSelector(state => state.global.myBookData.bookId);
 	const auth = useSelector((state) => state.auth);
 	const initialState = { lessonPlanId: null, teacherId: auth.userDetail.teacherId, bookId: bookId, chapterId: null, gradeId: null, templateId: null, lessonPlanName: "", templateResponse: [], notes: [], actionPerformedBy: "", isNoteAdded: true }
-
-	const [invite, setInvite] = useState(false)
+	const [invite, setInvite] = useState(false);
 	const [notes, setNotes] = useState(false)
+	const [resources, setResources] = useState(false)
 	const [template, setTemplate] = useState([])
 	const [grade, setGrade] = useState([])
 	const [lessonPlan, setLessonPlan] = useState(initialState)
@@ -29,6 +29,10 @@ function LessonPlanCreationPage(props) {
 	}
 	const openModal2 = () => {
 		setNotes(!notes)
+	}
+	const openModal3 = () => {
+		   
+		setResources(!resources);
 	}
 	const onTemplateChange = (e, { value }) => {
 		   
@@ -91,6 +95,7 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onChangeDescription = (e, { value, index }) => {
+		      
 		const description = [...addNotes]
 		description[index]["noteDescription"] = value;
 		setAddNotes(description)
@@ -103,9 +108,11 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const addMultipleNotes = () => {
+		   
 		setAddNotes(addNotes.concat({ noteId: null, noteDescription: "", studentIds: [], studentAll: false }))
 	}
 	const removeNotes = (index) => {
+		      
 		const rows = [...addNotes]
 		rows.splice(index, 1);
 		setAddNotes(rows);
@@ -221,6 +228,9 @@ function LessonPlanCreationPage(props) {
 								<Grid.Column width={16}>
 									<Button className="alternateBtn" onClick={openModal2}>Add Notes</Button>
 								</Grid.Column>
+								<Grid.Column width={16}>
+									<Button className="alternateBtn" onClick={openModal3}>Add Resources</Button>
+								</Grid.Column>
 							</Grid>
 						</Form>
 
@@ -236,6 +246,7 @@ function LessonPlanCreationPage(props) {
 			</Grid>
 			<InviteTeacher openModal={invite} closeModal={openModal} />
 			<AddNotes openModal={notes} closeModal={openModal2} onChangeDescription={onChangeDescription} onChangeStudent={onChangeStudent} addMultipleNotes={addMultipleNotes} addNotes={addNotes} removeNotes={removeNotes} addNotesInLessonplan={addNotesInLessonplan} />
+			<Resources openModal={resources} closeModal={openModal3}/>
 		</div>
 	);
 }

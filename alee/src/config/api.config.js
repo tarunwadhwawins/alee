@@ -104,7 +104,8 @@ const API_ENDPOINTS = {
   DELETEUSER: "/Authentication/DeleteUser",
   GETTEMPLATEFIELD: "/Template/GetTemplateFieldsList",
   CHANGEPASSWORD: "/Authentication/ChangePassword",
-  UPDATESCHOOLPROFILE: "/School/UpdateSchoolProfile"
+  UPDATESCHOOLPROFILE: "/School/UpdateSchoolProfile",
+  GETLESSONPLANDATA:"/Lesson/GetLessonPlanData"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

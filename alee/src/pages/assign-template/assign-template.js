@@ -77,8 +77,7 @@ function AssignTemplatePage() {
 								headerName: "Action",
 								fieldName: "Action",
 								isSorting: false,
-								Cell: (props, confirmModalOpen) => {
-									                                       
+								Cell: (props, confirmModalOpen) => {                                 
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link />
