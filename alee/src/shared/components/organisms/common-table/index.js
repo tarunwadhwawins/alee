@@ -82,8 +82,6 @@ function DataTable(props) {
     //         return;
     //     setIsFetching(true);
     // };
-
-    debugger
     const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
     const showMessage = props.messageInModal !== undefined ? props.messageInModal : "record"
     const messages = confirmModal.isActive ? "deactivate" : "activate"

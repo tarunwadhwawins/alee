@@ -16,6 +16,7 @@ function AssignTemplatePage() {
 	}
 	const openModal2 = () => {
 		setTemplate(!template)
+		SetEditTemplate(!editTemplate)
 	}
 	const GridReload = () => {
 		setReload(!reload)
@@ -23,7 +24,7 @@ function AssignTemplatePage() {
 	const onHandleEdit = (data) => {
 		debugger
 		SetEditData(data)
-		SetEditTemplate(!editTemplate)
+		SetEditTemplate(false)
 		openModal2();
 	}
 
