@@ -31,7 +31,7 @@ function AddAssignTemplate(props) {
 			urls: ["GETTEMPLATELIST"], method: "GET", data: { "templateId": -1, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
 				const getTemplate = response.map((template) => {
 					return { value: template.templateId, text: template.templateName }
-				});    
+				});
 				setTemplate(getTemplate)
 			}
 		}));
@@ -69,7 +69,7 @@ function AddAssignTemplate(props) {
 		setValues({ ...values, [data]: value });
 	}
 	const onHandleChangeToggle = (e, { data, checked, type }) => {
-		      
+
 		if (type === "checkbox") {
 			setValues({ ...values, [data]: checked });
 		}
@@ -88,19 +88,23 @@ function AddAssignTemplate(props) {
 	}
 
 	const closeModal = () => {
-		props.closeModal();
+		debugger
 		setValues(initialState);
+		props.closeModal();
 		simpleValidator.current.hideMessages();
 	}
 
 	useEffect(() => {
-		editTemplatelist();
-	}, [props.editData]);
+		debugger
+		if (props.editTemplate) {
+			editTemplatelist();
+		}
+	}, [props.editTemplate]);
 
 	const editTemplatelist = () => {
-		      
+
 		if (props.editData !== undefined) {
-			   
+
 			const { teacherTemplateId, schoolId, gradeId, teacherId, templateId, teacherAll, templateAll, isActive, } = props.editData;
 			setValues({
 				...values, teacherTemplateId: teacherTemplateId, schoolId: schoolId, gradeId: gradeId, teacherId: [teacherId],
@@ -118,8 +122,9 @@ function AddAssignTemplate(props) {
 
 		}
 	};
+
 	return (
-		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
+		<Modal open={props.openModal} onClose={closeModal} size="tiny">
 			<Modal.Header>Assign Template</Modal.Header>
 			<Modal.Content>
 				<Modal.Description>

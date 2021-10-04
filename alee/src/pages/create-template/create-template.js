@@ -32,6 +32,7 @@ function CreateTemplatePage() {
 	}
 	const openModal2 = () => {
 		setTemplate(!template)
+		setTemplateName(initialState)
 	}
 	const gridReload = () => {
 		setReload(!reload)
@@ -40,7 +41,7 @@ function CreateTemplatePage() {
 
 		dispatch(apiCall({
 			urls: ["ADDUPDATETEMPLATE"], method: "POST", data: templateName, onSuccess: (response) => {
-				      
+
 				openModal2();
 				gridReload();
 				<>

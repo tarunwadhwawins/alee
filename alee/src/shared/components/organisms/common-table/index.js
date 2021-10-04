@@ -83,7 +83,7 @@ function DataTable(props) {
     //     setIsFetching(true);
     // };
 
-
+    debugger
     const modalType = (confirmModal.type === "delete" ? onHandleDelete : upDateToggle)
     const showMessage = props.messageInModal !== undefined ? props.messageInModal : "record"
     const messages = confirmModal.isActive ? "deactivate" : "activate"
@@ -121,7 +121,7 @@ function DataTable(props) {
                 </div>
             </Grid.Column>
 
-            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} />
+            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} data={props} />
 
         </Grid>
     );
