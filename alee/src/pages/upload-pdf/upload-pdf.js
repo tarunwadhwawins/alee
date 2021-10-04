@@ -4,8 +4,8 @@ import { commonFunctions } from "../../shared/functional/global-import";
 import { apiCall } from "../../store/actions/api.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import ImageUploading from 'react-images-uploading';
-import { GlobalCodeMultiSelect } from "../../shared/components";
 import SimpleReactValidator from 'simple-react-validator';
+import { env,Link } from "../../shared/functional/global-import";
 
 const initialState = {}
 function UploadPdfPage() {
@@ -170,7 +170,7 @@ function UploadPdfPage() {
 
 				<Grid.Column width={16} textAlign="right">
 					<Button className="secondaryBtn" onClick={removeBook} >Cancel</Button>
-					<Button className="primaryBtn" onClick={onHandleSubmit} loading={api.isApiLoading}>Upload</Button>
+					<Button className="primaryBtn"as={Link}  to={`${env.PUBLIC_URL}/my-books`} onClick={onHandleSubmit} loading={api.isApiLoading} >Upload</Button>
 					{/* <Button className="primaryBtn" as={Link} to="book-flip" onClick={onHandleSubmit}>Next</Button> */}
 				</Grid.Column>
 			</Grid>

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { commonFunctions } from "../../shared/functional/global-import";
 import SimpleReactValidator from 'simple-react-validator';
 function ProfileOne(props) {
-    const initState = { schoolId: null, schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", image: "", actionPerformedBy: "", imageurl:""}
+    const initState = { schoolId: null, schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", image: "", actionPerformedBy: "", imageurl:null}
     const [schoolForm, setSchoolForm] = useState(initState);
     const schoolId = useSelector(state => state.auth.userDetail.schoolId);
     const api = useSelector(state => state.api);
@@ -57,8 +57,9 @@ function ProfileOne(props) {
             );
         }
     };
-    const imageChange = (e, index) => {
+    const imageChange = (e) => {
         if (e.target.files) {
+            debugger;
             setSchoolForm({ ...schoolForm, imageurl: window.URL.createObjectURL(e.target.files[0]), image: e.target.files[0] });
         }
     };
@@ -80,11 +81,9 @@ function ProfileOne(props) {
                     <Grid.Column width={4}>
 
                         <div className="setImg">
-                            <div className="setImgInner">
-                                {schoolForm &&(
+                            <div className="setImgInner"> 
                                 <img src={schoolForm.imageurl} data="image" value={schoolForm.image}/>
                                
-                                )},{schoolForm.image}
                             </div>
                             <Button className="primaryBtn" onChange={imageChange}>Browse Image<input type="file" /></Button>
                         </div>
