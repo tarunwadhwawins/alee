@@ -8,7 +8,7 @@ import { storeMyBookData} from "../../store/actions/global.actions";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
-	const [values, setValues] = useState({ pageNo: 1, pageSize: 10, searchValue: "", })
+	const [values, setValues] = useState({ pageNo: 1, pageSize: 10, searchValue: "",orderBy: "ModifiedDate",orderByDescending: true, })
 	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: ""})
 
 	// const [tagFields, setTagFields] = useState([]);
