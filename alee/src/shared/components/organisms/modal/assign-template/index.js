@@ -99,7 +99,7 @@ function AddAssignTemplate(props) {
 		if (props.editTemplate) {
 			editTemplatelist();
 		}
-	}, [props.editTemplate]);
+	}, [props.editData]);
 
 	const editTemplatelist = () => {
 
