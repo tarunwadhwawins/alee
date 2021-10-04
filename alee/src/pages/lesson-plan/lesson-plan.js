@@ -37,7 +37,7 @@ function LessonPlanPage() {
 								fieldName: "lessonPlanName",
 								isSorting: true,
 								Cell: (props) => {
-									   debugger   
+									                  
 									return (
 										<>
 											<Link
@@ -77,7 +77,6 @@ function LessonPlanPage() {
 					></DataTable>
 				</Grid.Column>
 			</Grid>
-			{/* <LessonPreview openModal={lessonPreview} closeModal={openModal} /> */}
 		</div>
 	);
 }

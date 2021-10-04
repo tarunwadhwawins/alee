@@ -94,7 +94,7 @@ function LessonLibrary() {
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">
 					{tagFields && tagFields.length > 0 && tagFields.map((singleField, index) => {
-						debugger;
+						         
 						const value = tags.length > 0 && tags.filter(code => code[singleField.fieldName])
 						const standard = singleField.dataTypeName === "Dropdown" && value[0][singleField.fieldName]
 						return (

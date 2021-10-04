@@ -93,31 +93,30 @@ function AddAssignTemplate(props) {
 		simpleValidator.current.hideMessages();
 	}
 
-	useEffect(() => {
-		editTemplatelist();
-	}, [props.editData]);
+	// useEffect(() => {
+	// 	editTemplatelist();
+	// }, [props.editData]);
 
-	const editTemplatelist = () => {
+	// const editTemplatelist = () => {
 		      
-		if (props.editData !== undefined) {
-			   
-			const { teacherTemplateId, schoolId, gradeId, teacherId, templateId, teacherAll, templateAll, isActive, } = props.editData;
-			setValues({
-				...values, teacherTemplateId: teacherTemplateId, schoolId: schoolId, gradeId: gradeId, teacherId: [teacherId],
-				templateId: [templateId], teacherAll: teacherAll, templateAll: templateAll, isActive: isActive
-			});
-			dispatch(apiCall({
-				urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: schoolId, pageNo: 1, pageSize: 1000 }, onSuccess: (response) => {
-					const getTeachers = response.map((teacherData) => {
-						return { value: teacherData.teacherId, text: teacherData.firstName + teacherData.lastName }
-					});
-					setTeacher(getTeachers)
-				}
-			}))
+	// 	if (props.editData !== undefined) {
+	// 		const { teacherTemplateId, schoolId, gradeId, teacherId, templateId, teacherAll, templateAll, isActive, } = props.editData;
+	// 		setValues({
+	// 			...values, teacherTemplateId: teacherTemplateId, schoolId: schoolId, gradeId: gradeId, teacherId:teacherId,
+	// 			templateId:templateId, teacherAll: teacherAll, templateAll: templateAll, isActive: isActive
+	// 		});
+	// 		dispatch(apiCall({
+	// 			urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: schoolId, pageNo: 1, pageSize: 1000 }, onSuccess: (response) => {
+	// 				const getTeachers = response.map((teacherData) => {
+	// 					return { value: teacherData.teacherId, text: teacherData.firstName + teacherData.lastName }
+	// 				});
+	// 				setTeacher(getTeachers)
+	// 			}
+	// 		}))
 
 
-		}
-	};
+	// 	}
+	// };
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
 			<Modal.Header>Assign Template</Modal.Header>

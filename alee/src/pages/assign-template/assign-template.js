@@ -19,10 +19,10 @@ function AssignTemplatePage() {
 	const GridReload = () => {
 		setReload(!reload)
 	}
-	const onHandleEdit = (data) => {
-		SetEditData(data)
-		openModal2();
-	}
+	// const onHandleEdit = (data) => {
+	// 	SetEditData(data)
+	// 	openModal2();
+	// }
 
 
 	return (
@@ -80,7 +80,9 @@ function AssignTemplatePage() {
 								Cell: (props, confirmModalOpen) => {                                 
 									return (
 										<>
-											<Icon title="Edit" name="edit" className="primary-color" onClick={() => onHandleEdit(props)} link />
+											<Icon title="Edit" name="edit" className="primary-color"
+											// onClick={() => onHandleEdit(props)}
+											  link />
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateId, "delete")} />
 										</>
 									);

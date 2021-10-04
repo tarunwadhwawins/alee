@@ -139,7 +139,6 @@ function LessonPlanCreationPage(props) {
 					<Grid.Column width={16}>
 						<Header as="h3" className="commonHeading">Lesson Plan Creation</Header>
 					</Grid.Column>
-
 					<Grid.Column width={5}>
 						<Form.Input placeholder="Lesson Plan" onChange={onHandleChange} data="lessonPlanName" />
 					</Grid.Column>
@@ -160,6 +159,7 @@ function LessonPlanCreationPage(props) {
 						<Header as="h3">{tagBookData.length > 0 && tagBookData[0].chapterName}</Header>
 						<p>{tagBookData.length > 0 && tagBookData[0].tagText}</p>
 						{tagBookData.length > 0 && JSON.parse(tagBookData[0].bookTagList).map((tagData, index) => {
+							            
 							return (<>
 								<Header as="h5">{tagData.fieldName}</Header>
 								<p>{JSON.parse(tagData.Response)}</p>
@@ -179,6 +179,7 @@ function LessonPlanCreationPage(props) {
 						<Form>
 							<Grid>
 								{templateFields.map((singleData, index) => {
+									         
                                     
 									if (singleData.fieldDataType === "Header") {
 										return (

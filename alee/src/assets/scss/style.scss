@@ -477,7 +477,7 @@ h4.ui.header.bookName {
       transform: translateY(-50%);
       z-index: 2;
       .ui.button {
-        border-radius: 50%!important;
+        border-radius: 50% !important;
         height: 45px;
         width: 45px;
         display: flex;
@@ -485,7 +485,7 @@ h4.ui.header.bookName {
         justify-content: center;
         color: $primary-color;
         font-size: 18px;
-        background-color: #fff!important;
+        background-color: #fff !important;
       }
     }
     .profileImgOuter {
@@ -695,4 +695,11 @@ h4.ui.header.bookName {
 }
 .form_editor {
   overflow: auto;
+}
+.ui.basic.table.lessonDetail {
+  tr {
+    td {
+      border-top: none !important;
+    }
+  }
 }
