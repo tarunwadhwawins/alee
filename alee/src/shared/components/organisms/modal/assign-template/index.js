@@ -86,16 +86,13 @@ function AddAssignTemplate(props) {
 			}))
 		}
 	}
-
 	const closeModal = () => {
-		debugger
 		setValues(initialState);
 		props.closeModal();
 		simpleValidator.current.hideMessages();
 	}
 
 	useEffect(() => {
-		debugger
 		if (props.editTemplate) {
 			editTemplatelist();
 		}

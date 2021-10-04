@@ -10,12 +10,14 @@ import ProfileStepFour from "./profile-step-four";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
-const initialState = { schoolId: null, grades: [],teacherId: null, subjectId: null, image: "",actionPerformedBy: "",imageurl:"" }
-const initialStateStepSecond = { degree: "", college: "", inProgress: false, yearOfPassing: "",index: null, updateButtonEducation: false,
- teacherEducationDetailId:0 }
-const initialSchool = { institute: "", position: "", grades:[],isCurrent: true, index: null, updateButtonSchool: false,teacherWorkExperienceId:0 }
+const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "", actionPerformedBy: "", imageurl: "" }
+const initialStateStepSecond = {
+  degree: "", college: "", inProgress: false, yearOfPassing: "", index: null, updateButtonEducation: false,
+  teacherEducationDetailId: 0
+}
+const initialSchool = { institute: "", position: "", grades: [], isCurrent: true, index: null, updateButtonSchool: false, teacherWorkExperienceId: 0 }
 function MyProfile(props) {
-         
+
   let history = useHistory();
   const allData = history.location.state
   const api = useSelector(state => state.api);
@@ -61,21 +63,21 @@ function MyProfile(props) {
     editEmployment();
     editSkill();
   }, []);
-  const editBasicInfo = () => {               
+  const editBasicInfo = () => {
     if (allData) {
-      const { schoolId, grades, teacherId, subjectId, image} = allData.teacherProfile;
-      setValues({ ...values, schoolId: schoolId, grades: JSON.parse(grades),teacherId:teacherId,subjectId: subjectId,imageurl:commonFunctions.concatenateImageWithAPIUrl(image)});
+      const { schoolId, grades, teacherId, subjectId, image } = allData.teacherProfile;
+      setValues({ ...values, schoolId: schoolId, grades: JSON.parse(grades), teacherId: teacherId, subjectId: subjectId, imageurl: commonFunctions.concatenateImageWithAPIUrl(image) });
     }
   };
   const editEducations = () => {
-    if (allData) {       
+    if (allData) {
       setFormSecondStep(formSecondStep.concat(allData.education));
     }
   };
   const editEmployment = () => {
-       
+
     if (allData) {
-    setThirdSecondStep(thirdSecondStep.concat(allData.Employe));
+      setThirdSecondStep(thirdSecondStep.concat(allData.Employe));
     }
   };
   const editSkill = () => {
@@ -89,7 +91,7 @@ function MyProfile(props) {
   ////onchange///
   const onChangeSecondStep = (e, { data, value, checked, type }) => {
     const qualificationValue = type === "checkbox" ? checked : value;
-    setsecondstepValues({...secondstepValues, [data]: qualificationValue})
+    setsecondstepValues({ ...secondstepValues, [data]: qualificationValue })
   }
   const onChangeFourstep = (e, { value }) => {
     setSkilled(value);
@@ -99,7 +101,7 @@ function MyProfile(props) {
     dispatch(apiCall({
       urls: ["ADDTEACHERBASICINFO"], method: "POST", data: formData,
       onSuccess: (response) => {
-           
+
         changeStep(1);
       }, showNotification: true
     }))
@@ -113,8 +115,10 @@ function MyProfile(props) {
 
   /////////////-Second Step-/////////////
   const addMoreQualification = () => {
-    setFormSecondStep(formSecondStep.concat({ degree: secondstepValues.degree, college: secondstepValues.college, 
-      inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing,teacherEducationDetailId:secondstepValues.teacherEducationDetailId}))
+    setFormSecondStep(formSecondStep.concat({
+      degree: secondstepValues.degree, college: secondstepValues.college,
+      inProgress: secondstepValues.inProgress, yearOfPassing: secondstepValues.yearOfPassing, teacherEducationDetailId: secondstepValues.teacherEducationDetailId
+    }))
     setsecondstepValues(initialStateStepSecond)
   }
   const removeQualification = (index) => {
@@ -122,21 +126,27 @@ function MyProfile(props) {
     rows.splice(index, 1);
     setFormSecondStep({ rows, updateButtonEducation: false });
   }
-  const editQualification = (data, index) => {             ;
-    setsecondstepValues({ ...secondstepValues, degree: data.degree, college: data.college, inProgress: data.inProgress, yearOfPassing: data.yearOfPassing, index: index, updateButtonEducation: true, teacherEducationDetailId: data.teacherEducationDetailId })}
+  const editQualification = (data, index) => {
+    ;
+    setsecondstepValues({ ...secondstepValues, degree: data.degree, college: data.college, inProgress: data.inProgress, yearOfPassing: data.yearOfPassing, index: index, updateButtonEducation: true, teacherEducationDetailId: data.teacherEducationDetailId })
+  }
   const updateQualification = () => {
     const items = [...formSecondStep];
-    items[secondstepValues.index] = { "degree": secondstepValues.degree, "college": secondstepValues.college,
-     "inProgress": secondstepValues.inProgress, "yearOfPassing": secondstepValues.yearOfPassing,"teacherEducationDetailId":secondstepValues.teacherEducationDetailId }
+    items[secondstepValues.index] = {
+      "degree": secondstepValues.degree, "college": secondstepValues.college,
+      "inProgress": secondstepValues.inProgress, "yearOfPassing": secondstepValues.yearOfPassing, "teacherEducationDetailId": secondstepValues.teacherEducationDetailId
+    }
     setFormSecondStep(items);
     setsecondstepValues({ updateButtonEducation: false });
     setsecondstepValues(initialStateStepSecond);
   }
   const onStepSecond = () => {
     dispatch(apiCall({
-      urls: ["ADDTEACHERQUALIFICATION"], method: "POST", data: ({ teacherQualificationData: formSecondStep, teacherId: teacherId,
-         actionPerformedBy: "" }), onSuccess: (response) => {
-                            ;
+      urls: ["ADDTEACHERQUALIFICATION"], method: "POST", data: ({
+        teacherQualificationData: formSecondStep, teacherId: teacherId,
+        actionPerformedBy: ""
+      }), onSuccess: (response) => {
+        ;
         changeStep(2);
       }, showNotification: true
     }))
@@ -146,22 +156,27 @@ function MyProfile(props) {
   }
   /////////// -THREE STEP- /////////
   const onChangeSchool = (e, { data, value, checked, type }) => {
+    debugger
     const isCurrent = type === "checkbox" ? checked : value;
     setSchool({ ...school, [data]: isCurrent })
   }
   const onThreeStepEducation = () => {
     dispatch(apiCall({
-      urls: ["ADDTEACHERWORKEXPERIENCE"], method: "POST", data: ({ teacherWorkExperienceData: thirdSecondStep,teacherId: teacherId,
-        actionPerformedBy: "" }),
-        onSuccess: (response) => {
+      urls: ["ADDTEACHERWORKEXPERIENCE"], method: "POST", data: ({
+        teacherWorkExperienceData: thirdSecondStep, teacherId: teacherId,
+        actionPerformedBy: ""
+      }),
+      onSuccess: (response) => {
         changeStep(3);
       }, showNotification: true
     }));
   }
   const addEducation = () => {
-         ;
-    setThirdSecondStep(thirdSecondStep.concat({ institute: school.institute,position:school.position,grades:school.grades, 
-      isCurrent: school.isCurrent,teacherWorkExperienceId:school.teacherWorkExperienceId}));
+    ;
+    setThirdSecondStep(thirdSecondStep.concat({
+      institute: school.institute, position: school.position, grades: school.grades,
+      isCurrent: school.isCurrent, teacherWorkExperienceId: school.teacherWorkExperienceId
+    }));
     setSchool(initialSchool);
   }
   const removeEducation = (index) => {
@@ -170,19 +185,17 @@ function MyProfile(props) {
     setThirdSecondStep(rows)
   }
   const editEducation = (data, index) => {
-         ;
     setSchool({
       ...school, institute: data.institute, position: data.position,
-      grades:JSON.parse(data.grades)[0], isCurrent: data.isCurrent, index: index, updateButtonSchool: true,
-      teacherWorkExperienceId:data.teacherWorkExperienceId
+      grades: JSON.parse(data.grades), isCurrent: data.isCurrent, index: index, updateButtonSchool: true,
+      teacherWorkExperienceId: data.teacherWorkExperienceId
     })
   }
   const updateEducation = () => {
-         ;
     const items = [...thirdSecondStep];
     items[school.index] = {
       "institute": school.institute, "position": school.position,
-      "grades": school.grades, "isCurrent": school.isCurrent, "teacherWorkExperienceId":school.teacherWorkExperienceId
+      "grades": school.grades, "isCurrent": school.isCurrent, "teacherWorkExperienceId": school.teacherWorkExperienceId
     }
     setThirdSecondStep(items);
     setSchool({ updateButtonSchool: false })
@@ -234,7 +247,7 @@ function MyProfile(props) {
           <>
             <ProfileStepOne onHandleChange={onChangeFirststep} grade={grade}
               imageChange={imageChange} values={values}
-             allData={allData}/>
+              allData={allData} />
             <Divider hidden />
             <Grid>
               <Grid.Column width={16} textAlign="right">
@@ -383,7 +396,7 @@ function MyProfile(props) {
               <Step.Content>
                 <Step.Description>4</Step.Description>
                 <Step.Title>
-                  <span>Key <br/>Skillset </span>
+                  <span>Key <br />Skillset </span>
                 </Step.Title>
 
               </Step.Content>

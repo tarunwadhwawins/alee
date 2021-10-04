@@ -1,5 +1,5 @@
-import React,{useEffect, useState}from "react";
-import { Form, Grid, Icon, Button, Table, TableCell,Dropdown } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Form, Grid, Icon, Button, Table, TableCell, Dropdown } from "semantic-ui-react";
 import { GlobalCodeMultiSelect } from "../../shared/components";
 import { useDispatch } from 'react-redux';
 import { apiCall } from "../../store/actions/api.actions";
@@ -10,8 +10,7 @@ function ProfileStepThree(props) {
 
 	useEffect(() => {
 		getGradeList();
-		
-	},[]);
+	}, []);
 	//  get api //
 	const getGradeList = () => {
 		dispatch(
@@ -21,7 +20,7 @@ function ProfileStepThree(props) {
 				data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
 				onSuccess: (response) => {
 					const grade = response.map((singledata) => {
-					
+
 						return {
 							text: singledata.gradeName,
 							value: singledata.gradeId
@@ -42,14 +41,14 @@ function ProfileStepThree(props) {
 					<Form.Input placeholder='Position' onChange={onHandleChange} value={school.position} data="position" />
 				</Grid.Column>
 				<Grid.Column width={4}>
-				<Dropdown placeholder='Grade' fluid multiple selection onChange={onHandleChange} options={grade} data="grades" value={school.gradesgrades}/>
+					<Dropdown placeholder='Grade' fluid multiple selection onChange={onHandleChange} options={grade} data="grades" value={school.gradesgrades} />
 				</Grid.Column>
 				<Grid.Column width={4} > <div className="statusToggle">
 					<Form.Checkbox label="CurrentPosition " toggle
 						className="commonToggle"
 						onChange={onHandleChange}
 						value={school.isCurrent}
-						checked={school.isCurrent ? true :false }
+						checked={school.isCurrent ? true : false}
 						data="isCurrent" />
 				</div>
 				</Grid.Column>
@@ -73,12 +72,14 @@ function ProfileStepThree(props) {
 						</Table.Header>
 						<Table.Body>
 							{thirdSecondStep && thirdSecondStep.map((singleData, index) => {
+								let grades = JSON.parse(singleData.grades).toString()
+								debugger
 								return (
 									<>
 										<Table.Row key={index}>
 											<Table.Cell>{singleData.institute}</Table.Cell>
 											<Table.Cell>{singleData.position}</Table.Cell>
-											<Table.Cell>{singleData.grades}</Table.Cell>
+											<Table.Cell>{grades}</Table.Cell>
 											<TableCell textAlign="right"><Form.Checkbox checked={singleData.isCurrent ? true : false} toggle className="commonToggle" /></TableCell>
 											<Table.Cell textAlign="right">
 												<Icon name="pencil alternate" size="large" link onClick={() => props.editEducation(singleData, index)} />
