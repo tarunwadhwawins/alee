@@ -9,20 +9,23 @@ function AssignTemplatePage() {
 	const [template, setTemplate] = useState(false)
 	const [reload, setReload] = useState(false)
 	const [editData, SetEditData] = useState([])
+	const [editTemplate, SetEditTemplate] = useState(false)
 
 	const openModal = () => {
 		setLesson(!lesson)
 	}
-	const openModal2 = () => {                                   
+	const openModal2 = () => {
 		setTemplate(!template)
 	}
 	const GridReload = () => {
 		setReload(!reload)
 	}
-	// const onHandleEdit = (data) => {
-	// 	SetEditData(data)
-	// 	openModal2();
-	// }
+	const onHandleEdit = (data) => {
+		debugger
+		SetEditData(data)
+		SetEditTemplate(!editTemplate)
+		openModal2();
+	}
 
 
 	return (
@@ -77,11 +80,11 @@ function AssignTemplatePage() {
 								headerName: "Action",
 								fieldName: "Action",
 								isSorting: false,
-								Cell: (props, confirmModalOpen) => {                                 
+								Cell: (props, confirmModalOpen) => {
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color"
-											// onClick={() => onHandleEdit(props)}
+											onClick={() => onHandleEdit(props)}
 											  link />
 											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateId, "delete")} />
 										</>
@@ -94,7 +97,7 @@ function AssignTemplatePage() {
 				</Grid.Column>
 			</Grid>
 			<LessonPlanCustomModal openModal={lesson} closeModal={openModal} />
-			<AddAssignTemplate openModal={template} closeModal={openModal2} GridReload={GridReload} editData={editData} />
+			<AddAssignTemplate openModal={template} closeModal={openModal2} GridReload={GridReload} editData={editData} editTemplate={editTemplate} />
 		</div>
 	);
 }

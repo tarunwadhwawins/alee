@@ -7,7 +7,8 @@ import { logDOM } from "@testing-library/dom";
 
 function UserManagementPage(props) {
 	const [student, setStudent] = useState(false)
-	const [popup, setPopup] = useState()
+	const [popup, setPopup] = useState(null)
+	const [message, setMessage] = useState()
 
 	const openModal = () => {
 		setStudent(!student)
@@ -24,8 +25,7 @@ function UserManagementPage(props) {
 			<DataTable
 				allApi={{ getApiName: "GETUSERMANAGEMENTLIST", toggleApiName: "APPROVEUSERMANAGEMENT", deleteApiName: "DELETEUSER" }}
 				searchOption={{ show: true, placeHolder: "Search" }}
-				messageInModal={popup}
-
+				messageInModal={message}
 				columns={[
 					{
 						headerName: "Name",
@@ -67,7 +67,7 @@ function UserManagementPage(props) {
 
 							return (
 								<Form.Checkbox checked={false} toggle className="commonToggle" onChange={() => {
-									setPopup(props.roleName)
+									setMessage(props.roleName)
 									confirmModalOpen(props.userId, "approve", props.isActive);
 								}
 								} />
@@ -81,11 +81,11 @@ function UserManagementPage(props) {
 						Cell: (props, confirmModalOpen) => {
 							return (
 								<>
-									<Icon title="Delete" name="trash alternate" color="red" 
-									
-									link onClick={() => {
-										setPopup(props.roleName)
-										confirmModalOpen(props.userId, "delete") }} />
+									<Icon title="Delete" name="trash alternate" color="red"
+										link onClick={() => {
+											setMessage(props.roleName)
+											confirmModalOpen(props.userId, "delete")
+										}} />
 								</>
 							);
 						},

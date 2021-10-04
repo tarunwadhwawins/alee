@@ -1,9 +1,8 @@
 import React from "react";
 import { Grid, Form, Modal, Button } from "semantic-ui-react";
 
-
-
 function AddTemplateModal(props) {
+	debugger
 	const { templateName, simpleValidator } = props;
 	return (
 		<Modal open={props.openModal} onClose={props.closeModal} size="tiny">
@@ -13,8 +12,7 @@ function AddTemplateModal(props) {
 					<Form>
 						<Grid>
 							<Grid.Column width={16}>
-								<Form.Input label="Template Name" placeholder="Template Name" data="templateName" value={templateName.templateName}
-									onChange={props.onChangeTemplate}
+								<Form.Input label="Template Name" placeholder="Template Name" data="templateName" value={templateName.templateName} onChange={props.onChangeTemplate}
 									error={simpleValidator.current.message('templateName', templateName.templateName, 'required')}
 								/>
 							</Grid.Column>
