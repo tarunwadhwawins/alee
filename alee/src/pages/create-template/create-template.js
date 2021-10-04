@@ -32,6 +32,7 @@ function CreateTemplatePage() {
 	}
 	const openModal2 = () => {
 		setTemplate(!template)
+		setTemplateName(initialState);
 	}
 	const gridReload = () => {
 		setReload(!reload)
@@ -46,6 +47,7 @@ function CreateTemplatePage() {
 				<>
 					{templateName.templateId !== null ? response : history.push(`${env.PUBLIC_URL}/drag/${response.id}`)}
 				</>
+				setTemplateName(initialState);
 			}, showNotification: true
 		}))
 
