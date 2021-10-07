@@ -9,13 +9,19 @@ import { commonFunctions, Notifications } from "../../shared/functional/global-i
 
 function TeacherSignup(props) {
 
-    const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "", actionPerformedBy: "", userId: "", excelReferenceId: null, teacherId: null, schoolId: 0 })
+    const [teacherForm, setTeacherForm] = useState({ firstName: "", lastName: "", email: "", contactNo: "", password: "", confirmPassword: "", actionPerformedBy: "", userId: "", excelReferenceId: null, teacherId: null, schoolId: 0, Phone: '' })
     const [iconToggle, setIconToggle] = useState(false)
     const [iconToggleConfirm, setIconToggleConfirm] = React.useState(false)
     let history = useHistory();
+    const rx_live = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+
     const onHandleChange = (e, { value, data }) => {
-        setTeacherForm({ ...teacherForm, [data]: value })
+                        ;
+        if (rx_live.test(e.target.value)) {
+            setTeacherForm({ ...teacherForm, [data]: value, contactNo: e.target.value })
+        }
     }
+
     const dispatch = useDispatch();
     const api = useSelector(state => state.api)
     const [, forceUpdate] = useState()
@@ -62,18 +68,15 @@ function TeacherSignup(props) {
                     />
                 </Grid.Column>
                 <Grid.Column width={8} >
-                    <Form.Input label="Phone Number" placeholder="+1(123) 456-7890" data="contactNo" onChange={onHandleChange} maxLength={10}
-                        error={simpleValidator.current.message('contactNo', teacherForm.contactNo, 'required')}
+                    <Form.Input label="Phone Number" placeholder="+1(123) 456-7890" data="contactNo" onChange={onHandleChange}
+                        pattern="[+-]?\d+(?:[.,]\d+)?" maxLength="11" value={teacherForm.contactNo}
+                        error={simpleValidator.current.message("contactNo", teacherForm.contactNo, "required")}
                     />
                 </Grid.Column>
-                {/* <Grid.Column width={8} >
-                    <Form.Input label="Address" placeholder="Address" data="address" onChange={onHandleChange}
-                        error={simpleValidator.current.message('address', teacherForm.address, 'required')}
-                    />
-                </Grid.Column> */}
+
                 <Grid.Column width={8} >
                     <Form.Input label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
-                        // error={simpleValidator.current.message('password', teacherForm.password, 'required')}
+
                         error={teacherForm.password ? simpleValidator.current.message("password", teacherForm.password, "required|min:6|max:20") :
                             simpleValidator.current.message("password", teacherForm.password, "min:6|max:20")}
                     />
@@ -83,7 +86,7 @@ function TeacherSignup(props) {
                 </Grid.Column>
                 <Grid.Column width={8} >
                     <Form.Input label="Confirm Password" placeholder="********" type={iconToggleConfirm ? "" : "password"} data="confirmPassword" onChange={onHandleChange}
-                        // error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword, 'required')}
+
                         error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword,
                             `validConfirmPassword:${teacherForm.confirmPassword}`)}
                     />

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Grid, Icon, Header, Button, Form } from "semantic-ui-react";
 import LessonPlanCustomModal from "../../shared/components/organisms/modal/lesson-plan-creation/index";
 import AddTemplateModal from "../../shared/components/organisms/modal/add-template/index"
+
 import { Link, env } from "../../shared/functional/global-import";
 import { DataTable } from "../../../src/shared/components/organisms";
 import { apiCall } from "../../store/actions/api.actions";
@@ -22,7 +23,8 @@ function CreateTemplatePage() {
 	const [reload, setReload] = useState(false)
 	const [templateName, setTemplateName] = useState(initialState);
 	const [editData, setEditData] = useState([]);
-
+	const [previewTemplate, setPreviewTemplate] = useState(false)
+	const [setdata, setSetdata] = useState([]);
 
 	const dispatch = useDispatch();
 	let history = useHistory();
@@ -33,6 +35,15 @@ function CreateTemplatePage() {
 	const openModal2 = () => {
 		setTemplate(!template)
 		setTemplateName(initialState)
+	}
+	const openModal3 = () => {
+		setPreviewTemplate(!previewTemplate)
+
+	}
+	const onHandlePreview = (data) => {
+		    
+		setSetdata(data)
+		openModal3();
 	}
 	const gridReload = () => {
 		setReload(!reload)
@@ -95,7 +106,9 @@ function CreateTemplatePage() {
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
 									return (
-										<Link className="primary-color">{props.templateName}</Link>
+										<Link 
+											to={`${env.PUBLIC_URL}/template-Preview/${props.templateId}`} >
+											{props.templateName}</Link>
 									);
 								},
 							},

@@ -13,13 +13,11 @@ function LessonLibrary() {
 	const tags = useSelector(state => state.global.tags)
 	const dispatch = useDispatch();
 	const [bookList, setBookList] = useState([])
-	//const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
+	// const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 
-	// const onHandleChangeSearch = (e, {data,value }) => {   
-	// 	     
-	// 	setValues({searchValue: value})
-	// 	setTextSearch({...textSearch ,[data]:value})
-	// }
+	const onHandleChangeSearch = (e, {data,value }) => {   
+		setTextSearch({...textSearch ,[data]:value})
+	}
 	useEffect(() => {
 		getTagField();
 	}, []);
@@ -45,7 +43,7 @@ function LessonLibrary() {
 	}
 	const onFilter = () => {
 		dispatch(apiCall({
-			urls: ["BOOKSEARCHBYTAG"], method: "POST", data: { tagIds: valuesTag, textToSearch: textSearch }, onSuccess: (response) => {
+			urls: ["BOOKSEARCHBYTAG"], method: "POST", data: { tagIds: valuesTag, textSearch }, onSuccess: (response) => {
 				setBookList(response)
 			}
 		}));
@@ -61,12 +59,7 @@ function LessonLibrary() {
 			getBookList(e.target.value)
 		}
 	}
-	//    const onHandleChangeSearch = (e) => {
-	// 		     ;
-	// 		setValues({searchValue:e.target.value});
-	// 	  }
 	const onValue = (e, { value }) => {
-
 		const matchValue = valuesTag.indexOf(value)
 		if (matchValue === -1) {
 			setValuesTag(valuesTag.concat(value))
@@ -78,8 +71,7 @@ function LessonLibrary() {
 		}
 	}
 	const addBookData = (data) => {
-		dispatch(storeMyBookData(data));
-	}
+	dispatch(storeMyBookData(data))}	
 	return (
 		<div className="searchHeader">
 			<Grid>
@@ -87,14 +79,17 @@ function LessonLibrary() {
 					<Header as="h3" className="commonHeading">Lesson Library</Header>
 				</Grid.Column>
 				<Grid.Column computer={8} tablet={8}>
-					<Input fluid icon="search" name="searchValue"
+				<Input fluid icon="search" name="textToSearch"
 						onKeyPress={handleKeyPress}
-						data="SearchValue" iconPosition="left" placeholder="Search by Book Title,Author"
-						className="common-search-bar" />
+						data="textToSearch" iconPosition="left"
+						 placeholder="Search by Book Title,Author"
+						 value={textSearch.textToSearch}
+						className="common-search-bar"
+						onChange={onHandleChangeSearch}
+						/>
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">
 					{tagFields && tagFields.length > 0 && tagFields.map((singleField, index) => {
-						         
 						const value = tags.length > 0 && tags.filter(code => code[singleField.fieldName])
 						const standard = singleField.dataTypeName === "Dropdown" && value[0][singleField.fieldName]
 						return (

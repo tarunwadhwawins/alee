@@ -119,7 +119,7 @@ function AddStudent(props) {
             <Grid columns="2">
               <Grid.Column>
                 <Form.Input
-                  label="FirstName"
+                  label="First Name"
                   data="firstName"
                   value={addStudent.firstName}
                   onChange={onHandleChange}
@@ -128,7 +128,7 @@ function AddStudent(props) {
               </Grid.Column>
               <Grid.Column>
                 <Form.Input
-                  label="LastName"
+                  label="Last Name"
                   data="lastName"
                   value={addStudent.lastName}
                   onChange={onHandleChange}

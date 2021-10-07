@@ -31,15 +31,15 @@ function LessonPlanCreationPage(props) {
 		setNotes(!notes)
 	}
 	const openModal3 = () => {
-		   
+
 		setResources(!resources);
 	}
 	const onTemplateChange = (e, { value }) => {
-		   
+
 		setLessonPlan({ ...lessonPlan, templateId: value })
 		dispatch(apiCall({
 			urls: ["GETTEMPLATEFIELD"], method: "GET", data: { "templateId": value }, onSuccess: (response) => {
-				   
+
 				setTemplateFields(response)
 			}
 		}));
@@ -66,16 +66,33 @@ function LessonPlanCreationPage(props) {
 		}));
 	}
 
+	// const getGrades = () => {
+	// 	dispatch(apiCall({
+	// 		urls: ["GETGRADESLIST"], method: "GET", data: ({ ActiveGrades: true, PageNo: 1, PageSize: 1000 }), onSuccess: (response) => {
+	// 			const getGrades = response.map((grades) => {
+	// 				return { value: grades.gradeId, text: grades.gradeName }
+	// 			});
+	// 			setGrade(getGrades)
+	// 		}
+	// 	}));
+	// }
+	//  get api //
 	const getGrades = () => {
-		dispatch(apiCall({
-			urls: ["GETGRADESLIST"], method: "GET", data: { "ActiveGrades": true, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
-				const getGrades = response.map((grades) => {
-					return { value: grades.gradeId, text: grades.gradeName }
-				});
-				setGrade(getGrades)
-			}
-		}));
-	}
+		dispatch(
+		  apiCall({
+			urls: ["GETGRADESLIST"],
+			method: "GET",
+			data:({ActiveGrades:true,OrderBy:"GradeName",OrderByDescending:false}),
+			onSuccess: (response) => {
+							
+			  const getGrades = response.map((singledata) => {
+				return { text: singledata.gradeName, value: singledata.gradeId };
+			  });
+			  setGrade(getGrades);
+			},
+		  })
+		);
+	  };
 	const getBookTagContent = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKTAGDATA"], method: "GET", data: { "PageId": 1432, "TagText": "About the Author" }, onSuccess: (response) => {
@@ -95,7 +112,7 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onChangeDescription = (e, { value, index }) => {
-		      
+
 		const description = [...addNotes]
 		description[index]["noteDescription"] = value;
 		setAddNotes(description)
@@ -108,11 +125,11 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const addMultipleNotes = () => {
-		   
+
 		setAddNotes(addNotes.concat({ noteId: null, noteDescription: "", studentIds: [], studentAll: false }))
 	}
 	const removeNotes = (index) => {
-		      
+
 		const rows = [...addNotes]
 		rows.splice(index, 1);
 		setAddNotes(rows);
@@ -159,7 +176,7 @@ function LessonPlanCreationPage(props) {
 						<Header as="h3">{tagBookData.length > 0 && tagBookData[0].chapterName}</Header>
 						<p>{tagBookData.length > 0 && tagBookData[0].tagText}</p>
 						{tagBookData.length > 0 && JSON.parse(tagBookData[0].bookTagList).map((tagData, index) => {
-							            
+
 							return (<>
 								<Header as="h5">{tagData.fieldName}</Header>
 								<p>{JSON.parse(tagData.Response)}</p>
@@ -179,8 +196,8 @@ function LessonPlanCreationPage(props) {
 						<Form>
 							<Grid>
 								{templateFields.map((singleData, index) => {
-									         
-                                    
+
+
 									if (singleData.fieldDataType === "Header") {
 										return (
 											<Grid.Column width={16} key={index}>
@@ -247,7 +264,7 @@ function LessonPlanCreationPage(props) {
 			</Grid>
 			<InviteTeacher openModal={invite} closeModal={openModal} />
 			<AddNotes openModal={notes} closeModal={openModal2} onChangeDescription={onChangeDescription} onChangeStudent={onChangeStudent} addMultipleNotes={addMultipleNotes} addNotes={addNotes} removeNotes={removeNotes} addNotesInLessonplan={addNotesInLessonplan} />
-			<Resources openModal={resources} closeModal={openModal3}/>
+			<Resources openModal={resources} closeModal={openModal3} />
 		</div>
 	);
 }

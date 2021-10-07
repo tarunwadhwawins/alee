@@ -73,7 +73,7 @@ function ProfileStepThree(props) {
 						<Table.Body>
 							{thirdSecondStep && thirdSecondStep.map((singleData, index) => {
 								let grades = JSON.parse(singleData.grades).toString()
-								debugger
+								                 
 								return (
 									<>
 										<Table.Row key={index}>

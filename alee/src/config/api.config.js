@@ -105,7 +105,8 @@ const API_ENDPOINTS = {
   GETTEMPLATEFIELD: "/Template/GetTemplateFieldsList",
   CHANGEPASSWORD: "/Authentication/ChangePassword",
   UPDATESCHOOLPROFILE: "/School/UpdateSchoolProfile",
-  GETLESSONPLANDATA:"/Lesson/GetLessonPlanData"
+  GETLESSONPLANDATA:"/Lesson/GetLessonPlanData",
+ GETTEMPLATEFIELDSLIST:"/Template/GetTemplateFieldsList"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

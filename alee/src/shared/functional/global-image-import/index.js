@@ -67,6 +67,10 @@ export { default as UserManagementBlue } from "../../../assets/images/user manag
 export { default as UserManagementWhite } from "../../../assets/images/user management-white.svg";
 
 
+export { default as avatarImage} from "../../../assets/images/avatar-icon.jpg";
+export { default as noImage} from "../../../assets/images/no-image.png";
+export { default as avatar} from "../../../assets/images/avatar-1.png.jpg";
+
 export { default as BookPage1 } from "../../../assets/images/book-page-1.jpg";
 export { default as BookPage2 } from "../../../assets/images/book-page-2.jpg";
 export { default as BookPage3 } from "../../../assets/images/book-page-3.jpg";

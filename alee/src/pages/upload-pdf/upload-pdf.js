@@ -5,7 +5,7 @@ import { apiCall } from "../../store/actions/api.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import ImageUploading from 'react-images-uploading';
 import SimpleReactValidator from 'simple-react-validator';
-import { env,Link } from "../../shared/functional/global-import";
+import { env, Link } from "../../shared/functional/global-import";
 
 const initialState = {}
 function UploadPdfPage() {
@@ -43,29 +43,23 @@ function UploadPdfPage() {
 	const onHandleSubmit = (e) => {
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
-			          
 			var formData = new FormData();
 			formData.append('pdfFile', uploadExcel[0])
 			formData.append('bookCoverImage', bookCoverImage[0].file)
 			formData.append('bookTitle', bookTitle)
 			formData.append('author', author)
 			grades.grades.forEach((gradedata, index) => {
-				formData.append(`Grades[${index}]`, gradedata)
-			})
-			// let formdata = commonFunctions.getFormData({ pdfFile: uploadExcel, bookCoverImage: bookCoverImage, bookTitle: bookTitle, author: author, Grades: grades.grades });
+				formData.append(`Grades[${index}]`, gradedata)})
 			dispatch(apiCall({
 				urls: ["UPLOADPDF"], method: "POST", data: formData, onSuccess: (response) => {
-					       
 					removeBook();
-					setGrades([]);
 				}, showNotification: true
 			}))
 		}
 	}
 
 	const onImageChange = (imageList) => {
-		setBookCoverImage(imageList)
-	}
+		setBookCoverImage(imageList)}
 	useEffect(() => {
 		getGradeList();
 	}, []);
@@ -89,7 +83,6 @@ function UploadPdfPage() {
 		);
 	};
 	const onHandleChange = (e, { data, value }) => {
-		       
 		setGrades({ ...grades, [data]: value });
 	}
 
@@ -115,8 +108,7 @@ function UploadPdfPage() {
 							<Grid.Column width={8}>
 								<div className="field">
 									<Dropdown placeholder='Grade' fluid multiple selection onChange={onHandleChange}
-										data="grades" options={grade}
-									/>
+										data="grades" options={grade} />
 									{simpleValidator.current.message("grades", grades, "required")}
 								</div>
 							</Grid.Column>
@@ -144,14 +136,14 @@ function UploadPdfPage() {
 										</div>
 									)}
 								</ImageUploading>
-									{simpleValidator.current.message("bookCoverImage", bookCoverImage, "required")}
+								{simpleValidator.current.message("bookCoverImage", bookCoverImage, "required")}
 							</Grid.Column>
 							<Grid.Column width={4}>
 								<Form>
 									<Form.Field>
-										<Button content="Choose Pdf" disabled={api.isApiLoading} className="primaryBtn" 
-										onClick={() => fileInputRef.current.click()} />
-										<input ref={fileInputRef} accept="application/pdf" type="file"hidden onChange={onFileChange}
+										<Button content="Choose Pdf" disabled={api.isApiLoading} className="primaryBtn"
+											onClick={() => fileInputRef.current.click()} />
+										<input ref={fileInputRef} accept="application/pdf" type="file" hidden onChange={onFileChange}
 										/>
 									</Form.Field>
 								</Form>
@@ -162,7 +154,7 @@ function UploadPdfPage() {
 									<span>{fileName}</span>
 									{/*<Icon name='close' className="closeIcon" color='red' link />*/}
 								</div>
-										{/* {simpleValidator.current.message("uploadExcel", uploadExcel, "required")} */}
+								{/* {simpleValidator.current.message("uploadExcel", uploadExcel, "required")} */}
 							</Grid.Column></>}
 						</Grid>
 					</div>
@@ -170,8 +162,7 @@ function UploadPdfPage() {
 
 				<Grid.Column width={16} textAlign="right">
 					<Button className="secondaryBtn" onClick={removeBook} >Cancel</Button>
-					<Button className="primaryBtn"as={Link}  to={`${env.PUBLIC_URL}/my-books`} onClick={onHandleSubmit} loading={api.isApiLoading} >Upload</Button>
-					{/* <Button className="primaryBtn" as={Link} to="book-flip" onClick={onHandleSubmit}>Next</Button> */}
+					<Button className="primaryBtn" as={Link} to="my-books" onClick={onHandleSubmit} loading={api.isApiLoading} >Upload</Button>
 				</Grid.Column>
 			</Grid>
 		</div>

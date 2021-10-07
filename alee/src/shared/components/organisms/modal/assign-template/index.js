@@ -16,16 +16,23 @@ function AddAssignTemplate(props) {
 	const dispatch = useDispatch();
 	const [, forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
-	const getGrades = () => {
-		dispatch(apiCall({
-			urls: ["GETGRADESLIST"], method: "GET", data: { "ActiveGrades": true, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
-				const getGrades = response.map((grades) => {
-					return { value: grades.gradeId, text: grades.gradeName }
-				});
-				setGrade(getGrades)
-			}
-		}));
-	}
+//  get api //
+const getGrades = () => {
+    dispatch(
+      apiCall({
+        urls: ["GETGRADESLIST"],
+        method: "GET",
+        data:({ActiveGrades:true,OrderBy:"GradeName",OrderByDescending:false}),
+        onSuccess: (response) => {
+                        
+          const getGrades = response.map((singledata) => {
+            return { text: singledata.gradeName, value: singledata.gradeId };
+          });
+		  setGrade(getGrades);
+        },
+      })
+    );
+  };
 	const getTemplate = () => {
 		dispatch(apiCall({
 			urls: ["GETTEMPLATELIST"], method: "GET", data: { "templateId": -1, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
@@ -121,7 +128,7 @@ function AddAssignTemplate(props) {
 	};
 
 	return (
-		<Modal open={props.openModal} onClose={closeModal} size="tiny">
+		<Modal open={props.openModal} onClose={closeModal} closeOnDimmerClick={false} size="tiny">
 			<Modal.Header>Assign Template</Modal.Header>
 			<Modal.Content>
 				<Modal.Description>

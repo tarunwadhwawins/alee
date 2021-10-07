@@ -10,7 +10,7 @@ import ProfileStepFour from "./profile-step-four";
 import { commonFunctions } from "../../shared/functional/global-import";
 import { env } from "../../shared/functional/global-import";
 import { useHistory } from "react-router-dom";
-const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image: "", actionPerformedBy: "", imageurl: "" }
+const initialState = { schoolId: null, grades: [], teacherId: null, subjectId: null, image:[], actionPerformedBy: "", imageurl: "" }
 const initialStateStepSecond = {
   degree: "", college: "", inProgress: false, yearOfPassing: "", index: null, updateButtonEducation: false,
   teacherEducationDetailId: 0
@@ -34,6 +34,7 @@ function MyProfile(props) {
   const [skills, setSkills] = useState([]);
   const [grade, setGradeList] = useState([]);
   const changeStep = (stepNumber) => setActiveStep(stepNumber);
+  const [image, setImage] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     setValues({ ...values, teacherId: teacherId })
@@ -56,6 +57,12 @@ function MyProfile(props) {
       })
     );
   };
+
+	const onImageChange = (imageList) => {
+		setImage(imageList)}
+
+
+  
 
   useEffect(() => {
     editBasicInfo();
@@ -96,23 +103,23 @@ function MyProfile(props) {
   const onChangeFourstep = (e, { value }) => {
     setSkilled(value);
   }
-  const onStepFirst = () => {
+  const onStepFirst = (e) => {
+        
     var formData = commonFunctions.getFormData(values);
     dispatch(apiCall({
       urls: ["ADDTEACHERBASICINFO"], method: "POST", data: formData,
       onSuccess: (response) => {
-
         changeStep(1);
       }, showNotification: true
     }))
   }
 
   const imageChange = (e, index) => {
+           
     if (e.target.files) {
       setValues({ ...values, imageurl: window.URL.createObjectURL(e.target.files[0]), image: e.target.files[0] });
     }
   };
-
   /////////////-Second Step-/////////////
   const addMoreQualification = () => {
     setFormSecondStep(formSecondStep.concat({
@@ -156,7 +163,7 @@ function MyProfile(props) {
   }
   /////////// -THREE STEP- /////////
   const onChangeSchool = (e, { data, value, checked, type }) => {
-    debugger
+                     
     const isCurrent = type === "checkbox" ? checked : value;
     setSchool({ ...school, [data]: isCurrent })
   }
@@ -246,7 +253,7 @@ function MyProfile(props) {
         return (
           <>
             <ProfileStepOne onHandleChange={onChangeFirststep} grade={grade}
-              imageChange={imageChange} values={values}
+              imageChange={imageChange} values={values} onImageChange={onImageChange} image={image}
               allData={allData} />
             <Divider hidden />
             <Grid>

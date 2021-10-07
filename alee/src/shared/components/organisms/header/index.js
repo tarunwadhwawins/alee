@@ -12,10 +12,7 @@ function Header(props) {
   const image = useSelector(state => state.auth.userDetail.image);
   const name = useSelector(state => state.auth.userDetail.name);
   const trigger = (
-    <span>
-      <Image src={commonFunctions.concatenateImageWithAPIUrl(image)} />{name}
-    </span>
-  )
+    <span> <Image src={commonFunctions.concatenateImageWithAPIUrl(image)} />{name} </span>)
   const api = useSelector(state => state.auth.userDetail.role);
   const isPublished = useSelector(state => state.auth.userDetail.isPublished);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId);
@@ -124,7 +121,7 @@ function Header(props) {
             </Grid.Column>
           </Grid>
         </div>
-        <ChangePassword openModal={forgotPasswordStatus} closeModal={forgetPassword} />
+        <ChangePassword openModal={forgotPasswordStatus} closeModal={forgetPassword}/>
       </div>
     </React.Fragment>
   );

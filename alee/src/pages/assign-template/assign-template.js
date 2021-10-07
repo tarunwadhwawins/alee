@@ -22,7 +22,7 @@ function AssignTemplatePage() {
 		setReload(!reload)
 	}
 	const onHandleEdit = (data) => {
-		debugger
+		                 
 		SetEditData(data)
 		SetEditTemplate(false)
 		openModal2();

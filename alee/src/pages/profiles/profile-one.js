@@ -5,6 +5,7 @@ import { apiCall } from "../../store/actions/api.actions";
 import { useSelector } from "react-redux";
 import { commonFunctions } from "../../shared/functional/global-import";
 import SimpleReactValidator from 'simple-react-validator';
+import{ noImage} from "../../shared/functional/global-image-import"
 function ProfileOne(props) {
     const initState = { schoolId: null, schoolName: "", schoolAddress: "", email: "", schoolContactNo: "", image: "", actionPerformedBy: "", imageurl:null}
     const [schoolForm, setSchoolForm] = useState(initState);
@@ -25,7 +26,6 @@ function ProfileOne(props) {
                 method: "GET",
                 data: { schoolId: schoolId },
                 onSuccess: (response) => {
-                       
                     if (response.length > 0) {
                         setSchoolForm({ 
                             ...schoolForm,
@@ -41,7 +41,6 @@ function ProfileOne(props) {
         );
     };
     const onHandleSubmit = (e) => {
-
         const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
         if (isFormValid) {
             var formData = commonFunctions.getFormData(schoolForm);
@@ -58,10 +57,11 @@ function ProfileOne(props) {
         }
     };
     const imageChange = (e) => {
-        if (e.target.files) {
-            debugger;
+        if (Image === null) {
+            return `${noImage}`}
+          else{
             setSchoolForm({ ...schoolForm, imageurl: window.URL.createObjectURL(e.target.files[0]), image: e.target.files[0] });
-        }
+          }
     };
     const onHandleChange = (e, { data, value }) => {
         setSchoolForm({ ...schoolForm, [data]: value });
@@ -86,6 +86,7 @@ function ProfileOne(props) {
                                
                             </div>
                             <Button className="primaryBtn" onChange={imageChange}>Browse Image<input type="file" /></Button>
+                            {simpleValidator.current.message('image', schoolForm.image, 'required')}
                         </div>
                     </Grid.Column >
                     <Grid.Column width={12}>
