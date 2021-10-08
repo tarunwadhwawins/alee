@@ -4,12 +4,15 @@ import TableHeader from "./table-header";
 import TableRow from "./table-row";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../store/actions/api.actions";
-import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index";
+import ConfirmModal from "../modal/common-confirm-modal/index";
 
 function DataTable(props) {
     // const [listItem, setlistItem] = useState({ pageNo: 1, pageSize: 100 })
     // const [isFetching, setIsFetching] = useState(false);
     const [values, setValues] = useState([]);
+    const [selectedData, setSelectedData] = useState([]);
+    const [allData, setAllData] = useState([])
+
     const [gridObjects, setGridObjects] = useState({
         pageNo: 1, pageSize: 100,
         sortArrow: "sort", orderBy: "ModifiedDate", searchValue: "", orderByDescending: true, heading: "", hasMore: true
@@ -36,7 +39,28 @@ function DataTable(props) {
     const modalClose = () => {
         setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
     }
-
+    const selectAll = () => {
+        debugger
+        if (values.length !== selectedData.length) {
+            { props.additionalParams.resourceType === "audio" && setSelectedData(values.map(data => JSON.parse(data.link)[0].AudioLinkId)) }
+            { props.additionalParams.resourceType === "video" && setSelectedData(values.map(data => JSON.parse(data.link)[0].VideoLinkId)) }
+            { props.additionalParams.resourceType === "article" && setSelectedData(values.map(data => JSON.parse(data.link)[0].ArticleLinkId)) }
+            // { props.additionalParams.resourceType === "article" && setSelectedData(values.map(data => JSON.parse(data.link)[0].PdfLinkId)) }
+        }
+        else {
+            setSelectedData([])
+        }
+    }
+    const onHandleSelect = (e, { name, checked }) => {
+        debugger
+        if (checked === true) {
+            setSelectedData(selectedData.concat(name))
+        }
+        if (checked === false) {
+            const st = selectedData.filter(dataId => dataId !== name);
+            setSelectedData(st)
+        }
+    }
     const upDateToggle = () => {
         dispatch(apiCall({
             urls: [props.allApi.toggleApiName], method: "PATCH", data: { id: confirmModal.selectedId }, onSuccess: (response) => {
@@ -101,24 +125,31 @@ function DataTable(props) {
                         </Dimmer>
                     )}
                     <div className="commonTable">
-                        <Table singleLine>
+                        <Table>
                             <TableHeader
                                 columns={props.columns}
                                 onHandleSorting={onHandleSorting}
                                 gridObjects={gridObjects}
+                                selectAll={selectAll}
+                                selectedData={selectedData}
+                                resourceType={props.additionalParams.resourceType}
+                                
                             />
-                            <TableRow singleLine
+                            <TableRow
+                                onHandleSelect={onHandleSelect}
                                 columns={props.columns}
                                 gridData={values}
                                 getCommonTable={getCommonTable}
                                 confirmModalOpen={confirmModalOpen}
+                                selectedData={selectedData}
+                                resourceType={props.additionalParams.resourceType}
                             />
-
                         </Table>
                     </div>
                 </div>
             </Grid.Column>
-            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} data={props} />
+            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} />
+
         </Grid>
     );
 }

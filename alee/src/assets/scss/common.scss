@@ -26,6 +26,9 @@ a {
 .p-0 {
   padding: 0 !important;
 }
+.textNowrap {
+  white-space: nowrap;
+}
 .commonHeading.ui.header {
   font-size: 22px;
   color: $primary-color;
@@ -45,7 +48,7 @@ a {
   top: initial !important;
   bottom: initial !important;
   right: initial !important;
-  height: auto!important;
+  height: auto !important;
 }
 .commonTable {
   overflow: auto;

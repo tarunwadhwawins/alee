@@ -4,7 +4,7 @@ import TableHeader from "./table-header";
 import TableRow from "./table-row";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../store/actions/api.actions";
-import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index";
+import ConfirmModal from "../modal/common-confirm-modal/index";
 
 function DataTable(props) {
     // const [listItem, setlistItem] = useState({ pageNo: 1, pageSize: 100 })
@@ -118,7 +118,9 @@ function DataTable(props) {
                     </div>
                 </div>
             </Grid.Column>
+
             <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} data={props} />
+
         </Grid>
     );
 }

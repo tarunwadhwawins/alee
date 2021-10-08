@@ -1,36 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Tab, Icon } from "semantic-ui-react";
-import { DataTable } from "../../../organisms";
-import { commonFunctions} from "../../../../functional/global-import";
-
+import DataTable from "../../../organisms/common-table-checkbox";
+import { commonFunctions } from "../../../../functional/global-import";
+import Audio from "./audio";
+import Video from "./video";
+import Article from "./article";
 
 const checkDisplayIcon = (link) => {
-    if (link?.indexOf("www.youtube.com") > 0) {
-      return "youtube";
-    }
-    if (link?.indexOf("Pdf") > 0) {
-      return "file pdf outline";
-    }
-    else {
-      return "linkify"
-    }
+  if (link?.indexOf("www.youtube.com") > 0) {
+    return "youtube";
   }
-  const checkDisplayIconPdf = (link) => {
-    if (link?.indexOf("Pdf") > 0) {
-      return "file pdf outline";
-    }
+  if (link?.indexOf("Pdf") > 0) {
+    return "file pdf outline";
   }
-const panes = [{
+  else {
+    return "linkify"
+  }
+}
+const checkDisplayIconPdf = (link) => {
+  if (link?.indexOf("Pdf") > 0) {
+    return "file pdf outline";
+  }
+}
+
+
+
+function Resources(props) {
+  debugger
+  const initialState = { resources: [] }
+  const [resource, setResource] = useState([])
+
+  const getselectedData = (data) => {
+    setResource(data)
+    // props.getSelectedData(data)
+    console.log("getSelectedData save ", resource)
+  }
+
+  const panes = [{
     menuItem: "Audio",
-    render: () => {
+    render: (props) => {
+      debugger
       return (
         <Tab.Pane attached={false} key="Audio">
-          <DataTable allApi={
+
+          <Audio getSelectedAudio={getselectedData} />
+          {/* <DataTable allApi={
             {
               getApiName: "GETRESOURCESLIST",
               deleteApiName: "DELETERESOURCES",
               toggleApiName: "RESOURCESTOGGLE",
-              OrderBy: "ModifiedDate", OrderByDescending: true,
+              OrderBy: "ModifiedDate",
+              OrderByDescending: true,
             }
           }
             searchOption={
@@ -42,41 +62,42 @@ const panes = [{
             additionalParams={
               {
                 resourceTypeId: 18,
-                bookId:-1
+                bookId: -1,
+                resourceType: "audio"
               }
-
+  
             }
-
             messageInModal="audio"
             columns={
-              [{
-                headerName: "Grade",
-                fieldName: "gradeName",
-                isSorting: true,
-              },
-             
-              {
-                headerName: "Chapter",
-                fieldName: "chapterName",
-                isSorting: true,
-              },
-              {
-                headerName: "Audio",
-                fieldName: "link",
-                isSorting: false,
-                Cell: (props) => {
-
-                  return (<a href={(JSON.parse(props.link)[0].AudioLink)} target="_blank">
-                    <Icon name={checkDisplayIcon(JSON.parse(props.link)[0].AudioLink)}
-                      className="primary-color"
-                      link />
-                  </a>
-                  )
+              [
+                {
+                  headerName: "Grade",
+                  fieldName: "gradeName",
+                  isSorting: true,
                 },
-              },
-             
+  
+                {
+                  headerName: "Chapter",
+                  fieldName: "chapterName",
+                  isSorting: true,
+                },
+                {
+                  headerName: "Audio",
+                  fieldName: "link",
+                  isSorting: false,
+                  Cell: (props) => {
+  
+                    return (<a href={(JSON.parse(props.link)[0].AudioLink)} target="_blank">
+                      <Icon name={checkDisplayIcon(JSON.parse(props.link)[0].AudioLink)}
+                        className="primary-color"
+                        link />
+                    </a>
+                    )
+                  },
+                },
+  
               ]}
-          ></DataTable>
+          ></DataTable> */}
         </Tab.Pane>
       );
     },
@@ -86,13 +107,15 @@ const panes = [{
     render: () => {
       return (
         <Tab.Pane attached={false} key="Video">
-          <DataTable allApi={
-            {
-              getApiName: "GETRESOURCESLIST",
-              deleteApiName: "DELETERESOURCES",
-              toggleApiName: "RESOURCESTOGGLE",
+          <Video getSelectedVideo={getselectedData} />
+          {/* <DataTable
+            allApi={
+              {
+                getApiName: "GETRESOURCESLIST",
+                deleteApiName: "DELETERESOURCES",
+                toggleApiName: "RESOURCESTOGGLE",
+              }
             }
-          }
             searchOption={
               {
                 show: true,
@@ -101,7 +124,7 @@ const panes = [{
             }
             additionalParams={
               {
-                resourceTypeId: 19,bookId:-1
+                resourceTypeId: 19, bookId: -1, resourceType: "video"
               }
             }
             messageInModal="video"
@@ -111,7 +134,7 @@ const panes = [{
                 fieldName: "gradeName",
                 isSorting: true,
               },
-
+  
               {
                 headerName: "Chapter",
                 fieldName: "chapterName",
@@ -127,9 +150,9 @@ const panes = [{
                     <Icon name="youtube" className="primary-color" link /> </a>) : ("-");
                 },
               },
-             
+  
               ]}
-          ></DataTable>
+          ></DataTable> */}
         </Tab.Pane>
       );
     },
@@ -138,7 +161,8 @@ const panes = [{
     menuItem: "Article",
     render: () => {
       return (<Tab.Pane attached={false} key="Article">
-        <DataTable allApi={
+        <Article getSelectedArticle={getselectedData} />
+        {/* <DataTable allApi={
           {
             getApiName: "GETRESOURCESLIST",
             deleteApiName: "DELETERESOURCES",
@@ -153,7 +177,7 @@ const panes = [{
           }
           additionalParams={
             {
-              resourceTypeId: 20,bookId:-1
+              resourceTypeId: 20, bookId: -1, resourceType: "article"
             }
           }
           messageInModal="article"
@@ -183,7 +207,7 @@ const panes = [{
               fieldName: "link",
               isSorting: false,
               Cell: (props) => {
-
+  
                 const articleData = ((JSON.parse(props.link)[0].ArticleLink) ? JSON.parse(props.link)[0].ArticleLink : null)
                 return articleData?.indexOf("www.youtube.com") > 0 ? (<a href={articleData} target="_blank">
                   <Icon name={checkDisplayIcon(articleData)}
@@ -196,7 +220,7 @@ const panes = [{
               fieldName: "link",
               isSorting: false,
               Cell: (props) => {
-                              
+  
                 const pdfData = ((JSON.parse(props.link)[0].PdfLink) ? JSON.parse(props.link)[0].PdfLink : null)
                 return pdfData?.indexOf("pdf") > 0 ? (
                   <a href={commonFunctions.concatenateImageWithAPIUrl(pdfData)}
@@ -206,29 +230,33 @@ const panes = [{
                 ) : ("-");
               },
             },
-
-        ]}>
-
-        </DataTable>
+            ]}>
+        </DataTable> */}
       </Tab.Pane>
       );
     },
   },
   ];
 
-function Resources(props) {
-    return (
-        <Modal open={props.openModal} onClose={props.closeModal} closeOnDimmerClick={false} size="small">
-            <Modal.Header>Add Resources</Modal.Header>
-            <Modal.Content>
-                <Tab menu={{ text: true }} panes={panes}/>
-            </Modal.Content>
-            <Modal.Actions>
-                <Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
-                <Button className="primaryBtn">Save</Button>
-            </Modal.Actions>
-        </Modal>
-    );
+  const addResources = (e, data) => {
+    debugger
+    setResource(data);
+    setResource(props.getSelectedData(data));
+
+  }
+
+  return (
+    <Modal open={props.openModal} onClose={props.closeModal} closeOnDimmerClick={false} size="small">
+      <Modal.Header>Add Resources</Modal.Header>
+      <Modal.Content>
+        <Tab menu={{ text: true }} panes={panes} />
+      </Modal.Content>
+      <Modal.Actions>
+        <Button className="secondaryBtn" onClick={props.closeModal}>Cancel</Button>
+        <Button className="primaryBtn" onClick={() => props.getSelectedData(resource)}>Save</Button>
+      </Modal.Actions>
+    </Modal>
+  );
 }
 
 export default Resources;
