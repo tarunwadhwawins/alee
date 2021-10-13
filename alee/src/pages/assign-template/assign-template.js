@@ -22,13 +22,10 @@ function AssignTemplatePage() {
 		setReload(!reload)
 	}
 	const onHandleEdit = (data) => {
-		                 
 		SetEditData(data)
 		SetEditTemplate(false)
 		openModal2();
 	}
-
-
 	return (
 		<div className="common-shadow">
 			<Grid>
@@ -39,7 +36,6 @@ function AssignTemplatePage() {
 					<Button className="primaryBtn" onClick={openModal2}><Icon name="plus" /> Assign template</Button>
 				</Grid.Column>
 				<Grid.Column width={16}>
-
 					<DataTable
 						allApi={{ getApiName: "GETASSIGNEDTEMPLATES", deleteApiName: "DELETEASSIGNEDTEMPLATE", toggleApiName: "TOGGLEASSIGNEDTEMPPLATE" }} reload={reload}
 						additionalParams={{ SchoolId: -1 }}
@@ -85,9 +81,9 @@ function AssignTemplatePage() {
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color"
-											onClick={() => onHandleEdit(props)}
-											  link />
-											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateId, "delete")} />
+												onClick={() => onHandleEdit(props)}
+												link />
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.teacherTemplateDetailId, "delete")} />
 										</>
 									);
 								},

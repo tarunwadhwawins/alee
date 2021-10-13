@@ -18,7 +18,7 @@ function SchoolSignup(props) {
   const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
   const onHandleChange = (e, { value, data }) => {
-         
+
     setSchoolForm({ ...schoolForm, [data]: value })
   }
 
@@ -48,7 +48,6 @@ function SchoolSignup(props) {
             <Form.Input label="Name" placeholder="Name" data="schoolName" onChange={onHandleChange}
               error={simpleValidator.current.message('schoolName', schoolForm.schoolName, 'required')} />
           </Grid.Column>
-
           <Grid.Column width={8} >
             <Form.Input label="Address" placeholder="Address" data="schoolAddress" onChange={onHandleChange}
               error={simpleValidator.current.message('schoolAddress', schoolForm.schoolAddress, 'required')}
@@ -65,14 +64,14 @@ function SchoolSignup(props) {
             />
           </Grid.Column>
           <Grid.Column width={8} >
-            <Form.Input label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
+            <Form.Input className="password" label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
               error={simpleValidator.current.message('password', schoolForm.password, 'required|password|')}
             />
             {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
             {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
           </Grid.Column>
           <Grid.Column width={8} >
-            <Form.Input label="Confirm Password" placeholder="********" type={iconToggleConfirm ? "" : "password"} data="confirmPassword" onChange={onHandleChange}
+            <Form.Input className="password" label="Confirm Password" placeholder="********" type={iconToggleConfirm ? "" : "password"} data="confirmPassword" onChange={onHandleChange}
               error={simpleValidator.current.message('confirmPassword', schoolForm.confirmPassword, 'required|password')}
             />
             {!iconToggleConfirm && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Grid, Dropdown, Image, Feed, Card } from "semantic-ui-react";
 import { Link } from "../../../functional/global-import";
 import { profile } from "../../../functional/global-image-import";
 import { useDispatch, useSelector } from 'react-redux';
-import {logout } from "../../../../store/actions/auth.actions";
+import { logout } from "../../../../store/actions/auth.actions";
 import { env } from "../../../functional/global-import";
 import { commonFunctions } from "../../../functional/global-import";
 import ChangePassword from "../modal/change-password/change-password";
+import { apiCall } from "../../../../store/actions/api.actions";
+
 function Header(props) {
   const [forgotPasswordStatus, setForgotPasswordStatus] = useState(false)
+  const [notification, setNotification] = useState([])
+  const userId = useSelector(state => state.auth.userDetail.userId)
   const image = useSelector(state => state.auth.userDetail.image);
   const name = useSelector(state => state.auth.userDetail.name);
   const trigger = (
@@ -17,14 +21,23 @@ function Header(props) {
   const isPublished = useSelector(state => state.auth.userDetail.isPublished);
   const teacherId = useSelector(state => state.auth.userDetail.teacherId);
   const dispatch = useDispatch();
-
   const onHandleLogout = () => {
-                                       
     dispatch(logout());
   }
   const forgetPassword = () => {
     setForgotPasswordStatus(!forgotPasswordStatus);
   };
+  const GetNotification = () => {
+    dispatch(apiCall({
+      urls: ["GETNOTIFICATIONS"], method: "GET", data: { userId: userId }, onSuccess: (response) => {
+        debugger
+        setNotification(response)
+      }
+    }))
+  }
+  useEffect(() => {
+    GetNotification();
+  }, [])
   return (
     <React.Fragment>
       <div>
@@ -37,27 +50,29 @@ function Header(props) {
               </div>
             </Grid.Column>
             <Grid.Column width={8} className="profile">
-              <Dropdown text='5' multiple icon='bell' title="Notifications" className="notificationDropdown">
+              <Dropdown text={notification.length} multiple icon='bell' title="Notifications" className="notificationDropdown">
                 <Dropdown.Menu>
-                  <Card>
+                  <Card className="notification">
                     <Card.Content>
                       <Card.Header>Notification</Card.Header>
                     </Card.Content>
                     <Card.Content className="body">
                       <Feed>
-                        <Feed.Event as={Link}>
-                          <Feed.Label>
-                            <Image src={profile} />
-                          </Feed.Label>
-                          <Feed.Content>
-                            <Feed.Date content='1 day ago' />
-                            <Feed.Summary>
-                              You added Jenny Hess to your coworker group.
-                            </Feed.Summary>
-                          </Feed.Content>
-                        </Feed.Event>
-
-                        <Feed.Event as={Link}>
+                        {notification.map((item) =>
+                          <Feed.Event as={Link}>
+                            <Feed.Label>
+                              <Image src={commonFunctions.concatenateImageWithAPIUrl(item.image)} />
+                            </Feed.Label>
+                            <Feed.Content>
+                              <Feed.Date content={item.time} />
+                              <Feed.Summary>
+                                {item.message}
+                              </Feed.Summary>
+                            </Feed.Content>
+                          </Feed.Event>
+                        )
+                        }
+                        {/* <Feed.Event as={Link}>
                           <Feed.Label>
                             <Image src={profile} />
                           </Feed.Label>
@@ -79,7 +94,7 @@ function Header(props) {
                               You added Elliot Baker to your musicians group.
                             </Feed.Summary>
                           </Feed.Content>
-                        </Feed.Event>
+                        </Feed.Event> */}
                       </Feed>
                     </Card.Content>
                   </Card>
@@ -97,7 +112,7 @@ function Header(props) {
                   {api === "Teacher" &&
                     <Dropdown.Item
                       as={Link}
-                      to={isPublished?`${env.PUBLIC_URL}/profile-preview/${teacherId}`:`${env.PUBLIC_URL}/profile`}
+                      to={isPublished ? `${env.PUBLIC_URL}/profile-preview/${teacherId}` : `${env.PUBLIC_URL}/profile`}
                       icon="user"
                       text="My Profile"
                     />
@@ -121,7 +136,7 @@ function Header(props) {
             </Grid.Column>
           </Grid>
         </div>
-        <ChangePassword openModal={forgotPasswordStatus} closeModal={forgetPassword}/>
+        <ChangePassword openModal={forgotPasswordStatus} closeModal={forgetPassword} />
       </div>
     </React.Fragment>
   );

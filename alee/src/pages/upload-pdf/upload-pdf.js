@@ -6,11 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import ImageUploading from 'react-images-uploading';
 import SimpleReactValidator from 'simple-react-validator';
 import { env, Link } from "../../shared/functional/global-import";
+import { useParams } from "react-router-dom";
 
 const initialState = {}
-function UploadPdfPage() {
+function UploadPdfPage(props) {
+
+	const urlId = useParams();
 	const [uploadExcel, setUploadExcel] = useState(initialState)
 	const [fileName, setFileName] = useState("");
+	const [bookId, setBookId] = useState(urlId.id);
 	const [bookCoverImage, setBookCoverImage] = useState([]);
 	const [bookTitle, setBookTitle] = useState("")
 	const [author, setAuthor] = useState("");
@@ -30,6 +34,24 @@ function UploadPdfPage() {
 		}
 		setUploadExcel(files)
 	}
+	const getBookForEdit = () => {
+		dispatch(
+			apiCall({
+				urls: ["GETBOOKBASICINFO"],
+				method: "GET",
+				data: { bookId: bookId },
+				onSuccess: (response) => {
+					debugger
+					setBookTitle(response[0].bookName)
+					setAuthor(response[0].author)
+					setGrades(JSON.parse(response[0].gradeId))
+					setBookCoverImage([{ data_url: commonFunctions.concatenateImageWithAPIUrl(response[0].image) }])
+					// setGradeList(grade);
+				},
+			})
+		);
+	};
+
 	const removeBook = () => {
 		setFileName("");
 		setUploadExcel("");
@@ -43,26 +65,59 @@ function UploadPdfPage() {
 	const onHandleSubmit = (e) => {
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
+			debugger
 			var formData = new FormData();
 			formData.append('pdfFile', uploadExcel[0])
 			formData.append('bookCoverImage', bookCoverImage[0].file)
 			formData.append('bookTitle', bookTitle)
 			formData.append('author', author)
-			grades.grades.forEach((gradedata, index) => {
-				formData.append(`Grades[${index}]`, gradedata)})
+			// formData.append('grades', [grades])
+			grades.forEach((gradedata, index) => {
+				formData.append(`Grades[${index}]`, gradedata)
+			})
 			dispatch(apiCall({
 				urls: ["UPLOADPDF"], method: "POST", data: formData, onSuccess: (response) => {
 					removeBook();
+					simpleValidator.current.hideMessages();
 				}, showNotification: true
 			}))
 		}
 	}
-
-	const onImageChange = (imageList) => {
-		setBookCoverImage(imageList)}
+	const onHandleUpdate = (e) => {
+		debugger
+		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
+		if (isFormValid) {
+			debugger
+			var formData = new FormData();
+			formData.append('bookId', bookId)
+			formData.append('image', bookCoverImage[0].file)
+			formData.append('bookName', bookTitle)
+			formData.append('author', author)
+			// formData.append('grades', [grades])
+			grades.forEach((gradedata, index) => {
+				formData.append(`Grades[${index}]`, gradedata)
+			})
+			dispatch(apiCall({
+				urls: ["UPDATEBOOKBASICINFO"], method: "PUT", data: formData, onSuccess: (response) => {
+					removeBook();
+					simpleValidator.current.hideMessages();
+				}, showNotification: true
+			}))
+		}
+	}
 	useEffect(() => {
+		console.log("log", grades.grades)
+	}, [grades])
+	const onImageChange = (imageList) => {
+		setBookCoverImage(imageList)
+	}
+	useEffect(() => {
+
 		getGradeList();
-	}, []);
+		if (urlId.id) {
+			getBookForEdit();
+		}
+	}, [urlId]);
 	//  get api //
 	const getGradeList = () => {
 		dispatch(
@@ -82,34 +137,35 @@ function UploadPdfPage() {
 			})
 		);
 	};
-	const onHandleChange = (e, { data, value }) => {
-		setGrades({ ...grades, [data]: value });
+	const onHandleChange = (e, data) => {
+
+		setGrades(data.value);
 	}
 
 	return (
 		<div className="scanBook">
 			<Grid>
 				<Grid.Column width={16}>
-					<Header as="h3" className="commonHeading">Upload Pdf</Header>
+					<Header as="h3" className="commonHeading">{urlId.id ? "Edit pdf" : "Upload Pdf"}</Header>
 				</Grid.Column>
 				<Grid.Column width={16}>
 					<div className="scanBookInner">
 						<Grid>
 							<Grid.Column width={8}>
-								<Form.Input fluid placeholder="Book Title" value={bookTitle} onChange={(e, { value }) => setBookTitle(value)}
+								<Form.Input fluid placeholder="Book Title" disabled={urlId.id ? true : false} value={bookTitle} onChange={(e, { value }) => setBookTitle(value)}
 									error={simpleValidator.current.message('bookTitle', bookTitle, 'required')}
 								/>
 							</Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Input fluid placeholder="Book Author" value={author} onChange={(e, { value }) => setAuthor(value)}
+								<Form.Input fluid placeholder="Book Author" disabled={urlId.id ? true : false} value={author} onChange={(e, { value }) => setAuthor(value)}
 									error={simpleValidator.current.message('author', author, 'required')}
 								/>
 							</Grid.Column>
 							<Grid.Column width={8}>
 								<div className="field">
-									<Dropdown placeholder='Grade' fluid multiple selection onChange={onHandleChange}
-										data="grades" options={grade} />
-									{simpleValidator.current.message("grades", grades, "required")}
+									<Form.Dropdown placeholder='Grade' fluid multiple selection onChange={(e, data) => onHandleChange(e, data)}
+										value={grades} data="grades" options={grade} error={simpleValidator.current.message("grades", grades, "required")} />
+									{/* {simpleValidator.current.message("grades", grades, "required")} */}
 								</div>
 							</Grid.Column>
 							<Grid.Column width={8}>
@@ -122,8 +178,10 @@ function UploadPdfPage() {
 											<Button className="primaryBtn" onClick={onImageUpload} {...dragProps}>
 												Cover Image
 											</Button>
-											{bookCoverImage.length <= 0 && <div className='uploadedImg'>
-												<Image src={commonFunctions.concatenateImageWithAPIUrl(null)} /></div>}
+											{bookCoverImage.length <= 0 &&
+												<div className='uploadedImg'>
+													<Image src={commonFunctions.concatenateImageWithAPIUrl(null)} />
+												</div>}
 											{bookCoverImage.map((image, index) => (
 												<div key={index} >
 													{image['data_url'] ?
@@ -141,8 +199,9 @@ function UploadPdfPage() {
 							<Grid.Column width={4}>
 								<Form>
 									<Form.Field>
-										<Button content="Choose Pdf" disabled={api.isApiLoading} className="primaryBtn"
-											onClick={() => fileInputRef.current.click()} />
+										{!urlId.id &&
+											<Button content="Choose Pdf" disabled={api.isApiLoading} className="primaryBtn"
+												onClick={() => fileInputRef.current.click()} />}
 										<input ref={fileInputRef} accept="application/pdf" type="file" hidden onChange={onFileChange}
 										/>
 									</Form.Field>
@@ -162,7 +221,8 @@ function UploadPdfPage() {
 
 				<Grid.Column width={16} textAlign="right">
 					<Button className="secondaryBtn" onClick={removeBook} >Cancel</Button>
-					<Button className="primaryBtn" as={Link} to="my-books" onClick={onHandleSubmit} loading={api.isApiLoading} >Upload</Button>
+					{urlId.id ? <Button className="primaryBtn" as={Link} to="my-books" onClick={onHandleUpdate} loading={api.isApiLoading} >Update</Button> :
+						<Button className="primaryBtn" as={Link} to="my-books" onClick={onHandleSubmit} loading={api.isApiLoading} >Upload</Button>}
 				</Grid.Column>
 			</Grid>
 		</div>

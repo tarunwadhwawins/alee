@@ -5,11 +5,8 @@ import { env } from "../functional/global-import";
 import moment from 'moment';
 import{avatar} from '../functional/global-image-import';
 
-
-
 // This function is used to handle common onchange in all the forms in the application.
 const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
-                  ;
   const path = data.split(".");
   const depth = path.length;
   const state = { ...obj };
@@ -32,10 +29,8 @@ const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
   return state;
 };
 
-
 // This function is used to handle common form submit in all the forms in the application.
-const onHandleFormSubmit = (e, simpleValidator, forceUpdate) => {
-                  
+const onHandleFormSubmit = (e, simpleValidator, forceUpdate) => {   
   e.preventDefault();
   if (simpleValidator.current.allValid() === false) {
     simpleValidator.current.showMessages();
@@ -46,7 +41,6 @@ const onHandleFormSubmit = (e, simpleValidator, forceUpdate) => {
   }
 };
 const initializeSimpleValidator = () => {
-                  ;
   return new SimpleReactValidator({
     element: (message) => (
       <Label basic color="red" pointing="above">

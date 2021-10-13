@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Grid, Table, Input, Dimmer, Loader } from "semantic-ui-react";
 import TableHeader from "./table-header";
 import TableRow from "./table-row";
@@ -11,22 +11,31 @@ function DataTable(props) {
     // const [isFetching, setIsFetching] = useState(false);
     const [values, setValues] = useState([]);
     const [gridObjects, setGridObjects] = useState({
-        pageNo: 1, pageSize: 100,
+        pageNo: 1, pageSize: 1000,
         sortArrow: "sort", orderBy: "ModifiedDate", searchValue: "", orderByDescending: true, heading: "", hasMore: true
     })
     const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
     const dispatch = useDispatch();
+    const tableRowRef = useRef();
     const api = useSelector(state => state.api)
+    const [gridDataLoading, setGridDataLoading] = useState(false)
+    const [hasMore, setHasMore] = useState(true)
+
     useEffect(() => {
         getCommonTable();
     }, [gridObjects, props.reload]);
 
     const getCommonTable = () => {
+        setGridDataLoading(true)
         dispatch(apiCall({
             urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams },
             onSuccess: (response) => {
                 setValues(response)
-            }
+                if (response.length === 0) {
+                    setHasMore(false);
+                }
+            },
+            // onFinally: () => { gridDataLoading(false) }
         }))
     }
     const confirmModalOpen = (id, type, isActive) => {
@@ -60,6 +69,15 @@ function DataTable(props) {
         let sortArrow = gridObjects.sortArrow === "sort up" ? "sort down" : "sort up";
         setGridObjects({ ...gridObjects, sortArrow: sortArrow, heading: heading, orderBy: orderBy, orderByDescending: orderByDescending }, s => getCommonTable())
     }
+    const fetchMoreData = () => {
+        debugger
+        const countPageNo = gridObjects.pageNo + 1;
+        // 20 more records in 1.5 secs  
+        setTimeout(() => {
+            setGridObjects({ gridObjects: { ...gridObjects, pageNo: countPageNo } }, () => { getCommonTable() });
+        }, 500);
+
+    };
     const onHandleChangeSearch = (e, { value }) => {
         setGridObjects({ ...gridObjects, searchValue: value })
     }
@@ -101,7 +119,7 @@ function DataTable(props) {
                         </Dimmer>
                     )}
                     <div className="commonTable">
-                        <Table singleLine>
+                        <Table singleLine className="table-scrolling commonTableDropdown" id={props.gridName}>
                             <TableHeader
                                 columns={props.columns}
                                 onHandleSorting={onHandleSorting}
@@ -109,9 +127,14 @@ function DataTable(props) {
                             />
                             <TableRow singleLine
                                 columns={props.columns}
+                                ref={tableRowRef}
                                 gridData={values}
                                 getCommonTable={getCommonTable}
                                 confirmModalOpen={confirmModalOpen}
+                                fetchMoreData={fetchMoreData}
+                                tableHeight={props.tableHeight}
+                                hasMore={hasMore}
+
                             />
 
                         </Table>

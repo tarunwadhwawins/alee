@@ -2,7 +2,7 @@ import * as env from "./env.config";
 // Read api url from env file
 const API_URL = env.API_URL;
 // API end points
-                   ;
+;
 const API_ENDPOINTS = {
   LOGIN: "/Authentication/Login",
   TEACHERREGISTRATION: "/Authentication/TeacherRegistration",
@@ -105,8 +105,12 @@ const API_ENDPOINTS = {
   GETTEMPLATEFIELD: "/Template/GetTemplateFieldsList",
   CHANGEPASSWORD: "/Authentication/ChangePassword",
   UPDATESCHOOLPROFILE: "/School/UpdateSchoolProfile",
-  GETLESSONPLANDATA:"/Lesson/GetLessonPlanData",
- GETTEMPLATEFIELDSLIST:"/Template/GetTemplateFieldsList"
+  GETLESSONPLANDATA: "/Lesson/GetLessonPlanData",
+  GETTEMPLATEFIELDSLIST: "/Template/GetTemplateFieldsList",
+  GETBOOKDETAIL: "/Books/GetBookDetail",
+  GETBOOKBASICINFO: "/Books/GetBookBasicInfo",
+  UPDATEBOOKBASICINFO:"/Books/UpdateBookBasicInfo",
+  GETNOTIFICATIONS:"/Notifications/GetNotifications"
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

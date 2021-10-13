@@ -59,7 +59,19 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: true,
+    path: `${env.PUBLIC_URL}/edit-book-flip/:id`,
+    component: lazy(() => import('../../pages/book-flip'))
+  },
+  {
+    exact: true,
+    private: true,
     path: `${env.PUBLIC_URL}/upload-pdf`,
+    component: lazy(() => import('../../pages/upload-pdf'))
+  },
+  {
+    exact: true,
+    private: true,
+    path: `${env.PUBLIC_URL}/edit-book/:id`,
     component: lazy(() => import('../../pages/upload-pdf'))
   },
   {
@@ -209,13 +221,13 @@ const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
     private: true,
-    path:`${env.PUBLIC_URL}/lesson-preview/:lessonPlanId`,
+    path: `${env.PUBLIC_URL}/lesson-preview/:lessonPlanId`,
     component: lazy(() => import('../../pages/lesson-preview'))
   },
   {
     exact: true,
     private: true,
-    path:`${env.PUBLIC_URL}/template-preview/:templateId`,
+    path: `${env.PUBLIC_URL}/template-preview/:templateId`,
     component: lazy(() => import('../../pages/template-preview'))
   },
   {

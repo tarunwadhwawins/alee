@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Grid, Button, Header,Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Button, Header, Dimmer, Loader } from "semantic-ui-react";
 import HTMLFlipBook from 'react-pageflip';
 import { useDispatch, useSelector } from 'react-redux';
 // import { storeBookDetails } from "../../../src/store/actions/global.actions";
 import { apiCall } from "../../store/actions/api.actions";
 // import { animateScroll } from "react-scroll";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import LessonPlanCreationPage from "../../pages/lesson-plan-creation/lesson-plan-creation";
 // import parse from 'html-react-parser';
 
 
 function BookFlipPage(props) {
-
+	const urlId = useParams()
 	let history = useHistory();
 	const [bookPageData, setBookPageData] = useState([])
+	const [lessonPlanId, setLessonPlanId] = useState(urlId.id)
+	if (lessonPlanId && history.location.state === undefined) {
+		history.replace({ ...history.location, state: "lessonPlan" })
+	}
 
 	const dispatch = useDispatch();
 	const bookData = useSelector(state => state.global.myBookData)
@@ -27,7 +31,7 @@ function BookFlipPage(props) {
 	const getBookPageData = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKPAGE"], method: "GET", data: { "PageId": bookData.pageId, "BookId": bookData.bookId }, onSuccess: (response) => {
-				setBookPageData(response)
+							setBookPageData(response)
 			}
 		}))
 	}
@@ -109,7 +113,7 @@ function BookFlipPage(props) {
 							{
 								(bookPageData && bookPageData.length > 0) ?
 									bookPageData.map((singleData, index) => {
-										
+
 										return (
 											<div className="demoPage" key={index} onClick={props.onHandleTagSelected ? () => props.onHandleTagSelected(singleData) : null}>
 												<Header as="h3">Page {singleData.pageNo}</Header>
@@ -209,10 +213,9 @@ function BookFlipPage(props) {
 
 				<Grid>
 					<Grid.Column width={16}>
-						{history.location.state === "lessonPlan" && <LessonPlanCreationPage pageId={bookData.pageId} />}
+						{history.location.state === "lessonPlan" && <LessonPlanCreationPage pageId={bookData.pageId} lessonPlanId={lessonPlanId}/>}
 					</Grid.Column>
 				</Grid>
-
 			</div>
 		</>
 	);

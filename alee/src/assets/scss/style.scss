@@ -455,6 +455,7 @@ h4.ui.header.bookName {
     padding: 50px 15px 15px 15px;
     margin: -15px -15px 0;
     position: relative;
+    justify-content: center;
     &::before {
       content: "";
       position: absolute;
@@ -463,6 +464,11 @@ h4.ui.header.bookName {
       top: 0;
       background-color: $primary-color;
       height: 150px;
+    }
+    .teacherProfileText {
+      z-index: 999;
+      color: #fff;
+      text-align: center;
     }
     .header {
       color: #fff;

@@ -99,7 +99,7 @@ function ProfileStepOne(props) {
 
 						</div>
 					</div> */}
-				</Grid.Column >
+				</Grid.Column>
 				<Grid.Column width={12}>
 					<Grid>
 						<Grid.Column width={8}>

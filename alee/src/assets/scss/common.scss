@@ -45,7 +45,7 @@ a {
   top: initial !important;
   bottom: initial !important;
   right: initial !important;
-  height: auto!important;
+  height: auto !important;
 }
 .commonTable {
   overflow: auto;
@@ -291,6 +291,7 @@ h5.ui.header.forCommonTable {
 }
 .loginPassword {
   position: relative;
+  padding-right: 30px !important;
   .passwordIcon {
     position: absolute;
     top: 50%;
@@ -298,3 +299,24 @@ h5.ui.header.forCommonTable {
     transform: translateY(-50%);
   }
 }
+.commonTableDropdown {
+  tbody {
+    display: block;
+    height: 300px;
+    overflow: auto;
+  }
+  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+}
+.password {
+  padding-right: 30px !important;
+}
+.notification {
+  height: 300px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
