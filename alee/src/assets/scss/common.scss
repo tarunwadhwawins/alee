@@ -26,6 +26,9 @@ a {
 .p-0 {
   padding: 0 !important;
 }
+.textNowrap {
+  white-space: nowrap;
+}
 .commonHeading.ui.header {
   font-size: 22px;
   color: $primary-color;

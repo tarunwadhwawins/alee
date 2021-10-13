@@ -214,7 +214,8 @@ function ResourcesPage() {
               getApiName: "GETRESOURCESLIST",
               deleteApiName: "DELETERESOURCES",
               toggleApiName: "RESOURCESTOGGLE",
-              OrderBy: "ModifiedDate", OrderByDescending: true,
+              OrderBy: "ModifiedDate", 
+              OrderByDescending: true,
             }
           }
             reload={reload}

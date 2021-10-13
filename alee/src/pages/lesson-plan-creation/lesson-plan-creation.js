@@ -19,6 +19,7 @@ function LessonPlanCreationPage(props) {
 	const [templateFields, setTemplateFields] = useState([])
 	const [tagBookData, setTagBookData] = useState([])
 	const [addNotes, setAddNotes] = useState([{ noteId: null, noteDescription: "", studentIds: [], studentAll: false }])
+	const [resource, setResource] = useState([])
 
 	const teacherId = useSelector(state => state.auth.userDetail.teacherId)
 	const schoolId = useSelector(state => state.auth.userDetail.schoolId)
@@ -160,7 +161,6 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onChangeDescription = (e, { value, index }) => {
-		debugger
 		const description = [...addNotes]
 		description[index]["noteDescription"] = value;
 		setAddNotes(description)
@@ -174,11 +174,11 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const addMultipleNotes = () => {
-		debugger
+
 		setAddNotes(addNotes.concat({ noteId: null, noteDescription: "", studentIds: [], studentAll: false }))
 	}
 	const removeNotes = (index) => {
-		debugger
+
 		const rows = [...addNotes]
 		rows.splice(index, 1);
 		setAddNotes(rows);
@@ -194,11 +194,19 @@ function LessonPlanCreationPage(props) {
 	const onHandleSubmit = () => {
 		dispatch(apiCall({
 			urls: ["ADDLESSONPLANDATA"], method: "POST", data: lessonPlan, onSuccess: (response) => {
-
 			}, showNotification: true
 		}));
 	}
+	const addResources = () => {
+		debugger
+		const res = [...resource]
+		setResource({ ...resource, resource: res })
+		// props.closeModal
+	}
+	const getresourceData = (data) => {
+		console.log("Resource data in lesson", data)
 
+	}
 	return (
 		<div className="common-shadow">
 			<Form>
@@ -293,7 +301,6 @@ function LessonPlanCreationPage(props) {
 								</Grid.Column>
 							</Grid>
 						</Form>
-
 					</div>
 
 					{/* </div> */}
@@ -305,10 +312,9 @@ function LessonPlanCreationPage(props) {
 				</Grid.Column>
 			</Grid>
 			<InviteTeacher openModal={invite} closeModal={openModal} />
-			<AddNotes openModal={notes} closeModal={openModal2} onChangeDescription={onChangeDescription} onChangeStudent={onChangeStudent} addMultipleNotes={addMultipleNotes} addNotes={addNotes} removeNotes={removeNotes} addNotesInLessonplan={addNotesInLessonplan} editNoteData={lessonPlan.notes} />
-			<Resources openModal={resources} closeModal={openModal3} />
+			<AddNotes openModal={notes} closeModal={openModal2} onChangeDescription={onChangeDescription} onChangeStudent={onChangeStudent} addMultipleNotes={addMultipleNotes} addNotes={addNotes} removeNotes={removeNotes} addNotesInLessonplan={addNotesInLessonplan} />
+			<Resources getSelectedData={(data) => getresourceData(data)} openModal={resources} closeModal={openModal3} addResources={addResources} />
 		</div>
 	);
 }
-
 export default LessonPlanCreationPage;
