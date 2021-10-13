@@ -19,10 +19,14 @@ function LessonPlanCreationPage(props) {
 	const [templateFields, setTemplateFields] = useState([])
 	const [tagBookData, setTagBookData] = useState([])
 	const [addNotes, setAddNotes] = useState([{ noteId: null, noteDescription: "", studentIds: [], studentAll: false }])
+	const [resource, setResource] = useState([])
 
 	const teacherId = useSelector(state => state.auth.userDetail.teacherId)
 	const schoolId = useSelector(state => state.auth.userDetail.schoolId)
 	const api = useSelector(state => state.api)
+	const [editLessonPlan, setEditLessonPlan] = useState(false)
+	const [editLessonPlanData, setEditLessonPlanData] = useState([])
+
 	const dispatch = useDispatch();
 	const openModal = () => {
 		setInvite(!invite)
@@ -31,21 +35,20 @@ function LessonPlanCreationPage(props) {
 		setNotes(!notes)
 	}
 	const openModal3 = () => {
-
 		setResources(!resources);
 	}
 	const onTemplateChange = (e, { value }) => {
-
+		debugger
 		setLessonPlan({ ...lessonPlan, templateId: value })
 		dispatch(apiCall({
 			urls: ["GETTEMPLATEFIELD"], method: "GET", data: { "templateId": value }, onSuccess: (response) => {
-
 				setTemplateFields(response)
 			}
 		}));
 	}
 
 	const onHandleChange = (e, { value, data }) => {
+		debugger
 		setLessonPlan({ ...lessonPlan, [data]: value })
 	}
 
@@ -54,6 +57,21 @@ function LessonPlanCreationPage(props) {
 		getGrades();
 		getBookTagContent();
 	}, []);
+
+	useEffect(() => {
+		debugger
+		if (props.lessonPlanId) {
+			setEditLessonPlan(true)
+			getLessonPlanData();
+		}
+		if (editLessonPlan) {
+			// editLesson();
+		}
+	}, []);
+	useEffect(() => {
+		console.log("lessionPlan", lessonPlan);
+		console.log("Notes", addNotes);
+	}, [lessonPlan]);
 	//  get api //
 	const getTemplate = () => {
 		dispatch(apiCall({
@@ -79,46 +97,77 @@ function LessonPlanCreationPage(props) {
 	//  get api //
 	const getGrades = () => {
 		dispatch(
-		  apiCall({
-			urls: ["GETGRADESLIST"],
-			method: "GET",
-			data:({ActiveGrades:true,OrderBy:"GradeName",OrderByDescending:false}),
-			onSuccess: (response) => {
-							
-			  const getGrades = response.map((singledata) => {
-				return { text: singledata.gradeName, value: singledata.gradeId };
-			  });
-			  setGrade(getGrades);
-			},
-		  })
+			apiCall({
+				urls: ["GETGRADESLIST"],
+				method: "GET",
+				data: ({ ActiveGrades: true, OrderBy: "GradeName", OrderByDescending: false }),
+				onSuccess: (response) => {
+
+					const getGrades = response.map((singledata) => {
+						return { text: singledata.gradeName, value: singledata.gradeId };
+					});
+					setGrade(getGrades);
+				},
+			})
 		);
-	  };
+	};
 	const getBookTagContent = () => {
 		dispatch(apiCall({
 			urls: ["GETBOOKTAGDATA"], method: "GET", data: { "PageId": 1432, "TagText": "About the Author" }, onSuccess: (response) => {
 				setTagBookData(response)
-				setLessonPlan({ ...lessonPlan, chapterId: response[0].chapterId })
+				setLessonPlan((prevState) => ({ ...prevState, chapterId: response[0].chapterId }))
+			}
+		}));
+	}
+	const getLessonPlanData = () => {
+		dispatch(apiCall({
+			urls: ["GETLESSONPLANDATA"], method: "GET", data: { lessonPlanId: props.lessonPlanId }, onSuccess: (response) => {
+				debugger
+				setEditLessonPlanData(response[0])
+				setLessonPlan({ ...lessonPlan, ...response[0], notes: JSON.parse(response[0].notes) })
+				const noteData = []
+				JSON.parse(response[0].notes).map((note) => {
+					noteData.push({
+						noteDescription: note.NoteDescription,
+						studentIds: JSON.parse(note.Students).map((x) => x.StudentId),
+					})
+				})
+				setAddNotes(noteData)
+				// getBookTagContent();
+				// setLessonPlan(lessonPlan.lessonPlanName = response[0].lessonPlanName)
+				// setLessonPlan(lessonPlan.lessonPlanId = response[0].lessonPlanId)
+				// setLessonPlan(lessonPlan.teacherId = response[0].teacherId)
+				// setLessonPlan(lessonPlan.bookId = response[0].bookId)
+				// setLessonPlan(lessonPlan.chapterId = response[0].chapterId)
+				// setLessonPlan(lessonPlan.gradeId = response[0].gradeId)
+				// setLessonPlan(lessonPlan.templateId = response[0].templateId)
+				// setTemplateFields(JSON.parse(response[0].templateData))
+				// setLessonPlan(lessonPlan.lessonPlanName = response[0].teacherId)
+				// setLessonPlan(lessonPlan.lessonPlanName = response[0].teacherId)
+
 			}
 		}));
 	}
 
 	const onTemplateFieldChange = (e, { value, index, checked, type }) => {
+		debugger
 		const matchValue = lessonPlan.templateResponse.findIndex((filed) => filed.templateFieldId === index);
 		if (matchValue !== -1) {
 			lessonPlan.templateResponse.splice(matchValue, 1);
 		}
 		const lessonPlanFiled = lessonPlan.templateResponse.concat({ templateFieldId: index, response: value })
+		debugger
 		setLessonPlan({ ...lessonPlan, templateResponse: lessonPlanFiled })
 	}
 
 	const onChangeDescription = (e, { value, index }) => {
-
 		const description = [...addNotes]
 		description[index]["noteDescription"] = value;
 		setAddNotes(description)
 	}
 
 	const onChangeStudent = (e, { value, index }) => {
+		debugger
 		const student = [...addNotes]
 		student[index]["studentIds"] = value;
 		setAddNotes(student)
@@ -136,6 +185,7 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const addNotesInLessonplan = () => {
+		debugger
 		openModal2();
 		const rows = [...addNotes]
 		setLessonPlan({ ...lessonPlan, notes: rows })
@@ -144,11 +194,19 @@ function LessonPlanCreationPage(props) {
 	const onHandleSubmit = () => {
 		dispatch(apiCall({
 			urls: ["ADDLESSONPLANDATA"], method: "POST", data: lessonPlan, onSuccess: (response) => {
-
 			}, showNotification: true
 		}));
 	}
+	const addResources = () => {
+		debugger
+		const res = [...resource]
+		setResource({ ...resource, resource: res })
+		// props.closeModal
+	}
+	const getresourceData = (data) => {
+		console.log("Resource data in lesson", data)
 
+	}
 	return (
 		<div className="common-shadow">
 			<Form>
@@ -157,19 +215,16 @@ function LessonPlanCreationPage(props) {
 						<Header as="h3" className="commonHeading">Lesson Plan Creation</Header>
 					</Grid.Column>
 					<Grid.Column width={5}>
-						<Form.Input placeholder="Lesson Plan" onChange={onHandleChange} data="lessonPlanName" />
+						<Form.Input placeholder="Lesson Plan" onChange={onHandleChange} data="lessonPlanName" value={lessonPlan.lessonPlanName} />
 					</Grid.Column>
-
 					<Grid.Column width={5}>
-						<Form.Select placeholder="Choose Template" options={template} onChange={onTemplateChange} />
+						<Form.Select placeholder="Choose Template" options={template} onChange={onTemplateChange} value={lessonPlan.templateId} />
 					</Grid.Column>
-
 					<Grid.Column width={6}>
-						<Form.Select placeholder="Choose Grade" options={grade} onChange={onHandleChange} data="gradeId" />
+						<Form.Select placeholder="Choose Grade" options={grade} onChange={onHandleChange} data="gradeId" value={lessonPlan.gradeId} />
 					</Grid.Column>
 				</Grid>
 			</Form>
-
 			<Grid>
 				<Grid.Column width={8}>
 					<div className="chapterBox">
@@ -182,8 +237,6 @@ function LessonPlanCreationPage(props) {
 								<p>{JSON.parse(tagData.Response)}</p>
 							</>)
 						})}
-
-
 					</div>
 				</Grid.Column>
 				<Grid.Column width={8}>
@@ -196,14 +249,11 @@ function LessonPlanCreationPage(props) {
 						<Form>
 							<Grid>
 								{templateFields.map((singleData, index) => {
-
-
 									if (singleData.fieldDataType === "Header") {
 										return (
 											<Grid.Column width={16} key={index}>
 												<Header as="h3" className="commonHeading">{singleData.fieldName}</Header>
 											</Grid.Column>
-
 										)
 									}
 									if (singleData.fieldDataType === "Dropdown") {
@@ -251,7 +301,6 @@ function LessonPlanCreationPage(props) {
 								</Grid.Column>
 							</Grid>
 						</Form>
-
 					</div>
 
 					{/* </div> */}
@@ -264,9 +313,8 @@ function LessonPlanCreationPage(props) {
 			</Grid>
 			<InviteTeacher openModal={invite} closeModal={openModal} />
 			<AddNotes openModal={notes} closeModal={openModal2} onChangeDescription={onChangeDescription} onChangeStudent={onChangeStudent} addMultipleNotes={addMultipleNotes} addNotes={addNotes} removeNotes={removeNotes} addNotesInLessonplan={addNotesInLessonplan} />
-			<Resources openModal={resources} closeModal={openModal3} />
+			<Resources getSelectedData={(data) => getresourceData(data)} openModal={resources} closeModal={openModal3} addResources={addResources} />
 		</div>
 	);
 }
-
 export default LessonPlanCreationPage;

@@ -15,6 +15,7 @@ function ManageTeacherPage() {
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="teacher"
 						additionalParams={{ schoolId: -1 }}
+						tableHeight="300px"
 						columns={[
 							{
 								headerName: "Teacher Name",
@@ -52,13 +53,13 @@ function ManageTeacherPage() {
 							},
 							{
 								headerName: "Status",
-								fieldName: "createdAt",
+								fieldName: "isActive",
 								isSorting: true,
 								Cell: (props, confirmModalOpen) => {
-									                  
+
 									return (
 										<Form.Checkbox checked={props.isActive ? true : false} toggle
-											className="commonToggle" onChange={() => confirmModalOpen(props.teacherId, 
+											className="commonToggle" onChange={() => confirmModalOpen(props.teacherId,
 												"update", props.isActive)} />
 									);
 								}

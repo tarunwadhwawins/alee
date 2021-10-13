@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../../../src/store/actions/api.actions";
 
 function AddNotes(props) {
-
+	
 	const [student, setStudent] = useState([])
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
@@ -31,9 +31,10 @@ function AddNotes(props) {
 				<Modal.Description>
 					<Form>
 						{props.addNotes && props.addNotes.length > 0 && props.addNotes.map((singleData, index) => {
-
+							
 							return (
 								<Form.Group key={index}>
+
 									<Form.TextArea placeholder="Note" rows="1" index={index} width={6} onChange={props.onChangeDescription} value={singleData.noteDescription} />
 
 									<Form.Dropdown className="addMore" multiple search selection placeholder="Select Student" options={student} width={6} index={index} onChange={props.onChangeStudent} value={singleData.studentIds} />

@@ -15,8 +15,8 @@ function LessonLibrary() {
 	const [bookList, setBookList] = useState([])
 	// const [values, setValues] = useState({ pageNo: 1, pageSize: 100, searchValue: "" })
 
-	const onHandleChangeSearch = (e, {data,value }) => {   
-		setTextSearch({...textSearch ,[data]:value})
+	const onHandleChangeSearch = (e, { data, value }) => {
+		setTextSearch({ ...textSearch, [data]: value })
 	}
 	useEffect(() => {
 		getTagField();
@@ -71,7 +71,8 @@ function LessonLibrary() {
 		}
 	}
 	const addBookData = (data) => {
-	dispatch(storeMyBookData(data))}	
+		dispatch(storeMyBookData(data))
+	}
 	return (
 		<div className="searchHeader">
 			<Grid>
@@ -79,14 +80,14 @@ function LessonLibrary() {
 					<Header as="h3" className="commonHeading">Lesson Library</Header>
 				</Grid.Column>
 				<Grid.Column computer={8} tablet={8}>
-				<Input fluid icon="search" name="textToSearch"
+					<Input fluid icon="search" name="textToSearch"
 						onKeyPress={handleKeyPress}
 						data="textToSearch" iconPosition="left"
-						 placeholder="Search by Book Title,Author"
-						 value={textSearch.textToSearch}
+						placeholder="Search by Book Title,Author"
+						value={textSearch.textToSearch}
 						className="common-search-bar"
 						onChange={onHandleChangeSearch}
-						/>
+					/>
 				</Grid.Column>
 				<Grid.Column width={16} className="filterDropdwon">
 					{tagFields && tagFields.length > 0 && tagFields.map((singleField, index) => {
@@ -112,27 +113,22 @@ function LessonLibrary() {
 						)
 					})}
 				</Grid.Column>
-
 				<Grid.Column width={16} className="filterDropdwon">
 					<Button className="primaryBtn" disabled={valuesTag.length <= 0} onClick={onFilter} >Filter</Button>
 					<Button className="primaryBtn" onClick={onReset} >Reset</Button>
 				</Grid.Column>
-
-
 				<Grid.Column computer={16}>
-
 					<Header as="h3" className="commonHeading">Staff Recommendation</Header>
-
 				</Grid.Column>
 				{api.isApiLoading && (
-					<Grid.Column>
+					<Grid.Column width={16}>
 						<Dimmer active inverted>
 							<Loader />
 						</Dimmer>
 					</Grid.Column>
 				)}
-				</Grid>
-				<Grid columns={3}>
+			</Grid>
+			<Grid columns={3}>
 				{!api.isApiLoading && bookList && bookList.map((data, index) => {
 
 					return (

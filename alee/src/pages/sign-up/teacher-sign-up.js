@@ -16,10 +16,17 @@ function TeacherSignup(props) {
     let history = useHistory();
     
 
+    // const onHandleChange = (e, { value, data }) => {
+    //     ;
+    //     if (rx_live.test(e.target.value)) {
+    //         setTeacherForm({ ...teacherForm, [data]: value, contactNo: e.target.value })
+    //     }
+    // }
     const onHandleChange = (e, { value, data }) => {
      setTeacherForm({ ...teacherForm, [data]: value})
     }
     const  onHandleChanged = (e, {value, type, checked, data }) => {
+        debugger
         var teacherForms = commonFunctions.onHandleChange(e,
           { value, type, checked, data },teacherForm);
           setTeacherForm(teacherForms);
@@ -68,7 +75,7 @@ function TeacherSignup(props) {
                 </Grid.Column>
                 <Grid.Column width={8} >
                     <Form.Input label="Email" placeholder="abc@gmail.com" data="email" onChange={onHandleChange}
-                        error={simpleValidator.current.message('email', teacherForm.email, 'required')}
+                        error={simpleValidator.current.message('email', teacherForm.email, 'required|email')}
                     />
                 </Grid.Column>
                 {/* <Grid.Column width={8} >
@@ -80,18 +87,15 @@ function TeacherSignup(props) {
                   <Grid.Column width={8}>
                         <PhoneNumberInput
                           onChange={(value, country, e, formattedValue) => onHandleChanged(e, {
-                            name: "phnPhoneNumber", value: formattedValue, type:"phoneNumber", data:"contactNo"
+                            name: "phoneNumber", value: formattedValue, type:"phoneNumber", data:"contactNo"
                           })}
                           value={teacherForm.contactNo}
-                          error={validator.message("phoneNumber", teacherForm.contactNo, "required|phone")} />
+                          error={validator.message("phoneNumber", teacherForm.contactNo, "required")} />
                       </Grid.Column>
-
-
                 <Grid.Column width={8} >
-                    <Form.Input label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
-
-                        error={teacherForm.password ? simpleValidator.current.message("password", teacherForm.password, "required|min:6|max:20") :
-                            simpleValidator.current.message("password", teacherForm.password, "min:6|max:20")}
+                    <Form.Input className="password" label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}
+                        error={simpleValidator.current.message('password', teacherForm.password, 'required|password|')}
+                    // error={teacherForm.password ? simpleValidator.current.message("password", teacherForm.password, "required|min:6|max:20") : simpleValidator.current.message("password", teacherForm.password, "min:6|max:20")}
                     />
                     {!iconToggle && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={passwordToggle} />}
                     {iconToggle && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={passwordToggle} />}
@@ -99,9 +103,7 @@ function TeacherSignup(props) {
                 </Grid.Column>
                 <Grid.Column width={8} >
                     <Form.Input label="Confirm Password" placeholder="********" type={iconToggleConfirm ? "" : "password"} data="confirmPassword" onChange={onHandleChange}
-                        error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword,
-                            `validConfirmPassword:${teacherForm.confirmPassword}`)}
-                    />
+                        error={simpleValidator.current.message('confirmPassword', teacherForm.confirmPassword, 'required|password|')}                    />
                     {!iconToggleConfirm && <Icon title="Show password" name="eye" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}
                     {iconToggleConfirm && <Icon title="Hide Password" name="eye slash" className="primary-color passwordIcon" onClick={confirmPasswordToggle} />}
 

@@ -1,41 +1,35 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Table, Input, Dimmer, Loader } from "semantic-ui-react";
 import TableHeader from "./table-header";
 import TableRow from "./table-row";
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../../store/actions/api.actions";
-import ConfirmModal from "../../../components/organisms/modal/common-confirm-modal/index";
+import ConfirmModal from "../modal/common-confirm-modal/index";
 
 function DataTable(props) {
     // const [listItem, setlistItem] = useState({ pageNo: 1, pageSize: 100 })
     // const [isFetching, setIsFetching] = useState(false);
     const [values, setValues] = useState([]);
+    const [selectedData, setSelectedData] = useState([]);
+    const [allData, setAllData] = useState([])
+
     const [gridObjects, setGridObjects] = useState({
-        pageNo: 1, pageSize: 1000,
+        pageNo: 1, pageSize: 100,
         sortArrow: "sort", orderBy: "ModifiedDate", searchValue: "", orderByDescending: true, heading: "", hasMore: true
     })
     const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "", isActive: null })
     const dispatch = useDispatch();
-    const tableRowRef = useRef();
     const api = useSelector(state => state.api)
-    const [gridDataLoading, setGridDataLoading] = useState(false)
-    const [hasMore, setHasMore] = useState(true)
-
     useEffect(() => {
         getCommonTable();
     }, [gridObjects, props.reload]);
 
     const getCommonTable = () => {
-        setGridDataLoading(true)
         dispatch(apiCall({
             urls: [props.allApi.getApiName], method: "GET", data: { ...gridObjects, ...props.additionalParams },
             onSuccess: (response) => {
                 setValues(response)
-                if (response.length === 0) {
-                    setHasMore(false);
-                }
-            },
-            // onFinally: () => { gridDataLoading(false) }
+            }
         }))
     }
     const confirmModalOpen = (id, type, isActive) => {
@@ -45,7 +39,28 @@ function DataTable(props) {
     const modalClose = () => {
         setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
     }
-
+    const selectAll = () => {
+        debugger
+        if (values.length !== selectedData.length) {
+            { props.additionalParams.resourceType === "audio" && setSelectedData(values.map(data => JSON.parse(data.link)[0].AudioLinkId)) }
+            { props.additionalParams.resourceType === "video" && setSelectedData(values.map(data => JSON.parse(data.link)[0].VideoLinkId)) }
+            { props.additionalParams.resourceType === "article" && setSelectedData(values.map(data => JSON.parse(data.link)[0].ArticleLinkId)) }
+            // { props.additionalParams.resourceType === "article" && setSelectedData(values.map(data => JSON.parse(data.link)[0].PdfLinkId)) }
+        }
+        else {
+            setSelectedData([])
+        }
+    }
+    const onHandleSelect = (e, { name, checked }) => {
+        debugger
+        if (checked === true) {
+            setSelectedData(selectedData.concat(name))
+        }
+        if (checked === false) {
+            const st = selectedData.filter(dataId => dataId !== name);
+            setSelectedData(st)
+        }
+    }
     const upDateToggle = () => {
         dispatch(apiCall({
             urls: [props.allApi.toggleApiName], method: "PATCH", data: { id: confirmModal.selectedId }, onSuccess: (response) => {
@@ -69,15 +84,6 @@ function DataTable(props) {
         let sortArrow = gridObjects.sortArrow === "sort up" ? "sort down" : "sort up";
         setGridObjects({ ...gridObjects, sortArrow: sortArrow, heading: heading, orderBy: orderBy, orderByDescending: orderByDescending }, s => getCommonTable())
     }
-    const fetchMoreData = () => {
-        debugger
-        const countPageNo = gridObjects.pageNo + 1;
-        // 20 more records in 1.5 secs  
-        setTimeout(() => {
-            setGridObjects({ gridObjects: { ...gridObjects, pageNo: countPageNo } }, () => { getCommonTable() });
-        }, 500);
-
-    };
     const onHandleChangeSearch = (e, { value }) => {
         setGridObjects({ ...gridObjects, searchValue: value })
     }
@@ -119,29 +125,31 @@ function DataTable(props) {
                         </Dimmer>
                     )}
                     <div className="commonTable">
-                        <Table singleLine className="table-scrolling commonTableDropdown" id={props.gridName}>
+                        <Table>
                             <TableHeader
                                 columns={props.columns}
                                 onHandleSorting={onHandleSorting}
                                 gridObjects={gridObjects}
+                                selectAll={selectAll}
+                                selectedData={selectedData}
+                                resourceType={props.additionalParams.resourceType}
+                                
                             />
-                            <TableRow singleLine
+                            <TableRow
+                                onHandleSelect={onHandleSelect}
                                 columns={props.columns}
-                                ref={tableRowRef}
                                 gridData={values}
                                 getCommonTable={getCommonTable}
                                 confirmModalOpen={confirmModalOpen}
-                                fetchMoreData={fetchMoreData}
-                                tableHeight={props.tableHeight}
-                                hasMore={hasMore}
-
+                                selectedData={selectedData}
+                                resourceType={props.additionalParams.resourceType}
                             />
-
                         </Table>
                     </div>
                 </div>
             </Grid.Column>
-            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} data={props} />
+            <ConfirmModal open={confirmModal} onConfirm={modalType} close={modalClose} message={message} />
+
         </Grid>
     );
 }

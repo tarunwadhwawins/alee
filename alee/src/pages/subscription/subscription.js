@@ -31,7 +31,7 @@ function SubscriptionPage() {
 					<DataTable
 						allApi={{ getApiName: "GETSUBSCRIPTIONPLANLIST", deleteApiName: "DELETESUBSCRIPTION", toggleApiName: "SUBSCRIPTIONTOGGLE" }} reload={reload}
 						searchOption={{ show: true, placeHolder: "Search" }}
-						messageInModal="subscription"
+						messageInModal="subscription plan"
 						columns={[
 							{
 								headerName: "Name",
@@ -52,6 +52,13 @@ function SubscriptionPage() {
 								headerName: "Price",
 								fieldName: "price",
 								isSorting: true,
+								Cell: (props, confirmModalOpen) => {
+									return (
+										<>
+											<Icon name="dollar" />	{props.price}
+										</>
+									);
+								},
 							},
 							{
 								headerName: "Status",
@@ -68,11 +75,11 @@ function SubscriptionPage() {
 								fieldName: "Action",
 								isSorting: false,
 								Cell: (props, confirmModalOpen) => {
-									           
+
 									return (
 										<>
 											<Icon title="Edit" name="edit" className="primary-color" link onClick={() => onHandleEdit(props)} />
-											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId,"delete")}/>
+											<Icon title="Delete" name="trash alternate" color="red" link onClick={() => confirmModalOpen(props.subscriptionPlanId, "delete")} />
 										</>
 									);
 								},

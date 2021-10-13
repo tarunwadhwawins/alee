@@ -28,12 +28,9 @@ function LessonView() {
         );
     };
     return (
-
         <div className="common-shadow profileView">
             {api.isApiLoading && (
                 <Dimmer active inverted><Loader /></Dimmer>)}
-
-
             <Grid>
                 <Grid.Column width={16}>
                     <Header as='h3' className="commonHeading">Lesson Plan Detail</Header>
@@ -45,33 +42,16 @@ function LessonView() {
                             return (
                                 <Table.Body>
                                     <Table.Row>
-                                        <Table.Cell disabled>
-                                            Lesson Plan :
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {lessonData.lessonPlanName}
-                                        </Table.Cell>
-                                        <Table.Cell disabled>
-                                            Grade :
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {lessonData.grade}
-                                        </Table.Cell>
+                                        <Table.Cell disabled>Lesson Plan :</Table.Cell>
+                                        <Table.Cell>{lessonData.lessonPlanName}</Table.Cell>
+                                        <Table.Cell disabled>Grade :</Table.Cell>
+                                        <Table.Cell>{lessonData.grade}</Table.Cell>
                                     </Table.Row>
-
                                     <Table.Row>
-                                        <Table.Cell disabled>
-                                            Teacher Name :
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {lessonData.teacherName}
-                                        </Table.Cell>
-                                        <Table.Cell disabled>
-                                            Template Name :
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {lessonData.templateName}
-                                        </Table.Cell>
+                                        <Table.Cell disabled>Teacher Name :</Table.Cell>
+                                        <Table.Cell>{lessonData.teacherName}</Table.Cell>
+                                        <Table.Cell disabled>Template Name :</Table.Cell>
+                                        <Table.Cell>{lessonData.templateName}</Table.Cell>
                                     </Table.Row>
                                 </Table.Body>
                             );
@@ -81,19 +61,15 @@ function LessonView() {
                 <Grid.Column width={16}>
                     <Form>
                         {lessonData && lessonData.map((lessonData, index) => {
-                                        
                             const templateData = lessonData.templateData ? JSON.parse(lessonData.templateData) : []
-
                             return (
                                 <Grid>
                                     {templateData.map((singleData, index) => {
-                                                    
                                         if (singleData.FieldaDataType === "Header") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
                                                     <Header>{singleData.FieldName}</Header>
                                                 </Grid.Column>
-
                                             )
                                         }
                                         if (singleData.FieldaDataType === "Dropdown") {
@@ -125,22 +101,18 @@ function LessonView() {
                                             )
                                         }
                                         if (singleData.FieldaDataType === "TextArea") {
-                                                        
                                             return (
                                                 <Grid.Column width={16} key={index}>
                                                     <Form.TextArea value={singleData.Response} placeholder={singleData.FieldName} index={singleData.TemplateFieldId} rows="2" />
                                                 </Grid.Column>
                                             )
                                         }
-
                                     })}
-
                                 </Grid>
                             );
                         })}
                     </Form>
                 </Grid.Column>
-
                 <Grid.Column width={16}>
                     <Header as="h4">Notes</Header>
                     <Table basic>
@@ -160,9 +132,7 @@ function LessonView() {
                                                         {description.NoteDescription}
                                                     </Table.Cell>
                                                 </Table.Row>
-
                                                 {studentName && studentName.length > 0 && studentName.map((studentData, index) => {
-
                                                     return (
                                                         <>
                                                             <Table.Row>

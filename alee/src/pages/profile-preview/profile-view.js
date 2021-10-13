@@ -22,7 +22,10 @@ function ProfileViewPage() {
 				method: "GET",
 				data: teacherId,
 				onSuccess: (response) => {
+					debugger
 					setTeacherData(response);
+					console.log("teacherData", teacherData)
+					console.log("teacherData", teacherData.length)
 				},
 			})
 		);
@@ -30,25 +33,28 @@ function ProfileViewPage() {
 	const onHandleEdit = (data) => {
 		setTeacherData(data);
 	}
+	debugger
+	console.log("teacherData", teacherData)
 	return (
 		<>
 			<div className="common-shadow profileView">
 				{api.isApiLoading && (
 					<Dimmer active inverted><Loader /></Dimmer>)}
-				<div className="profileViewHeader" >
-					{teacherData.map((teacherProfile, index) => {
+				<div className="profileViewHeader">
+					{teacherData.length === 0 && <div className="teacherProfileText"><h2>No record</h2></div>}
+					{teacherData && teacherData.map((teacherProfile, index) => {
 						const education = teacherProfile.educationQualifications ? JSON.parse(teacherProfile.educationQualifications) : [];
 						const Employe = teacherProfile.employmentHistory ? JSON.parse(teacherProfile.employmentHistory) : [];
 						const skill = teacherProfile.keySkillSet ? JSON.parse(teacherProfile.keySkillSet) : [];
 						return (
-							<>	
-							{roles === "Teacher" &&
-								<div className="ProfileEdit">
-									<Button as={Link}
-										to={{ pathname: `${env.PUBLIC_URL}/profile`, state: { teacherProfile, education, Employe, skill} }}
-										onClick={() => onHandleEdit(teacherProfile)} icon> <Icon name="edit" /></Button>
-								</div>
-					            }
+							<>
+								{roles === "Teacher" &&
+									<div className="ProfileEdit">
+										<Button as={Link}
+											to={{ pathname: `${env.PUBLIC_URL}/profile`, state: { teacherProfile, education, Employe, skill } }}
+											onClick={() => onHandleEdit(teacherProfile)} icon> <Icon name="edit" /></Button>
+									</div>
+								}
 								<div className="profileImgOuter">
 									<div className="profileImg">
 										<Image src={commonFunctions.concatenateImageWithAPIUrl(teacherProfile.image)} />
@@ -82,7 +88,7 @@ function ProfileViewPage() {
 						);
 					})}
 				</div>
-				{teacherData.map((teacherdata, index) => {
+				{teacherData && teacherData.map((teacherdata, index) => {
 					const education = teacherdata.educationQualifications ? JSON.parse(teacherdata.educationQualifications) : [];
 					const Employe = teacherdata.employmentHistory ? JSON.parse(teacherdata.employmentHistory) : [];
 					const skill = teacherdata.keySkillSet ? JSON.parse(teacherdata.keySkillSet) : [];
@@ -112,7 +118,7 @@ function ProfileViewPage() {
 							<Grid.Column>
 								<Header as="h4">Work/Employment History</Header>
 								{Employe && Employe.length > 0 && Employe.map((employmentHistory, index) => {
-						
+
 									const currentCompany = Employe.find(x => x.isCurrent === true)
 									const previousCompany = Employe.find(x => x.isCurrent === false)
 									const grade = JSON.parse(employmentHistory.grades)[0];

@@ -5,8 +5,6 @@ import { env } from "../functional/global-import";
 import moment from 'moment';
 import{avatar} from '../functional/global-image-import';
 
-
-
 // This function is used to handle common onchange in all the forms in the application.
 const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
   const path = data.split(".");

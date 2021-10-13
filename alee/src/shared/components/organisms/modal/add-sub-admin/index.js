@@ -59,7 +59,8 @@ function AddSubAdmin(props) {
       });
     }
   };
-  const onHandleSubmit = (e) => {                                              ;
+  const onHandleSubmit = (e) => {
+    ;
     // const formValid = simpleValidator.current.allValid()
     // if (!formValid) {
     //   simpleValidator.current.showMessages();
@@ -67,41 +68,41 @@ function AddSubAdmin(props) {
     // }
 
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-		if (isFormValid) {
-    if (subAdmin.password !== subAdmin.confirmPassword) {
-      dispatch(Notifications.show({ title: "Error", message: 'Password and confirm password not matched.', position: 'br', autoDismiss: 2 }, "error"))
-    }
-    if (props.modalType === "ADD" && (subAdmin.password === subAdmin.confirmPassword) && (subAdmin.password !== "" && subAdmin.confirmPassword !== "")) {
-      dispatch(
-        apiCall({
-          urls: ["SUBADMINREGISTRATION"],
-          method: "POST",
-          data: subAdmin,
-          onSuccess: (response) => {
+    if (isFormValid) {
+      if (subAdmin.password !== subAdmin.confirmPassword) {
+        dispatch(Notifications.show({ title: "Error", message: 'Password and confirm password not matched.', position: 'br', autoDismiss: 2 }, "error"))
+      }
+      if (props.modalType === "ADD" && (subAdmin.password === subAdmin.confirmPassword) && (subAdmin.password !== "" && subAdmin.confirmPassword !== "")) {
+        dispatch(
+          apiCall({
+            urls: ["SUBADMINREGISTRATION"],
+            method: "POST",
+            data: subAdmin,
+            onSuccess: (response) => {
 
-            closeModal();
-            props.GridReload();
-            setSubAdmin(initialAddValues);
+              closeModal();
+              props.GridReload();
+              setSubAdmin(initialAddValues);
 
-          },
-          showNotification: true,
-        })
-      );
-    } if (props.modalType !== "ADD") {
-      dispatch(
-        apiCall({
-          urls: ["UPDATESUBADMIN"],
-          method: "PUT",
-          data: subAdmin,
-          onSuccess: (response) => {
-            closeModal();
-            props.GridReload();
-          },
-          showNotification: true,
-        })
-      );
+            },
+            showNotification: true,
+          })
+        );
+      } if (props.modalType !== "ADD") {
+        dispatch(
+          apiCall({
+            urls: ["UPDATESUBADMIN"],
+            method: "PUT",
+            data: subAdmin,
+            onSuccess: (response) => {
+              closeModal();
+              props.GridReload();
+            },
+            showNotification: true,
+          })
+        );
+      }
     }
-  }
   };
   const closeModal = () => {
     simpleValidator.current.hideMessages();
@@ -139,7 +140,7 @@ function AddSubAdmin(props) {
                   data="userName"
                   value={subAdmin.userName}
                   onChange={onHandleChange}
-                  error={simpleValidator.current.message('subAdmin', subAdmin.userName, 'required')}
+                  error={simpleValidator.current.message('Name', subAdmin.userName, 'required')}
                 />
               </Grid.Column>
               {props.modalType === "ADD" && (
@@ -158,7 +159,7 @@ function AddSubAdmin(props) {
                       label="Password"
                       data="password"
                       placeholder="********"
-                      type={iconToggle ? "" : "password"} 
+                      type={iconToggle ? "" : "password"}
                       value={subAdmin.password}
                       onChange={onHandleChange}
                       error={simpleValidator.current.message('password', subAdmin.password, 'required|min:6|max:150')} />

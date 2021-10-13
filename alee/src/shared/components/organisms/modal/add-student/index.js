@@ -99,7 +99,7 @@ function AddStudent(props) {
     setAddStudent(initialValues);
     props.closeModal();
   };
-   
+
   return (
     <Modal
       open={props.openModal}
@@ -140,9 +140,10 @@ function AddStudent(props) {
                 <Form.Input
                   label="Email"
                   data="email"
+                  type="email"
                   onChange={onHandleChange}
                   value={addStudent.email}
-                  error={simpleValidator.current.message('email', addStudent.email, 'required')}
+                  error={simpleValidator.current.message('email', addStudent.email, 'required|email')}
 
                 />
               </Grid.Column>

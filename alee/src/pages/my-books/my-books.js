@@ -3,18 +3,21 @@ import { Grid, Item, Header, Dimmer, Loader, Input, Table, Icon } from "semantic
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCall } from "../../../src/store/actions/api.actions";
 import ConfirmModal from "../../shared/components/organisms/modal/common-confirm-modal/index";
-import { Link, commonFunctions } from "../../shared/functional/global-import";
-import { storeMyBookData} from "../../store/actions/global.actions";
+import { Link, commonFunctions, env } from "../../shared/functional/global-import";
+import { storeMyBookData } from "../../store/actions/global.actions";
+import { useHistory, useParams } from "react-router-dom";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
-	const [values, setValues] = useState({ pageNo: 1, pageSize: 10, searchValue: "",orderBy: "ModifiedDate",orderByDescending: true, })
-	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: ""})
+	const [values, setValues] = useState({ pageNo: 1, pageSize: 10, searchValue: "", orderBy: "ModifiedDate", orderByDescending: true, })
+	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
 
 	// const [tagFields, setTagFields] = useState([]);
 	// const [fieldData, setFieldData] = useState([]);
 	// const [fieldOptions, setFieldOptions] = useState([]);
 	const dispatch = useDispatch();
+	let history = useHistory();
+
 	const auth = useSelector(state => state.auth.userDetail.role)
 	//  call the api //
 	useEffect(() => {
@@ -52,12 +55,18 @@ function MyBookPage(props) {
 		dispatch(storeMyBookData(data));
 	}
 
+	const editBook = (data) => {
+		debugger
+		let bookId = data.bookId
+		history.push(`${env.PUBLIC_URL}/edit-book/${bookId}`);
+	}
+
 	// useEffect(() => {
 	// 	getTagField();
 	// }, []);
 
 	// const getTagField = () => {
- 
+
 	// 	let aa = [];
 
 	// 	dispatch(apiCall({
@@ -97,7 +106,6 @@ function MyBookPage(props) {
 				<Dimmer active inverted>
 					<Loader />
 				</Dimmer>
-
 			)}
 			<Grid>
 				<Grid.Column width={16}>
@@ -115,7 +123,6 @@ function MyBookPage(props) {
 				<Grid.Column width={16}>
 					<div className="booksResult myBooks">
 						{bookList && bookList.map((data, index) => {
-							   
 							return (
 								<Item.Group>
 									<Item>
@@ -127,7 +134,13 @@ function MyBookPage(props) {
 											<Item.Description>
 												{data.bookSummary && JSON.parse(data.bookSummary).blocks[0].text}
 											</Item.Description>
-											<Item.Extra> {auth === "Admin" && <div className="icons"><Icon name="edit" className="primary-color" /> <Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} /></div>}</Item.Extra>
+											<Item.Extra>
+												{auth === "Admin" &&
+													<div className="icons">
+														<Icon name="edit" className="primary-color" onClick={() => editBook(data)} />
+														<Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} />
+													</div>}
+											</Item.Extra>
 										</Item.Content>
 									</Item>
 								</Item.Group>
@@ -138,7 +151,7 @@ function MyBookPage(props) {
 				<ConfirmModal open={confirmModal} onConfirm={onHandleDelete} close={modalClose} message={"Do you want to delete this book ?"} />
 			</Grid>
 		</>
-	);
+		);
 }
 export default MyBookPage;
 
