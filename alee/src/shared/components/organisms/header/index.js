@@ -52,7 +52,7 @@ function Header(props) {
             <Grid.Column width={8} className="profile">
               <Dropdown text={notification.length} multiple icon='bell' title="Notifications" className="notificationDropdown">
                 <Dropdown.Menu>
-                  <Card className="notification">
+                  <Card className="Headernotification">
                     <Card.Content>
                       <Card.Header>Notification</Card.Header>
                     </Card.Content>
