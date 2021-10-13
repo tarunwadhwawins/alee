@@ -9,8 +9,6 @@ function AuthenticateUserTemplate(props) {
         setIsActive(!isActive)
     };
     const auth = useSelector(state => state.auth)
-
-
     return (
         <div className={`App ${isActive ? "menuCollapse" : ""}`}>
             <div>

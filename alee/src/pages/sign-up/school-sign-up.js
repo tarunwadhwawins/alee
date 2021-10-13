@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { apiCall } from "../../../src/store/actions/api.actions";
 import { useDispatch, useSelector } from 'react-redux';
 import SimpleReactValidator from 'simple-react-validator';
+import { PhoneNumberInput } from "../../shared/components";
 import { commonFunctions, Notifications } from "../../shared/functional/global-import";
 function SchoolSignup(props) {
 
@@ -15,12 +16,19 @@ function SchoolSignup(props) {
   const [, forceUpdate] = useState()
   const [iconToggle, setIconToggle] = React.useState(false)
   const [iconToggleConfirm, setIconToggleConfirm] = React.useState(false)
-  const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
+  const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }));
+  const validator = commonFunctions.initializeSimpleValidator();
+
 
   const onHandleChange = (e, { value, data }) => {
-         
     setSchoolForm({ ...schoolForm, [data]: value })
   }
+  const  onHandleChanged = (e, {value, type, checked, data }) => {
+    var teacherForms = commonFunctions.onHandleChange(e,
+      { value, type, checked, data },schoolForm);
+      setSchoolForm(teacherForms);
+  }
+
 
   const onSubmit = (e) => {
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
@@ -59,10 +67,18 @@ function SchoolSignup(props) {
               error={simpleValidator.current.message('email', schoolForm.email, 'required|email')}
             />
           </Grid.Column>
-          <Grid.Column width={8} >
+          {/* <Grid.Column width={8} >
             <Form.Input label="Phone Number" placeholder="(123) 456-7890" data="schoolContactNo" onChange={onHandleChange}
               error={simpleValidator.current.message('schoolContactNo', schoolForm.schoolContactNo, 'required')}
             />
+          </Grid.Column> */}
+          <Grid.Column width={8}>
+            <PhoneNumberInput
+              onChange={(value, country, e, formattedValue) => onHandleChanged(e, {
+                name: "phnPhoneNumber", value: formattedValue, type: "phoneNumber", data: "schoolContactNo"
+              })}
+              value={schoolForm.schoolContactNo}
+              error={validator.message("phoneNumber", schoolForm.schoolContactNo, "required|phone")} />
           </Grid.Column>
           <Grid.Column width={8} >
             <Form.Input label="Password" placeholder="********" type={iconToggle ? "" : "password"} data="password" onChange={onHandleChange}

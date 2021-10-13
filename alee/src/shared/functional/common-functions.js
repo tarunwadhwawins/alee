@@ -9,7 +9,6 @@ import{avatar} from '../functional/global-image-import';
 
 // This function is used to handle common onchange in all the forms in the application.
 const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
-                  ;
   const path = data.split(".");
   const depth = path.length;
   const state = { ...obj };
@@ -32,10 +31,8 @@ const onHandleChange = (e, { name, value, type, checked, data }, obj) => {
   return state;
 };
 
-
 // This function is used to handle common form submit in all the forms in the application.
-const onHandleFormSubmit = (e, simpleValidator, forceUpdate) => {
-                  
+const onHandleFormSubmit = (e, simpleValidator, forceUpdate) => {              
   e.preventDefault();
   if (simpleValidator.current.allValid() === false) {
     simpleValidator.current.showMessages();
@@ -46,7 +43,6 @@ const onHandleFormSubmit = (e, simpleValidator, forceUpdate) => {
   }
 };
 const initializeSimpleValidator = () => {
-                  ;
   return new SimpleReactValidator({
     element: (message) => (
       <Label basic color="red" pointing="above">
@@ -88,7 +84,6 @@ const initializeSimpleValidator = () => {
   });
 }; 
 const concatenateImageWithAPIUrl = (Image) => {
-      
   if (Image === null) {
     return `${avatar}`;
   }
@@ -96,9 +91,7 @@ const concatenateImageWithAPIUrl = (Image) => {
     return `${env.API_URL.replace("/api", "")}${Image}`;
   }
 };
-
 const getFormData = (data) => {
-      
   var formData = new FormData();
   Object.entries(data).map(function ([key, val]) {
     if (typeof val !== "undefined") {
@@ -137,7 +130,7 @@ const saveFormattedDate = (date) => {
   return moment(date).format("YYYY-MM-DD");
 }
 const getSingleValue = (globalCodeData, categoryType, codeName) => {
-  const singlevalue = globalCodeData && globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName)
+  const singlevalue = globalCodeData && globalCodeData.filter(code => code.categoryName === categoryType && code.codeName === codeName);
   return singlevalue[0].categoryId;
 }
 const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
@@ -146,8 +139,6 @@ const getGlobalCodeDetails = (globalCodeData, categoryType, codeName) => {
   });
   return singlevalue[0];
 }
-
-
 export const commonFunctions = {
   onHandleChange,
   onHandleFormSubmit,

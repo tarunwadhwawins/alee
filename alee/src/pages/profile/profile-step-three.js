@@ -72,14 +72,13 @@ function ProfileStepThree(props) {
 						</Table.Header>
 						<Table.Body>
 							{thirdSecondStep && thirdSecondStep.map((singleData, index) => {
-								let grades = JSON.parse(singleData.grades).toString()
-								                 
+								// let grades = JSON.parse(singleData.grades).toString()              
 								return (
 									<>
 										<Table.Row key={index}>
 											<Table.Cell>{singleData.institute}</Table.Cell>
 											<Table.Cell>{singleData.position}</Table.Cell>
-											<Table.Cell>{grades}</Table.Cell>
+											<Table.Cell>{singleData.grades}</Table.Cell>
 											<TableCell textAlign="right"><Form.Checkbox checked={singleData.isCurrent ? true : false} toggle className="commonToggle" /></TableCell>
 											<Table.Cell textAlign="right">
 												<Icon name="pencil alternate" size="large" link onClick={() => props.editEducation(singleData, index)} />
