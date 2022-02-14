@@ -9,7 +9,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 function MyBookPage(props) {
 	const [bookList, setBookList] = useState(null)
-	const [values, setValues] = useState({ pageNo: 1, pageSize: 10, searchValue: "", orderBy: "ModifiedDate", orderByDescending: true, })
+	const [values, setValues] = useState({ pageNo: 1, pageSize: 1000, searchValue: "", orderBy: "ModifiedDate", orderByDescending: true, })
 	const [confirmModal, setConfirmModal] = useState({ modalStatus: false, selectedId: "", type: "" })
 
 	// const [tagFields, setTagFields] = useState([]);
@@ -56,7 +56,7 @@ function MyBookPage(props) {
 	}
 
 	const editBook = (data) => {
-		debugger
+		      
 		let bookId = data.bookId
 		history.push(`${env.PUBLIC_URL}/edit-book/${bookId}`);
 	}
@@ -137,7 +137,7 @@ function MyBookPage(props) {
 											<Item.Extra>
 												{auth === "Admin" &&
 													<div className="icons">
-														<Icon name="edit" className="primary-color" onClick={() => editBook(data)} />
+														<Icon name="edit" className="primary-color" onClick={() => editBook(data)}/>
 														<Icon name="trash alternate" color="red" onClick={() => confirmModalOpen(data.bookId, "delete")} />
 													</div>}
 											</Item.Extra>

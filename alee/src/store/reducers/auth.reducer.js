@@ -2,7 +2,7 @@ import * as types from "../types";
 // import storage from "redux-persist/lib/storage";
 const initialState = { loggedIn: {}, userDetail: {} };
 const authReducer = (state = initialState, actions) => {
-
+debugger;
     switch (actions.type) {
         case types.LOGIN_SUCCESS:
             return { ...state, loggedIn: actions.payload };

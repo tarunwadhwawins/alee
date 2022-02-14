@@ -40,7 +40,7 @@ function DataTable(props) {
         setConfirmModal({ ...confirmModal, modalStatus: !confirmModal.modalStatus, selectedId: "" })
     }
     const selectAll = () => {
-        debugger
+              
         if (values.length !== selectedData.length) {
             { props.additionalParams.resourceType === "audio" && setSelectedData(values.map(data => JSON.parse(data.link)[0].AudioLinkId)) }
             { props.additionalParams.resourceType === "video" && setSelectedData(values.map(data => JSON.parse(data.link)[0].VideoLinkId)) }
@@ -52,7 +52,7 @@ function DataTable(props) {
         }
     }
     const onHandleSelect = (e, { name, checked }) => {
-        debugger
+              
         if (checked === true) {
             setSelectedData(selectedData.concat(name))
         }

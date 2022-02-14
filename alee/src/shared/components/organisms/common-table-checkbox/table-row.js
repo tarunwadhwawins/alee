@@ -20,7 +20,7 @@ function TableRow(props) {
             <Table.Body>
                 {props.gridData && props.gridData.length === 0 && <Table.Row><Table.Cell colSpan="5"> <Header as='h5' className="forCommonTable">No record found</Header> </Table.Cell></Table.Row>}
                 {props.gridData.map((aa, index) => {
-                    debugger
+                          
                     if (props.resourceType === "audio") {
                         {/* let linkId = JSON.parse(aa.link)[0].AudioLinkId */ }
                         {/* setId(linkId) */ }

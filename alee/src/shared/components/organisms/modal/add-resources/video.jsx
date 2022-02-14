@@ -16,7 +16,7 @@ function Video(props) {
             apiCall({
                 urls: ["GETRESOURCESLIST"], method: "GET", data: resources,
                 onSuccess: (response) => {
-                    debugger
+                          
                     // const bookListed = response.map((singledata) => {
                     //     return { text: singledata.bookName, value: singledata.bookId };
                     // });
@@ -48,7 +48,7 @@ function Video(props) {
         }
     }
     const selectAll = () => {
-        debugger
+              
         if (videoList.length !== selectedVideo.length) {
             // setSelectedAudio(videoList.map(audi => audi.Id))
             setSelectedVideo(videoList.map(data => JSON.parse(data.link)[0].VideoLinkId))
@@ -58,7 +58,7 @@ function Video(props) {
         }
     }
     const onHandleSelect = (e, { name, checked }) => {
-        debugger
+              
         if (checked === true) {
             setSelectedVideo(selectedVideo.concat(name))
         }
@@ -94,7 +94,7 @@ function Video(props) {
                 <Table.Body>
                     <>
                         {videoList && videoList.map((audio) => {
-                            debugger
+                                  
                             return (
                                 <Table.Row>
                                     <Table.Cell>

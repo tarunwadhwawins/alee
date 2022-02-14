@@ -35,7 +35,7 @@ const getGrades = () => {
   };
 	const getTemplate = () => {
 		dispatch(apiCall({
-			urls: ["GETTEMPLATELIST"], method: "GET", data: { "templateId": -1, "PageNo": 1, "PageSize": 1000 }, onSuccess: (response) => {
+			urls: ["GETTEMPLATELIST"], method: "GET", data: { "templateId": -1, "PageNo": 1, "PageSize": 1000, orderBy: "TemplateName",orderByDescending:false, }, onSuccess: (response) => {
 				const getTemplate = response.map((template) => {
 					return { value: template.templateId, text: template.templateName }
 				});
@@ -45,7 +45,7 @@ const getGrades = () => {
 	}
 	const getSchoolList = () => {
 		dispatch(apiCall({
-			urls: ["GETSCHOOLSLIST"], method: "GET", data: { schoolId: -1, pageNo: 1, pageSize: 10000 }, onSuccess: (response) => {
+			urls: ["GETSCHOOLSLIST"], method: "GET", data: { schoolId: -1, pageNo: 1, pageSize: 10000, orderBy: "SchoolName",orderByDescending: false, }, onSuccess: (response) => {
 				const getSchool = response.map((school) => {
 					return { value: school.schoolId, text: school.schoolName }
 				});
@@ -63,7 +63,8 @@ const getGrades = () => {
 	const onHandleChange = (e, { data, value }) => {
 		if (data === "schoolId") {
 			dispatch(apiCall({
-				urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: value, pageNo: 1, pageSize: 1000 }, onSuccess: (response) => {
+				urls: ["GETTEACHERSLIST"], method: "GET", data: { SchoolId: value, pageNo: 1, pageSize: 1000, 
+					orderBy: "FirstName",orderByDescending: false, }, onSuccess: (response) => {
 					const getTeachers = response.map((teacherData) => {
 						;
 						return { value: teacherData.teacherId, text: teacherData.firstName + teacherData.lastName }

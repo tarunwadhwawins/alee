@@ -75,35 +75,40 @@ function LessonView() {
                                         if (singleData.FieldaDataType === "Dropdown") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.Select placeholder={singleData.FieldName} index={singleData.TemplateFieldId} fluid />
+                                                    <Form.Select placeholder={singleData.FieldName} value={singleData.Response}
+                                                        index={singleData.TemplateFieldId} fluid />
                                                 </Grid.Column>
                                             )
                                         }
                                         if (singleData.FieldaDataType === "Checkboxes") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.Checkbox label={singleData.FieldName} className="commonToggle" index={singleData.TemplateFieldId} fluid />
+                                                    <Form.Checkbox label={singleData.FieldName} value={singleData.Response}
+                                                        className="commonToggle" index={singleData.TemplateFieldId} fluid />
                                                 </Grid.Column>
                                             )
                                         }
                                         if (singleData.FieldaDataType === "TextInput") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.Input placeholder={singleData.FieldName} type="text" index={singleData.TemplateFieldId} fluid />
+                                                    <Form.Input placeholder={singleData.FieldName} value={singleData.Response}
+                                                        type="text" index={singleData.TemplateFieldId} fluid />
                                                 </Grid.Column>
                                             )
                                         }
                                         if (singleData.FieldDataType === "NumberInput") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.Input placeholder={singleData.FieldName} type="number" index={singleData.TemplateFieldId} fluid />
+                                                    <Form.Input placeholder={singleData.FieldName} value={singleData.Response}
+                                                        type="number" index={singleData.TemplateFieldId} fluid />
                                                 </Grid.Column>
                                             )
                                         }
                                         if (singleData.FieldaDataType === "TextArea") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.TextArea value={singleData.Response} placeholder={singleData.FieldName} index={singleData.TemplateFieldId} rows="2" />
+                                                    <Form.TextArea value={singleData.Response}
+                                                        placeholder={singleData.FieldName} index={singleData.TemplateFieldId} rows="2" />
                                                 </Grid.Column>
                                             )
                                         }

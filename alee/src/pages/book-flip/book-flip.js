@@ -8,8 +8,6 @@ import { apiCall } from "../../store/actions/api.actions";
 import { useHistory, useParams } from "react-router-dom";
 import LessonPlanCreationPage from "../../pages/lesson-plan-creation/lesson-plan-creation";
 // import parse from 'html-react-parser';
-
-
 function BookFlipPage(props) {
 	const urlId = useParams()
 	let history = useHistory();
@@ -18,7 +16,6 @@ function BookFlipPage(props) {
 	if (lessonPlanId && history.location.state === undefined) {
 		history.replace({ ...history.location, state: "lessonPlan" })
 	}
-
 	const dispatch = useDispatch();
 	const bookData = useSelector(state => state.global.myBookData)
 	const auth = useSelector(state => state.auth.userDetail.role)
@@ -80,7 +77,6 @@ function BookFlipPage(props) {
 			console.log("pageFlip ", item().getPageCount());
 		}
 	}
-
 	const next = () => {
 		let item = pageFlip.current.pageFlip
 		console.log("item", item);
@@ -88,7 +84,6 @@ function BookFlipPage(props) {
 			item().flipNext();
 		}
 	}
-
 	const prev = () => {
 		let item = pageFlip.current.pageFlip
 		console.log("item", item);
@@ -96,7 +91,6 @@ function BookFlipPage(props) {
 			item().flipPrev();
 		}
 	}
-
 	return (
 		<>
 			{api.isApiLoading && (
@@ -104,7 +98,6 @@ function BookFlipPage(props) {
 					<Loader />
 				</Dimmer>
 			)}
-
 			<div className="bookFlip">
 				<Grid>
 					<Grid.Column width={16} className="bookFlipOuter">

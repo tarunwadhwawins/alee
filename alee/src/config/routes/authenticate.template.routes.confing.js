@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { env } from '../../shared/functional/global-import';
-// Configure all routes of the application that contain authenticate template
+//Configure all routes of the application that contain authenticate template
 const AuthenticateTemplateRoutesConfing = [
   {
     exact: true,
@@ -54,6 +54,12 @@ const AuthenticateTemplateRoutesConfing = [
     exact: true,
     private: true,
     path: `${env.PUBLIC_URL}/book-flip`,
+    component: lazy(() => import('../../pages/book-flip'))
+  },
+  {
+    exact: true,
+    private: true,
+    path: `${env.PUBLIC_URL}/book-flip/:PageId`,
     component: lazy(() => import('../../pages/book-flip'))
   },
   {

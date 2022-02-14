@@ -29,7 +29,7 @@ function LessonLibrary() {
 	const getBookList = (e) => {
 		const search = e === undefined ? "" : e
 		dispatch(apiCall({
-			urls: ["GETBOOKSLIST"], method: "GET", data: { pageNo: 1, pageSize: 100, searchValue: search }, onSuccess: (response) => {
+			urls: ["GETBOOKSLIST"], method: "GET", data: { pageNo: 1, pageSize: 100, searchValue: search,OrderBy:"ModifiedDate",OrderByDescending:"true" }, onSuccess: (response) => {
 				setBookList(response)
 			}
 		}));

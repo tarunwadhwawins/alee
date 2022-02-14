@@ -21,12 +21,12 @@ function BookSummaryChapter(props) {
     const openModalChapter = () => {
         setChapter(!chapter)
     }
-    const openModal2 = () => {
-        setTags(!tag)
-    }
-    const openModal3 = () => {
-        setInvite(!invite)
-    }
+    // const openModal2 = () => {
+    //     setTags(!tag)
+    // }
+    // const openModal3 = () => {
+    //     setInvite(!invite)
+    // }
 
     return (
         <>

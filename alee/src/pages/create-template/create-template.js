@@ -12,10 +12,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions } from "../../shared/functional/global-import";
 
 function CreateTemplatePage() {
-	const initialState = {
-		templateId: null, templateName: "", "isActive": true,
-		actionPerformedBy: ""
-	}
+	const initialState = {templateId: null, templateName: "", "isActive": true,actionPerformedBy: ""}
 	const [, forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 	const [lesson, setLesson] = useState(false)

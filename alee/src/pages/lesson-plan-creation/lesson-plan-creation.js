@@ -38,7 +38,7 @@ function LessonPlanCreationPage(props) {
 		setResources(!resources);
 	}
 	const onTemplateChange = (e, { value }) => {
-		debugger
+		      
 		setLessonPlan({ ...lessonPlan, templateId: value })
 		dispatch(apiCall({
 			urls: ["GETTEMPLATEFIELD"], method: "GET", data: { "templateId": value }, onSuccess: (response) => {
@@ -48,7 +48,7 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onHandleChange = (e, { value, data }) => {
-		debugger
+		      
 		setLessonPlan({ ...lessonPlan, [data]: value })
 	}
 
@@ -59,7 +59,7 @@ function LessonPlanCreationPage(props) {
 	}, []);
 
 	useEffect(() => {
-		debugger
+		      
 		if (props.lessonPlanId) {
 			setEditLessonPlan(true)
 			getLessonPlanData();
@@ -122,7 +122,7 @@ function LessonPlanCreationPage(props) {
 	const getLessonPlanData = () => {
 		dispatch(apiCall({
 			urls: ["GETLESSONPLANDATA"], method: "GET", data: { lessonPlanId: props.lessonPlanId }, onSuccess: (response) => {
-				debugger
+				      
 				setEditLessonPlanData(response[0])
 				setLessonPlan({ ...lessonPlan, ...response[0], notes: JSON.parse(response[0].notes) })
 				const noteData = []
@@ -150,13 +150,13 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onTemplateFieldChange = (e, { value, index, checked, type }) => {
-		debugger
+		      
 		const matchValue = lessonPlan.templateResponse.findIndex((filed) => filed.templateFieldId === index);
 		if (matchValue !== -1) {
 			lessonPlan.templateResponse.splice(matchValue, 1);
 		}
 		const lessonPlanFiled = lessonPlan.templateResponse.concat({ templateFieldId: index, response: value })
-		debugger
+		      
 		setLessonPlan({ ...lessonPlan, templateResponse: lessonPlanFiled })
 	}
 
@@ -167,7 +167,7 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const onChangeStudent = (e, { value, index }) => {
-		debugger
+		      
 		const student = [...addNotes]
 		student[index]["studentIds"] = value;
 		setAddNotes(student)
@@ -185,7 +185,7 @@ function LessonPlanCreationPage(props) {
 	}
 
 	const addNotesInLessonplan = () => {
-		debugger
+		      
 		openModal2();
 		const rows = [...addNotes]
 		setLessonPlan({ ...lessonPlan, notes: rows })
@@ -198,7 +198,7 @@ function LessonPlanCreationPage(props) {
 		}));
 	}
 	const addResources = () => {
-		debugger
+		      
 		const res = [...resource]
 		setResource({ ...resource, resource: res })
 		// props.closeModal

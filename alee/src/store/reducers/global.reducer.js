@@ -12,7 +12,7 @@ const globalReducer = (state = initialState, actions) => {
         case types.STORE_MY_BOOK_DATA:
             return { ...state, myBookData: actions.payload }
         case types.STORE_TAGS:
-            return { ...state, tags: actions.payload }
+            return { ...state, tags: actions.payload}
         default:
             return state;
     }

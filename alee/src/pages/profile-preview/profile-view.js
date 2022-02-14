@@ -22,7 +22,6 @@ function ProfileViewPage() {
 				method: "GET",
 				data: teacherId,
 				onSuccess: (response) => {
-					debugger
 					setTeacherData(response);
 					console.log("teacherData", teacherData)
 					console.log("teacherData", teacherData.length)
@@ -33,7 +32,7 @@ function ProfileViewPage() {
 	const onHandleEdit = (data) => {
 		setTeacherData(data);
 	}
-	debugger
+	      
 	console.log("teacherData", teacherData)
 	return (
 		<>

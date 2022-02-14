@@ -16,7 +16,7 @@ function Audio(props) {
             apiCall({
                 urls: ["GETRESOURCESLIST"], method: "GET", data: resources,
                 onSuccess: (response) => {
-                    debugger
+                          
                     // const bookListed = response.map((singledata) => {
                     //     return { text: singledata.bookName, value: singledata.bookId };
                     // });
@@ -48,7 +48,7 @@ function Audio(props) {
         }
     }
     const selectAll = () => {
-        debugger
+              
         if (audioList.length !== selectedAudio.length) {
             // setSelectedAudio(audioList.map(audi => audi.Id))
             setSelectedAudio(audioList.map(data => JSON.parse(data.link)[0].AudioLinkId))
@@ -58,7 +58,7 @@ function Audio(props) {
         }
     }
     const onHandleSelect = (e, { name, checked }) => {
-        debugger
+              
         if (checked === true) {
             setSelectedAudio(selectedAudio.concat(name))
         }
@@ -93,7 +93,7 @@ function Audio(props) {
                 <Table.Body>
                     <>
                         {audioList && audioList.map((audio) => {
-                            debugger
+                                  
                             return (
                                 <Table.Row>
                                     <Table.Cell>

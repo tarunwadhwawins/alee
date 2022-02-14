@@ -4,7 +4,7 @@ import PhoneInput from 'react-phone-input-2';
 import { env } from '../../../functional/global-import';
 
 const PhoneNumberInput = ({ onChange, value, error }) => {
-    debugger;
+       
 return ( 
 
     

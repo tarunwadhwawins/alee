@@ -70,7 +70,7 @@ function DataTable(props) {
         setGridObjects({ ...gridObjects, sortArrow: sortArrow, heading: heading, orderBy: orderBy, orderByDescending: orderByDescending }, s => getCommonTable())
     }
     const fetchMoreData = () => {
-        debugger
+              
         const countPageNo = gridObjects.pageNo + 1;
         // 20 more records in 1.5 secs  
         setTimeout(() => {

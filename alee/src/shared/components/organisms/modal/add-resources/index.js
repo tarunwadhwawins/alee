@@ -26,7 +26,7 @@ const checkDisplayIconPdf = (link) => {
 
 
 function Resources(props) {
-  debugger
+        
   const initialState = { resources: [] }
   const [resource, setResource] = useState([])
 
@@ -39,7 +39,7 @@ function Resources(props) {
   const panes = [{
     menuItem: "Audio",
     render: (props) => {
-      debugger
+            
       return (
         <Tab.Pane attached={false} key="Audio">
 
@@ -239,7 +239,7 @@ function Resources(props) {
   ];
 
   const addResources = (e, data) => {
-    debugger
+          
     setResource(data);
     setResource(props.getSelectedData(data));
 

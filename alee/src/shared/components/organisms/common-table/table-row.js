@@ -3,7 +3,6 @@ import { Table, Header } from "semantic-ui-react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function TableRow(props) {
-    debugger
     console.log(props.gridData)
     return (
         <>

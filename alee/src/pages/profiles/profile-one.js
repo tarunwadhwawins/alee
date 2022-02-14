@@ -13,7 +13,7 @@ function ProfileOne(props) {
     const api = useSelector(state => state.api);
     const dispatch = useDispatch();
     const [, forceUpdate] = useState()
-    const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
+    // const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
 
     useEffect(() => {
@@ -41,8 +41,7 @@ function ProfileOne(props) {
         );
     };
     const onHandleSubmit = (e) => {
-        const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
-        if (isFormValid) {
+       
             var formData = commonFunctions.getFormData(schoolForm);
             dispatch(
                 apiCall({
@@ -54,7 +53,7 @@ function ProfileOne(props) {
                     }, showNotification: true
                 })
             );
-        }
+        
     };
     const imageChange = (e) => {
         if (Image === null) {
@@ -86,18 +85,18 @@ function ProfileOne(props) {
                                
                             </div>
                             <Button className="primaryBtn" onChange={imageChange}>Browse Image<input type="file" /></Button>
-                            {simpleValidator.current.message('image', schoolForm.image, 'required')}
                         </div>
+                           
                     </Grid.Column >
                     <Grid.Column width={12}>
                         <Grid>
                             <Grid.Column width={8}>
                                 <Form.Input placeholder='Name' data="schoolName" value={schoolForm.schoolName} onChange={(e, { data, value }) => onHandleChange(e, { data, value })} />
-                                {simpleValidator.current.message('schoolName', schoolForm.schoolName, 'required')}
+                                {/* {simpleValidator.current.message('schoolName', schoolForm.schoolName, 'required')} */}
                             </Grid.Column>
                             <Grid.Column width={8} >
                                 <Form.Input placeholder='Address' data="schoolAddress" value={schoolForm.schoolAddress} onChange={(e, { data, value }) => onHandleChange(e, { data, value })} />
-                                {simpleValidator.current.message('schoolAddress', schoolForm.schoolAddress, 'required')}
+                                {/* {simpleValidator.current.message('schoolAddress', schoolForm.schoolAddress, 'required')} */}
                             </Grid.Column>
                             <Grid.Column width={8} >
                                 <Form.Input placeholder='Email' data="email" value={schoolForm.email} onChange={(e, { data, value }) => onHandleChange(e, { data, value })}

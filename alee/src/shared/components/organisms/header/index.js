@@ -30,7 +30,7 @@ function Header(props) {
   const GetNotification = () => {
     dispatch(apiCall({
       urls: ["GETNOTIFICATIONS"], method: "GET", data: { userId: userId }, onSuccess: (response) => {
-        debugger
+              
         setNotification(response)
       }
     }))

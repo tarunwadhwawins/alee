@@ -111,7 +111,6 @@ function MyProfile(props) {
   }
 
   const imageChange = (e, index) => {
-
     if (e.target.files) {
       setValues({ ...values, imageurl: window.URL.createObjectURL(e.target.files[0]), image: e.target.files[0] });
     }
@@ -179,7 +178,7 @@ function MyProfile(props) {
     }));
   }
   // const addEducation = () => {
-  //   debugger;
+  //      
   //   setThirdSecondStep(thirdSecondStep.concat({
   //     institute: school.institute, position: school.position, grades: school.grades,
   //     isCurrent: school.isCurrent, teacherWorkExperienceId: school.teacherWorkExperienceId
@@ -187,13 +186,15 @@ function MyProfile(props) {
   //   setSchool(initialSchool);
   // }
   const addEducation = () => {
-    debugger;
+    
     setThirdSecondStep(thirdSecondStep.concat({
       institute: school.institute,
       position: school.position,
       grades: school.grades, isCurrent: school.isCurrent,
        teacherWorkExperienceId: school.teacherWorkExperienceId
     }));
+    
+    
     setSchool(initialSchool);
   }
   const removeEducation = (index) => {

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { apiCall } from "../../../../../store/actions/api.actions";
 import SimpleReactValidator from 'simple-react-validator';
 import { commonFunctions } from "../../../../functional/global-import";
-function AddChapter(props) {
+function AddChapter(props){
 	const bookId = useSelector(state => state.global.myBookData.bookId)
 	const initialValues = {
 		chapterId: null,
@@ -14,9 +14,7 @@ function AddChapter(props) {
 		endPageNo: null,
 		chapterSummary: "",
 		bookId: bookId,
-		actionPerformedBy: "string"
-		
-	}
+		actionPerformedBy: "string"}
 	const [chapter, setChapter] = useState(initialValues);
 	const api = useSelector((state) => state.api);
 	const [, forceUpdate] = useState()

@@ -26,7 +26,7 @@ function TeacherSignup(props) {
      setTeacherForm({ ...teacherForm, [data]: value})
     }
     const  onHandleChanged = (e, {value, type, checked, data }) => {
-        debugger
+              
         var teacherForms = commonFunctions.onHandleChange(e,
           { value, type, checked, data },teacherForm);
           setTeacherForm(teacherForms);

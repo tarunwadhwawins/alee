@@ -24,7 +24,7 @@ function UploadPdfPage(props) {
 	const fileInputRef = React.createRef();
 	const dispatch = useDispatch();
 	const api = useSelector(state => state.api)
-	const [, forceUpdate] = useState()
+	const [,forceUpdate] = useState()
 	const simpleValidator = useRef(new SimpleReactValidator({ autoForceUpdate: { forceUpdate: forceUpdate } }))
 
 	const onFileChange = (event) => {
@@ -41,7 +41,7 @@ function UploadPdfPage(props) {
 				method: "GET",
 				data: { bookId: bookId },
 				onSuccess: (response) => {
-					debugger
+					      
 					setBookTitle(response[0].bookName)
 					setAuthor(response[0].author)
 					setGrades(JSON.parse(response[0].gradeId))
@@ -65,7 +65,7 @@ function UploadPdfPage(props) {
 	const onHandleSubmit = (e) => {
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
-			debugger
+			      
 			var formData = new FormData();
 			formData.append('pdfFile', uploadExcel[0])
 			formData.append('bookCoverImage', bookCoverImage[0].file)
@@ -84,10 +84,10 @@ function UploadPdfPage(props) {
 		}
 	}
 	const onHandleUpdate = (e) => {
-		debugger
+		      
 		const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
 		if (isFormValid) {
-			debugger
+			      
 			var formData = new FormData();
 			formData.append('bookId', bookId)
 			formData.append('image', bookCoverImage[0].file)

@@ -132,7 +132,7 @@ function ResourcesPage() {
       apiCall({
         urls: ["GETGRADESLIST"],
         method: "GET",
-        data:({ActiveGrades:true,OrderBy:"GradeName",OrderByDescending:false}),
+        data:({ActiveGrades:true,OrderBy:"GradeName",OrderByDescending:false ,pageNo: 1, pageSize: 100}),
         onSuccess: (response) => {
                         
           const grade = response.map((singledata) => {
@@ -471,7 +471,6 @@ function ResourcesPage() {
   },
   ];
   const onHandleSubmit = (e) => {
-
     const { AudioLink, VideoLink, ArticleLink, UploadPdf } = resources
     const isFormValid = commonFunctions.onHandleFormSubmit(e, simpleValidator, forceUpdate);
     if (isFormValid && (AudioLink !== "" || (VideoLink !== "" && VideoLink !== null) || (ArticleLink !== "" && ArticleLink !== null) || (UploadPdf !== "" && UploadPdf !== undefined))) {

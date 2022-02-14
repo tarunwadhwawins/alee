@@ -9,12 +9,12 @@ function AddGradePage() {
 	const [reload, setReload] = useState(false);
 	const [editGrade, setEditGrade] = useState([]);
 	const [editGradeToggle, setEditGradeToggle] = useState(false);
+		
 	const openModal = () => {
 		setAddgrade(!addgrade)
 		if (editGradeToggle) {
-			setEditGradeToggle(!editGradeToggle);
+			setEditGradeToggle(!editGradeToggle);}
 		}
-	}
 	const GridReload = () => {
 		setReload(!reload)
 	}

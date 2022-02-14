@@ -110,7 +110,7 @@ const API_ENDPOINTS = {
   GETBOOKDETAIL: "/Books/GetBookDetail",
   GETBOOKBASICINFO: "/Books/GetBookBasicInfo",
   UPDATEBOOKBASICINFO:"/Books/UpdateBookBasicInfo",
-  GETNOTIFICATIONS:"/Notifications/GetNotifications"
+  GETNOTIFICATIONS:"/Notifications/GetNotifications",
 };
 export const getApiUrl = (key) => {
   return API_URL + API_ENDPOINTS[key];

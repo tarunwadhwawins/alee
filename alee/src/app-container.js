@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { storeBookDetails } from "../src/store/actions/global.actions";
+import userEvent from '@testing-library/user-event';
 
 function AppContainer(props) {
 

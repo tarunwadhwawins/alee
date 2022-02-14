@@ -6,9 +6,6 @@ import { connect } from "../shared/functional/global-import";
 class AppContainer extends Component {
     constructor(props) {
         super(props);
-        this.props.history.listen((location, action) => {
-            window.scroll(0, 0);
-        });
     }
 
     render() {

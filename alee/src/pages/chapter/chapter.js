@@ -58,7 +58,7 @@ function ChapterPage(props) {
 				<Grid.Column width={16}>
 					<DataTable
 						allApi={{ getApiName: "GETCHAPTERLIST", deleteApiName: "DELETECHAPTER" }} reload={reload}
-						additionalParams={{ bookId: bookId }}
+						additionalParams={{ bookId: bookId,orderby:"startPageNo"}}
 						searchOption={{ show: true, placeHolder: "Search" }}
 						messageInModal="Chapter"
 						columns={[

@@ -31,17 +31,14 @@ function StudentListPage() {
 	const dispatch = useDispatch();
 	const api = useSelector(state => state.api)
 	const teacherId = useSelector(state => state.auth.userDetail.teacherId)
-
 	const onHandleEdit = (data) => {
 		SetEditData(data)
 		setEditStudent(!editStudent)
 		openModal();
 	}
-
 	const GridReload = () => {
 		SetReload(!reload)
 	}
-
 	useEffect(() => {
 		getExcelTemplate();
 	}, []);

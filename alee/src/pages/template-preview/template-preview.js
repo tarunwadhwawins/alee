@@ -54,14 +54,16 @@ function TemplatePreview() {
                                         if (singleData.fieldDataType === "Dropdown") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.Select placeholder={singleData.fieldName}  index={singleData.templateFieldId} fluid />
+                                                    <Form.Select placeholder={singleData.fieldName} 
+                                                     index={singleData.templateFieldId} fluid />
                                                 </Grid.Column>
                                             )
                                         }
                                         if (singleData.fieldDataType === "Checkboxes") {
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.Checkbox label={singleData.fieldName} className="commonToggle"  index={singleData.templateFieldId} fluid />
+                                                    <Form.Checkbox label={singleData.fieldName} className="commonToggle" 
+                                                     index={singleData.templateFieldId} fluid />
                                                 </Grid.Column>
                                             )
                                         }
@@ -84,7 +86,8 @@ function TemplatePreview() {
                                                             
                                             return (
                                                 <Grid.Column width={16} key={index}>
-                                                    <Form.TextArea placeholder={singleData.fieldName} index={singleData.templateFieldId} rows="2" />
+                                                    <Form.TextArea placeholder={singleData.fieldName}
+                                                     index={singleData.templateFieldId} rows="2" />
                                                 </Grid.Column>
                                             )
                                         }

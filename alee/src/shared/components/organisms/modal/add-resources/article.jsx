@@ -16,7 +16,7 @@ function Article(props) {
             apiCall({
                 urls: ["GETRESOURCESLIST"], method: "GET", data: resources,
                 onSuccess: (response) => {
-                    debugger
+                          
                     // const bookListed = response.map((singledata) => {
                     //     return { text: singledata.bookName, value: singledata.bookId };
                     // });
@@ -46,7 +46,7 @@ function Article(props) {
         }
     }
     const selectAll = () => {
-        debugger
+              
         if (articleList.length !== selectedArticle.length) {
             // setSelectedAudio(articleList.map(audi => audi.Id))
             setSelectedArticle(articleList.map(data => JSON.parse(data.link)[0].ArticleLinkId) || articleList.map(data => JSON.parse(data.link)[0].PdfLinkId))
@@ -56,7 +56,7 @@ function Article(props) {
         }
     }
     const onHandleSelect = (e, { name, checked }) => {
-        debugger
+              
         if (checked === true) {
             setSelectedArticle(selectedArticle.concat(name))
         }
@@ -93,7 +93,7 @@ function Article(props) {
                 <Table.Body>
                     <>
                         {articleList && articleList.map((audio) => {
-                            debugger
+                                  
                             return (
                                 <Table.Row>
                                     <Table.Cell>
